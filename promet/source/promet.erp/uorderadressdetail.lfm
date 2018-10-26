@@ -2,10 +2,10 @@ object fEditAdress: TfEditAdress
   Left = 515
   Height = 273
   Top = 370
-  Width = 417
+  Width = 421
   Caption = 'Adresse bearbeiten'
   ClientHeight = 273
-  ClientWidth = 417
+  ClientWidth = 421
   LCLVersion = '1.4.4.0'
   object mAddress: TDBMemo
     AnchorSideTop.Control = lStreet
@@ -14,7 +14,7 @@ object fEditAdress: TfEditAdress
     Left = 8
     Height = 76
     Top = 105
-    Width = 394
+    Width = 398
     Anchors = [akTop, akLeft, akRight, akBottom]
     DataField = 'ADDRESS'
     DataSource = cDatasource
@@ -23,10 +23,10 @@ object fEditAdress: TfEditAdress
   object cbTitle: TDBComboBox
     AnchorSideTop.Control = lTitle
     AnchorSideTop.Side = asrBottom
-    Left = 298
+    Left = 275
     Height = 23
     Top = 23
-    Width = 104
+    Width = 53
     Anchors = [akTop, akRight]
     DataField = 'TITLE'
     DataSource = cDatasource
@@ -40,7 +40,7 @@ object fEditAdress: TfEditAdress
     Left = 8
     Height = 23
     Top = 23
-    Width = 148
+    Width = 152
     DataField = 'NAME'
     DataSource = cDatasource
     Anchors = [akTop, akLeft, akRight]
@@ -51,10 +51,10 @@ object fEditAdress: TfEditAdress
   object eCallingName: TDBEdit
     AnchorSideTop.Control = lTitle
     AnchorSideTop.Side = asrBottom
-    Left = 162
+    Left = 166
     Height = 23
     Top = 23
-    Width = 128
+    Width = 101
     DataField = 'CNAME'
     DataSource = cDatasource
     Anchors = [akTop, akRight]
@@ -68,7 +68,7 @@ object fEditAdress: TfEditAdress
     Left = 200
     Height = 25
     Top = 196
-    Width = 202
+    Width = 206
     DataField = 'CITY'
     DataSource = cDatasource
     Anchors = [akTop, akLeft, akRight, akBottom]
@@ -96,7 +96,7 @@ object fEditAdress: TfEditAdress
     Left = 8
     Height = 23
     Top = 63
-    Width = 394
+    Width = 398
     DataField = 'ADDITIONAL'
     DataSource = cDatasource
     Anchors = [akTop, akLeft, akRight]
@@ -106,7 +106,7 @@ object fEditAdress: TfEditAdress
   end
   object lTitle: TLabel
     AnchorSideLeft.Control = cbTitle
-    Left = 298
+    Left = 275
     Height = 15
     Top = 8
     Width = 38
@@ -133,7 +133,7 @@ object fEditAdress: TfEditAdress
     ParentColor = False
   end
   object lCallingName: TLabel
-    Left = 162
+    Left = 166
     Height = 15
     Top = 9
     Width = 48
@@ -203,7 +203,7 @@ object fEditAdress: TfEditAdress
     Left = 6
     Height = 34
     Top = 233
-    Width = 405
+    Width = 409
     OKButton.Name = 'OKButton'
     OKButton.DefaultCaption = True
     HelpButton.Name = 'HelpButton'
@@ -214,6 +214,27 @@ object fEditAdress: TfEditAdress
     CancelButton.DefaultCaption = True
     TabOrder = 8
     ShowButtons = [pbOK, pbCancel]
+  end
+  object eAccountno: TDBEdit
+    Left = 339
+    Height = 23
+    Top = 23
+    Width = 67
+    DataField = 'ACCOUNTNO'
+    DataSource = cDatasource
+    Anchors = [akTop, akRight]
+    CharCase = ecNormal
+    MaxLength = 0
+    TabOrder = 9
+  end
+  object Label1: TLabel
+    AnchorSideLeft.Control = eAccountno
+    Left = 339
+    Height = 15
+    Top = 7
+    Width = 51
+    Caption = 'Kundenn.'
+    ParentColor = False
   end
   object cDatasource: TDataSource
     left = 24

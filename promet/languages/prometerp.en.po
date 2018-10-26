@@ -1982,6 +1982,10 @@ msgstr "Options"
 msgid "Adresse bearbeiten"
 msgstr ""
 
+#: tfeditadress.label1.caption
+msgid "Kundenn."
+msgstr ""
+
 #: tfeditadress.ladditional.caption
 #, fuzzy
 msgctxt "tfeditadress.ladditional.caption"

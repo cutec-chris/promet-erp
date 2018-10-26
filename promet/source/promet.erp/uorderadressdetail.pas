@@ -17,11 +17,13 @@ type
     cbLand: TExtDBCombobox;
     cbTitle: TDBComboBox;
     cDatasource: TDataSource;
+    eAccountno: TDBEdit;
     eAdditional: TDBEdit;
     eCallingName: TDBEdit;
     eCity: TDBEdit;
     eName: TDBEdit;
     eZip: TDBEdit;
+    Label1: TLabel;
     lAdditional: TLabel;
     lCallingName: TLabel;
     lCity: TLabel;

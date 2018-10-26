@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ForumPGN --table=ORDERQMTEST --starttime=-60"/>
+        <CommandLineParams Value="--mandant=TCS --db=ForumPGN --table=ORDERS --starttime=-1"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -41,7 +41,7 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="850"/>
+        <TopLine Value="848"/>
         <CursorPos X="33" Y="848"/>
         <FoldState Value=" T0rB8D011212"/>
         <UsageCount Value="211"/>
