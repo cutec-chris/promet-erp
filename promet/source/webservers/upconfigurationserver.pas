@@ -302,6 +302,8 @@ begin
                       Result := 200;
                       tmpData.CriticalSection.Leave;
                     end;
+                  if Result = 500 then
+                    BaseApplication.Terminate;
                 end;
           end
       except

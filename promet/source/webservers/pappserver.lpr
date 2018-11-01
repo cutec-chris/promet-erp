@@ -102,8 +102,8 @@ begin
           Info('processmanager login successful');
           uData.DataM := Data;
           InitMsgNetwork;
-          Data2 := DataM;//TBaseDBModule.Create(nil);
-          //Data2.SetProperties(Data.Properties);
+          Data2 := TBaseDBModule.Create(nil);
+          Data2.SetProperties(Data.Properties);
         end;
     end;
   aSystem := GetSystemName;
