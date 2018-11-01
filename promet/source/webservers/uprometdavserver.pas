@@ -1724,6 +1724,7 @@ begin
                 MimeType:='application/json';
                 Stream.Position:=0;
                 aJParser := TJSONParser.Create(Stream);
+                NotFoundFields := TStringList.Create;
                 aPData := aJParser.Parse;
                 aData := aPData;
                 {$IF FPC_FULLVERSION>20600}
@@ -1733,7 +1734,6 @@ begin
                       aDataSet := TTimes.CreateEx(aSocket,TbaseDbModule(aSocket.Data),nil,TbaseDbModule(aSocket.Data).Users.DataSet)
                     else
                       aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
-                    NotFoundFields := TStringList.Create;
                     for aRecNo := 0 to TJSONArray(aData).Count-1 do
                       begin
                         aDataSet.Select(TJSONArray(aData)[aRecNo].FindPath('sql_id').AsInt64);
@@ -1854,11 +1854,11 @@ begin
                               end;
                           end;
                       end;
-                    aDataSet.Free;
-                    NotFoundFields.Free;
+                    aDataSet.Close;
+                    FreeAndNil(NotFoundFields);
                   end;
                 {$ENDIF}
-                aJParser.Free;
+                FreeAndNil(aJParser);
                 Result:=True;
               end
             else if aDir = 'new/item.json' then
