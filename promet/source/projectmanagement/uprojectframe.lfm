@@ -135,8 +135,8 @@ inherited fprojectFrame: TfprojectFrame
     NewTabImageIndex = 59
     object tsInfo: TTabSheet
       Caption = 'Allgemein'
-      ClientHeight = 325
-      ClientWidth = 804
+      ClientHeight = 650
+      ClientWidth = 1608
       ImageIndex = 62
       object mInfo: TDBMemo
         AnchorSideTop.Control = DBCheckBox4
@@ -1235,8 +1235,8 @@ inherited fprojectFrame: TfprojectFrame
     BevelOuter = bvNone
     BorderStyle = bsSingle
     Caption = 'kein Bild'
-    ClientHeight = 64
-    ClientWidth = 80
+    ClientHeight = 68
+    ClientWidth = 84
     TabOrder = 4
     object iProject: TImage
       Left = 0

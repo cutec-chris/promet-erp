@@ -1394,6 +1394,8 @@ begin
   inherited Destroy;
 end;
 function TfProjectFrame.OpenFromLink(aLink: string) : Boolean;
+var
+  tmp: String;
 begin
   inherited;
   Result := False;
@@ -1405,7 +1407,10 @@ begin
     aLink := copy(aLink,0,rpos('(',aLink)-1);
   DataSet := TProject.CreateEx(Self,Data,FConnection);
   DataSet.OnChange:=@ProjectsStateChange;
-  Data.SetFilter(FDataSet,Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)))+' OR '+Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink))),1);
+  tmp := Data.QuoteField('ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)));
+  if IsNumeric(copy(aLink,pos('@',aLink)+1,length(aLink))) then
+    tmp := Data.QuoteField('SQL_ID')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)))+' OR '+tmp;
+  Data.SetFilter(FDataSet,tmp,1);
   if FDataSet.Count = 0 then
     begin
       if copy(aLink,0,pos('@',aLink)-1) = 'PROJECTS.ID' then
