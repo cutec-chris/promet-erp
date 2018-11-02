@@ -132,7 +132,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="15">
+    <Exceptions Count="16">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -178,6 +178,9 @@
       <Item15>
         <Name Value="Exception"/>
       </Item15>
+      <Item16>
+        <Name Value="EListError"/>
+      </Item16>
     </Exceptions>
   </Debugging>
 </CONFIG>
