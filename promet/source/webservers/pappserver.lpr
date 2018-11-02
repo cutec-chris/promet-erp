@@ -155,7 +155,8 @@ begin
         on e : Exception do
           Error('Exception:'+e.Message);
       end;
-      Data2.Free;
+      if Data2 <> DataM then
+        Data2.Free;
     end;
   // stop program loop
   Terminate;
@@ -171,12 +172,15 @@ end;
 destructor TProcessManager.Destroy;
 begin
   Info('Shutting down ...');
-  if Assigned(Data) then
-    begin
-      Data.ProcessClient.ShutDown;
-      FreeAndNil(DataM);
-    end;
-  inherited Destroy;
+  try
+    if Assigned(Data) then
+      begin
+        Data.ProcessClient.ShutDown;
+        FreeAndNil(DataM);
+      end;
+    inherited Destroy;
+  except
+  end;
 end;
 var
   Application: TProcessManager;
