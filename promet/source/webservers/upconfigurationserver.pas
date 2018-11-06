@@ -66,7 +66,7 @@ begin
   aSock.Method:=Method;
   aSock.Input := Input;
   aSock.Output := Output;
-  Sender.InternalSynchronize(Sender,@aSock.ProcessConfigRequest);
+  Sender.InternalSynchronize(Sender,@aSock.ProcessConfigRequest,pos('dbstatus',lowercase(url))=0);
   Result := aSock.Result;
 end;
 
