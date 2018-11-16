@@ -739,6 +739,11 @@ var
 begin
   if not Assigned(TfDocumentFrame(Sender).DataSet) then
     begin
+      if DataSet.State=dsInsert then
+        begin
+          DataSet.Post;
+          DataSet.Edit;
+        end;
       aDocuments := TDocuments.CreateEx(Self,Data);
       TfDocumentFrame(Sender).DataSet := aDocuments;
       TfDocumentFrame(Sender).Refresh(DataSet.Id.AsVariant,'O',DataSet.FieldByName('ORDERNO').AsString,Null,Null,0);
@@ -1126,8 +1131,8 @@ begin
   else
     DataSet.Insert;
   DoOpen(False);
-  acSave.Enabled := False;
-  acCancel.Enabled:= False;
+  acSave.Enabled := True;
+  acCancel.Enabled:= True;
 end;
 procedure TfOrderFrame.SetLanguage;
 var
