@@ -17,7 +17,7 @@ cd $basedir/promet/output/$TARGET_CPU-$TARGET_OS
 target=prometerp_$TARGET_CPU-$TARGET_OS
 targetfile=$target-$BUILD_VERSION.zip
 targetcur=$target-current.zip
-zip $basedir/promet/setup/output/$targetfile prometerp$TARGET_EXTENSION ../../setup/i386-win32/freetype-6.dll ../../setup/i386-win32/zlib1.dll
+zip -j $basedir/promet/setup/output/$targetfile prometerp$TARGET_EXTENSION ../../setup/i386-win32/freetype-6.dll ../../setup/i386-win32/zlib1.dll
 if [ "$1" = "upload" ]; then
   . ../../setup/build-tools/doupload.sh $targetfile $targetcur
 fi
