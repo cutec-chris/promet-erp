@@ -1589,6 +1589,7 @@ var
   aDate: Boolean;
   aRecNo: Integer;
   NotFoundFields : TStringList;
+  tmp: String;
 begin
   FStatus:=500;
   Result := False;
@@ -1817,6 +1818,10 @@ begin
                                 aDataSet.Post;
                                 if FStatus<> 409 then
                                   FStatus:=200;
+                                if (a=1) and (FStatus=200) then
+                                  begin
+                                    TDAVSession(aSocket).HeaderOut.Add('UID: '+aDataSet.Id.AsString);
+                                  end;
                               except
                                 on e : Exception do
                                   begin
@@ -1861,6 +1866,28 @@ begin
                 FreeAndNil(aJParser);
                 Result:=True;
               end
+            else if (copy(aDir,0,9)='blobdata/') then
+              begin
+                tmp := copy(aDir,10,length(aDir));
+                tmp := Uppercase(copy(tmp,0,pos('/',tmp)-1));
+                aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
+                aDir := ExtractFileName(aDir);
+                aDir := copy(aDir,0,pos('.',aDir)-1);
+                aDataSet.Select(aDir);
+                with aDataSet.DataSet as IBaseDBFilter do
+                  Fields := '';
+                aDataSet.Open;
+                if aDataSet.Count>0 then
+                  begin
+                    Stream.Position:=0;
+                    try
+                      TAbstractDBModule(aSocket.Data).StreamToBlobField(Stream,aDataSet.DataSet,tmp);
+                      FStatus := 200;
+                    except
+                    end;
+                  end;
+                aDataSet.Free;
+              end
             else if aDir = 'new/item.json' then
               begin
                 Stream.Position:=0;
@@ -1871,6 +1898,7 @@ begin
                   with aDataSet.DataSet as IBaseDbFilter do
                     Fields := '';
                   aDataSet.ImportFromJSON(ss.DataString);
+                  TDAVSession(aSocket).HeaderOut.Add('UID: '+aDataSet.Id.AsString);
                   aDataSet.Free;
                   result := True;
                   FStatus:=200;
@@ -1901,6 +1929,7 @@ begin
                   with aDataSet.DataSet as IBaseDbFilter do
                     Fields := '';
                   aDataSet.ImportFromXML(ss.DataString);
+                  TDAVSession(aSocket).HeaderOut.Add('UID: '+aDataSet.Id.AsString);
                   aDataSet.Free;
                   result := True;
                   FStatus:=200;
