@@ -60,7 +60,7 @@ type
 
 implementation
 
-uses uAbstractDBLayer,uData;
+uses uAbstractDBLayer,uData,uMasterdata,uProjects,uOrder;
 
 const
   WebFormatSettings : TFormatSettings = (
@@ -906,6 +906,29 @@ var
   aFS: TFileStream;
   aMS: TStringStream;
   aInitCount: Integer;
+  TmpHist : IBaseHistory;
+
+  procedure OpenSubDataSets(aDataSet : TBaseDBDataset);
+  begin
+    if Supports(aDataSet, IBaseHistory, TmpHist) then
+      begin
+        TmpHist.GetHistory.ActualLimit:=100;
+        TmpHist.GetHistory.Open;
+        TmpHist := nil;
+      end;
+    if aDataSet is TMasterdata then
+      begin
+        TMasterdata(aDataSet).Positions.Open;
+      end;
+    if aDataSet is TProject then
+      begin
+        TProject(aDataSet).Positions.Open;
+      end;
+    if aDataSet is TOrder then
+      begin
+        TOrder(aDataSet).Positions.Open;
+      end;
+  end;
 
   procedure ExportDataSet(bDataSet : TDataSet;Output : TStrings);
   var
@@ -954,30 +977,33 @@ var
     else
       Output.Add('[');
     aInitCount := sl.Count;
-    while not aDataSet.EOF do
+    while not bDataSet.EOF do
       begin
         if sl.Count>aInitCount then
           sl[sl.Count-1] := sl[sl.Count-1]+',';
-        tmp := '{ "sql_id": '+aDataSet.Id.AsString;
-        for c := 1 to aDataSet.DataSet.Fields.Count-1 do
+        if (bDataSet.FieldDefs.IndexOf('SQL_ID')>-1) then
+          tmp := '{ "sql_id": '+bDataSet.FieldByName('SQL_ID').AsString
+        else
+          tmp := '{ "sql_id": null';
+        for c := 1 to bDataSet.Fields.Count-1 do
           begin
-            if c<aDataSet.DataSet.Fields.Count then tmp += ',';
-            if aDataSet.DataSet.Fields[c].IsNull then
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": null'
-            else if (aDataSet.DataSet.FieldDefs[c].DataType=ftDate)
-                 or (aDataSet.DataSet.FieldDefs[c].DataType=ftDateTime) then
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": "'+BuildISODate(aDataSet.DataSet.Fields[c].AsDateTime)+'"'
-            else if (aDataSet.DataSet.FieldDefs[c].DataType=ftInteger)
-                 or (aDataSet.DataSet.FieldDefs[c].DataType=ftLargeint) then
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+aDataSet.DataSet.Fields[c].AsString
-            else if (aDataSet.DataSet.FieldDefs[c].DataType=ftFloat) then
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": '+StringReplace(Format('%.3f',[aDataSet.DataSet.Fields[c].AsFloat]),DecimalSeparator,'.',[rfReplaceAll])
+            if c<bDataSet.Fields.Count then tmp += ',';
+            if bDataSet.Fields[c].IsNull then
+              tmp += '"'+StringToJSONString(bDataSet.Fields[c].FieldName)+'": null'
+            else if (bDataSet.FieldDefs[c].DataType=ftDate)
+                 or (bDataSet.FieldDefs[c].DataType=ftDateTime) then
+              tmp += '"'+StringToJSONString(bDataSet.Fields[c].FieldName)+'": "'+BuildISODate(bDataSet.Fields[c].AsDateTime)+'"'
+            else if (bDataSet.FieldDefs[c].DataType=ftInteger)
+                 or (bDataSet.FieldDefs[c].DataType=ftLargeint) then
+              tmp += '"'+StringToJSONString(bDataSet.Fields[c].FieldName)+'": '+bDataSet.Fields[c].AsString
+            else if (bDataSet.FieldDefs[c].DataType=ftFloat) then
+              tmp += '"'+StringToJSONString(bDataSet.Fields[c].FieldName)+'": '+StringReplace(Format('%.3f',[bDataSet.Fields[c].AsFloat]),DecimalSeparator,'.',[rfReplaceAll])
             else
-              tmp += '"'+StringToJSONString(aDataSet.DataSet.Fields[c].FieldName)+'": "'+StringReplace(StringToJSONString(aDataSet.DataSet.Fields[c].AsString),'','*',[rfReplaceAll])+'"';
+              tmp += '"'+StringToJSONString(bDataSet.Fields[c].FieldName)+'": "'+StringReplace(StringToJSONString(bDataSet.Fields[c].AsString),'','*',[rfReplaceAll])+'"';
           end;
         tmp+=' }';
         sl.Add(tmp);
-        aDataSet.Next;
+        bDataSet.Next;
       end;
     sl.Add(']');
     if QueryFields.Values['mode']='extjs' then
@@ -1344,6 +1370,7 @@ begin
                 aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                 aDataSet.Select(aID);
                 aDataSet.Open;
+                OpenSubDataSets(aDataSet);
                 if aDataSet.Count>0 then
                   begin
                     aSS := TStringStream.Create(aDataSet.ExportToXML);
@@ -1360,6 +1387,7 @@ begin
                 aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
                 aDataSet.Select(aID);
                 aDataSet.Open;
+                OpenSubDataSets(aDataSet);
                 if aDataSet.Count>0 then
                   begin
                     case QueryFields.Values['mode'] of
