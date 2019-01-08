@@ -804,6 +804,12 @@ begin
             aItem := TDAVFile.Create(aFullDir+'item.json',False);
             aItem.Properties.Values['getcontenttype'] := 'application/json';
             aDirList.Add(aItem);
+            if aType='S' then
+              begin
+                aItem := TDAVFile.Create(aFullDir+'rawdata.json',False);
+                aItem.Properties.Values['getcontenttype'] := 'application/json';
+                aDirList.Add(aItem);
+              end;
             aWiki := TWikiList.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
             case aClass.ClassName of
             'TMasterdata':tmp := 'TArticle'
@@ -1364,6 +1370,36 @@ begin
                     Stream.CopyFrom(aSS,0);
                     aSS.Free;
                     Result:=True;
+                  end;
+                aDataSet.Free;
+              end
+            else if aDir = 'rawdata.json' then
+              begin
+                aDataSet := aClass.CreateEx(aSocket,TBaseDBModule(aSocket.Data));
+                aDataSet.Select(aId);
+                aDataSet.Open;
+                if aDataSet is TStatistic then
+                  begin
+                    if Assigned(StatisticResultsDataSet) then
+                      StatisticResultsDataSet.Free;
+                    StatisticResultsDataSet := TbaseDbModule(aSocket.Data).GetNewDataSet(TStatistic(aDataSet).BuildQuerry(QueryFields));
+                    StatisticResultsDataSet.Open;
+                    {
+                    if Assigned(DetailDataSet) then
+                      DetailDataSet.Free;
+                    DetailDataSet := TbaseDbModule(aSocket.Data).GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('DETAIL').AsString),aDataSet.Connection,StatisticResultsDataSet);
+                    DetailDataSet.Open;
+                    if Assigned(SubDetailDataSet) then
+                      SubDetailDataSet.Free;
+                    SubDetailDataSet := TbaseDbModule(aSocket.Data).GetNewDataSet(TStatistic(aDataSet).BuildSQL(aDataSet.FieldByName('SUBDETAIL').AsString),aDataSet.Connection,DetailDataSet);
+                    SubDetailDataSet.Open;
+                    }
+                    sl := TStringList.Create;
+                    ExportDataSet(StatisticResultsDataSet,sl);
+                    sl.SaveToStream(Stream);
+                    sl.Free;
+                    Stream.Position:=0;
+                    Result := True;
                   end;
                 aDataSet.Free;
               end
