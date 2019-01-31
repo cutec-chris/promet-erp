@@ -60,7 +60,7 @@ type
 
 implementation
 
-uses uAbstractDBLayer,uData,uMasterdata,uProjects,uOrder;
+uses uAbstractDBLayer,uData,uMasterdata,uProjects,uOrder,umeeting;
 
 const
   WebFormatSettings : TFormatSettings = (
@@ -927,6 +927,11 @@ var
     if aDataSet is TOrder then
       begin
         TOrder(aDataSet).Positions.Open;
+      end;
+    if aDataSet is TMeetings then
+      begin
+        TMeetings(aDataSet).Users.Open;
+        TMeetings(aDataSet).Entrys.Open;
       end;
   end;
 

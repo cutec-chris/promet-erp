@@ -629,7 +629,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="13">
+    <Exceptions Count="16">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -669,6 +669,15 @@
       <Item13>
         <Name Value="EZSQLException"/>
       </Item13>
+      <Item14>
+        <Name Value="EPyNameError"/>
+      </Item14>
+      <Item15>
+        <Name Value="EPyImportError"/>
+      </Item15>
+      <Item16>
+        <Name Value="EPyValueError"/>
+      </Item16>
     </Exceptions>
   </Debugging>
 </CONFIG>
