@@ -216,7 +216,7 @@ inherited fOrderFrame: TfOrderFrame
             ClientHeight = 119
             ClientWidth = 660
             TabOrder = 0
-            object tsFooter1: TPageControl
+            object pcTexts: TPageControl
               Left = 213
               Height = 119
               Top = 0
@@ -228,11 +228,11 @@ inherited fOrderFrame: TfOrderFrame
               TabOrder = 0
               object tsNote1: TTabSheet
                 Caption = 'Notizen'
-                ClientHeight = 158
-                ClientWidth = 878
+                ClientHeight = 91
+                ClientWidth = 439
                 object mOrderNote3: TDBMemo
                   Left = 0
-                  Height = 79
+                  Height = 91
                   Top = 0
                   Width = 439
                   Align = alClient

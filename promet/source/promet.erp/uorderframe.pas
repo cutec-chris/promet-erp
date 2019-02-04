@@ -150,7 +150,7 @@ type
     Splitter2: TSplitter;
     TabSheet3: TTabSheet;
     tsCommon: TTabSheet;
-    tsFooter1: TPageControl;
+    pcTexts: TPageControl;
     tsHeader1: TTabSheet;
     tsNote1: TTabSheet;
     {$endregion}
@@ -912,6 +912,8 @@ begin
   TOrder(DataSet).History.Open;
   pcHeader.NewFrame(TfHistoryFrame,(TOrder(DataSet).History.Count > 0) and AddHist,strHistory,@AddHistory);
   inherited DoOpen;
+  if DataSet.FieldByName('NOTE').AsString<>'' then
+    pcTexts.ActivePage:=tsNote1;
   FPosFrame.SetFocus;
   if Dataset.State = dsInsert then
     begin
