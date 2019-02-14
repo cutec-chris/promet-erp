@@ -1,0 +1,27 @@
+object fNewNumberset: TfNewNumberset
+  Left = 383
+  Height = 239
+  Top = 317
+  Width = 396
+  Caption = 'Neuer Nummernbereich'
+  ClientHeight = 239
+  ClientWidth = 396
+  Position = poMainFormCenter
+  LCLVersion = '1.4.4.0'
+  object ButtonPanel1: TButtonPanel
+    Left = 6
+    Height = 34
+    Top = 199
+    Width = 384
+    OKButton.Name = 'OKButton'
+    OKButton.DefaultCaption = True
+    HelpButton.Name = 'HelpButton'
+    HelpButton.DefaultCaption = True
+    CloseButton.Name = 'CloseButton'
+    CloseButton.DefaultCaption = True
+    CancelButton.Name = 'CancelButton'
+    CancelButton.DefaultCaption = True
+    TabOrder = 0
+    ShowButtons = [pbOK, pbCancel]
+  end
+end

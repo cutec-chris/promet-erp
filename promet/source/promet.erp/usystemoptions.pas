@@ -23,10 +23,20 @@ unit uSystemOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DBGrids, db,
-  uOptionsFrame, uBaseDbClasses, uBaseERPDbClasses;
+  Classes, SysUtils, FileUtil, Forms, Controls, StdCtrls, DBGrids, Buttons,
+  ActnList, db, uOptionsFrame, uBaseDbClasses, uBaseERPDbClasses;
 type
+
+  { TfSystemOptions }
+
   TfSystemOptions = class(TOptionsFrame)
+    acNumberpools: TAction;
+    acNumbersets: TAction;
+    acNewNumberset: TAction;
+    ActionList1: TActionList;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    SpeedButton3: TSpeedButton;
     TextsDS: TDataSource;
     gNumbers: TDBGrid;
     gPaymentTargets: TDBGrid;
@@ -42,6 +52,7 @@ type
     PaymentTargetsDS: TDatasource;
     UnitsDS: TDatasource;
     VatDS: TDatasource;
+    procedure acNewNumbersetExecute(Sender: TObject);
   private
     { private declarations }
     aConnection: TComponent;
@@ -60,7 +71,16 @@ type
   end;
 implementation
 {$R *.lfm}
-uses uData;
+uses uData,unewnumberset;
+
+procedure TfSystemOptions.acNewNumbersetExecute(Sender: TObject);
+begin
+  if fNewNumberset.Execute then
+    begin
+
+    end;
+end;
+
 constructor TfSystemOptions.Create(TheOwner: TComponent);
 begin
   inherited Create(TheOwner);

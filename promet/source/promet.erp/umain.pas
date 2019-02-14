@@ -1317,19 +1317,22 @@ end;
 
 destructor TStarterThread.Destroy;
 begin
-  if Application.HasOption('hidetree') then
-    begin
-      fMain.acShowTree.Checked:=False;
-      fMain.acShowTreeExecute(nil);
-    end
-  else
-    begin
-      with Application as IBaseDbInterface do
-        fMain.acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
-      //fMain.acShowTreeExecute(nil);
-    end;
-  DoInfo('StarterThread:end');
-  inherited Destroy;
+  try
+    if Application.HasOption('hidetree') then
+      begin
+        fMain.acShowTree.Checked:=False;
+        fMain.acShowTreeExecute(nil);
+      end
+    else
+      begin
+        with Application as IBaseDbInterface do
+          fMain.acShowTree.Checked := DBConfig.ReadBoolean('SHOWTREE',True);
+        //fMain.acShowTreeExecute(nil);
+      end;
+    DoInfo('StarterThread:end');
+    inherited Destroy;
+  except
+  end;
 end;
 
 procedure TfMain.acLoginExecute(Sender: TObject);

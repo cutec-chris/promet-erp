@@ -1,16 +1,16 @@
 inherited fSystemOptions: TfSystemOptions
   Height = 415
-  Width = 594
+  Width = 592
   ClientHeight = 415
-  ClientWidth = 594
+  ClientWidth = 592
   TabOrder = 0
   DesignLeft = 432
   DesignTop = 215
   object lNumbers: TLabel[0]
     Left = 4
-    Height = 13
+    Height = 15
     Top = 8
-    Width = 90
+    Width = 91
     Caption = 'Nummernkreise'
     Font.Style = [fsBold]
     ParentColor = False
@@ -18,9 +18,9 @@ inherited fSystemOptions: TfSystemOptions
   end
   object lVAT: TLabel[1]
     Left = 4
-    Height = 13
-    Top = 160
-    Width = 92
+    Height = 15
+    Top = 192
+    Width = 93
     Caption = 'Mehrwertsteuer'
     Font.Style = [fsBold]
     ParentColor = False
@@ -28,9 +28,9 @@ inherited fSystemOptions: TfSystemOptions
   end
   object lPaymentTargets: TLabel[2]
     Left = 4
-    Height = 13
-    Top = 277
-    Width = 77
+    Height = 15
+    Top = 304
+    Width = 75
     Anchors = [akLeft, akBottom]
     Caption = 'Zahlungsziele'
     Font.Style = [fsBold]
@@ -39,9 +39,9 @@ inherited fSystemOptions: TfSystemOptions
   end
   object gNumbers: TDBGrid[3]
     Left = 4
-    Height = 126
+    Height = 158
     Top = 26
-    Width = 582
+    Width = 540
     Anchors = [akTop, akLeft, akRight]
     BorderStyle = bsNone
     Color = clWindow
@@ -79,8 +79,8 @@ inherited fSystemOptions: TfSystemOptions
   object gVat: TDBGrid[4]
     Left = 4
     Height = 88
-    Top = 176
-    Width = 244
+    Top = 208
+    Width = 242
     Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -107,9 +107,9 @@ inherited fSystemOptions: TfSystemOptions
   end
   object gPaymentTargets: TDBGrid[5]
     Left = 4
-    Height = 116
-    Top = 288
-    Width = 582
+    Height = 84
+    Top = 320
+    Width = 580
     Anchors = [akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <    
@@ -156,9 +156,9 @@ inherited fSystemOptions: TfSystemOptions
     TitleStyle = tsNative
   end
   object lUnits: TLabel[6]
-    Left = 256
+    Left = 254
     Height = 16
-    Top = 160
+    Top = 192
     Width = 200
     Anchors = [akTop, akRight]
     AutoSize = False
@@ -168,9 +168,9 @@ inherited fSystemOptions: TfSystemOptions
     ParentFont = False
   end
   object gUnits: TDBGrid[7]
-    Left = 257
+    Left = 255
     Height = 88
-    Top = 176
+    Top = 208
     Width = 168
     Anchors = [akTop, akRight, akBottom]
     Color = clWindow
@@ -186,9 +186,9 @@ inherited fSystemOptions: TfSystemOptions
     TitleStyle = tsNative
   end
   object lUnits1: TLabel[8]
-    Left = 432
+    Left = 430
     Height = 16
-    Top = 160
+    Top = 192
     Width = 200
     Anchors = [akTop, akRight]
     AutoSize = False
@@ -198,9 +198,9 @@ inherited fSystemOptions: TfSystemOptions
     ParentFont = False
   end
   object gUnits1: TDBGrid[9]
-    Left = 432
+    Left = 430
     Height = 88
-    Top = 176
+    Top = 208
     Width = 154
     Anchors = [akTop, akRight, akBottom]
     Color = clWindow
@@ -222,24 +222,69 @@ inherited fSystemOptions: TfSystemOptions
     TabOrder = 4
     TitleStyle = tsNative
   end
-  object NumbersDS: TDataSource[10]
+  object SpeedButton1: TSpeedButton[10]
+    Left = 550
+    Height = 32
+    Top = 24
+    Width = 32
+    Action = acNewNumberset
+    Anchors = [akTop, akRight]
+    ShowCaption = False
+  end
+  object SpeedButton2: TSpeedButton[11]
+    Left = 550
+    Height = 32
+    Top = 56
+    Width = 32
+    Action = acNumbersets
+    Anchors = [akTop, akRight]
+    ShowCaption = False
+  end
+  object SpeedButton3: TSpeedButton[12]
+    Left = 550
+    Height = 32
+    Top = 88
+    Width = 32
+    Action = acNumberpools
+    Anchors = [akTop, akRight]
+    ShowCaption = False
+  end
+  object NumbersDS: TDataSource[13]
     left = 24
     top = 56
   end
-  object UnitsDS: TDataSource[11]
+  object UnitsDS: TDataSource[14]
     left = 304
-    top = 200
+    top = 232
   end
-  object PaymentTargetsDS: TDataSource[12]
+  object PaymentTargetsDS: TDataSource[15]
     left = 48
     top = 320
   end
-  object VatDS: TDataSource[13]
+  object VatDS: TDataSource[16]
     left = 88
-    top = 200
+    top = 232
   end
-  object TextsDS: TDataSource[14]
+  object TextsDS: TDataSource[17]
     left = 488
-    top = 200
+    top = 232
+  end
+  object ActionList1: TActionList[18]
+    Images = fVisualControls.Images
+    left = 528
+    top = 104
+    object acNumberpools: TAction
+      Caption = 'acNumberpools'
+      ImageIndex = 121
+    end
+    object acNumbersets: TAction
+      Caption = 'acNumbersets'
+      ImageIndex = 34
+    end
+    object acNewNumberset: TAction
+      Caption = 'acNewNumberset'
+      ImageIndex = 107
+      OnExecute = acNewNumbersetExecute
+    end
   end
 end

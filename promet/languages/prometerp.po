@@ -3935,6 +3935,10 @@ msgstr ""
 msgid "Öffnen mit (%s wird dabei durch den Dateinamen ersetzt)"
 msgstr ""
 
+#: tfnewnumberset.caption
+msgid "Neuer Nummernbereich"
+msgstr ""
+
 #: tfnewstorage.caption
 msgid "Lager auswählen"
 msgstr ""
@@ -8080,6 +8084,18 @@ msgstr ""
 #: tfsysmonitor.tbtop.caption
 msgctxt "tfsysmonitor.tbtop.caption"
 msgid "tbTop"
+msgstr ""
+
+#: tfsystemoptions.acnewnumberset.caption
+msgid "acNewNumberset"
+msgstr ""
+
+#: tfsystemoptions.acnumberpools.caption
+msgid "acNumberpools"
+msgstr ""
+
+#: tfsystemoptions.acnumbersets.caption
+msgid "acNumbersets"
 msgstr ""
 
 #: tfsystemoptions.gnumbers.columns[0].title.caption
