@@ -603,6 +603,7 @@
         <Filename Value="unewnumberset.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="fNewNumberset"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
       </Unit43>
     </Units>

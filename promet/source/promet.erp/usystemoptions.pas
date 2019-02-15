@@ -95,6 +95,8 @@ begin
   PaymentTargetsDS.DataSet := aPaymentTargets.DataSet;
   aTexts := TTextTypes.CreateEx(nil,Data,aConnection);
   TextsDS.DataSet := aTexts.DataSet;
+  Data.NumberPools.Open;
+  Data.NumberRanges.Open;
 end;
 destructor TfSystemOptions.Destroy;
 begin
