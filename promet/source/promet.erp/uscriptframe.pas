@@ -131,6 +131,7 @@ type
     procedure New;override;
     procedure SetLanguage;override;
     procedure FrameAdded; override;
+    procedure ShowFrame; override;
   end;
 implementation
 {$R *.lfm}
@@ -572,6 +573,13 @@ procedure TfScriptFrame.FrameAdded;
 begin
   inherited FrameAdded;
   FEditor.Show;
+end;
+
+procedure TfScriptFrame.ShowFrame;
+begin
+  inherited ShowFrame;
+  if Assigned(FEditor) then
+    FEditor.FLastCompileStamp:=0; //reset Compiling when we come from other Tab we dont know if user has changes somethiong to an dependency
 end;
 
 initialization
