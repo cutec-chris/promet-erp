@@ -9,8 +9,9 @@
         <Filename Value="productioncmd.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos Y="22"/>
-        <UsageCount Value="24"/>
+        <TopLine Value="8"/>
+        <CursorPos Y="44"/>
+        <UsageCount Value="25"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>

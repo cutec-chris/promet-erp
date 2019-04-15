@@ -29,7 +29,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="DoProgrammController --timeout=60"/>
+        <CommandLineParams Value="DoStartTest --timeout=60"/>
       </local>
     </RunParams>
     <RequiredPackages Count="3">
