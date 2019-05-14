@@ -25,7 +25,7 @@
     <VersionInfo>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="7"/>
-      <BuildNr Value="535"/>
+      <BuildNr Value="536"/>
       <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion="7.0.0.487"/>
     </VersionInfo>
     <BuildModes Count="5">
@@ -636,7 +636,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="16">
+    <Exceptions Count="17">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -685,6 +685,9 @@
       <Item16>
         <Name Value="EPyValueError"/>
       </Item16>
+      <Item17>
+        <Name Value="EDatabaseError"/>
+      </Item17>
     </Exceptions>
   </Debugging>
 </CONFIG>
