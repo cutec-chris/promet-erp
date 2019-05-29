@@ -23,7 +23,7 @@
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
-        <CommandLineParams Value="--mandant=TCS --db=ForumPGN --table=ORDERS --starttime=-1"/>
+        <CommandLineParams Value="--mandant=TCS --db=Postgres"/>
       </local>
     </RunParams>
     <RequiredPackages Count="2">
@@ -41,8 +41,8 @@
         <Filename Value="sync_db.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <TopLine Value="848"/>
-        <CursorPos X="33" Y="848"/>
+        <TopLine Value="32"/>
+        <CursorPos Y="858"/>
         <FoldState Value=" T0rB8D011212"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
