@@ -50,7 +50,8 @@ type
     aFirstSyncedRow : TDateTime;
     function SyncRow(SyncDB : TSyncDB;SyncTbl : TDataSet;SourceDM,DestDM : TBaseDBModule;SyncOut : Boolean = True) : Boolean;
     function SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-      SyncCount: Integer;var aMinDate : TDateTime;DontsetTimestamp : Boolean = False): Integer;
+      SyncCount: Integer; var aMinDate: TDateTime; aMaxDate: TDateTime;
+  DontsetTimestamp: Boolean): Integer;
     procedure CollectSubDataSets(SyncDB : TSyncDB;DestDM : TBaseDBModule);
   protected
     procedure DoRun; override;
@@ -318,8 +319,8 @@ begin
 end;
 
 function TSyncDBApp.SyncTable(SyncDB: TSyncDB; SourceDM, DestDM: TBaseDBModule;
-  SyncCount: Integer; var aMinDate: TDateTime; DontsetTimestamp: Boolean
-  ): Integer;
+  SyncCount: Integer; var aMinDate: TDateTime; aMaxDate: TDateTime;
+  DontsetTimestamp: Boolean): Integer;
 function BuildFilter(aSourceDM,aDestDM : TBaseDBModule;aTime : TDateTime = 0) : string;
 var
   aFilter: String;
@@ -356,6 +357,14 @@ begin
     begin
       aFilter := '('+aSourceDM.QuoteField('SQL_ID')+'='+Data.QuoteValue(GetOptionValue('sql_id'))+')'
     end;
+  if aMaxDate > 0 then
+    begin
+      aFilter := '('+aFilter+') AND ((('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
+      aFilter := aFilter+aSourceDM.DateToFilter(aMaxDate);
+      aFilter := aFilter+')) or ('+aSourceDM.QuoteField('TIMESTAMPD')+'<';
+      aFilter := aFilter+aSourceDM.DateToFilter(aMaxDate);
+      aFilter := aFilter+'))';
+    end;
   Result := aFilter;
 end;
 var
@@ -382,6 +391,7 @@ var
   aSyncCount: Integer;
   DoUnlock: Boolean;
   ResultIn: Integer;
+  aTime: Int64;
 
   procedure UpdateTime(DoSetIt : Boolean = True);
   begin
@@ -550,7 +560,7 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncOut.RecordCount,'<',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
                 (BaseApplication as IBaseApplication).Info(aFilter);
               end;
-
+{
             if (aFilter<>'') and (aTableName<>'DOCUMENTS') then
               begin
                 try
@@ -560,7 +570,7 @@ begin
                     tmp := 'select COUNT(*) as '+DestDM.QuoteField('dscount')+',MIN('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('mintime')+',MAX('+DestDM.QuoteField('TIMESTAMPD')+') as '+DestDM.QuoteField('maxtime')+' from ( select '+DestDm.QuoteField('TIMESTAMPD')+' from '+DestDM.QuoteField(SyncDB.Tables.DataSet.FieldByName('NAME').AsString)+aSQLF+' '+Format(DestDM.LimitSTMT,[IntToStr(aSyncCount)])+') '+SyncDB.Tables.DataSet.FieldByName('NAME').AsString;
                   FTempDataSet := DestDM.GetNewDataSet(tmp,DestDM.MainConnection);
                   FTempDataSet.Open;
-                  if (FTempDataSet.RecordCount>0) and (FTempDataSet.FieldByName('dscount').AsInteger<150000) then
+                  if (FTempDataSet.RecordCount>0) and (FTempDataSet.FieldByName('dscount').AsInteger<20000) then
                     begin
                       TempMinTime := FTempDataSet.FieldByName('mintime').AsDateTime;
                       TempMaxTime := FTempDataSet.FieldByName('maxtime').AsDateTime;
@@ -585,8 +595,9 @@ begin
                   FreeAndNil(FTempDataSet);
                 end;
               end
-            else FreeAndNil(FTempDataSet);
+            else} FreeAndNil(FTempDataSet);
             try
+              aTime := GetTicks;
               while not aSyncOut.EOF do
                 begin
                   try
@@ -834,17 +845,17 @@ var
                     begin
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
-                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,DontSetTimestamp);
+                      FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,0,DontSetTimestamp);
                       if (FSyncedCount > 0) and (iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime) then //when Date is not changed then break
                         begin
                           writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering full sync');
-                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,DontSetTimestamp);
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+1,DontSetTimestamp);
                           break;
                         end;
                       if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
                         begin
                           writeln('!!! Warning: no change in Synctime triggering full sync');
-                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,DontSetTimestamp);
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+1,DontSetTimestamp);
                           break;
                         end;
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
@@ -993,7 +1004,7 @@ begin
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                       begin
                                         DoCreateTable(TUserfielddefs);
-                                        SyncTable(SyncDB,uData.Data,FDest.GetDB,0,aIMinDate);
+                                        SyncTable(SyncDB,uData.Data,FDest.GetDB,0,aIMinDate,0,False);
                                       end;
                                     SyncDB.Tables.DataSet.First;
                                     while not SyncDB.Tables.DataSet.EOF do
