@@ -42,7 +42,7 @@ msgid "Die Störung wurde Eingetragen !"
 msgstr ""
 
 #: fautomationform.strrun
-msgid "Ausführen"
+msgid "Ausführen [Leertaste]"
 msgstr ""
 
 #: fautomationform.strrunning
