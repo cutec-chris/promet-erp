@@ -852,6 +852,7 @@ var
                           FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
                           if DontSetTimestamp then
                             break;
+                          FSyncedCount := aSyncCount;
                         end;
                       if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
                         begin
@@ -859,6 +860,7 @@ var
                           FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
                           if DontSetTimestamp then
                             break;
+                          FSyncedCount := aSyncCount;
                         end;
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then

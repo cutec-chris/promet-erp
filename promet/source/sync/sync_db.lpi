@@ -42,7 +42,7 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <TopLine Value="839"/>
-        <CursorPos Y="852"/>
+        <CursorPos Y="864"/>
         <FoldState Value=" T0rL8DW"/>
         <UsageCount Value="211"/>
         <Loaded Value="True"/>
@@ -519,21 +519,21 @@
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_db.lpr"/>
-        <Line Value="1081"/>
+        <Line Value="1083"/>
       </Item1>
       <Item2>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_db.lpr"/>
-        <Line Value="851"/>
+        <Line Value="853"/>
       </Item2>
       <Item3>
         <Kind Value="bpkSource"/>
         <WatchScope Value="wpsLocal"/>
         <WatchKind Value="wpkWrite"/>
         <Source Value="sync_db.lpr"/>
-        <Line Value="858"/>
+        <Line Value="861"/>
       </Item3>
     </BreakPoints>
     <Watches Count="1">
