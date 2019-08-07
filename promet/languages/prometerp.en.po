@@ -12,6 +12,9 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 "(Menu)\n"
 
+msgid "Später wird dieses z.b. bei Importern/Exportern oder Produktionsaufträgen vom Promet gesetzt"
+msgstr ""
+
 # Christian U. <ulrich@tcs-germany.de>, 2015.
 #: tfaccountingframe.accombineitems.caption
 msgid "Einträge kombinieren"
@@ -6127,13 +6130,25 @@ msgstr "By default Orders are not changeable after booking"
 msgid "in Auftrag sichtbar"
 msgstr "visible in order"
 
+#: tfordertypeoptions.checkbox3.hint
+msgid "Soll der Auftragsstatus unter \"Aufträge\" sichtbar sein ?"
+msgstr ""
+
 #: tfordertypeoptions.checkbox4.caption
 msgid "in Produktion sichtbar"
 msgstr "visible in production"
 
+#: tfordertypeoptions.checkbox4.hint
+msgid "Soll der Auftragsstatus unter \"Produktion\" sichtbar sein ?"
+msgstr ""
+
 #: tfordertypeoptions.checkbox5.caption
 msgid "Kopie anlegen"
 msgstr "Create a copy"
+
+#: tfordertypeoptions.checkbox5.hint
+msgid "soll vom Beleg zwingend eine Kopie angelegt werden"
+msgstr ""
 
 #: tfordertypeoptions.edefaultpostyp.hint
 msgid "Welcher Positionstyp soll Standardmäßig verwendet werden ?"

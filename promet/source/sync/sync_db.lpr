@@ -848,15 +848,17 @@ var
                       FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,0,DontSetTimestamp);
                       if (FSyncedCount > 0) and (iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime) then //when Date is not changed then break
                         begin
-                          writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering full sync');
-                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+1,DontSetTimestamp);
-                          break;
+                          writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering sync +2 Days');
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
+                          if DontSetTimestamp then
+                            break;
                         end;
                       if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
                         begin
-                          writeln('!!! Warning: no change in Synctime triggering full sync');
-                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+1,DontSetTimestamp);
-                          break;
+                          writeln('!!! Warning: no change in Synctime triggering sync +2 Days');
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
+                          if DontSetTimestamp then
+                            break;
                         end;
                       iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                       if aSyncCount > 0 then
