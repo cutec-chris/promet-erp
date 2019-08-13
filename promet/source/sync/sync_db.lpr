@@ -857,6 +857,8 @@ var
                       if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
                         begin
                           writeln('!!! Warning: no change in Synctime triggering sync +2 Days');
+                          if iMinimalDate = 0 then
+                            iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
                           FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
                           if DontSetTimestamp then
                             break;
@@ -1003,7 +1005,7 @@ begin
                                     DoCreateTable(TDocuments);
                                     DoCreateTable(TLanguages);
                                     DoCreateTable(TTree);
-                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),10000);
+                                    aSyncCount := StrToIntDef(GetOptionValue('syncblocks'),2500);
                                     SyncDB.Tables.Open;
                                     if SyncDB.Tables.DataSet.Locate('NAME','USERFIELDDEFS',[loCaseInSensitive]) then
                                       begin
