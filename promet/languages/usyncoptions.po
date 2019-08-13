@@ -1,18 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: usync.strsynchedin
-msgid "Synchronisation eingehend %s"
-msgstr ""
-
-#: usync.strsynchedout
-msgid "Synchronisation ausgehend %s"
-msgstr ""
-
-#: usync.strsyncnewrecord
-msgid "neuer Datensatz"
-msgstr ""
-
 #: usyncoptions.strconnectionsuccesful
 msgid "Verbindungstest erfolgreich !"
 msgstr ""

@@ -11,10 +11,6 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: umeeting.strcreatedfrom
-msgid "aus \"%s\" erstellt"
-msgstr "created from '%s'"
-
 #: umeetingframe.strentermeetingname
 msgid "geben Sie einen neuen Namen für die Besprechung an"
 msgstr "Enter an Name for the meeting"

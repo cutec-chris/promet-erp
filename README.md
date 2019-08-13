@@ -21,10 +21,8 @@ How to start
 ============
 
 Get it from GIT
- git clone https://github.com/cutec-chris/promet-erp.git --depth=1
- git submodule init
- git submodule update
-
+ git clone --recurse-submodules -j8 https://github.com/cutec-chris/promet-erp.git
+ 
 Update it from GIT
   git pull
   git submodule update

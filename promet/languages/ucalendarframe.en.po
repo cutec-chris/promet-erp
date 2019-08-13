@@ -11,10 +11,6 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: ucalendar.strpresent
-msgid "Anwesend"
-msgstr "Present"
-
 #: ucalendarframe.streventsthisweek
 msgid "diese Woche: %d"
 msgstr "This week: %d"

@@ -11,10 +11,6 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: ustatistic.stryqlfail
-msgid "YQL Abfrage fehlgeschlagen:"
-msgstr "YQL Query failed:"
-
 #: ustatisticframe.strenteranname
 msgid "geben Sie einen Namen an"
 msgstr ""

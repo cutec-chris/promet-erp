@@ -1,10 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: ucalendar.strpresent
-msgid "Anwesend"
-msgstr ""
-
 #: ucalendarframe.streventsthisweek
 msgid "diese Woche: %d"
 msgstr ""

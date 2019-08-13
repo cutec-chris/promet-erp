@@ -11,18 +11,6 @@ msgstr ""
 "Language: en\n"
 "X-Generator: Poedit 1.8.8\n"
 
-#: usync.strsynchedin
-msgid "Synchronisation eingehend %s"
-msgstr "Synchronisation incomming %s"
-
-#: usync.strsynchedout
-msgid "Synchronisation ausgehend %s"
-msgstr "Synchronisation outgoing %s"
-
-#: usync.strsyncnewrecord
-msgid "neuer Datensatz"
-msgstr "new Row"
-
 #: usyncoptions.strconnectionsuccesful
 msgid "Verbindungstest erfolgreich !"
 msgstr "Connectiontest succesful!"

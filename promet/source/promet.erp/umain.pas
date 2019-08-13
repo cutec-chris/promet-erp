@@ -1926,7 +1926,7 @@ begin
      fInfo.Revision:=AppRevision;
      fInfo.ProgramName:=Appname;
      fInfo.InfoText:=vInfo;
-     fInfo.Copyright:='2006-2014 C. Ulrich';
+     fInfo.Copyright:='2006-2019 C. Ulrich';
     end;
   fInfo.SetLanguage;
   fInfo.Execute;

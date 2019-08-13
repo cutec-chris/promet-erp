@@ -1,10 +1,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: ustatistic.stryqlfail
-msgid "YQL Abfrage fehlgeschlagen:"
-msgstr ""
-
 #: ustatisticframe.strenteranname
 msgid "geben Sie einen Namen an"
 msgstr ""
