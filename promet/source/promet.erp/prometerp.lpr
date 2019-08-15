@@ -40,6 +40,7 @@ var
   aProcess: TProcess;
   i: Integer;
 begin
+  Application.Scaled:=True;
   Application.Free;
   Application := TBaseVisualApplication.Create(nil);
   {$ifdef WINDOWS}
