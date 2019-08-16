@@ -1078,6 +1078,10 @@ begin
   miNew.Action := fMainTreeFrame.acSearch;
   DoInfo('Startuptype');
   DoSynchronize(@DoStartupType);
+  if Application.HasOption('debug-sql')
+  or Application.HasOption('debug-parameter')
+  then
+    Data.ParameteriseSQL:=False;
   DoInfo('Wiki');
   DoSynchronize(@AddWiki);
   DoInfo('Objects,Tree,...');
