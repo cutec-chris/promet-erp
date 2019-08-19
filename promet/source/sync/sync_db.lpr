@@ -218,13 +218,16 @@ begin
         begin
           aDest.Post;
           //remove SyncError Items on succesful synced Table
-          aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
-          aSyncError.Open;
-          while not aSyncError.EOF do
+          if not HasOption('fast') then
             begin
-              if aSyncError.FieldByName('ERROR').AsString='Y' then
-                aSyncError.Delete
-              else aSyncError.Next;
+              aSyncError.SelectByReference(SyncTbl.FieldByName('SQL_ID').AsVariant);
+              aSyncError.Open;
+              while not aSyncError.EOF do
+                begin
+                  if aSyncError.FieldByName('ERROR').AsString='Y' then
+                    aSyncError.Delete
+                  else aSyncError.Next;
+                end;
             end;
         end;
       //TODO-:TimestampD must be not actial Time !!!
@@ -359,11 +362,20 @@ begin
     end;
   if aMaxDate > 0 then
     begin
-      aFilter := '('+aFilter+') AND ((('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
-      aFilter := aFilter+aSourceDM.DateToFilter(aMaxDate);
-      aFilter := aFilter+')) or ('+aSourceDM.QuoteField('TIMESTAMPD')+'<';
-      aFilter := aFilter+aSourceDM.DateToFilter(aMaxDate);
-      aFilter := aFilter+'))';
+      if BaseApplication.HasOption('w','wholeday') then
+        begin
+          aFilter := '('+aFilter+') AND ((('+aSourceDM.QuoteField('TIMESTAMPD')+'=';
+          aFilter := aFilter+aSourceDM.DateToFilter(aMaxDate);
+          aFilter := aFilter+')) or ('+aSourceDM.QuoteField('TIMESTAMPD')+'<';
+          aFilter := aFilter+aSourceDM.DateToFilter(aMaxDate);
+          aFilter := aFilter+'))';
+        end
+      else
+        begin
+          aFilter := '('+aFilter+') AND (('+aSourceDM.QuoteField('TIMESTAMPD')+'<';
+          aFilter := aFilter+aSourceDM.DateTimeToFilter(aMaxDate);
+          aFilter := aFilter+'))';
+        end;
     end;
   Result := aFilter;
 end;
@@ -602,6 +614,11 @@ begin
                 begin
                   try
                     SyncRow(SyncDB,aSyncOut,SourceDM,DestDM,True);
+                    if ((GetTicks-aTime)>500) then
+                      begin
+                        write(#13+IntToStr(Result)+' records synced.');
+                        aTime := GetTicks;
+                      end;
                     inc(Result);
                   except
                     begin
@@ -633,11 +650,17 @@ begin
                 (BaseApplication as IBaseApplication).Info(Format(strSyncTable,[aSyncIn.RecordCount,'>',SyncDB.Tables.DataSet.FieldByName('NAME').AsString]));
               end;
             try
+              aTime := GetTicks;
               while not aSyncIn.EOF do
                 begin
                   try
                     SyncRow(SyncDB,aSyncIn,DestDM,SourceDM,False);
                     inc(ResultIn);
+                    if ((GetTicks-aTime)>500) then
+                      begin
+                        write(#13+IntToStr(ResultIn)+' records synced.');
+                        aTime := GetTicks;
+                      end;
                   except
                     begin
                       dec(ResultIn);
@@ -846,20 +869,20 @@ var
                       FOldTime := SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString;
                       FOldSyncCount := FSyncedCount;
                       FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,aSyncCount,iMinimalDate,0,DontSetTimestamp);
-                      if (FSyncedCount > 0) and (iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime) then //when Date is not changed then break
+                      if (FSyncedCount > aSyncCount) and (iMinimalDate=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime) then //when Date is not changed then break
                         begin
-                          writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering sync +2 Days');
-                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
+                          writeln('!!! Warning: more than '+IntToStr(aSyncCount)+' Rows changed in one batch triggering sync +0.05 Days');
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+0.05,DontSetTimestamp);
                           if DontSetTimestamp then
                             break;
                           FSyncedCount := aSyncCount;
-                        end;
-                      if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
+                        end
+                      else if (FSyncedCount = aSyncCount) and (FOldTime = SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsString) then
                         begin
-                          writeln('!!! Warning: no change in Synctime triggering sync +2 Days');
+                          writeln('!!! Warning: no change in Synctime triggering sync +0.05 Days');
                           if iMinimalDate = 0 then
                             iMinimalDate:=SyncDB.Tables.DataSet.FieldByName('LTIMESTAMP').AsDateTime;
-                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+2,DontSetTimestamp);
+                          FSyncedCount := SyncTable(SyncDB,uData.Data,FDest.GetDB,0,iMinimalDate,iMinimalDate+0.05,DontSetTimestamp);
                           if DontSetTimestamp then
                             break;
                           FSyncedCount := aSyncCount;
