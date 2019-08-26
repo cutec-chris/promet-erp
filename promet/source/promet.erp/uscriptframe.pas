@@ -204,10 +204,12 @@ begin
         cbVersion.Text := DataSet.FieldByName('VERSION').AsString
       else
         begin
+          cbVersion.OnExit:=nil;
           cbVersion.Items.Add(TargetVer);
           cbVersion.Text:=TargetVer;
           DoOpen;
           FDataSet.Change;
+          cbVersion.OnExit:=@cbVersionExit;
         end;
     end;
 end;
