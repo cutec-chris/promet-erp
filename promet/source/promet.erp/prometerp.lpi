@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="11"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
@@ -171,9 +171,16 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <FormatVersion Value="1"/>
         <CommandLineParams Value="--debug --debug-parameter"/>
       </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default">
+          <local>
+            <CommandLineParams Value="--debug --debug-parameter"/>
+          </local>
+        </Mode0>
+      </Modes>
     </RunParams>
     <RequiredPackages Count="27">
       <Item1>
