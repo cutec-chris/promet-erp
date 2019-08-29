@@ -171,13 +171,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--debug --debug-parameter"/>
+        <CommandLineParams Value="--config-path=/home/chris/.promet-tcs/"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--debug --debug-parameter"/>
+            <CommandLineParams Value="--config-path=/home/chris/.promet-tcs/"/>
           </local>
         </Mode0>
       </Modes>
