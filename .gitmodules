@@ -163,3 +163,6 @@
 [submodule "promet/source/components/avamm-db-layer"]
 	path = promet/source/components/avamm-db-layer
 	url = https://github.com/cutec-chris/avamm-db-layer.git
+[submodule "promet/source/scripts/plugins/pdfoutput"]
+	path = promet/source/scripts/plugins/pdfoutput
+	url = https://github.com/cutec-chris/script-plugin-pdfoutput.git
