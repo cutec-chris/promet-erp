@@ -73,13 +73,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--mandant=TCS"/>
+        <CommandLineParams Value="--mandant=Test"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--mandant=TCS"/>
+            <CommandLineParams Value="--mandant=Test"/>
           </local>
         </Mode0>
       </Modes>
@@ -137,7 +137,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="17">
+    <Exceptions Count="18">
       <Item1>
         <Name Value="EVariantError"/>
       </Item1>
@@ -189,6 +189,9 @@
       <Item17>
         <Name Value="EOutOfMemory"/>
       </Item17>
+      <Item18>
+        <Name Value="EZSQLException"/>
+      </Item18>
     </Exceptions>
   </Debugging>
 </CONFIG>
