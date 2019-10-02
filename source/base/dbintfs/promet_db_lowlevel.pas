@@ -2,19 +2,15 @@
   This source is only used to compile and install the package.
  }
 
-unit mormot;
+unit promet_db_lowlevel;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  SynSQLite3, LazarusPackageIntf;
+  uBaseDBInterface, uBaseSearch, uBaseDbClasses, uBaseERPDBClasses, uWiki, 
+  uStatistic;
 
 implementation
 
-procedure Register;
-begin
-end;
-
-initialization
-  RegisterPackage('mormot', @Register);
 end.
