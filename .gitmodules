@@ -1,0 +1,3 @@
+[submodule "source/components/mormot"]
+	path = source/components/mormot
+	url = https://github.com/synopse/mORMot
