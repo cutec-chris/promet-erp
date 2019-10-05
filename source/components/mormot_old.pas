@@ -2,12 +2,13 @@
   This source is only used to compile and install the package.
  }
 
-unit mormot;
+unit mormot_old;
 
+{$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  SynSQLite3, LazarusPackageIntf;
+  SynCommons, mORMot, LazarusPackageIntf;
 
 implementation
 
@@ -16,5 +17,5 @@ begin
 end;
 
 initialization
-  RegisterPackage('mormot', @Register);
+  RegisterPackage('mormot_old', @Register);
 end.

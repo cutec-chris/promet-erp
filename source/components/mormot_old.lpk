@@ -2,25 +2,25 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="mormot"/>
+    <Name Value="mormot_old"/>
     <Type Value="RunAndDesignTime"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
       <SearchPaths>
-        <IncludeFiles Value="mormot"/>
+        <IncludeFiles Value="mormot\SQLite3;mormot"/>
         <OtherUnitFiles Value="mormot\SQLite3;mormot"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files Count="2">
       <Item1>
-        <Filename Value="mormot\SynSQLite3.pas"/>
-        <UnitName Value="SynSQLite3"/>
+        <Filename Value="mormot\SynCommons.pas"/>
+        <UnitName Value="SynCommons"/>
       </Item1>
       <Item2>
-        <Filename Value="mormot\Synopse.inc"/>
-        <Type Value="Include"/>
+        <Filename Value="mormot\SQLite3\mORMot.pas"/>
+        <UnitName Value="mORMot"/>
       </Item2>
     </Files>
     <RequiredPkgs Count="1">
@@ -29,6 +29,7 @@
       </Item1>
     </RequiredPkgs>
     <UsageOptions>
+      <ObjectPath Value="mormot\SQLite3;mormot"/>
       <UnitPath Value="$(PkgOutDir)"/>
     </UsageOptions>
     <PublishOptions>
