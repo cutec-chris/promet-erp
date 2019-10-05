@@ -26,10 +26,13 @@
         <Mode0 Name="default"/>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="1">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="mormot_old"/>
+        <PackageName Value="mormot_zeos"/>
       </Item1>
+      <Item2>
+        <PackageName Value="mormot_old"/>
+      </Item2>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>

@@ -1,3 +1,6 @@
 [submodule "source/components/mormot"]
 	path = source/components/mormot
 	url = https://github.com/synopse/mORMot
+[submodule "source/components/zeos"]
+	path = source/components/zeos
+	url = https://github.com/cutec-chris/ZeosDBO.git

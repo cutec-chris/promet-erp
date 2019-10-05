@@ -10,10 +10,10 @@
       <SearchPaths>
         <IncludeFiles Value="mormot\SQLite3;mormot"/>
         <OtherUnitFiles Value="mormot\SQLite3;mormot"/>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
+        <UnitOutputDirectory Value="mormot\lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="3">
       <Item1>
         <Filename Value="mormot\SynCommons.pas"/>
         <UnitName Value="SynCommons"/>
@@ -22,6 +22,10 @@
         <Filename Value="mormot\SQLite3\mORMot.pas"/>
         <UnitName Value="mORMot"/>
       </Item2>
+      <Item3>
+        <Filename Value="mormot\SQLite3\mORMotDB.pas"/>
+        <UnitName Value="mORMotDB"/>
+      </Item3>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>
