@@ -1,6 +1,6 @@
 program pappserver;
 uses Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
-  mORMot,mORMotDB,SynDBZeos,uEncrypt,SynDB,SynCommons;
+  mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons;
 
 type
 
@@ -9,7 +9,7 @@ type
   TProcessManager = class(TCustomApplication)
   protected
     procedure DoRun; override;
-    function AddConnection(aProp: string): TSynConnectionDefinition;
+    function AddConnection(aProp: string): TSQLDBConnectionProperties;
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
@@ -24,7 +24,7 @@ begin
   inherited DoRun;
 end;
 
-function TProcessManager.AddConnection(aProp: string): TSynConnectionDefinition;
+function TProcessManager.AddConnection(aProp: string): TSQLDBConnectionProperties;
 var
   Port: Integer;
   Properties : TStringList;
@@ -71,22 +71,25 @@ begin
     Password := Decrypt(copy(tmp,2,length(tmp)),word(99998))
   else
     Password := tmp;
+  {
   Result := TSynConnectionDefinition.Create;
   Result.Kind:='TSQLDBZEOSConnectionProperties';
   Result.DatabaseName:=Database;
   Result.ServerName:=Protocol+'://'+HostName+':'+IntToStr(Port);
   Result.User:=User;
   Result.PasswordPlain:=Password;
-  //Result := TSQLDBZEOSConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
+  }
+  Result := TSQLDBZEOSConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
   Properties.Free;
 end;
 
 constructor TProcessManager.Create(TheOwner: TComponent);
 var
   Model: TSQLModel;
-  Connection, FDB: TSQLRest;
+  FDB: TSQLRestServerDB;
   ConfigPath, Mandant: String;
   ConfigFile: TStringList;
+  Props: TSQLDBConnectionProperties;
 begin
   inherited Create(TheOwner);
   Model := TSQLModel.Create([TUser]);
@@ -97,8 +100,12 @@ begin
   if Mandant = '' then Mandant := 'Standard';
   ConfigFile := TStringList.Create;
   ConfigFile.LoadFromFile(ConfigPath+Mandant+'.perml');
-  FDB := TSQLRestExternalDBCreate(Model,AddConnection(ConfigFile[1]),false,[]);
+  Props := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
+  VirtualTableExternalRegister(Model, [TUser], Props);
+  SQLite3 := TSQLite3LibraryDynamic.Create;
+  FDB := TSQLRestServerDB.Create(Model, ':memory:');
+  FDB.CreateMissingTables;
 end;
 
 destructor TProcessManager.Destroy;

@@ -8,7 +8,7 @@ unit mormot_old;
 interface
 
 uses
-  SynCommons, mORMot, mORMotDB, LazarusPackageIntf;
+  SynCommons, mORMot, mORMotDB, mORMotSQLite3, LazarusPackageIntf;
 
 implementation
 
