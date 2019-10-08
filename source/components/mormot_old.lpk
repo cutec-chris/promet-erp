@@ -33,6 +33,7 @@
       </Item1>
     </RequiredPkgs>
     <UsageOptions>
+      <IncludePath Value="zeos\src"/>
       <ObjectPath Value="mormot\SQLite3;mormot"/>
       <UnitPath Value="$(PkgOutDir)"/>
     </UsageOptions>

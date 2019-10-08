@@ -21,18 +21,28 @@
       <Version Value="2"/>
     </PublishOptions>
     <RunParams>
+      <local>
+        <CommandLineParams Value="--mandant=ForumPG  --config-path=\home\chris\.promet-tcs\"/>
+      </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
-        <Mode0 Name="default"/>
+        <Mode0 Name="default">
+          <local>
+            <CommandLineParams Value="--mandant=ForumPG  --config-path=\home\chris\.promet-tcs\"/>
+          </local>
+        </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="mormot_zeos"/>
+        <PackageName Value="general_nogui"/>
       </Item1>
       <Item2>
-        <PackageName Value="mormot_old"/>
+        <PackageName Value="mormot_zeos"/>
       </Item2>
+      <Item3>
+        <PackageName Value="mormot_old"/>
+      </Item3>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
