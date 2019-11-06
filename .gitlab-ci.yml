@@ -26,7 +26,7 @@ basetest-linux:
     - master
 #  allow_failure: true      
   tags:
-    - docker-lazarus-x64
+    - docker
 webdavtest-linux:
   image: build-lazarus-x64:latest
   stage: test 
@@ -37,7 +37,7 @@ webdavtest-linux:
     - master
 #  allow_failure: true      
   tags:
-    - docker-lazarus-x64
+    - docker
 #mysql-test:
 #  image: build-lazarus-x64:latest
 #  services:
@@ -81,7 +81,7 @@ build:windows:
     - bash build.sh clean
     - bash build.sh all
   tags:
-    - windows-i386
+    - docker
   only:
     - master
   artifacts:
@@ -96,7 +96,7 @@ build:linux:i386:
     - bash build.sh clean
     - bash build.sh all
   tags:
-    - docker-lazarus-x64
+    - docker
   only:
     - master
   artifacts:
@@ -112,7 +112,7 @@ build:linux:x86-64:
     - bash build.sh clean
     - bash build.sh all
   tags:
-    - docker-lazarus-x64
+    - docker
   only:
     - master
   artifacts:
@@ -164,7 +164,7 @@ upload:all:
       - promet/setup/output/act_alphadownload.txt
     expire_in: 1 week
   tags:
-    - linux-x64
+    - docker
 
 update:containers:
   before_script:
@@ -191,7 +191,7 @@ update:alpha-wiki:
   dependencies:
     - upload:all
   tags:
-    - docker-lazarus-x64
+    - docker
   allow_failure: true
 deploy:new_version:
   before_script:
