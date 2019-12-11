@@ -10,7 +10,7 @@ stages:
   - publish
   
 #Tests
-basetest-linux:
+.basetest-linux:
   variables:
 #    GIT_STRATEGY: clone
   image: cutec/buildhost-lazarus-x64:latest
@@ -23,7 +23,7 @@ basetest-linux:
 #  allow_failure: true      
   tags:
     - docker
-webdavtest-linux:
+.webdavtest-linux:
   image: cutec/buildhost-lazarus-x64:latest
   stage: test 
   script: 
