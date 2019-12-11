@@ -76,8 +76,6 @@ build:windows:
     - bash build.sh all
   tags:
     - docker
-  only:
-    - master
   artifacts:
     paths:
       - promet/setup/output
@@ -107,8 +105,6 @@ build:linux:x86-64:
     - bash build.sh all
   tags:
     - docker
-  only:
-    - master
   artifacts:
     paths:
       - promet/setup/output
