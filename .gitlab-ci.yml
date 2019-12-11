@@ -1,23 +1,19 @@
+variables:
+  GIT_STRATEGY: fetch
+  DOCKER_TLS_CERTDIR: ""
+  GIT_SUBMODULE_STRATEGY: recursive
+  
 stages: 
   - test
   - build 
   - upload
   - publish
   
-before_script:
-  - git submodule sync --recursive
-  - git submodule update --init --recursive
-
-variables:
-  GIT_STRATEGY: fetch
-  # or clone
-  # fetch or clone only the last 3 commits
-
 #Tests
 basetest-linux:
   variables:
 #    GIT_STRATEGY: clone
-  image: build-lazarus-x64:latest
+  image: cutec/buildhost-lazarus-x64:latest
   stage: test 
   script:
 #    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
@@ -28,7 +24,7 @@ basetest-linux:
   tags:
     - docker
 webdavtest-linux:
-  image: build-lazarus-x64:latest
+  image: cutec/buildhost-lazarus-x64:latest
   stage: test 
   script: 
 #    - apt-get install sqlite3 libusb-dev libsane-dev zip git -y
@@ -74,10 +70,8 @@ webdavtest-linux:
 #Build
 build:windows:
   stage: build 
-  variables:
-#    GIT_STRATEGY: clone
+  image: cutec/buildhost-lazarus-windows:latest
   script: 
-    - git submodule sync --recursive
     - bash build.sh clean
     - bash build.sh all
   tags:
@@ -90,7 +84,7 @@ build:windows:
     expire_in: 1 week  
 
 build:linux:i386:
-  image: build-lazarus-i386
+  image: cutec/buildhost-lazarus-i386:latest
   stage: build 
   script: 
     - bash build.sh clean
@@ -105,7 +99,7 @@ build:linux:i386:
     expire_in: 1 week  
 
 build:linux:x86-64:
-  image: build-lazarus-x64:latest
+  image: cutec/buildhost-lazarus-x64:latest
   stage: build 
   script: 
 #    - sshpass -p $AUTOUPLOAD_PW ssh-copy-id $AUTOUPLOAD_USER@$AUTOUPLOAD_HOST -p $AUTOUPLOAD_PORT 
@@ -121,13 +115,10 @@ build:linux:x86-64:
     expire_in: 1 week  
 
 build:linux:arm:
+  image: cutec/buildhost-lazarus-armhf:latest
   variables:
     GIT_DEPTH: ""
 #    GIT_STRATEGY: clone
-  before_script:
-    - git submodule sync
-    - git submodule foreach git submodule update
-    - git submodule update --init --recursive
   stage: build 
   script:
     - git clean -fdx
@@ -143,10 +134,8 @@ build:linux:arm:
     expire_in: 1 week  
   allow_failure: true      
 
-upload:all:
+.upload:all:
   before_script:
-    - git submodule sync --recursive
-    - git submodule update --init --recursive
     - ls -l promet/setup/output/*
   stage: upload
   script:
@@ -166,7 +155,7 @@ upload:all:
   tags:
     - docker
 
-update:containers:
+.update:containers:
   before_script:
     - ls -l promet/setup/output/*
   stage: publish
@@ -179,7 +168,7 @@ update:containers:
   tags:
     - linux-x64
   allow_failure: true
-update:alpha-wiki:
+.update:alpha-wiki:
   image: build-lazarus-x64:latest
   before_script:
     - ls -l promet/setup/output/*
@@ -193,7 +182,7 @@ update:alpha-wiki:
   tags:
     - docker
   allow_failure: true
-deploy:new_version:
+.deploy:new_version:
   before_script:
     - ls -l
   script:
