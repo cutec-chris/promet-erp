@@ -10,19 +10,12 @@
         <UnitOutputDirectory Value="mormot/lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="1">
-      <Item1>
-        <Filename Value="mormot/SynDBZeos.pas"/>
-        <UnitName Value="SynDBZeos"/>
-      </Item1>
-    </Files>
     <RequiredPkgs Count="3">
       <Item1>
-        <PackageName Value="zcomponent_nogui"/>
+        <PackageName Value="mormot_base"/>
       </Item1>
       <Item2>
-        <PackageName Value="mormot_old"/>
-        <DefaultFilename Value="mormot_old.lpk"/>
+        <PackageName Value="zcomponent_nogui"/>
       </Item2>
       <Item3>
         <PackageName Value="FCL"/>

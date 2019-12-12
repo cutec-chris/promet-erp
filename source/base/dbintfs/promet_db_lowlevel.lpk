@@ -35,19 +35,15 @@
         <UnitName Value="uStatistic"/>
       </Item6>
     </Files>
-    <RequiredPkgs Count="3">
+    <RequiredPkgs Count="2">
       <Item1>
-        <PackageName Value="mormot"/>
-        <DefaultFilename Value="../../components/mormot.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="sql_parser"/>
         <DefaultFilename Value="../../components/sqlparser/sql_parser.lpk"/>
-      </Item2>
-      <Item3>
+      </Item1>
+      <Item2>
         <PackageName Value="wiki2html_pkg"/>
         <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
-      </Item3>
+      </Item2>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

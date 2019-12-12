@@ -94,12 +94,20 @@ begin
   inherited Create(TheOwner);
   Model := TSQLModel.Create([TUser]);
   ConfigPath := GetOptionValue('config-path');
-  if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+DirectorySeparator+'prometerp';
+  if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
   ConfigPath := AppendPathDelim(ConfigPath);
   Mandant := GetOptionValue('mandant');
   if Mandant = '' then Mandant := 'Standard';
   ConfigFile := TStringList.Create;
-  ConfigFile.LoadFromFile(ConfigPath+Mandant+'.perml');
+  try
+    ConfigFile.LoadFromFile(ConfigPath+Mandant+'.perml');
+  except
+    on e : exception do
+      begin
+        writeln(e.Message);
+        exit;
+      end;
+  end;
   Props := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
   VirtualTableExternalRegister(Model, [TUser], Props);

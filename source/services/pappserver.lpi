@@ -22,27 +22,24 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--mandant=ForumPG  --config-path=\home\chris\.promet-tcs\"/>
+        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--mandant=ForumPG  --config-path=\home\chris\.promet-tcs\"/>
+            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG"/>
           </local>
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="general_nogui"/>
+        <PackageName Value="mormot_base"/>
       </Item1>
       <Item2>
-        <PackageName Value="mormot_zeos"/>
+        <PackageName Value="general_nogui"/>
       </Item2>
-      <Item3>
-        <PackageName Value="mormot_old"/>
-      </Item3>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
@@ -65,6 +62,20 @@
       <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
+    <Parsing>
+      <SyntaxOptions>
+        <IncludeAssertionCode Value="True"/>
+      </SyntaxOptions>
+    </Parsing>
+    <CodeGeneration>
+      <Checks>
+        <IOChecks Value="True"/>
+        <RangeChecks Value="True"/>
+        <OverflowChecks Value="True"/>
+        <StackChecks Value="True"/>
+      </Checks>
+      <VerifyObjMethodCallValidity Value="True"/>
+    </CodeGeneration>
     <Linking>
       <Debugging>
         <UseExternalDbgSyms Value="True"/>

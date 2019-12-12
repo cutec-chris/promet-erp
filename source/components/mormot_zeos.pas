@@ -8,7 +8,7 @@ unit mormot_zeos;
 interface
 
 uses
-  SynDBZeos, LazarusPackageIntf;
+  LazarusPackageIntf;
 
 implementation
 
