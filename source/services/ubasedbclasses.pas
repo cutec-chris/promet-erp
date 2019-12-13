@@ -46,15 +46,15 @@ type
     property IdCode : RawUTF8 index 4 read FIDCode write FIdCode;
     property Employment : TDateTime read FEmployment write FEmployment;
     property Leaved : TDateTime read Fleaved write Fleaved;
-    property CUSTOMERNO : RawUTF8 index 20 read FCustomerNo write FCustomerno;
-    property PERSONNELNO : RawUTF8 index 20 read fPersNo write FPersNo;
-    property DEPARTMENT : RawUTF8 index 30 read FDep write FDep;
-    property POSITION : RawUTF8 index 30 read FPosition write FPosition;
-    property LOGINNAME : RawUTF8 index 30 read FLogin write FLogin;
-    property EMAIL : RawUTF8 index 100 read FMail write FMail;
-    property PAYGROUP : Int64 read FPaygroup write FPaygroup;
-    property WORKTIME: Integer read FWorktime write FWorktime; //8 wenn NULL
-    property WEEKWORKTIME : Integer read FWeekWorktime write FWeekworktime;//40 wenn NULL
+    property CustomerNo : RawUTF8 index 20 read FCustomerNo write FCustomerno;
+    property PersonnelNo : RawUTF8 index 20 read fPersNo write FPersNo;
+    property Department : RawUTF8 index 30 read FDep write FDep;
+    property Position : RawUTF8 index 30 read FPosition write FPosition;
+    property Loginname : RawUTF8 index 30 read FLogin write FLogin;
+    property EMail : RawUTF8 index 100 read FMail write FMail;
+    property Paygroup : Int64 read FPaygroup write FPaygroup;
+    property WorkTime: Integer read FWorktime write FWorktime; //8 wenn NULL
+    property WeekWorkTime : Integer read FWeekWorktime write FWeekworktime;//40 wenn NULL
     property USEWORKTIME : Integer read FUseWorktime write FUseWorktime;
     property LOGINACTIVE : Boolean read FLoginActive write FLoginActive;
     property REMOTEACCESS : Boolean read FRemoteAcc write FRemoteAcc;

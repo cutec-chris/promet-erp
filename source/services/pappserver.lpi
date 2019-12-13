@@ -35,7 +35,7 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="mormot_base"/>
+        <PackageName Value="mormot_zeos"/>
       </Item1>
       <Item2>
         <PackageName Value="general_nogui"/>
