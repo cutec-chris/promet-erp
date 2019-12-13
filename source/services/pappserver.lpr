@@ -1,8 +1,16 @@
 program pappserver;
 uses Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
-  mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons;
+  mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons,
+  mORMotHttpServer;
 
 type
+
+  { TSQLDBPrometConnectionProperties }
+
+  TSQLDBPrometConnectionProperties = class(TSQLDBZEOSConnectionProperties)
+  public
+    function SQLGetField(const aTableName: RawUTF8): RawUTF8; override;
+  end;
 
   { TProcessManager }
 
@@ -16,6 +24,12 @@ type
   end;
 var
   Application: TProcessManager;
+
+function TSQLDBPrometConnectionProperties.SQLGetField(const aTableName: RawUTF8
+  ): RawUTF8;
+begin
+  Result:='"'+Uppercase(inherited SQLGetField(aTableName))+'"';
+end;
 
 { TProcessManager }
 
@@ -71,15 +85,7 @@ begin
     Password := Decrypt(copy(tmp,2,length(tmp)),word(99998))
   else
     Password := tmp;
-  {
-  Result := TSynConnectionDefinition.Create;
-  Result.Kind:='TSQLDBZEOSConnectionProperties';
-  Result.DatabaseName:=Database;
-  Result.ServerName:=Protocol+'://'+HostName+':'+IntToStr(Port);
-  Result.User:=User;
-  Result.PasswordPlain:=Password;
-  }
-  Result := TSQLDBZEOSConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
+  Result := TSQLDBPrometConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
   Properties.Free;
 end;
 
@@ -90,9 +96,12 @@ var
   ConfigPath, Mandant: String;
   ConfigFile: TStringList;
   Props: TSQLDBConnectionProperties;
+  HttpServer: TSQLHttpServer;
+  aMapping: PSQLRecordPropertiesMapping;
 begin
   inherited Create(TheOwner);
   Model := TSQLModel.Create([TUser]);
+  Model.Root:='promet';
   ConfigPath := GetOptionValue('config-path');
   if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
   ConfigPath := AppendPathDelim(ConfigPath);
@@ -110,10 +119,23 @@ begin
   end;
   Props := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
-  VirtualTableExternalRegister(Model, [TUser], Props);
+  aMapping := VirtualTableExternalMap(Model,TUser,Props,'"USERS"');
+  aMapping^.MapFields(['ID','"SQL_ID"']); // no ID/RowID for our aggregates
+  aMapping^.MapFields(['TYP','"TYPE"']); // no ID/RowID for our aggregates
+  //VirtualTableExternalRegister(Model, [TUser], Props);
   SQLite3 := TSQLite3LibraryDynamic.Create;
   FDB := TSQLRestServerDB.Create(Model, ':memory:');
   FDB.CreateMissingTables;
+  try
+    HttpServer := TSQLHttpServer.Create('8085', [FDB],'+', useBidirSocket);
+    HttpServer.AccessControlAllowOrigin := '*'
+  except
+    on e : exception do
+      begin
+        writeln(e.Message);
+        exit;
+      end;
+  end;
 end;
 
 destructor TProcessManager.Destroy;

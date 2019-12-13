@@ -22,13 +22,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG"/>
+        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG"/>
+            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
           </local>
         </Mode0>
       </Modes>
@@ -83,7 +83,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -93,6 +93,12 @@
       <Item3>
         <Name Value="EFOpenError"/>
       </Item3>
+      <Item4>
+        <Name Value="EHttpApiServer"/>
+      </Item4>
+      <Item5>
+        <Name Value="EHttpServerException"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>
