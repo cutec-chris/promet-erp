@@ -13,7 +13,6 @@ type
 
   TSQLDBPrometConnectionProperties = class(TSQLDBZEOSConnectionProperties)
   public
-    function SQLGetField(const aTableName: RawUTF8): RawUTF8; override;
   end;
 
   { TProcessManager }
@@ -28,12 +27,6 @@ type
   end;
 var
   Application: TProcessManager;
-
-function TSQLDBPrometConnectionProperties.SQLGetField(const aTableName: RawUTF8
-  ): RawUTF8;
-begin
-  Result:='"'+Uppercase(inherited SQLGetField(aTableName))+'"';
-end;
 
 { TProcessManager }
 

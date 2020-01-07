@@ -212,6 +212,7 @@ type
     procedure SetIsReadOnly(AValue: Boolean);
     procedure SetSortDirection(AValue: TSortDirection);
     procedure SetSortFields(AValue: string);
+    class procedure InternalDefineModel(Props: TSQLRecordProperties); override;
   protected
     FFreeDataSet : Boolean;
   public
@@ -432,13 +433,13 @@ begin
   try
     DefineFields(aTable);
     aMapping := VirtualTableExternalMap(Model,TSQLRecordClass(Self.ClassType),Data,'"'+aTable.GetTableName+'"');
-    aMapping^.MapFields(['ID','SQL_ID'//,
-  //                       'TYP','TYPE'
-                        ]); // no ID/RowID for our aggregates
-    aMapping^.SetOptions(aMapping^.Options+[rpmQuoteFieldName]);
   finally
     aTable.Free;
   end;
+  //aMapping^.MapFields(['ID','SQL_ID'//,
+//                       'TYP','TYPE'
+  //                    ]); // no ID/RowID for our aggregates
+  aMapping^.SetOptions(aMapping^.Options+[rpmQuoteFieldName]);
 end;
 
 class procedure TAbstractDBDataset.InitializeTable(Server: TSQLRestServer;
@@ -735,6 +736,40 @@ procedure TAbstractDBDataset.SetSortFields(AValue: string);
 begin
   if not Assigned(DataSet) then exit;
 end;
+
+class procedure TAbstractDBDataset.InternalDefineModel(
+  Props: TSQLRecordProperties);
+var
+  aTable : TFakeTable;
+  aMapping: PSQLRecordPropertiesMapping;
+  aTyp: TSQLFieldType;
+  i: Integer;
+  aAttributes : TSQLPropInfoAttributes;
+begin
+  aTable := TFakeTable.Create(nil);
+  try
+    DefineFields(aTable);
+    with aTable as IBaseManageDB do
+      for i := 0 to ManagedFieldDefs.Count-1 do
+        begin
+          case ManagedFieldDefs[i].DataType of
+          ftString,ftWideString:aTyp := sftUTF8Text;
+          ftSmallint, ftInteger, ftWord: aTyp := sftInteger;
+          ftBoolean: aTyp := sftBoolean;
+          ftFloat: aTyp := sftFloat;
+          ftCurrency: aTyp := sftCurrency;
+          ftDate,  ftTime, ftDateTime: aTyp := sftDateTime;
+          //ftBytes, ftVarBytes, ftAutoInc,
+          ftBlob, ftMemo, ftGraphic, ftFmtMemo: aTyp := sftBlob;
+          //ftParadoxOle, ftDBaseOle, ftTypedBinary, ftCursor, ftFixedChar,
+          end;
+          props.Fields.Add(TSQLPropInfo.Create(ManagedFieldDefs[i].Name,aTyp,aAttributes,ManagedFieldDefs[i].Size,0));
+        end;
+  finally
+    aTable.Free;
+  end;
+end;
+
 procedure TAbstractDBDataset.Open;
 var
   Retry: Boolean = False;
