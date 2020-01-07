@@ -1,5 +1,9 @@
 program pappserver;
-uses Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
+uses
+  {$IFDEF UNIX}
+  cthreads,
+  {$ENDIF}
+  Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
   mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons,
   mORMotHttpServer,uBaseDatasetInterfaces;
 
