@@ -1,7 +1,7 @@
 program pappserver;
 uses Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
   mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons,
-  mORMotHttpServer;
+  mORMotHttpServer,uBaseDatasetInterfaces;
 
 type
 
@@ -95,7 +95,6 @@ var
   FDB: TSQLRestServerDB;
   ConfigPath, Mandant: String;
   ConfigFile: TStringList;
-  Props: TSQLDBConnectionProperties;
   HttpServer: TSQLHttpServer;
   aMapping: PSQLRecordPropertiesMapping;
 begin
@@ -117,12 +116,16 @@ begin
         exit;
       end;
   end;
-  Props := AddConnection(ConfigFile[1]);
+  uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
+  {
   aMapping := VirtualTableExternalMap(Model,TUser,Props,'"USERS"');
-  aMapping^.MapFields(['ID','"SQL_ID"']); // no ID/RowID for our aggregates
-  aMapping^.MapFields(['TYP','"TYPE"']); // no ID/RowID for our aggregates
+  aMapping^.MapFields(['ID','SQL_ID',
+                       'TYP','TYPE'
+                      ]); // no ID/RowID for our aggregates
+  aMapping^.SetOptions(aMapping^.Options+[rpmQuoteFieldName]);
   //VirtualTableExternalRegister(Model, [TUser], Props);
+  }
   SQLite3 := TSQLite3LibraryDynamic.Create;
   FDB := TSQLRestServerDB.Create(Model, ':memory:');
   FDB.CreateMissingTables;

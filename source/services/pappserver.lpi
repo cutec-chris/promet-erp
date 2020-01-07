@@ -41,7 +41,7 @@
         <PackageName Value="general_nogui"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -50,6 +50,11 @@
         <Filename Value="ubasedbclasses.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="ubasedatasetinterfaces.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uBaseDatasetInterfaces"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
