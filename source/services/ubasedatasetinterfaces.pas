@@ -763,7 +763,7 @@ begin
           ftBlob, ftMemo, ftGraphic, ftFmtMemo: aTyp := sftBlob;
           //ftParadoxOle, ftDBaseOle, ftTypedBinary, ftCursor, ftFixedChar,
           end;
-          props.Fields.Add(TSQLPropInfo.Create(ManagedFieldDefs[i].Name,aTyp,aAttributes,ManagedFieldDefs[i].Size,0));
+          props.Fields.Add(TSQLPropInfo.Create(ManagedFieldDefs[i].Name,aTyp,aAttributes,ManagedFieldDefs[i].Size,i));
         end;
   finally
     aTable.Free;
