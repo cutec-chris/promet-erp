@@ -59,6 +59,19 @@ type
     function ChangeStatus(aNewStatus : string) : Boolean;virtual;
     function Duplicate : Boolean;virtual;
   end;
+  TOptions = class(TBaseDBDataSet)
+  private
+    FOption,FValue : RawUTF8;
+    fREF_ID : TRecordReference;
+  public
+    class procedure DefineFields(aDataSet : TDataSet);override;
+    function GetOption(aSection, aIdent, DefaultValue: string): string;
+    procedure SetOption(aSection,aIdent, Value : string);
+  published
+    property REF_ID: TRecordReference read fREF_ID write fREF_ID;
+    property OPTION : RawUTF8 index 60 read FOption;
+    property VALUE : RawUTF8 write FValue;
+  end;
   TUser = class(TBaseDBDataset)
   private
     FAcc: RawUTF8;
@@ -84,6 +97,7 @@ type
     FWeekWorktime: Integer;
     FWorktime: Integer;
     FPassword : RawUTF8;
+    Foptions : TOptions;
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
     class procedure DefineFields(aDataSet: TDataSet); override;
@@ -112,6 +126,7 @@ type
     property REMOTEACCESS : Boolean read FRemoteAcc write FRemoteAcc;
     property LASTLOGIN : TDateTime read FLastLogin write FLastLogin;
     property AUTHSOURCE : RawUTF8 index 10 read FAuthSource write FAuthSource;
+    property Options : TOptions read FOptions;
   end;
   TActiveUsers = class(TBaseDBDataSet)
   private
@@ -263,20 +278,6 @@ type
   published
     property RIGHTNAME : RawUTF8 index 20 read FRightName write FRightName;
     property RIGHTS : SmallInt read FRights write FRights;
-  end;
-
-  { TOptions }
-
-  TOptions = class(TBaseDBDataSet)
-  private
-    FOption,FValue : RawUTF8;
-  public
-    class procedure DefineFields(aDataSet : TDataSet);override;
-    function GetOption(aSection, aIdent, DefaultValue: string): string;
-    procedure SetOption(aSection,aIdent, Value : string);
-  published
-    property OPTION : RawUTF8 index 60 read FOption;
-    property VALUE : RawUTF8 write FValue;
   end;
 {
   TPermissions = class(TBaseDBDataSet)
