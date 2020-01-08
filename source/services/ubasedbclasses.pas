@@ -5,7 +5,7 @@ unit ubasedbclasses;
 interface
 
 uses
-  Classes, SysUtils, uBaseDatasetInterfaces, db;
+  Classes, SysUtils, uBaseDatasetInterfaces, db, SynCommons, mORMot;
 
 type
   TBaseDBDataset = class(TAbstractDBDataset)
@@ -66,57 +66,86 @@ type
   { TUser }
 
   TUser = class(TBaseDBDataset)
+  private
+    FAcc: RawUTF8;
+    FAuthSource: RawUTF8;
+    FCustomerNo: RawUTF8;
+    FDep: RawUTF8;
+    FEmployment: TDateTime;
+    FIDCode: RawUTF8;
+    FLastLogin: TDateTime;
+    Fleaved: TDateTime;
+    FLogin: RawUTF8;
+    FLoginActive: Boolean;
+    FMail: RawUTF8;
+    FName: RawUTF8;
+    FParent: Int64;
+    FPaygroup: Int64;
+    fPersNo: RawUTF8;
+    FPosition: RawUTF8;
+    FRemoteAcc: Boolean;
+    FSalt: RawUTF8;
+    FType: RawUTF8;
+    FUseWorktime: Integer;
+    FWeekWorktime: Integer;
+    FWorktime: Integer;
+    FPassword : RawUTF8;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
+    class procedure DefineFields(aDataSet: TDataSet); override;
+    class procedure MapFields(Mapping: PSQLRecordPropertiesMapping); override;
+  published
+    property TYP : RawUTF8 index 1 read FType write FType;
+    property PARENT : Int64 read FParent write FParent;
+    property ACCOUNTNO : RawUTF8 index 20 read FAcc write FAcc;
+    property NAME : RawUTF8 index 30 read FName write Fname;
+    property PASSWORD : RawUTF8 index 45 read FPassword write FPassword;
+    property SALT : RawUTF8 index 105 read FSalt write FSalt;
+    property IDCODE : RawUTF8 index 4 read FIDCode write FIdCode;
+    property EMPLOYMENT : TDateTime read FEmployment write FEmployment;
+    property LEAVED : TDateTime read Fleaved write Fleaved;
+    property CUSTOMERNO : RawUTF8 index 20 read FCustomerNo write FCustomerno;
+    property PERSONNELNO : RawUTF8 index 20 read fPersNo write FPersNo;
+    property DEPARTMENT : RawUTF8 index 30 read FDep write FDep;
+    property POSITION : RawUTF8 index 30 read FPosition write FPosition;
+    property LOGINNAME : RawUTF8 index 30 read FLogin write FLogin;
+    property EMAIL : RawUTF8 index 100 read FMail write FMail;
+    property PAYGROUP : Int64 read FPaygroup write FPaygroup;
+    property WORKTIME: Integer read FWorktime write FWorktime; //8 wenn NULL
+    property WEEKWORKTIME : Integer read FWeekWorktime write FWeekworktime;//40 wenn NULL
+    property USEWORKTIME : Integer read FUseWorktime write FUseWorktime;
+    property LOGINACTIVE : Boolean read FLoginActive write FLoginActive;
+    property REMOTEACCESS : Boolean read FRemoteAcc write FRemoteAcc;
+    property LASTLOGIN : TDateTime read FLastLogin write FLastLogin;
+    property AUTHSOURCE : RawUTF8 index 10 read FAuthSource write FAuthSource;
   end;
 
 implementation
 
-{ TUser }
+procedure TUser.FillDefaults(aDataSet: TDataSet);
+begin
+  inherited FillDefaults(aDataSet);
+end;
 
 class procedure TUser.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'USERS';
-      //TableCaption := strUsers;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('TYPE',ftString,1,False);
-            Add('PARENT',ftLargeint,0,False);
-            Add('ACCOUNTNO',ftString,20,True);
-            Add('NAME',ftString,30,True);
-            Add('PASSWORD',ftString,45,False);
-            Add('SALT',ftString,105,False);
-            Add('IDCODE',ftString,4,False);
-            Add('EMPLOYMENT',ftDate,0,False);
-            Add('LEAVED',ftDate,0,false);
-            Add('CUSTOMERNO',ftString,20,false);
-            Add('PERSONNELNO',ftString,20,false);
-            Add('DEPARTMENT',ftString,30,false);
-            Add('POSITION',ftString,30,false);
-            Add('LOGINNAME',ftString,30,false);
-            Add('EMAIL',ftString,100,false);
-            Add('PAYGROUP',ftLargeint,0,false);
-            Add('WORKTIME',ftInteger,0,false); //8 wenn NULL
-            Add('WEEKWORKTIME',ftInteger,0,false);//40 wenn NULL
-            Add('USEWORKTIME',ftInteger,0,false);
-            Add('LOGINACTIVE',ftString,1,false);
-            Add('REMOTEACCESS',ftString,1,false);
-            Add('LASTLOGIN',ftDateTime,0,false);
-            Add('AUTHSOURCE',ftString,10,false);
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          Add('ACCOUNTNO','ACCOUNTNO',[ixUnique]);
-    end;
+    TableName:='USERS';
 end;
 
-procedure TUser.FillDefaults(aDataSet: TDataSet);
+class procedure TUser.MapFields(Mapping: PSQLRecordPropertiesMapping);
+var
+  i: Integer;
 begin
-  inherited FillDefaults(aDataSet);
+  inherited MapFields(Mapping);
+  i := Mapping^.Properties.Fields.IndexByNameOrExcept('TYP');
+  Mapping^.ExtFieldNames[i] := 'TYPE';
+  //Mapping^.SetOptions(Mapping^.Options+[rpmNoCreateMissingField]);
+  //Mapping^.MapFields([
+                     //'TYP','"TYPE"'//,
+                     //'PASSWORD','"PASSWORD"',
+                     //'POSITION','"POSITION"'
+  //                   ]);
 end;
 
 { TBaseDbList }

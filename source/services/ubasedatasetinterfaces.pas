@@ -212,7 +212,6 @@ type
     procedure SetIsReadOnly(AValue: Boolean);
     procedure SetSortDirection(AValue: TSortDirection);
     procedure SetSortFields(AValue: string);
-    class procedure InternalDefineModel(Props: TSQLRecordProperties); override;
   protected
     FFreeDataSet : Boolean;
   public
@@ -220,8 +219,7 @@ type
     //constructor CreateEx(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
     constructor Create;override;
     class procedure DefineTable(Model: TSQLModel);
-    class procedure InitializeTable(Server: TSQLRestServer;
-  const FieldName: RawUTF8; Options: TSQLInitializeTableOptions); override;
+    class procedure MapFields(Mapping : PSQLRecordPropertiesMapping);virtual;
     destructor Destroy; override;
     property DataSet : TDataSet read FDataSet write FDataSet;
     procedure Open;virtual;
@@ -433,20 +431,17 @@ begin
   try
     DefineFields(aTable);
     aMapping := VirtualTableExternalMap(Model,TSQLRecordClass(Self.ClassType),Data,'"'+aTable.GetTableName+'"');
+    MapFields(aMapping);
   finally
     aTable.Free;
   end;
-  //aMapping^.MapFields(['ID','SQL_ID'//,
-//                       'TYP','TYPE'
-  //                    ]); // no ID/RowID for our aggregates
-  aMapping^.SetOptions(aMapping^.Options+[rpmQuoteFieldName]);
 end;
 
-class procedure TAbstractDBDataset.InitializeTable(Server: TSQLRestServer;
-  const FieldName: RawUTF8; Options: TSQLInitializeTableOptions);
+class procedure TAbstractDBDataset.MapFields(
+  Mapping: PSQLRecordPropertiesMapping);
 begin
-  inherited InitializeTable(Server, FieldName, Options);
-  DefineTable(Server.Model);
+  Mapping^.SetOptions(Mapping^.Options+[rpmQuoteFieldName]);
+  Mapping^.MapFields(['ID','"SQL_ID"']);
 end;
 
 destructor TAbstractDBDataset.Destroy;
@@ -735,39 +730,6 @@ end;
 procedure TAbstractDBDataset.SetSortFields(AValue: string);
 begin
   if not Assigned(DataSet) then exit;
-end;
-
-class procedure TAbstractDBDataset.InternalDefineModel(
-  Props: TSQLRecordProperties);
-var
-  aTable : TFakeTable;
-  aMapping: PSQLRecordPropertiesMapping;
-  aTyp: TSQLFieldType;
-  i: Integer;
-  aAttributes : TSQLPropInfoAttributes;
-begin
-  aTable := TFakeTable.Create(nil);
-  try
-    DefineFields(aTable);
-    with aTable as IBaseManageDB do
-      for i := 0 to ManagedFieldDefs.Count-1 do
-        begin
-          case ManagedFieldDefs[i].DataType of
-          ftString,ftWideString:aTyp := sftUTF8Text;
-          ftSmallint, ftInteger, ftWord: aTyp := sftInteger;
-          ftBoolean: aTyp := sftBoolean;
-          ftFloat: aTyp := sftFloat;
-          ftCurrency: aTyp := sftCurrency;
-          ftDate,  ftTime, ftDateTime: aTyp := sftDateTime;
-          //ftBytes, ftVarBytes, ftAutoInc,
-          ftBlob, ftMemo, ftGraphic, ftFmtMemo: aTyp := sftBlob;
-          //ftParadoxOle, ftDBaseOle, ftTypedBinary, ftCursor, ftFixedChar,
-          end;
-          props.Fields.Add(TSQLPropInfo.Create(ManagedFieldDefs[i].Name,aTyp,aAttributes,ManagedFieldDefs[i].Size,i));
-        end;
-  finally
-    aTable.Free;
-  end;
 end;
 
 procedure TAbstractDBDataset.Open;

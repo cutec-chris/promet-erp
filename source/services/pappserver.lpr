@@ -5,7 +5,7 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
   mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons,
-  mORMotHttpServer,uBaseDatasetInterfaces;
+  mORMotHttpServer,uBaseDatasetInterfaces,SynLog;
 
 type
 
@@ -13,6 +13,8 @@ type
 
   TSQLDBPrometConnectionProperties = class(TSQLDBZEOSConnectionProperties)
   public
+    function SQLFieldCreate(const aField: TSQLDBColumnCreate;
+      var aAddPrimaryKey: RawUTF8): RawUTF8; override;
   end;
 
   { TProcessManager }
@@ -28,11 +30,18 @@ type
 var
   Application: TProcessManager;
 
+function TSQLDBPrometConnectionProperties.SQLFieldCreate(
+  const aField: TSQLDBColumnCreate; var aAddPrimaryKey: RawUTF8): RawUTF8;
+begin
+  Result:=inherited SQLFieldCreate(aField, aAddPrimaryKey);
+end;
+
 { TProcessManager }
 
 procedure TProcessManager.DoRun;
 begin
   inherited DoRun;
+  sleep(1);
 end;
 
 function TProcessManager.AddConnection(aProp: string): TSQLDBConnectionProperties;
@@ -94,10 +103,15 @@ var
   ConfigFile: TStringList;
   HttpServer: TSQLHttpServer;
   aMapping: PSQLRecordPropertiesMapping;
+  i: Integer;
 begin
   inherited Create(TheOwner);
   Model := TSQLModel.Create([TUser]);
   Model.Root:='promet';
+  with TSQLLog.Family do begin
+     Level := LOG_VERBOSE;
+     EchoToConsole := LOG_VERBOSE; // log all events to the console
+   end;
   ConfigPath := GetOptionValue('config-path');
   if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
   ConfigPath := AppendPathDelim(ConfigPath);
@@ -115,14 +129,8 @@ begin
   end;
   uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
-  {
-  aMapping := VirtualTableExternalMap(Model,TUser,Props,'"USERS"');
-  aMapping^.MapFields(['ID','SQL_ID',
-                       'TYP','TYPE'
-                      ]); // no ID/RowID for our aggregates
-  aMapping^.SetOptions(aMapping^.Options+[rpmQuoteFieldName]);
-  //VirtualTableExternalRegister(Model, [TUser], Props);
-  }
+  for i := 0 to length(Model.Tables)-1 do
+    TBaseDBDataset(Model.Tables[i]).DefineTable(Model);
   SQLite3 := TSQLite3LibraryDynamic.Create;
   FDB := TSQLRestServerDB.Create(Model, ':memory:');
   FDB.CreateMissingTables;
