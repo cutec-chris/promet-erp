@@ -10,9 +10,6 @@ uses
 type
   TBaseDBDataset = class(TAbstractDBDataset)
   end;
-
-  { TBaseDbList }
-
   TBaseDbList = class(TBaseDBDataSet)
   private
     function GetActive: Boolean;
@@ -62,9 +59,6 @@ type
     function ChangeStatus(aNewStatus : string) : Boolean;virtual;
     function Duplicate : Boolean;virtual;
   end;
-
-  { TUser }
-
   TUser = class(TBaseDBDataset)
   private
     FAcc: RawUTF8;
@@ -119,9 +113,6 @@ type
     property LASTLOGIN : TDateTime read FLastLogin write FLastLogin;
     property AUTHSOURCE : RawUTF8 index 10 read FAuthSource write FAuthSource;
   end;
-
-  { TActiveUsers }
-
   TActiveUsers = class(TBaseDBDataSet)
   private
     FCOMMAND,FAccountNo,FName,FClient,FHost,FVersion: RawUTF8;
@@ -138,9 +129,6 @@ type
     property COMMAND : RawUTF8 read FCOMMAND write FCOMMAND;
     property EXPIRES : TDateTime read FEXPIRES write FEXPIRES;
   end;
-
-  { TUserfielddefs }
-
   TUserfielddefs = class(TBaseDBDataSet)
   private
     FTTable,FTField,FTyp : RawUTF8;
@@ -154,117 +142,129 @@ type
     property SIZE: Integer read FSize write FSize;
   end;
   TNumbersets = class(TBaseDBDataSet)
+  private
+    FTablename,FTyp,FPool : RawUTF8;
+    FIncr,fActual,FStop : Integer;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class procedure DefineFields(aDataSet : TDataSet);override;
     function GetNewNumber(Numberset : string) : string;
     function HasNumberSet(Numberset : string) : Boolean;
-    destructor Destroy; override;
   published
-    property TABLENAME : RawUTF8 index 25;
-    property TYP : RawUTF8 index 1;
-    property INCR: Integer;
-    property ACTUAL: Integer;
-    property STOP: Integer;
-    property POOL : RawUTF8 index 25;//NumberPool
+    property TABLENAME : RawUTF8 index 25 read FTablename write FTablename;
+    property TYP : RawUTF8 index 1 read FTyp write FTyp;
+    property INCR: Integer read FIncr write FIncr;
+    property ACTUAL: Integer read fActual write FActual;
+    property STOP: Integer read FStop write FStop;
+    property POOL : RawUTF8 index 25 read FPool write FPool;//NumberPool
   end;
   TNumberRanges = class(TBaseDBDataSet)
+  private
+    FTablename,FTyp,FPool,FUse,FNotice,FCreatedBy : RawUTF8;
+    FIncr,FStop,FStart : Integer;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class procedure DefineFields(aDataSet : TDataSet);override;
     function NewRangefromPool(aPool, aName: string; aCount: Integer; aUse,
       aNotice: string): Boolean;
     function NewRangewithoutPool(aName: string; aFrom, aCount: Integer; aUse,
       aNotice: string; aPool: string=''): Boolean;
   published
-    property TABLENAME : RawUTF8 index 25;//Numberset
-    property POOL : RawUTF8 index 25;//NumberPool
-    property START: Integer;
-    property STOP: Integer;
-    property USE : RawUTF8 index 200;
-    property NOTICE : RawUTF8;
-    property CREATEDBY : RawUTF8 index 4;
+    property TABLENAME : RawUTF8 index 25 read FTablename write FTablename;//Numberset
+    property POOL : RawUTF8 index 25 read FPool write FPool;//NumberPool
+    property START: Integer read FStart write FStart;
+    property STOP: Integer read FStop write FStop;
+    property USE : RawUTF8 index 200 read FUse write FUse;
+    property NOTICE : RawUTF8 read FNotice write FNotice;
+    property CREATEDBY : RawUTF8 index 4 read FCreatedBy write FCreatedBy;
   end;
   TNumberPools = class(TBaseDBDataSet)
+  private
+    FName,FTyp,FPool : RawUTF8;
+    FStart,fActual,FStop : Integer;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class procedure DefineFields(aDataSet : TDataSet);override;
   published
-    property NAME : RawUTF8 index 25;//Numberset
-    property START: Integer;
-    property ACTUAL: Integer;
-    property STOP: Integer;
+    property NAME : RawUTF8 index 25 read FName write FName;//Numberset
+    property START: Integer read FStart write FStart;
+    property ACTUAL: Integer read fActual write FActual;
+    property STOP: Integer read FStop write FStop;
   end;
   TPayGroups = class(TBaseDBDataSet)
+  private
+    FName : RawUTF8;
+    FCosts,FValue : Double;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class procedure DefineFields(aDataSet : TDataSet);override;
   published
-    property NAME : RawUTF8 index 60;
-    property COSTS: TSynExtended;
-    property VALUE: TSynExtended;
+    property NAME : RawUTF8 index 60 read FName write Fname;
+    property COSTS: Double read FCosts write FCosts;
+    property VALUE: Double read FValue write FValue;
   end;
   TAuthSources = class(TBaseDBDataset)
+  private
+    FType,FName,FServer,FUser,FPassword,FFilter,FBase : RawUTF8;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class procedure DefineFields(aDataSet : TDataSet);override;
     function Authenticate(aUser,aPassword : string) : Boolean;
   published
-    property TYP : RawUTF8 index 4;//LDAP
-    property NAME : RawUTF8 index 255;
-    property SERVER : RawUTF8 index 255;
-    property USER : RawUTF8 index 255;
-    property PASSWORD : RawUTF8 index 255;
-    property FILTER : RawUTF8 index 255;
-    property BASE : RawUTF8 index 255;
+    property TYP : RawUTF8 index 4 read FType write FType;//LDAP
+    property NAME : RawUTF8 index 255 read FName write FName;
+    property SERVER : RawUTF8 index 255 read FServer write FServer;
+    property USER : RawUTF8 index 255 read FUser write FUser;
+    property PASSWORD : RawUTF8 index 255 read FPassword write FPassword;
+    property FILTER : RawUTF8 index 255 read FFilter write FFilter;
+    property BASE : RawUTF8 index 255 read FBase write FBase;
   end;
   TMandantDetails = class(TBaseDBDataSet)
   private
-    FAuthSources: TAuthSources;
+    FName,FAdress,FSortcode,FAccount,FInstitute,FTel2,FTel3,FTel4,FTel1,
+    FFax,FMail,FAddition1,FAddition2,FAddition3,FAddition4,FAddition5,FAddition6,FAddition7,FAddition8,
+    FDBStatements,FInternet : RawUTF8;
+    FDBVersion,FDbVer : Integer;
+    FStamp : Int64;
+    FImage : TSQLRawBlob;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    function CreateTable: Boolean; override;
-    destructor Destroy; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    property AuthSources : TAuthSources read FAuthSources;
+    AuthSources : array of TAuthSources;
+    class procedure DefineFields(aDataSet : TDataSet);override;
   published
-    property NAME : RawUTF8 index 160;
-    property ADRESS : RawUTF8;
-    property SORTCODE : RawUTF8 index 20;
-    property ACCOUNT : RawUTF8 index 200;
-    property INSTITUTE : RawUTF8 index 60;
-    property TEL1 : RawUTF8 index 30;
-    property TEL2 : RawUTF8 index 30;
-    property TEL3 : RawUTF8 index 30;
-    property TEL4 : RawUTF8 index 30;
-    property FAX : RawUTF8 index 30;
-    property MAIL : RawUTF8 index 50;
-    property INTERNET : RawUTF8 index 50;
-    property ADDITION1 : RawUTF8 index 200;
-    property ADDITION2 : RawUTF8 index 200;
-    property ADDITION3 : RawUTF8 index 200;
-    property ADDITION4 : RawUTF8 index 200;
-    property ADDITION5 : RawUTF8 index 200;
-    property ADDITION6 : RawUTF8 index 200;
-    property ADDITION7 : RawUTF8 index 200;
-    property ADDITION8 : RawUTF8 index 200;
-    property DBVERSION: Integer;
-    property STAMP: Int64;
-    property IMAGE: TSQLRawBlob;
-    property DBSTATEMENTS : RawUTF8;
-    property DBVER: Integer;
+    property NAME : RawUTF8 index 160 read FName write FName;
+    property ADRESS : RawUTF8 read FAdress write FAdress;
+    property SORTCODE : RawUTF8 index 20 read FSortcode write FSortcode;
+    property ACCOUNT : RawUTF8 index 200 read FAccount write FAccount;
+    property INSTITUTE : RawUTF8 index 60 read FInstitute write FInstitute;
+    property TEL1 : RawUTF8 index 30 read FTel1 write FTel1;
+    property TEL2 : RawUTF8 index 30 read FTel2 write FTel2;
+    property TEL3 : RawUTF8 index 30 read FTel3 write FTel3;
+    property TEL4 : RawUTF8 index 30 read FTel4 write FTel4;
+    property FAX : RawUTF8 index 30 read FFax write FFax;
+    property MAIL : RawUTF8 index 50 read FMail write FMail;
+    property INTERNET : RawUTF8 index 50 read FInternet write FInternet;
+    property ADDITION1 : RawUTF8 index 200 read FAddition1 write FAddition1;
+    property ADDITION2 : RawUTF8 index 200 read FAddition2 write FAddition2;
+    property ADDITION3 : RawUTF8 index 200 read FAddition3 write FAddition3;
+    property ADDITION4 : RawUTF8 index 200 read FAddition4 write FAddition4;
+    property ADDITION5 : RawUTF8 index 200 read FAddition5 write FAddition5;
+    property ADDITION6 : RawUTF8 index 200 read FAddition6 write FAddition6;
+    property ADDITION7 : RawUTF8 index 200 read FAddition7 write FAddition7;
+    property ADDITION8 : RawUTF8 index 200 read FAddition8 write FAddition8;
+    property DBVERSION: Integer read FDBVersion write FDBVersion;
+    property STAMP: Int64 read FStamp write FStamp;
+    property IMAGE: TSQLRawBlob read FImage write FImage;
+    property DBSTATEMENTS : RawUTF8 read FDBStatements write FDBStatements;
+    property DBVER: Integer read FDbVer write FDBVer;
   end;
   TRights = class(TBaseDBDataSet)
   private
-    FCachedRights : TStringList;
-    UserTable: TUser;
+    FRightName : RawUTF8;
+    fRights : SmallInt;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    destructor Destroy;override;
-    procedure Open; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    property Users : TUser read UserTable write UserTable;
+    class procedure DefineFields(aDataSet : TDataSet);override;
     procedure ResetCache;
     function Right(Element: string;Recursive : Boolean = True;UseCache : Boolean = True) : Integer;
   published
-    property RIGHTNAME : RawUTF8 index 20;
-    property RIGHTS',ftSmallInt,0;
+    property RIGHTNAME : RawUTF8 index 20 read FRightName write FRightName;
+    property RIGHTS : SmallInt read FRights write FRights;
   end;
+{
   TPermissions = class(TBaseDBDataSet)
   public
     constructor Create(aOwner: TComponent); override;
@@ -272,7 +272,7 @@ type
   published
     property REF_ID_ID: Int64;
     property USER: Int64;
-    property RIGHT',ftSmallInt,0;
+    property RIGHT : SmallInt read FRight write FRight;
   end;
   TTree = class(TBaseDBDataSet)
   private
@@ -428,7 +428,7 @@ type
       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
     procedure FillDefaults(aDataSet: TDataSet); override;
   published
-    property DATA: TSynExtended;
+    property DATA: Double;
     property DATE : TDateTime;
   end;
   TMeasurement = class(TBaseDBDataset)
@@ -452,18 +452,111 @@ type
     property NAME : RawUTF8 index 100;
     property ID : RawUTF8 index 100;
     property TYP : RawUTF8 index 100;
-    property CURRENT: TSynExtended;
+    property CURRENT: Double;
     property MUNIT : RawUTF8 index 15;
     property CHART : RawUTF8 index 1;
     property COLOR : RawUTF8 index 30;
     property RANGE : RawUTF8 index 20;
     property POSITION : RawUTF8 index 1;
     property INTERPOLATE : RawUTF8 index 1;
-    property TOLLERANCE: TSynExtended;
+    property TOLLERANCE: Double;
   end;
-
-
+}
 implementation
+
+{ TRights }
+
+class procedure TRights.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='RIGHTS';
+end;
+
+procedure TRights.ResetCache;
+begin
+
+end;
+
+function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean
+  ): Integer;
+begin
+
+end;
+
+{ TMandantDetails }
+
+class procedure TMandantDetails.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='MANDANTDETAILS';
+end;
+
+{ TAuthSources }
+
+class procedure TAuthSources.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='AUTHSOURCES';
+end;
+
+function TAuthSources.Authenticate(aUser, aPassword: string): Boolean;
+begin
+
+end;
+
+{ TPayGroups }
+
+class procedure TPayGroups.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='PAYGROUPS';
+end;
+
+{ TNumberPools }
+
+class procedure TNumberPools.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='NUMBERPOOLS';
+end;
+
+{ TNumberRanges }
+
+class procedure TNumberRanges.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='NUMBERRANGES';
+end;
+
+function TNumberRanges.NewRangefromPool(aPool, aName: string; aCount: Integer;
+  aUse, aNotice: string): Boolean;
+begin
+
+end;
+
+function TNumberRanges.NewRangewithoutPool(aName: string; aFrom,
+  aCount: Integer; aUse, aNotice: string; aPool: string): Boolean;
+begin
+
+end;
+
+{ TNumbersets }
+
+class procedure TNumbersets.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='NUMBERS';
+end;
+
+function TNumbersets.GetNewNumber(Numberset: string): string;
+begin
+
+end;
+
+function TNumbersets.HasNumberSet(Numberset: string): Boolean;
+begin
+
+end;
 
 { TUserfielddefs }
 
@@ -475,7 +568,7 @@ end;
 
 { TActiveUsers }
 
-procedure TActiveUsers.DefineFields(aDataSet: TDataSet);
+class procedure TActiveUsers.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
     TableName:='ACTIVEUSERS';

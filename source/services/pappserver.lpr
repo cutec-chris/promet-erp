@@ -106,7 +106,7 @@ var
   i: Integer;
 begin
   inherited Create(TheOwner);
-  Model := TSQLModel.Create([TUser]);
+  Model := TSQLModel.Create([TUser,TActiveUsers,TUserfielddefs,TNumbersets,TNumberRanges,TNumberPools,TPayGroups,TAuthSources,TMandantDetails,TRights]);
   Model.Root:='promet';
   with TSQLLog.Family do begin
      Level := LOG_VERBOSE;
