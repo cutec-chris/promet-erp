@@ -184,6 +184,7 @@ type
     FDoChange:Integer;
     FOnChanged: TNotifyEvent;
     FOnRemoved: TNotifyEvent;
+    FTimestampd: TDateTime;
     FUpdateFloatFields: Boolean;
     FDataSet: TDataSet;
     DoCheck: Boolean;
@@ -276,6 +277,8 @@ type
     property IsReadOnly : Boolean read GetIsReadOnly write SetIsReadOnly;
     property Active : Boolean read GetActive write SetActive;
     property Caption : string read GetCaption;
+  published
+    property TIMESTAMPD : TDateTime read FTimestampd;
   end;
 
 var
