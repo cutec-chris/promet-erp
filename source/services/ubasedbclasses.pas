@@ -264,6 +264,20 @@ type
     property RIGHTNAME : RawUTF8 index 20 read FRightName write FRightName;
     property RIGHTS : SmallInt read FRights write FRights;
   end;
+
+  { TOptions }
+
+  TOptions = class(TBaseDBDataSet)
+  private
+    FOption,FValue : RawUTF8;
+  public
+    class procedure DefineFields(aDataSet : TDataSet);override;
+    function GetOption(aSection, aIdent, DefaultValue: string): string;
+    procedure SetOption(aSection,aIdent, Value : string);
+  published
+    property OPTION : RawUTF8 index 60 read FOption;
+    property VALUE : RawUTF8 write FValue;
+  end;
 {
   TPermissions = class(TBaseDBDataSet)
   public
@@ -315,17 +329,6 @@ type
     property EMAILBCC : RawUTF8 index 200;
     property REPORT: TSQLRawBlob;
     property TEXT : RawUTF8;
-  end;
-  TOptions = class(TBaseDBDataSet)
-  public
-    constructor Create(aOwner: TComponent); override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Open; override;
-    function GetOption(aSection, aIdent, DefaultValue: string): string;
-    procedure SetOption(aSection,aIdent, Value : string);
-  published
-    property OPTION : RawUTF8 index 60;
-    property VALUE : RawUTF8;
   end;
   TFollowers = class(TBaseDBDataSet)
   private
@@ -463,6 +466,22 @@ type
   end;
 }
 implementation
+
+{ TOptions }
+
+class procedure TOptions.DefineFields(aDataSet: TDataSet);
+begin
+  with aDataSet as IBaseManageDB do
+    TableName:='OPTIONS';
+end;
+
+function TOptions.GetOption(aSection, aIdent, DefaultValue: string): string;
+begin
+end;
+
+procedure TOptions.SetOption(aSection, aIdent, Value: string);
+begin
+end;
 
 { TRights }
 

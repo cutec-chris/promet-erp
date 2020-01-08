@@ -106,11 +106,12 @@ var
   i: Integer;
 begin
   inherited Create(TheOwner);
-  Model := TSQLModel.Create([TUser,TActiveUsers,TUserfielddefs,TNumbersets,TNumberRanges,TNumberPools,TPayGroups,TAuthSources,TMandantDetails,TRights]);
+  writeln('connecting...');
+  Model := TSQLModel.Create([TUser,TRights,TActiveUsers,TAuthSources,TOptions{,TUserfielddefs,TNumbersets,TNumberRanges,TNumberPools,TPayGroups}]);
   Model.Root:='promet';
   with TSQLLog.Family do begin
-     Level := LOG_VERBOSE;
-     EchoToConsole := LOG_VERBOSE; // log all events to the console
+     Level := LOG_STACKTRACE+[sllEnter];
+     EchoToConsole := LOG_STACKTRACE+[sllInfo,sllEnter,sllLeave,sllClient]; // log all events to the console
    end;
   ConfigPath := GetOptionValue('config-path');
   if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
@@ -133,10 +134,12 @@ begin
     TBaseDBDataset(Model.Tables[i]).DefineTable(Model);
   SQLite3 := TSQLite3LibraryDynamic.Create;
   FDB := TSQLRestServerDB.Create(Model, ':memory:');
-  FDB.CreateMissingTables;
+  FDB.DB.Synchronous := smOff;
+  writeln('checking database structure...');
+  FDB.CreateMissingTables(0,[itoNoAutoCreateGroups, itoNoAutoCreateUsers]);
   try
     HttpServer := TSQLHttpServer.Create('8085', [FDB],'+', useBidirSocket);
-    HttpServer.AccessControlAllowOrigin := '*'
+    //HttpServer.AccessControlAllowOrigin := '*'
   except
     on e : exception do
       begin
@@ -144,6 +147,7 @@ begin
         exit;
       end;
   end;
+  writeln('...done.');
 end;
 
 destructor TProcessManager.Destroy;
