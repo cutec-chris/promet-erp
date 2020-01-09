@@ -59,18 +59,28 @@ type
     function ChangeStatus(aNewStatus : string) : Boolean;virtual;
     function Duplicate : Boolean;virtual;
   end;
-  TOptions = class(TBaseDBDataSet)
+  TOption = class(TBaseDBDataSet)
   private
     FOption,FValue : RawUTF8;
     fREF_ID : TRecordReference;
   public
     class procedure DefineFields(aDataSet : TDataSet);override;
-    function GetOption(aSection, aIdent, DefaultValue: string): string;
-    procedure SetOption(aSection,aIdent, Value : string);
   published
     property REF_ID: TRecordReference read fREF_ID write fREF_ID;
     property OPTION : RawUTF8 index 60 read FOption;
     property VALUE : RawUTF8 write FValue;
+  end;
+  TUser = class;
+  TOptions = class(TSQLRecordMany)
+  private
+    FOption: TOption;
+    FUser: TUser;
+  public
+    function GetOption(aSection, aIdent, DefaultValue: string): string;
+    procedure SetOption(aSection,aIdent, Value : string);
+  published
+    property Source : TUser read FUser;
+    property Dest : TOption read FOption;
   end;
   TUser = class(TBaseDBDataset)
   private
@@ -470,16 +480,14 @@ implementation
 
 { TOptions }
 
-class procedure TOptions.DefineFields(aDataSet: TDataSet);
+class procedure TOption.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
     TableName:='OPTIONS';
 end;
-
 function TOptions.GetOption(aSection, aIdent, DefaultValue: string): string;
 begin
 end;
-
 procedure TOptions.SetOption(aSection, aIdent, Value: string);
 begin
 end;

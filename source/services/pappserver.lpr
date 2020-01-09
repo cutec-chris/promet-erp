@@ -107,11 +107,12 @@ var
 begin
   inherited Create(TheOwner);
   writeln('connecting...');
-  Model := TSQLModel.Create([TUser,TRights,TActiveUsers,TAuthSources,TOptions{,TUserfielddefs,TNumbersets,TNumberRanges,TNumberPools,TPayGroups}]);
+  Model := TSQLModel.Create([TUser,TRights,TActiveUsers,TAuthSources,TOptions,TOption{,TUserfielddefs,TNumbersets,TNumberRanges,TNumberPools,TPayGroups}]);
   Model.Root:='promet';
   with TSQLLog.Family do begin
-     Level := LOG_STACKTRACE+[sllEnter];
-     EchoToConsole := LOG_STACKTRACE+[sllInfo,sllEnter,sllLeave,sllClient]; // log all events to the console
+     Level := LOG_VERBOSE; //LOG_STACKTRACE+[sllInfo,sllEnter,sllLeave,sllClient];
+     NoFile:=True;
+     EchoToConsole := LOG_VERBOSE; //LOG_STACKTRACE+[sllInfo,sllEnter,sllLeave,sllClient]; // log all events to the console
    end;
   ConfigPath := GetOptionValue('config-path');
   if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
@@ -131,7 +132,8 @@ begin
   uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
   for i := 0 to length(Model.Tables)-1 do
-    TBaseDBDataset(Model.Tables[i]).DefineTable(Model);
+    if Model.Tables[i].InheritsFrom(TBaseDBDataset) then
+      TBaseDBDataset(Model.Tables[i]).DefineTable(Model);
   SQLite3 := TSQLite3LibraryDynamic.Create;
   FDB := TSQLRestServerDB.Create(Model, ':memory:');
   FDB.DB.Synchronous := smOff;

@@ -175,9 +175,6 @@ type
     function UseExtData : Boolean;
     function GetDatabaseDir : string;
   end;
-
-  { TAbstractDBDataset }
-
   TAbstractDBDataset = class(TSQLRecord)
   private
     FChanged: Boolean;
