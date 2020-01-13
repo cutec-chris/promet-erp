@@ -101,8 +101,8 @@ begin
         exit;
       end;
   end;
-  aObj := TOp
   {
+  aObj := TOp
   uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
   for i := 0 to length(Model.Tables)-1 do

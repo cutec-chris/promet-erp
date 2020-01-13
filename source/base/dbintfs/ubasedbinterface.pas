@@ -23,7 +23,7 @@ interface
 uses
   Classes, SysUtils, DB, Typinfo, CustApp, Utils , memds,
   uBaseDbClasses, uIntfStrConsts,syncobjs,
-  uBaseSearch,Variants,
+  Variants,
   rttiutils,uBaseDatasetInterfaces,contnrs,uAbstractDBLayer
   ;
 const
@@ -128,13 +128,13 @@ type
     function RecordCount(aDataSet : TBaseDbDataSet) : Integer;
     function DeleteItem(aDataSet : TBaseDBDataSet) : Boolean;
     procedure UpdateTableVersion(aTableName: string);
-    function GetFullTableName(aTable: string;DoLookup : Boolean = True): string; override;
-    function CreateTrigger(aTriggerName : string;aTableName : string;aUpdateOn : string;aSQL : string;aField : string = '';aConnection : TComponent = nil) : Boolean;virtual;
-    function Preprocess(aLine : string) : string;
-    procedure SetFilter(DataSet : TbaseDBDataSet;aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');
+    //function GetFullTableName(aTable: string;DoLookup : Boolean = True): string; override;
+    //function CreateTrigger(aTriggerName : string;aTableName : string;aUpdateOn : string;aSQL : string;aField : string = '';aConnection : TComponent = nil) : Boolean;virtual;
+    //function Preprocess(aLine : string) : string;
+    //procedure SetFilter(DataSet : TbaseDBDataSet;aFilter : string;aLimit : Integer = 0;aOrderBy : string = '';aSortDirection : string = 'ASC';aLocalSorting : Boolean = False;aGlobalFilter : Boolean = True;aUsePermissions : Boolean = False;aFilterIn : string = '');
     procedure AppendUserToActiveList;
-    procedure RefreshUsersFilter;
-    procedure ModifyUsersFilter(aNewFilter : string);
+    //procedure RefreshUsersFilter;
+    //procedure ModifyUsersFilter(aNewFilter : string);
     procedure RemoveUserFromActiveList;
     procedure RegisterLinkHandlers(IgnoreRights : Boolean = False);
     function Authenticate(aUser,aPassword : string) : Boolean;
@@ -1212,6 +1212,15 @@ begin
   }
 end;
 
+procedure TBaseDBModule.RemoveUserFromActiveList;
+begin
+end;
+
+procedure TBaseDBModule.RegisterLinkHandlers(IgnoreRights: Boolean);
+begin
+
+end;
+
 function TBaseDBModule.Authenticate(aUser, aPassword: string): Boolean;
 begin
   Result := False;
@@ -1323,6 +1332,7 @@ var
   Found: Boolean;
 begin
   Result := False;
+  {
   if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
     Info('Login to Mandant '+aMandant+' as '+aUser);
   //Check if FDB already is our Mandant
@@ -1398,6 +1408,7 @@ begin
   FDB.StorageType.CreateTable;
   FDB.Users.LoginWasOK;
   Result := True;
+  }
 end;
 function TBaseDBInterface.LoadMandants(aConfigPath: string): Boolean;
 var
@@ -1408,6 +1419,7 @@ var
   sl: TStringList;
 begin
   Result := False;
+  {
   try
     if aConfigPath <> '' then
       FilePath := aConfigpath
@@ -1443,6 +1455,7 @@ begin
       FindClose(bInfo);
     end;
   FindClose(aInfo);
+  }
 end;
 function TBaseDBInterface.OpenMandant(aDBTyp : string;aDBProp : string): Boolean;
 begin
