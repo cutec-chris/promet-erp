@@ -33,24 +33,23 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="pPrometDBIntfs"/>
+        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="general_nogui"/>
+        <PackageName Value="LCLBase"/>
       </Item2>
+      <Item3>
+        <PackageName Value="general_nogui"/>
+      </Item3>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="1">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
-      <Unit1>
-        <Filename Value="ubasedatasetinterfaces.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="uBaseDatasetInterfaces"/>
-      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

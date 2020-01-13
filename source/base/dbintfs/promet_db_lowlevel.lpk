@@ -9,40 +9,23 @@
         <UnitOutputDirectory Value="lib/lowlevel/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="6">
+    <Files Count="2">
       <Item1>
         <Filename Value="ubasedbinterface.pas"/>
         <UnitName Value="uBaseDBInterface"/>
       </Item1>
       <Item2>
-        <Filename Value="ubasesearch.pas"/>
-        <UnitName Value="uBaseSearch"/>
-      </Item2>
-      <Item3>
         <Filename Value="ubasedbclasses.pas"/>
-        <UnitName Value="uBaseDbClasses"/>
-      </Item3>
-      <Item4>
-        <Filename Value="ubaseerpdbclasses.pas"/>
-        <UnitName Value="uBaseERPDBClasses"/>
-      </Item4>
-      <Item5>
-        <Filename Value="uwiki.pas"/>
-        <UnitName Value="uWiki"/>
-      </Item5>
-      <Item6>
-        <Filename Value="ustatistic.pas"/>
-        <UnitName Value="uStatistic"/>
-      </Item6>
+        <UnitName Value="ubasedbclasses"/>
+      </Item2>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>
-        <PackageName Value="sql_parser"/>
-        <DefaultFilename Value="../../components/sqlparser/sql_parser.lpk"/>
+        <PackageName Value="general_nogui"/>
       </Item1>
       <Item2>
-        <PackageName Value="wiki2html_pkg"/>
-        <DefaultFilename Value="../base_wiki/wiki2html_pkg.lpk"/>
+        <PackageName Value="sql_parser"/>
+        <DefaultFilename Value="../../components/sqlparser/sql_parser.lpk"/>
       </Item2>
     </RequiredPkgs>
     <UsageOptions>

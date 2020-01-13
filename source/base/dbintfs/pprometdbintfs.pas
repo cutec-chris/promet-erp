@@ -8,14 +8,7 @@ unit pPrometDBIntfs;
 interface
 
 uses
-  udlldbdm, uOrder, uOrderQM, uTimes, uIntfStrConsts, uData, uProjects, 
-  uDocuments, uImpCSV, uImpVCard, uMasterdata, uPerson, uAccounting, 
-  uMessages, uBaseApplication, uCalendar, uSystemMessage, 
-  ubaseapplicationtools, usync, uSessionDBClasses, utask, uvtools, uimpvcal, 
-  uDocumentProcess, uProcessManager, uProcessManagement, uprometipc, umeeting, 
-  uBaseDocPages, uthumbnails, ucalc, uimport, uPasswordSave, uzugferd, 
-  uprometscripts, uMeasurement, uwlxprototypes, uWlxModule, uspreadsheet, 
-  uscheme, uprometpubsub;
+  uIntfStrConsts;
 
 implementation
 

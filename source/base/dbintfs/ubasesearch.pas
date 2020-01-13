@@ -40,7 +40,7 @@ type
 
   TSearchHistory = class(TBaseDBDataset)
   public
-    procedure DefineFields(aDataSet: TDataSet); override;
+    class procedure DefineFields(aDataSet: TDataSet); override;
     procedure Add(aText,aLink : string);
   end;
   TSearch = class(TComponent)
@@ -124,7 +124,7 @@ begin
         end;
     end;
 end;
-procedure TSearchHistory.DefineFields(aDataSet: TDataSet);
+class procedure TSearchHistory.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
     begin

@@ -8,8 +8,7 @@ unit promet_db_lowlevel;
 interface
 
 uses
-  uBaseDBInterface, uBaseSearch, uBaseDbClasses, uBaseERPDBClasses, uWiki, 
-  uStatistic;
+  uBaseDBInterface, ubasedbclasses;
 
 implementation
 

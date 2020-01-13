@@ -5,7 +5,7 @@ uses
   cthreads,
   {$ENDIF}
   Classes, SysUtils, CustApp, general_nogui,
-  uEncrypt, uBaseDatasetInterfaces,LazFileUtils,ubasedbclasses;
+  uEncrypt, uBaseDatasetInterfaces, pprometdbintfs,LazFileUtils;
 
 type
   { TProcessManager }
@@ -101,6 +101,7 @@ begin
         exit;
       end;
   end;
+  aObj := TOp
   {
   uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);
   ConfigFile.Free;

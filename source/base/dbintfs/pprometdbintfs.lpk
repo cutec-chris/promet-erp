@@ -11,189 +11,21 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="41">
+    <Files Count="1">
       <Item1>
-        <Filename Value="udlldbdm.pas"/>
-        <UnitName Value="udlldbdm"/>
-      </Item1>
-      <Item2>
-        <Filename Value="uorder.pas"/>
-        <UnitName Value="uOrder"/>
-      </Item2>
-      <Item3>
-        <Filename Value="uorderqm.pas"/>
-        <UnitName Value="uOrderQM"/>
-      </Item3>
-      <Item4>
-        <Filename Value="utimes.pas"/>
-        <UnitName Value="uTimes"/>
-      </Item4>
-      <Item5>
         <Filename Value="uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
-      </Item5>
-      <Item6>
-        <Filename Value="udata.pas"/>
-        <UnitName Value="uData"/>
-      </Item6>
-      <Item7>
-        <Filename Value="uprojects.pas"/>
-        <UnitName Value="uProjects"/>
-      </Item7>
-      <Item8>
-        <Filename Value="udocuments.pas"/>
-        <UnitName Value="uDocuments"/>
-      </Item8>
-      <Item9>
-        <Filename Value="uimpcsv.pas"/>
-        <UnitName Value="uImpCSV"/>
-      </Item9>
-      <Item10>
-        <Filename Value="uimpvcard.pas"/>
-        <UnitName Value="uImpVCard"/>
-      </Item10>
-      <Item11>
-        <Filename Value="umasterdata.pas"/>
-        <UnitName Value="uMasterdata"/>
-      </Item11>
-      <Item12>
-        <Filename Value="uperson.pas"/>
-        <UnitName Value="uPerson"/>
-      </Item12>
-      <Item13>
-        <Filename Value="uaccounting.pas"/>
-        <UnitName Value="uAccounting"/>
-      </Item13>
-      <Item14>
-        <Filename Value="umessages.pas"/>
-        <UnitName Value="uMessages"/>
-      </Item14>
-      <Item15>
-        <Filename Value="ubaseapplication.pas"/>
-        <UnitName Value="uBaseApplication"/>
-      </Item15>
-      <Item16>
-        <Filename Value="ucalendar.pas"/>
-        <UnitName Value="uCalendar"/>
-      </Item16>
-      <Item17>
-        <Filename Value="usystemmessage.pas"/>
-        <UnitName Value="uSystemMessage"/>
-      </Item17>
-      <Item18>
-        <Filename Value="ubaseapplicationtools.pas"/>
-        <UnitName Value="ubaseapplicationtools"/>
-      </Item18>
-      <Item19>
-        <Filename Value="usync.pas"/>
-        <UnitName Value="usync"/>
-      </Item19>
-      <Item20>
-        <Filename Value="usessiondbclasses.pas"/>
-        <UnitName Value="uSessionDBClasses"/>
-      </Item20>
-      <Item21>
-        <Filename Value="utask.pas"/>
-        <UnitName Value="utask"/>
-      </Item21>
-      <Item22>
-        <Filename Value="uvtools.pas"/>
-        <UnitName Value="uvtools"/>
-      </Item22>
-      <Item23>
-        <Filename Value="uimpvcal.pas"/>
-        <UnitName Value="uimpvcal"/>
-      </Item23>
-      <Item24>
-        <Filename Value="udocumentprocess.pas"/>
-        <UnitName Value="uDocumentProcess"/>
-      </Item24>
-      <Item25>
-        <Filename Value="uprocessmanager.pas"/>
-        <UnitName Value="uProcessManager"/>
-      </Item25>
-      <Item26>
-        <Filename Value="uprocessmanagement.pas"/>
-        <UnitName Value="uProcessManagement"/>
-      </Item26>
-      <Item27>
-        <Filename Value="uprometipc.pas"/>
-        <UnitName Value="uprometipc"/>
-      </Item27>
-      <Item28>
-        <Filename Value="umeeting.pas"/>
-        <UnitName Value="umeeting"/>
-      </Item28>
-      <Item29>
-        <Filename Value="ubasedocpages.pas"/>
-        <UnitName Value="uBaseDocPages"/>
-      </Item29>
-      <Item30>
-        <Filename Value="uthumbnails.pas"/>
-        <UnitName Value="uthumbnails"/>
-      </Item30>
-      <Item31>
-        <Filename Value="ucalc.pas"/>
-        <UnitName Value="ucalc"/>
-      </Item31>
-      <Item32>
-        <Filename Value="uimport.pas"/>
-        <UnitName Value="uimport"/>
-      </Item32>
-      <Item33>
-        <Filename Value="upasswordsave.pas"/>
-        <UnitName Value="uPasswordSave"/>
-      </Item33>
-      <Item34>
-        <Filename Value="uzugferd.pas"/>
-        <UnitName Value="uzugferd"/>
-      </Item34>
-      <Item35>
-        <Filename Value="uprometscripts.pas"/>
-        <UnitName Value="uprometscripts"/>
-      </Item35>
-      <Item36>
-        <Filename Value="umeasurement.pas"/>
-        <UnitName Value="uMeasurement"/>
-      </Item36>
-      <Item37>
-        <Filename Value="uwlxprototypes.pas"/>
-        <UnitName Value="uwlxprototypes"/>
-      </Item37>
-      <Item38>
-        <Filename Value="uwlxmodule.pas"/>
-        <UnitName Value="uWlxModule"/>
-      </Item38>
-      <Item39>
-        <Filename Value="uspreadsheet.pas"/>
-        <UnitName Value="uspreadsheet"/>
-      </Item39>
-      <Item40>
-        <Filename Value="uscheme.pas"/>
-        <UnitName Value="uscheme"/>
-      </Item40>
-      <Item41>
-        <Filename Value="uprometpubsub.pas"/>
-        <UnitName Value="uprometpubsub"/>
-      </Item41>
+      </Item1>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
       <OutDir Value="..\..\..\languages"/>
     </i18n>
-    <RequiredPkgs Count="3">
+    <RequiredPkgs Count="1">
       <Item1>
         <PackageName Value="promet_db_lowlevel"/>
         <DefaultFilename Value="promet_db_lowlevel.lpk"/>
       </Item1>
-      <Item2>
-        <PackageName Value="pthumbnails"/>
-        <DefaultFilename Value="..\pthumbnails.lpk"/>
-      </Item2>
-      <Item3>
-        <PackageName Value="dexif_package"/>
-        <DefaultFilename Value="..\..\components\dexif\dexif_package.lpk"/>
-      </Item3>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>

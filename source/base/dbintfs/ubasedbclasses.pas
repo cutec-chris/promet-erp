@@ -5,12 +5,17 @@ unit ubasedbclasses;
 interface
 
 uses
-  Classes, SysUtils, uBaseDatasetInterfaces, db;
+  Classes, SysUtils, uBaseDatasetInterfaces2, db;
 
 type
   TRawBlob = class
   end;
-  TBaseDBDataset = class(TAbstractDBDataset)
+
+  { TBaseDBDataset }
+
+  TBaseDBDataset = class(TAbstractDBDataset2)
+  public
+    constructor CreateEx(Module : TComponent;Owner : TComponent);
   end;
   TBaseDbList = class(TBaseDBDataSet)
   private
@@ -61,6 +66,8 @@ type
     function ChangeStatus(aNewStatus : string) : Boolean;virtual;
     function Duplicate : Boolean;virtual;
   end;
+  TBaseDbDataSetClass = class of TBaseDbDataSet;
+  TBaseDbListClass = class of TBaseDbList;
   TOption = class(TBaseDBDataSet)
   private
     FOption,FValue : string;
@@ -71,6 +78,9 @@ type
     property VALUE : string write FValue;
   end;
   TUser = class;
+
+  { TUser }
+
   TUser = class(TBaseDBDataset)
   private
     FAcc: string;
@@ -99,6 +109,7 @@ type
   public
     procedure FillDefaults(aDataSet : TDataSet);override;
     class procedure DefineFields(aDataSet: TDataSet); override;
+    function CheckUserPasswort(aPassword : string) : Boolean;
   published
     property TYP : string index 1 read FType write FType;
     property PARENT : Int64 read FParent write FParent;
@@ -234,7 +245,7 @@ type
     FStamp : Int64;
     FImage : TRawBlob;
   public
-    AuthSources : array of TAuthSources;
+    AuthSources : TAuthSources;
     class procedure DefineFields(aDataSet : TDataSet);override;
   published
     property NAME : string index 160 read FName write FName;
@@ -464,6 +475,13 @@ type
 }
 implementation
 
+{ TBaseDBDataset }
+
+constructor TBaseDBDataset.CreateEx(Module: TComponent; Owner: TComponent);
+begin
+  inherited Create;
+end;
+
 { TOptions }
 
 class procedure TOption.DefineFields(aDataSet: TDataSet);
@@ -596,6 +614,11 @@ class procedure TUser.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
     TableName:='USERS';
+end;
+
+function TUser.CheckUserPasswort(aPassword: string): Boolean;
+begin
+
 end;
 
 { TBaseDbList }
