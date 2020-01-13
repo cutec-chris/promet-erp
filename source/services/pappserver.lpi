@@ -35,26 +35,22 @@
     </RunParams>
     <RequiredPackages Count="2">
       <Item1>
-        <PackageName Value="mormot_zeos"/>
+        <PackageName Value="LCLBase"/>
       </Item1>
       <Item2>
         <PackageName Value="general_nogui"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="2">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="ubasedbclasses.pas"/>
-        <IsPartOfProject Value="True"/>
-      </Unit1>
-      <Unit2>
         <Filename Value="ubasedatasetinterfaces.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="uBaseDatasetInterfaces"/>
-      </Unit2>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

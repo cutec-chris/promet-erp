@@ -24,7 +24,7 @@ unit uBaseDatasetInterfaces;
 interface
 
 uses
-  Classes, SysUtils, DB, mORMot, SynCommons, mORMotDB, SynDB;
+  Classes, SysUtils, DB, restbase;
 
 type
   TSortDirection = (sdAscending, sdDescending, sdIgnored);
@@ -175,10 +175,14 @@ type
     function UseExtData : Boolean;
     function GetDatabaseDir : string;
   end;
-  TAbstractDBDataset = class(TSQLRecord)
+
+  { TAbstractDBDataset }
+
+  TAbstractDBDataset = class(TBaseObject)
   private
     FChanged: Boolean;
     FDoChange:Integer;
+    FId: Int64;
     FOnChanged: TNotifyEvent;
     FOnRemoved: TNotifyEvent;
     FTimestampd: TDateTime;
@@ -215,10 +219,6 @@ type
   public
     //constructor CreateExIntegrity(aOwner : TComponent;DM : TComponent;aUseIntegrity : Boolean;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
     //constructor CreateEx(aOwner : TComponent;DM : TComponent;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);virtual;
-    constructor Create;override;
-    class procedure DefineTable(Model: TSQLModel);
-    class procedure MapFields(Mapping : PSQLRecordPropertiesMapping);virtual;
-    destructor Destroy; override;
     property DataSet : TDataSet read FDataSet write FDataSet;
     procedure Open;virtual;
     procedure Close;virtual;
@@ -275,11 +275,9 @@ type
     property Active : Boolean read GetActive write SetActive;
     property Caption : string read GetCaption;
   published
+    property SQL_ID : Int64 read FId;
     property TIMESTAMPD : TDateTime read FTimestampd;
   end;
-
-var
-  Data: TSQLDBConnectionProperties;
 
 implementation
 
@@ -297,14 +295,7 @@ begin
     FilterEx(aFilter,aLimit);
 end;
 
-constructor TAbstractDBDataset.Create;
-begin
-  inherited Create;
-  FFreeDataSet:=True;
-  FUpdateFloatFields := false;
-end;
 type
-
   { TFakeTable }
 
   TFakeTable = class(TDataSet,IBaseManageDB)
@@ -422,35 +413,6 @@ end;
 procedure TFakeTable.SetDataSource(AValue: TDataSource);
 begin
 end;
-class procedure TAbstractDBDataset.DefineTable(Model : TSQLModel);
-var
-  aTable : TFakeTable;
-  aMapping: PSQLRecordPropertiesMapping;
-begin
-  aTable := TFakeTable.Create(nil);
-  try
-    DefineFields(aTable);
-    aMapping := VirtualTableExternalMap(Model,TSQLRecordClass(Self.ClassType),Data,'"'+aTable.GetTableName+'"');
-    MapFields(aMapping);
-  finally
-    aTable.Free;
-  end;
-end;
-
-class procedure TAbstractDBDataset.MapFields(
-  Mapping: PSQLRecordPropertiesMapping);
-begin
-  Mapping^.SetOptions(Mapping^.Options+[rpmQuoteFieldName]);
-  Mapping^.MapFields(['ID','"SQL_ID"']);
-end;
-
-destructor TAbstractDBDataset.Destroy;
-begin
-  if FFreeDataSet then
-    FreeAndNil(FDataSet);
-  inherited Destroy;
-end;
-
 procedure TAbstractDBDataset.FillDefaults(aDataSet: TDataSet);
 begin
 end;

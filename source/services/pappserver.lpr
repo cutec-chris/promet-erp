@@ -1,40 +1,23 @@
 program pappserver;
 uses
+  {$mode DELPHI}
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, CustApp, ubasedbclasses, general_nogui, LazFileUtils,
-  mORMot,mORMotDB,mORMotSQLite3,SynSQLite3,SynDBZeos,uEncrypt,SynDB,SynCommons,
-  mORMotHttpServer,uBaseDatasetInterfaces,SynLog;
+  Classes, SysUtils, CustApp, general_nogui,
+  uEncrypt, uBaseDatasetInterfaces,LazFileUtils,ubasedbclasses;
 
 type
-
-  { TSQLDBPrometConnectionProperties }
-
-  TSQLDBPrometConnectionProperties = class(TSQLDBZEOSConnectionProperties)
-  public
-    function SQLFieldCreate(const aField: TSQLDBColumnCreate;
-      var aAddPrimaryKey: RawUTF8): RawUTF8; override;
-  end;
-
   { TProcessManager }
-
   TProcessManager = class(TCustomApplication)
   protected
     procedure DoRun; override;
-    function AddConnection(aProp: string): TSQLDBConnectionProperties;
   public
     constructor Create(TheOwner: TComponent); override;
     destructor Destroy; override;
   end;
 var
   Application: TProcessManager;
-
-function TSQLDBPrometConnectionProperties.SQLFieldCreate(
-  const aField: TSQLDBColumnCreate; var aAddPrimaryKey: RawUTF8): RawUTF8;
-begin
-  Result:=inherited SQLFieldCreate(aField, aAddPrimaryKey);
-end;
 
 { TProcessManager }
 
@@ -43,7 +26,7 @@ begin
   inherited DoRun;
   sleep(1);
 end;
-
+{
 function TProcessManager.AddConnection(aProp: string): TSQLDBConnectionProperties;
 var
   Port: Integer;
@@ -94,26 +77,15 @@ begin
   Result := TSQLDBPrometConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
   Properties.Free;
 end;
-
+}
 constructor TProcessManager.Create(TheOwner: TComponent);
 var
-  Model: TSQLModel;
-  FDB: TSQLRestServerDB;
   ConfigPath, Mandant: String;
   ConfigFile: TStringList;
-  HttpServer: TSQLHttpServer;
-  aMapping: PSQLRecordPropertiesMapping;
   i: Integer;
 begin
   inherited Create(TheOwner);
   writeln('connecting...');
-  Model := TSQLModel.Create([TUser,TRights,TActiveUsers,TAuthSources,TOptions,TOption{,TUserfielddefs,TNumbersets,TNumberRanges,TNumberPools,TPayGroups}]);
-  Model.Root:='promet';
-  with TSQLLog.Family do begin
-     Level := LOG_VERBOSE; //LOG_STACKTRACE+[sllInfo,sllEnter,sllLeave,sllClient];
-     NoFile:=True;
-     EchoToConsole := LOG_VERBOSE; //LOG_STACKTRACE+[sllInfo,sllEnter,sllLeave,sllClient]; // log all events to the console
-   end;
   ConfigPath := GetOptionValue('config-path');
   if ConfigPath = '' then ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
   ConfigPath := AppendPathDelim(ConfigPath);
@@ -129,6 +101,7 @@ begin
         exit;
       end;
   end;
+  {
   uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);
   ConfigFile.Free;
   for i := 0 to length(Model.Tables)-1 do
@@ -137,8 +110,10 @@ begin
   SQLite3 := TSQLite3LibraryDynamic.Create;
   FDB := TSQLRestServerDB.Create(Model, ':memory:');
   FDB.DB.Synchronous := smOff;
+  //FDB.AcquireExecutionMode[execORMGet] := amBackgroundThread;
+  //FDB.AcquireExecutionMode[execORMWrite] := amBackgroundThread;
   writeln('checking database structure...');
-  FDB.CreateMissingTables(0,[itoNoAutoCreateGroups, itoNoAutoCreateUsers]);
+  FDB.CreateMissingTables(0,[itoNoAutoCreateGroups, itoNoAutoCreateUsers,itoNoCreateMissingField]);
   try
     HttpServer := TSQLHttpServer.Create('8085', [FDB],'+', useBidirSocket);
     //HttpServer.AccessControlAllowOrigin := '*'
@@ -149,6 +124,7 @@ begin
         exit;
       end;
   end;
+  }
   writeln('...done.');
 end;
 
