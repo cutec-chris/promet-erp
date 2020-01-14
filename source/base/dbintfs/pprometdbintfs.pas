@@ -8,7 +8,7 @@ unit pPrometDBIntfs;
 interface
 
 uses
-  uIntfStrConsts;
+  uIntfStrConsts, uData;
 
 implementation
 

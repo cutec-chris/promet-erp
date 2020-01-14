@@ -11,11 +11,15 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="1">
+    <Files Count="2">
       <Item1>
         <Filename Value="uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
       </Item1>
+      <Item2>
+        <Filename Value="udata.pas"/>
+        <UnitName Value="uData"/>
+      </Item2>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
