@@ -1,15 +1,16 @@
 program pappserver;
 uses
-  {$mode DELPHI}
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
   Classes, SysUtils, CustApp, general_nogui,
-  uEncrypt, uBaseDatasetInterfaces, pprometdbintfs,LazFileUtils;
+  uBaseDatasetInterfaces2, pprometdbintfs,LazFileUtils,ubasedbclasses,
+  fpjson,fpjsonrtti1,SQLite3Conn;
 
 type
   { TProcessManager }
   TProcessManager = class(TCustomApplication)
+  private
   protected
     procedure DoRun; override;
   public
@@ -83,6 +84,11 @@ var
   ConfigPath, Mandant: String;
   ConfigFile: TStringList;
   i: Integer;
+  User: TUser;
+  aJson: TJSONObject;
+  Streamer: TJSONStreamer;
+  JSONString: TJSONStringType;
+  Opt: TOption;
 begin
   inherited Create(TheOwner);
   writeln('connecting...');
@@ -101,6 +107,20 @@ begin
         exit;
       end;
   end;
+  User := TUser.Create;
+  User.NAME := 'It´se me, Mario';
+  Opt := TOption.Create;
+  Opt.OPTION:='TEST';
+  Opt.VALUE:='Jeah';
+  User.Options.Add(Opt);
+  User.Options.Add(Opt);
+  User.Options.Items[0].OPTION:='x';
+  Streamer := TJSONStreamer.Create(nil);
+  Streamer.Options:=Streamer.Options + [jsoStreamTlist];
+  for i := 1 to 1000 do
+    JSONString := Streamer.ObjectToJSONString(User);
+  WriteLn(JSONString);
+  Streamer.Free;
   {
   aObj := TOp
   uBaseDatasetInterfaces.Data := AddConnection(ConfigFile[1]);

@@ -5,7 +5,7 @@ unit ubasedbclasses;
 interface
 
 uses
-  Classes, SysUtils, uBaseDatasetInterfaces2, db;
+  Classes, SysUtils, uBaseDatasetInterfaces2, db, fgl;
 
 type
   TRawBlob = class
@@ -15,7 +15,11 @@ type
 
   TBaseDBDataset = class(TAbstractDBDataset2)
   public
-    constructor CreateEx(Module : TComponent;Owner : TComponent);
+    constructor CreateEx(Module : TComponent;Owner : TComponent);virtual;
+  end;
+  generic TList<T> = class
+    Items: array of T;
+    procedure Add(Value: T);
   end;
   TBaseDbList = class(TBaseDBDataSet)
   private
@@ -68,15 +72,15 @@ type
   end;
   TBaseDbDataSetClass = class of TBaseDbDataSet;
   TBaseDbListClass = class of TBaseDbList;
-  TOption = class(TBaseDBDataSet)
+  TOption = class(TBaseDBDataset)
   private
     FOption,FValue : string;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
   published
-    property OPTION : string index 60 read FOption;
-    property VALUE : string write FValue;
+    property OPTION : string index 60 read FOption write FOption;
+    property VALUE : string read FValue write FValue;
   end;
+  TOptions = specialize TList<TOption>;
   TUser = class;
 
   { TUser }
@@ -95,6 +99,7 @@ type
     FLoginActive: Boolean;
     FMail: string;
     FName: string;
+    FOptions: TOptions;
     FParent: Int64;
     FPaygroup: Int64;
     fPersNo: string;
@@ -107,9 +112,8 @@ type
     FWorktime: Integer;
     FPassword : string;
   public
-    procedure FillDefaults(aDataSet : TDataSet);override;
-    class procedure DefineFields(aDataSet: TDataSet); override;
     function CheckUserPasswort(aPassword : string) : Boolean;
+    constructor CreateEx(Module: TComponent; Owner: TComponent);override;
   published
     property TYP : string index 1 read FType write FType;
     property PARENT : Int64 read FParent write FParent;
@@ -134,13 +138,13 @@ type
     property REMOTEACCESS : Boolean read FRemoteAcc write FRemoteAcc;
     property LASTLOGIN : TDateTime read FLastLogin write FLastLogin;
     property AUTHSOURCE : string index 10 read FAuthSource write FAuthSource;
+    property Options : TOptions read FOptions write FOptions;
   end;
   TActiveUsers = class(TBaseDBDataSet)
   private
     FCOMMAND,FAccountNo,FName,FClient,FHost,FVersion: string;
     FEXPIRES: TDateTime;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
     function Delete : Boolean; override;
   published
     property ACCOUNTNO : string index 20 read FAccountNo write FAccountNo;
@@ -156,7 +160,6 @@ type
     FTTable,FTField,FTyp : string;
     FSize : Integer;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
   published
     property TTABLE : string index 25 read FTTable write FTTable;
     property TFIELD : string index 10 read FTField write FTField;
@@ -168,7 +171,6 @@ type
     FTablename,FTyp,FPool : string;
     FIncr,fActual,FStop : Integer;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
     function GetNewNumber(Numberset : string) : string;
     function HasNumberSet(Numberset : string) : Boolean;
   published
@@ -184,7 +186,6 @@ type
     FTablename,FTyp,FPool,FUse,FNotice,FCreatedBy : string;
     FIncr,FStop,FStart : Integer;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
     function NewRangefromPool(aPool, aName: string; aCount: Integer; aUse,
       aNotice: string): Boolean;
     function NewRangewithoutPool(aName: string; aFrom, aCount: Integer; aUse,
@@ -203,7 +204,6 @@ type
     FName,FTyp,FPool : string;
     FStart,fActual,FStop : Integer;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
   published
     property NAME : string index 25 read FName write FName;//Numberset
     property START: Integer read FStart write FStart;
@@ -215,7 +215,6 @@ type
     FName : string;
     FCosts,FValue : Double;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
   published
     property NAME : string index 60 read FName write Fname;
     property COSTS: Double read FCosts write FCosts;
@@ -225,7 +224,6 @@ type
   private
     FType,FName,FServer,FUser,FPassword,FFilter,FBase : string;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
     function Authenticate(aUser,aPassword : string) : Boolean;
   published
     property TYP : string index 4 read FType write FType;//LDAP
@@ -246,7 +244,6 @@ type
     FImage : TRawBlob;
   public
     AuthSources : TAuthSources;
-    class procedure DefineFields(aDataSet : TDataSet);override;
   published
     property NAME : string index 160 read FName write FName;
     property ADRESS : string read FAdress write FAdress;
@@ -279,8 +276,6 @@ type
     FRightName : string;
     fRights : SmallInt;
   public
-    class procedure DefineFields(aDataSet : TDataSet);override;
-    procedure ResetCache;
     function Right(Element: string;Recursive : Boolean = True;UseCache : Boolean = True) : Integer;
   published
     property RIGHTNAME : string index 20 read FRightName write FRightName;
@@ -475,32 +470,16 @@ type
 }
 implementation
 
+procedure TList.Add(Value: T);
+begin
+  SetLength(Items, Length(Items) + 1);
+  Items[Length(Items) - 1] := Value;
+end;
+
 { TBaseDBDataset }
 
 constructor TBaseDBDataset.CreateEx(Module: TComponent; Owner: TComponent);
 begin
-  inherited Create;
-end;
-
-{ TOptions }
-
-class procedure TOption.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='OPTIONS';
-end;
-
-{ TRights }
-
-class procedure TRights.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='RIGHTS';
-end;
-
-procedure TRights.ResetCache;
-begin
-
 end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean
@@ -509,49 +488,9 @@ begin
 
 end;
 
-{ TMandantDetails }
-
-class procedure TMandantDetails.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='MANDANTDETAILS';
-end;
-
-{ TAuthSources }
-
-class procedure TAuthSources.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='AUTHSOURCES';
-end;
-
 function TAuthSources.Authenticate(aUser, aPassword: string): Boolean;
 begin
 
-end;
-
-{ TPayGroups }
-
-class procedure TPayGroups.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='PAYGROUPS';
-end;
-
-{ TNumberPools }
-
-class procedure TNumberPools.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='NUMBERPOOLS';
-end;
-
-{ TNumberRanges }
-
-class procedure TNumberRanges.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='NUMBERRANGES';
 end;
 
 function TNumberRanges.NewRangefromPool(aPool, aName: string; aCount: Integer;
@@ -566,14 +505,6 @@ begin
 
 end;
 
-{ TNumbersets }
-
-class procedure TNumbersets.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='NUMBERS';
-end;
-
 function TNumbersets.GetNewNumber(Numberset: string): string;
 begin
 
@@ -584,41 +515,20 @@ begin
 
 end;
 
-{ TUserfielddefs }
-
-class procedure TUserfielddefs.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='USERFIELDS';
-end;
-
-{ TActiveUsers }
-
-class procedure TActiveUsers.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='ACTIVEUSERS';
-end;
-
 function TActiveUsers.Delete: Boolean;
 begin
   Result:=inherited Delete;
 end;
 
-procedure TUser.FillDefaults(aDataSet: TDataSet);
-begin
-  inherited FillDefaults(aDataSet);
-end;
-
-class procedure TUser.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    TableName:='USERS';
-end;
-
 function TUser.CheckUserPasswort(aPassword: string): Boolean;
 begin
 
+end;
+
+constructor TUser.CreateEx(Module: TComponent; Owner: TComponent);
+begin
+  inherited CreateEx(Module, Owner);
+  FOptions := TOptions.Create;
 end;
 
 { TBaseDbList }

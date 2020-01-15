@@ -24,7 +24,11 @@ unit uData;
 interface
 
 uses
-  Classes, SysUtils, uBaseDbInterface;
+  Classes, SysUtils;
+
+type
+  TBaseDBModule = class(TComponent)
+  end;
 
 var
   DataM : TBaseDBModule = nil;
@@ -35,9 +39,13 @@ implementation
 
 function Data: TBaseDBModule;
 begin
+  if not Assigned(DataM) then
+    DataM := TBaseDBModule.Create(nil);
   Result := DataM;
 end;
 
+finalization
+  FreeAndNil(DataM);
 end.
 
 

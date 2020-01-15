@@ -11,12 +11,12 @@
     </CompilerOptions>
     <Files Count="2">
       <Item1>
-        <Filename Value="ubasedbinterface.pas"/>
-        <UnitName Value="uBaseDBInterface"/>
-      </Item1>
-      <Item2>
         <Filename Value="ubasedbclasses.pas"/>
         <UnitName Value="ubasedbclasses"/>
+      </Item1>
+      <Item2>
+        <Filename Value="uprometorm.pas"/>
+        <UnitName Value="uprometorm"/>
       </Item2>
     </Files>
     <RequiredPkgs Count="2">
