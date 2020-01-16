@@ -43,10 +43,20 @@ type
     Id : TThreadID;
   end;
 
-  TSQLDBDataModule = class
+  { TSQLDBDataModule }
+
+  TSQLDBDataModule = class(TComponent)
+  private
+    FMandants: TStringList;
+    function GetMandants: TStringList;
   public
     Querys : array of TLockedQuery;
     Contexts : array of TContext;
+    ConfigPath : string;
+    Mandant : string;
+    procedure Connect;
+    function GetConnection(ConnectString : string) : TSQLConnection;
+    property Mandants : TStringList read GetMandants;
   end;
 
 var
@@ -54,6 +64,85 @@ var
   Data : TSQLDBDataModule;
 
 implementation
+
+uses uEncrypt;
+
+{ TSQLDBDataModule }
+
+function TSQLDBDataModule.GetMandants: TStringList;
+begin
+  if not Assigned(FMandants) then
+    FMandants := TStringList.Create;
+  if FMandants.Count=0 then
+    begin
+
+    end;
+end;
+
+procedure TSQLDBDataModule.Connect;
+var
+  ConfigFile: TStringList;
+  Port: Integer;
+  Properties : TStringList;
+  Protocol, User, Password, HostName, Database, tmp, FDatabaseDir: String;
+  FEData: Boolean;
+begin
+  ConfigFile := TStringList.Create;
+  ConfigFile.LoadFromFile(ConfigPath+Mandant+'.perml');
+end;
+
+function TSQLDBDataModule.GetConnection(ConnectString: string): TSQLConnection;
+var
+  Port: Integer;
+  Properties : TStringList;
+  Protocol, User, Password, HostName, Database, tmp, FDatabaseDir: String;
+  FEData: Boolean;
+begin
+  Properties := TStringList.Create;
+  Port:=0;
+  Properties.Clear;
+  Properties.Add('timeout=3');
+  Protocol:='';
+  User:='';
+  Password:='';
+  HostName:='';
+  Database:='';
+  tmp := ConnectString;
+  if copy(tmp,0,pos(';',tmp)-1) <> 'sqlite-3-edata' then
+    Protocol:=copy(tmp,0,pos(';',tmp)-1)
+  else
+    begin
+      Protocol:='sqlite-3';
+      FEData:=True;
+    end;
+  //Assert(Protocol<>'',strUnknownDbType);
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  HostName := copy(tmp,0,pos(';',tmp)-1);
+  if pos(':',HostName) > 0 then
+    begin
+      Port:=StrToInt(copy(HostName,pos(':',HostName)+1,length(HostName)));
+      HostName:=copy(HostName,0,pos(':',HostName)-1);
+    end
+  else if pos('/',HostName) > 0 then
+    begin
+      Port:=StrToInt(copy(HostName,pos('/',HostName)+1,length(HostName)));
+      HostName:=copy(HostName,0,pos('/',HostName)-1);
+    end;
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  Database:=copy(tmp,0,pos(';',tmp)-1);
+  FDatabaseDir:=ExtractFileDir(ExpandFileName(Database));
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  User := copy(tmp,0,pos(';',tmp)-1);
+  tmp := copy(tmp,pos(';',tmp)+1,length(tmp));
+  if copy(tmp,0,1) = 'x' then
+    Password := Decrypt(copy(tmp,2,length(tmp)),word(99998))
+  else
+    Password := tmp;
+  Result := TSQLConnector.Create(Self);
+
+  //Result := TSQLDBPrometConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
+  Properties.Free;
+end;
 
 { TLockedQuery }
 
@@ -97,7 +186,7 @@ begin
 end;
 
 initialization
-  Data := TSQLDBDataModule.Create;
+  Data := TSQLDBDataModule.Create(nil);
 finalization
   FreeAndNil(Data);
 end.
