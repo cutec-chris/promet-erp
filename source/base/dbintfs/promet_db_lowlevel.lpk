@@ -9,15 +9,19 @@
         <UnitOutputDirectory Value="lib/lowlevel/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="2">
+    <Files Count="3">
       <Item1>
         <Filename Value="ubasedbclasses.pas"/>
         <UnitName Value="ubasedbclasses"/>
       </Item1>
       <Item2>
         <Filename Value="uprometorm.pas"/>
-        <UnitName Value="uprometorm"/>
+        <UnitName Value="uPrometORM"/>
       </Item2>
+      <Item3>
+        <Filename Value="ubasestreamer.pas"/>
+        <UnitName Value="ubasestreamer"/>
+      </Item3>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>

@@ -8,7 +8,7 @@ unit promet_db_lowlevel;
 interface
 
 uses
-  ubasedbclasses, uPrometORM;
+  ubasedbclasses, uPrometORM, ubasestreamer;
 
 implementation
 
