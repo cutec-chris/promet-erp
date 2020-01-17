@@ -12,10 +12,17 @@ uses
   ubasestreamer;
 
 type
+  TContext = record
+    Transaction : TSQLTransaction;
+    Id : TThreadID;
+  end;
+
   { TSQLStreamer }
 
   TSQLStreamer = class(TBaseStreamer)
   private
+    FContext : TContext;
+    FFilter : string;
   public
     //we try to use this class with the same transaction/connection the whole time
     //so its added during Constructor when using it in another thread, it should be used with another Transaction
@@ -26,6 +33,7 @@ type
     procedure Load(Cascadic : Boolean);override;
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
     procedure Save(Cascadic : Boolean);override;
+    function Select(aFilter: string): Integer; overload; override;
   end;
 
   { TLockedQuery }
@@ -39,11 +47,6 @@ type
     destructor Destroy; override;
     procedure Lock;
     procedure Unlock;
-  end;
-
-  TContext = record
-    Transaction : TSQLTransaction;
-    Id : TThreadID;
   end;
 
   { TSQLDBDataModule }
@@ -200,7 +203,24 @@ end;
 { TSQLStreamer }
 
 constructor TSQLStreamer.Create(Context: TThreadID);
+var
+  i: Integer;
 begin
+  i := 0;
+  while i < length(Data.Contexts) do
+    begin
+      if Data.Contexts[i].Id = Context then
+        begin
+          FContext := Data.Contexts[i];
+          exit;
+        end;
+      inc(i);
+    end;
+  FContext.Id:=Context;
+  FContext.Transaction := TSQLTransaction.Create(nil);
+  Setlength(Data.Contexts,length(Data.Contexts)+1);
+  Data.Contexts[length(Data.Contexts)-1] := FContext;
+  FContext.Transaction.DataBase := Data.MainConnection;
 end;
 
 procedure TSQLStreamer.Load(Cascadic: Boolean);
@@ -211,6 +231,11 @@ end;
 procedure TSQLStreamer.Save(Cascadic: Boolean);
 begin
 
+end;
+
+function TSQLStreamer.Select(aFilter: string): Integer;
+begin
+  FFilter := aFilter;
 end;
 
 initialization
