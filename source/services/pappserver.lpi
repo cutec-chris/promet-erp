@@ -45,11 +45,15 @@
         <PackageName Value="general_nogui"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="2">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="uapiv2handling.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -83,7 +87,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="5">
+    <Exceptions Count="8">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -99,6 +103,15 @@
       <Item5>
         <Name Value="EHttpServerException"/>
       </Item5>
+      <Item6>
+        <Name Value="EHTTPRoute"/>
+      </Item6>
+      <Item7>
+        <Name Value="EHTTPServer"/>
+      </Item7>
+      <Item8>
+        <Name Value="EFPHTTPError"/>
+      </Item8>
     </Exceptions>
   </Debugging>
 </CONFIG>

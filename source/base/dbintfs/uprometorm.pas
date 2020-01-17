@@ -16,11 +16,10 @@ type
 
   TSQLStreamer = class(TBaseStreamer)
   private
-    FObject : TPersistent;
   public
     //we try to use this class with the same transaction/connection the whole time
     //so its added during Constructor when using it in another thread, it should be used with another Transaction
-    constructor Create(Context : TThreadID;Obj : TPersistent);
+    constructor Create(Context : TThreadID);
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
@@ -62,6 +61,7 @@ type
     procedure Connect;
     function GetConnection(ConnectString : string) : TSQLConnection;
     property Mandants : TStringList read GetMandants;
+    destructor Destroy; override;
   end;
 
 var
@@ -167,6 +167,12 @@ begin
   Properties.Free;
 end;
 
+destructor TSQLDBDataModule.Destroy;
+begin
+  FreeAndNil(MainConnection);
+  inherited Destroy;
+end;
+
 { TLockedQuery }
 
 constructor TLockedQuery.Create(aQuery: TSQLQuery);
@@ -193,9 +199,8 @@ end;
 
 { TSQLStreamer }
 
-constructor TSQLStreamer.Create(Context: TThreadID; Obj: TPersistent);
+constructor TSQLStreamer.Create(Context: TThreadID);
 begin
-  FObject := Obj;
 end;
 
 procedure TSQLStreamer.Load(Cascadic: Boolean);

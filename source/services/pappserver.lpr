@@ -3,37 +3,20 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, CustApp, general_nogui,
-  uBaseDatasetInterfaces2, pprometdbintfs,LazFileUtils,ubasedbclasses,uPrometORM;
+  Classes, SysUtils, CustApp, general_nogui, LazFileUtils, ubasedbclasses,
+  uPrometORM, httproute, fphttpapp, fpwebfile, HTTPDefs, uapiv2handling;
 
-type
-  { TProcessManager }
-  TProcessManager = class(TCustomApplication)
-  private
-  protected
-    procedure DoRun; override;
-  public
-    constructor Create(TheOwner: TComponent); override;
-    destructor Destroy; override;
-  end;
 var
-  Application: TProcessManager;
-
-{ TProcessManager }
-
-procedure TProcessManager.DoRun;
+  User: TUser;
 begin
-  inherited DoRun;
-  sleep(1);
-end;
-constructor TProcessManager.Create(TheOwner: TComponent);
-begin
-  inherited Create(TheOwner);
-  writeln('connecting...');
-  Data.ConfigPath := GetOptionValue('config-path');
+  Application.Port := 8085;
+  Application.Threaded := true;
+  Application.Initialize;
+  write('connecting...');
+  Data.ConfigPath := Application.GetOptionValue('config-path');
   if Data.ConfigPath = '' then Data.ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
   Data.ConfigPath := AppendPathDelim(Data.ConfigPath);
-  Data.Mandant := GetOptionValue('mandant');
+  Data.Mandant := Application.GetOptionValue('mandant');
   if Data.Mandant = '' then Data.Mandant := 'Standard';
   try
     Data.Connect;
@@ -44,17 +27,10 @@ begin
         exit;
       end;
   end;
-  writeln('...done.');
-end;
-
-destructor TProcessManager.Destroy;
-begin
-  inherited Destroy;
-end;
-
-begin
-  Application := TProcessManager.Create(nil);
+  writeln('done.');
+  User := TUser.Create(TSQLStreamer.Create(ThreadID));
+  if DirectoryExistsUTF8('web') then
+    RegisterFileLocation('*','web');
   Application.Run;
-  Application.Free;
 end.
 
