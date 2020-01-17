@@ -5,7 +5,11 @@ unit uPrometORM;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, SQLDB, MSSQLConn, SQLite3Conn,ubasestreamer;
+  Classes, SysUtils, TypInfo, SQLDB,
+  MSSQLConn,
+  SQLite3Conn,
+  PQConnection,
+  ubasestreamer;
 
 type
   { TSQLStreamer }
@@ -48,6 +52,7 @@ type
   TSQLDBDataModule = class(TComponent)
   private
     FMandants: TStringList;
+    MainConnection : TSQLConnection;
     function GetMandants: TStringList;
   public
     Querys : array of TLockedQuery;
@@ -89,6 +94,12 @@ var
 begin
   ConfigFile := TStringList.Create;
   ConfigFile.LoadFromFile(ConfigPath+Mandant+'.perml');
+  try
+    MainConnection := GetConnection(ConfigFile[1]);
+    MainConnection.Connected:=True;
+  finally
+    ConfigFile.Free;
+  end;
 end;
 
 function TSQLDBDataModule.GetConnection(ConnectString: string): TSQLConnection;
@@ -101,7 +112,6 @@ begin
   Properties := TStringList.Create;
   Port:=0;
   Properties.Clear;
-  Properties.Add('timeout=3');
   Protocol:='';
   User:='';
   Password:='';
@@ -139,8 +149,21 @@ begin
   else
     Password := tmp;
   Result := TSQLConnector.Create(Self);
-
-  //Result := TSQLDBPrometConnectionProperties.Create(Protocol+'://'+HostName+':'+IntToStr(Port),Database,User,Password);
+  if copy(Protocol,0,10)='postgresql' then
+    TSQLConnector(Result).ConnectorType:='PostgreSQL'
+  else if copy(Protocol,0,6)='sqlite' then
+    TSQLConnector(Result).ConnectorType:='SQLite3'
+  else if copy(Protocol,0,5)='mssql' then
+    TSQLConnector(Result).ConnectorType:='MSSQLServer'
+  else
+    raise Exception.Create('Unknown Database Server Type');
+  TSQLConnector(Result).HostName:=HostName;
+  TSQLConnector(Result).DatabaseName:=Database;
+  TSQLConnector(Result).UserName:=User;
+  TSQLConnector(Result).Password:=Password;
+  TSQLConnector(Result).Params.Assign(Properties);
+  TSQLConnector(Result).Params.Add('port='+IntToStr(Port));
+  TSQLConnector(Result).Params.Add('application_name=''Avamm''');;
   Properties.Free;
 end;
 

@@ -35,10 +35,8 @@ begin
   Data.ConfigPath := AppendPathDelim(Data.ConfigPath);
   Data.Mandant := GetOptionValue('mandant');
   if Data.Mandant = '' then Data.Mandant := 'Standard';
-
-  ConfigFile := TStringList.Create;
   try
-    ConfigFile.LoadFromFile(ConfigPath+Mandant+'.perml');
+    Data.Connect;
   except
     on e : exception do
       begin
