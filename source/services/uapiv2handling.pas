@@ -44,7 +44,7 @@ begin
       Response.Code:=401;
       Response.CodeText:='You must login first';
       User := TUser.Create(TSQLStreamer.Create(ThreadID));
-      User.Streamer.Select('NAME=Jemand');
+      User.Streamer.Select(User,'NAME=Jemand');
     end;
 end;
 

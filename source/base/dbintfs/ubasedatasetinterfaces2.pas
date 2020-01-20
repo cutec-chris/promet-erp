@@ -24,7 +24,7 @@ unit ubasedatasetinterfaces2;
 interface
 
 uses
-  Classes, SysUtils, DB, fpjsonrtti,ubasestreamer;
+  Classes, SysUtils, DB, fpjsonrtti, ubasestreamer;
 
 type
   { TAbstractDBDataset2 }
@@ -102,7 +102,6 @@ end;
 constructor TAbstractDBDataset2.Create(Streamer: TBaseStreamer);
 begin
   FStreamer := Streamer;
-  FStreamer.Obj := Self;
 end;
 
 procedure TAbstractDBDataset2.Open;

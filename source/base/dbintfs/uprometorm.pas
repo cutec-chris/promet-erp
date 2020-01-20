@@ -23,6 +23,8 @@ type
   private
     FContext : TContext;
     FFilter : string;
+    FJoins : TStringList;
+    function QuoteFields(aIn : string) : string;
   public
     //we try to use this class with the same transaction/connection the whole time
     //so its added during Constructor when using it in another thread, it should be used with another Transaction
@@ -30,10 +32,10 @@ type
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
-    procedure Load(Cascadic : Boolean);override;
+    procedure Load(Obj : TPersistent;Cascadic : Boolean);override;
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
-    procedure Save(Cascadic : Boolean);override;
-    function Select(aFilter: string): Integer; overload; override;
+    procedure Save(Obj : TPersistent;Cascadic : Boolean);override;
+    function Select(Obj: TPersistent; aFilter, aFields: string): Integer; overload; override;
   end;
 
   { TLockedQuery }
@@ -202,10 +204,16 @@ end;
 
 { TSQLStreamer }
 
+function TSQLStreamer.QuoteFields(aIn: string): string;
+begin
+  Result := aIn;
+end;
+
 constructor TSQLStreamer.Create(Context: TThreadID);
 var
   i: Integer;
 begin
+  FJoins := TStringList.Create;
   i := 0;
   while i < length(Data.Contexts) do
     begin
@@ -223,19 +231,22 @@ begin
   FContext.Transaction.DataBase := Data.MainConnection;
 end;
 
-procedure TSQLStreamer.Load(Cascadic: Boolean);
+procedure TSQLStreamer.Load(Obj: TPersistent; Cascadic: Boolean);
 begin
-
+  inherited Load(Obj, Cascadic);
 end;
 
-procedure TSQLStreamer.Save(Cascadic: Boolean);
+procedure TSQLStreamer.Save(Obj: TPersistent; Cascadic: Boolean);
 begin
-
+  inherited Save(Obj, Cascadic);
 end;
 
-function TSQLStreamer.Select(aFilter: string): Integer;
+function TSQLStreamer.Select(Obj: TPersistent; aFilter,aFields: string): Integer;
+var
+  tmp: String;
 begin
-  FFilter := aFilter;
+  tmp := 'select '+QuoteFields(aFields)+' from ';
+  inherited Select(Obj,aFilter,aFields);
 end;
 
 initialization
