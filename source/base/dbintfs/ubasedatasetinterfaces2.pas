@@ -43,7 +43,7 @@ type
     procedure SetActive(AValue: Boolean);
   protected
   public
-    constructor Create(Streamer : TBaseStreamer);
+    constructor Create(Streamer : TBaseStreamer);virtual;
     procedure Open;virtual;
     procedure Close;virtual;
     procedure Change;virtual;

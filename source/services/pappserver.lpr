@@ -6,8 +6,6 @@ uses
   Classes, SysUtils, CustApp, general_nogui, LazFileUtils, ubasedbclasses,
   uPrometORM, httproute, fphttpapp, fpwebfile, HTTPDefs, uapiv2handling;
 
-var
-  User: TUser;
 begin
   Application.Port := 8085;
   Application.Threaded := true;
@@ -28,7 +26,6 @@ begin
       end;
   end;
   writeln('done.');
-  User := TUser.Create(TSQLStreamer.Create(ThreadID));
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
   Application.Run;

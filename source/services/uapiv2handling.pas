@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM;
+  ubasedbclasses, uPrometORM,fpjsonrtti;
 
 type
 
@@ -36,6 +36,8 @@ procedure TAPIV2Module.DoHandleRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   User: TUser;
+  aStreamer: TJSONStreamer;
+  aOpt: TOption;
 begin
   Handled := False;
   if Session.Variables['auth'] <> 'true' then
@@ -43,8 +45,15 @@ begin
       Handled:=True;
       Response.Code:=401;
       Response.CodeText:='You must login first';
-      User := TUser.Create(TSQLStreamer.Create(ThreadID));
-      User.Streamer.Select(User,'NAME=Jemand');
+      User := TUser.Create;
+      Data.Select(User,'NAME=Jemand');
+      {aOpt := TOption.Create(nil);
+      aOpt.OPTION:='Key';
+      aOpt.VALUE:='Value';
+      User.Options.Add(aOpt);}
+      aStreamer := TJSONStreamer.Create(nil);
+      AResponse.Content:=aStreamer.ObjectToJSONString(User);
+      aStreamer.Free;
     end;
 end;
 

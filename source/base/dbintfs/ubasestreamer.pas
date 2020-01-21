@@ -5,7 +5,7 @@ unit ubasestreamer;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, fgl, RttiUtils;
+  Classes, SysUtils, TypInfo, Contnrs, RttiUtils;
 
 type
   TStreamingTyp = (stSelect,stRead,stWrite);
@@ -14,9 +14,11 @@ type
 
   TBaseStreamer = class(TComponent)
   protected
+  public
     procedure StreamObject(aObject : TObject;Action : TStreamingTyp);virtual;
+    procedure StreamClassProperty(Const AObject: TObject); virtual;
     procedure StreamCollection(Const ACollection: TCollection;Action : TStreamingTyp); virtual;abstract;
-    procedure StreamObjectList(AnObjectList: TFPSList;Action : TStreamingTyp); virtual;
+    procedure StreamObjectList(AnObjectList: TObjectList;Action : TStreamingTyp); virtual;
     procedure StreamTStringsArray(Const AStrings: TStrings;Action : TStreamingTyp); virtual;abstract;
     procedure StreamTStringsObject(Const AStrings: TStrings;Action : TStreamingTyp); virtual;abstract;
     procedure StreamTStrings(Const AStrings: TStrings;Action : TStreamingTyp); virtual;abstract;
@@ -24,7 +26,7 @@ type
 
     procedure StreamProperty(Const AObject : TObject; Const PropertyName : String;Action : TStreamingTyp); virtual;
     procedure StreamProperty(Const AObject : TObject; PropertyInfo : PPropInfo;Action : TStreamingTyp); virtual;abstract;
-  public
+
     procedure Load(Obj : TPersistent;Cascatic : Boolean = True);virtual;
     procedure Save(Obj : TPersistent;Cascatic : Boolean = True);virtual;
     function Select(Obj : TPersistent;aFilter : string;aFields : string = '*') : Integer;overload;virtual;
@@ -39,20 +41,30 @@ procedure TBaseStreamer.StreamObject(aObject: TObject; Action: TStreamingTyp);
 var
   PIL: TPropInfoList;
   I: Integer;
+  aPI: PPropInfo;
 begin
   If AObject is TStrings then
     StreamTStrings(Tstrings(AObject),Action)
   else If AObject is TCollection then
     StreamCollection(TCollection(AObject),Action)
-  else If AObject is TFPSList then
-    StreamObjectList(TFPSList(AObject),Action)
+  else If (AObject is TObjectList) then
+    StreamObjectList(TObjectList(AObject),Action)
   else
     begin
       PIL:=TPropInfoList.Create(AObject,tkProperties);
       try
         For I:=0 to PIL.Count-1 do
           begin
-            StreamProperty(AObject,PIL.Items[i],Action);
+            if PIL.Items[i]^.PropType^.Kind<>tkClass then
+              StreamProperty(AObject,PIL.Items[i],Action);
+          end;
+        For I:=0 to PIL.Count-1 do
+          begin
+            if PIL.Items[i]^.PropType^.Kind=tkClass then
+              begin
+                aPI := PIL.Items[i];
+                StreamObject(GetObjectProp(AObject,aPI),Action)
+              end
           end;
       finally
         FReeAndNil(Pil);
@@ -60,7 +72,12 @@ begin
     end;
 end;
 
-procedure TBaseStreamer.StreamObjectList(AnObjectList: TFPSList;
+procedure TBaseStreamer.StreamClassProperty(const AObject: TObject);
+begin
+
+end;
+
+procedure TBaseStreamer.StreamObjectList(AnObjectList: TObjectList;
   Action: TStreamingTyp);
 var
   i: Integer;

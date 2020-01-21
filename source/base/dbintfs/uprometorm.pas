@@ -17,27 +17,6 @@ type
     Id : TThreadID;
   end;
 
-  { TSQLStreamer }
-
-  TSQLStreamer = class(TBaseStreamer)
-  private
-    FContext : TContext;
-    FFilter : string;
-    FJoins : TStringList;
-    function QuoteFields(aIn : string) : string;
-  public
-    //we try to use this class with the same transaction/connection the whole time
-    //so its added during Constructor when using it in another thread, it should be used with another Transaction
-    constructor Create(Context : TThreadID);
-    //generates SQL to Fill all Published properties and Gerneric TFPGList Types
-    //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
-    //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
-    procedure Load(Obj : TPersistent;Cascadic : Boolean);override;
-    //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
-    procedure Save(Obj : TPersistent;Cascadic : Boolean);override;
-    function Select(Obj: TPersistent; aFilter, aFields: string): Integer; overload; override;
-  end;
-
   { TLockedQuery }
 
   TLockedQuery = class
@@ -65,6 +44,15 @@ type
     Mandant : string;
     procedure Connect;
     function GetConnection(ConnectString : string) : TSQLConnection;
+
+    //generates SQL to Fill all Published properties and Gerneric TFPGList Types
+    //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
+    //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
+    procedure Load(Obj : TPersistent;Cascadic : Boolean);
+    //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
+    procedure Save(Obj : TPersistent;Cascadic : Boolean);
+    function Select(Obj: TPersistent; aFilter : string; aFields: string = '*'): Integer;
+
     property Mandants : TStringList read GetMandants;
     destructor Destroy; override;
   end;
@@ -172,6 +160,22 @@ begin
   Properties.Free;
 end;
 
+procedure TSQLDBDataModule.Load(Obj: TPersistent; Cascadic: Boolean);
+begin
+
+end;
+
+procedure TSQLDBDataModule.Save(Obj: TPersistent; Cascadic: Boolean);
+begin
+
+end;
+
+function TSQLDBDataModule.Select(Obj: TPersistent; aFilter: string;
+  aFields: string): Integer;
+begin
+
+end;
+
 destructor TSQLDBDataModule.Destroy;
 begin
   FreeAndNil(MainConnection);
@@ -200,53 +204,6 @@ end;
 procedure TLockedQuery.Unlock;
 begin
   LeaveCriticalSection(cs);
-end;
-
-{ TSQLStreamer }
-
-function TSQLStreamer.QuoteFields(aIn: string): string;
-begin
-  Result := aIn;
-end;
-
-constructor TSQLStreamer.Create(Context: TThreadID);
-var
-  i: Integer;
-begin
-  FJoins := TStringList.Create;
-  i := 0;
-  while i < length(Data.Contexts) do
-    begin
-      if Data.Contexts[i].Id = Context then
-        begin
-          FContext := Data.Contexts[i];
-          exit;
-        end;
-      inc(i);
-    end;
-  FContext.Id:=Context;
-  FContext.Transaction := TSQLTransaction.Create(nil);
-  Setlength(Data.Contexts,length(Data.Contexts)+1);
-  Data.Contexts[length(Data.Contexts)-1] := FContext;
-  FContext.Transaction.DataBase := Data.MainConnection;
-end;
-
-procedure TSQLStreamer.Load(Obj: TPersistent; Cascadic: Boolean);
-begin
-  inherited Load(Obj, Cascadic);
-end;
-
-procedure TSQLStreamer.Save(Obj: TPersistent; Cascadic: Boolean);
-begin
-  inherited Save(Obj, Cascadic);
-end;
-
-function TSQLStreamer.Select(Obj: TPersistent; aFilter,aFields: string): Integer;
-var
-  tmp: String;
-begin
-  tmp := 'select '+QuoteFields(aFields)+' from ';
-  inherited Select(Obj,aFilter,aFields);
 end;
 
 initialization

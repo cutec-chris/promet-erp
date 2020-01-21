@@ -5,7 +5,7 @@ unit ubasedbclasses;
 interface
 
 uses
-  Classes, SysUtils, uBaseDatasetInterfaces2, db, fgl;
+  Classes, SysUtils, uBaseDatasetInterfaces2, db, Contnrs, ubasestreamer;
 
 type
   TRawBlob = class
@@ -80,7 +80,8 @@ type
     property OPTION : string index 60 read FOption write FOption;
     property VALUE : string read FValue write FValue;
   end;
-  TOptions = specialize TList<TOption>;
+  TOptions = class(TObjectList)
+  end;
   TUser = class;
 
   { TUser }
@@ -113,6 +114,7 @@ type
     FPassword : string;
   public
     function CheckUserPasswort(aPassword : string) : Boolean;
+    constructor Create;
     constructor CreateEx(Module: TComponent; Owner: TComponent);override;
   published
     property TYP : string index 1 read FType write FType;
@@ -525,10 +527,14 @@ begin
 
 end;
 
+constructor TUser.Create;
+begin
+  FOptions := TOptions.Create;
+end;
+
 constructor TUser.CreateEx(Module: TComponent; Owner: TComponent);
 begin
   inherited CreateEx(Module, Owner);
-  FOptions := TOptions.Create;
 end;
 
 { TBaseDbList }
