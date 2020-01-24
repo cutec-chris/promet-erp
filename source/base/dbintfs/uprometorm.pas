@@ -5,11 +5,11 @@ unit uPrometORM;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, SQLDB,
+  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,
   MSSQLConn,
   SQLite3Conn,
   PQConnection,
-  ubasestreamer;
+  ubasedatasetinterfaces2;
 
 type
   TContext = record
@@ -30,13 +30,31 @@ type
     procedure Unlock;
   end;
 
+  { TQueryTable }
+
+  TQueryTable = class(TObjectList)
+  private
+    FFields: TStrings;
+    FTableName: string;
+    function GetTable(Table : Integer): TQueryTable;
+    procedure SetTableName(AValue: string);
+  public
+    constructor Create(aClass : TClass);
+    destructor Destroy; override;
+    property Fields : TStrings read FFields;
+    property TableName : string read FTableName write SetTableName;
+    property SubTables[Table : Integer] : TQueryTable read GetTable;
+  end;
+
   { TSQLDBDataModule }
 
   TSQLDBDataModule = class(TComponent)
   private
     FMandants: TStringList;
+    FTables : array of TQueryTable;
     MainConnection : TSQLConnection;
     function GetMandants: TStringList;
+    function GetTable(aClass: TClass): TQueryTable;
   public
     Querys : array of TLockedQuery;
     Contexts : array of TContext;
@@ -44,14 +62,13 @@ type
     Mandant : string;
     procedure Connect;
     function GetConnection(ConnectString : string) : TSQLConnection;
-
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
     procedure Load(Obj : TPersistent;Cascadic : Boolean);
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
     procedure Save(Obj : TPersistent;Cascadic : Boolean);
-    function Select(Obj: TPersistent; aFilter : string; aFields: string = '*'): Integer;
+    function Select(Obj: TClass; aFilter: string; aFields: string): Integer;
 
     property Mandants : TStringList read GetMandants;
     destructor Destroy; override;
@@ -65,6 +82,61 @@ implementation
 
 uses uEncrypt;
 
+{ TQueryTable }
+
+procedure TQueryTable.SetTableName(AValue: string);
+begin
+  if FTableName=AValue then Exit;
+  FTableName:=AValue;
+end;
+
+function TQueryTable.GetTable(Table : Integer): TQueryTable;
+begin
+  Result := Items[Table] as TQueryTable;
+end;
+
+constructor TQueryTable.Create(aClass: TClass);
+  procedure ListClassProperties(Obj: TClass;Prefix : string);
+  var
+    ctx: TRttiContext;
+    objType: TRttiType;
+    Prop: TRttiProperty;
+    aTyp, bTyp: TClass;
+  begin
+    ctx := TRttiContext.Create;
+    objType := ctx.GetType(Obj.ClassInfo);
+     for Prop in objType.GetProperties do
+       begin
+         Writeln(Format('"%s"."%s"',[Uppercase(Prefix),Uppercase(Prop.Name)]));
+         if (Prop.PropertyType.TypeKind=tkClass) then
+           begin
+             if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
+               begin
+                 aTyp := TRttiInstanceType(Prop.PropertyType).MetaClassType;
+                 try
+                   bTyp := TAbstractMasterDetail(aTyp).GetObjectTyp;
+                   Add(TQueryTable.Create(bTyp))
+                 except
+                   //on e : exception do
+                   //  debugln(e.message);
+                 end;
+               end;
+           end;
+       end;
+  end;
+begin
+  inherited Create(True);
+  FFields := TStringList.Create;
+  FTableName:=copy(aClass.ClassName,2,length(aClass.ClassName));
+  ListClassProperties(aClass,copy(aClass.ClassName,2,length(aClass.ClassName)));
+end;
+
+destructor TQueryTable.Destroy;
+begin
+  FFields.Free;
+  inherited Destroy;
+end;
+
 { TSQLDBDataModule }
 
 function TSQLDBDataModule.GetMandants: TStringList;
@@ -75,6 +147,21 @@ begin
     begin
 
     end;
+end;
+
+function TSQLDBDataModule.GetTable(aClass : TClass): TQueryTable;
+var
+  i: Integer;
+begin
+  for i := 0 to length(FTables)-1 do
+    if FTables[i].TableName=copy(aClass.ClassName,2,length(aClass.ClassName)) then
+      begin
+        Result := FTables[i];
+        exit;
+      end;
+  Result := TQueryTable.Create(aClass);
+  Setlength(FTables,length(FTables)+1);
+  FTables[length(Ftables)-1] := Result;
 end;
 
 procedure TSQLDBDataModule.Connect;
@@ -170,10 +257,12 @@ begin
 
 end;
 
-function TSQLDBDataModule.Select(Obj: TPersistent; aFilter: string;
+function TSQLDBDataModule.Select(Obj: TClass; aFilter: string;
   aFields: string): Integer;
+var
+  aTable: TQueryTable;
 begin
-
+  aTable := GetTable(Obj);
 end;
 
 destructor TSQLDBDataModule.Destroy;

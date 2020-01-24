@@ -24,7 +24,7 @@ unit ubasedatasetinterfaces2;
 interface
 
 uses
-  Classes, SysUtils, DB, fpjsonrtti, ubasestreamer;
+  Classes, SysUtils, DB, fpjsonrtti, Contnrs;
 
 type
   { TAbstractDBDataset2 }
@@ -33,7 +33,6 @@ type
   private
     FChanged: Boolean;
     FConnection: TComponent;
-    FStreamer: TBaseStreamer;
     FId: Int64;
     FTableName: string;
     FTimestampd: TDateTime;
@@ -43,7 +42,6 @@ type
     procedure SetActive(AValue: Boolean);
   protected
   public
-    constructor Create(Streamer : TBaseStreamer);virtual;
     procedure Open;virtual;
     procedure Close;virtual;
     procedure Change;virtual;
@@ -70,10 +68,14 @@ type
     function FieldByName(const aFieldName : string) : db.TField;virtual;
     property Changed : Boolean read FChanged;
     property Active : Boolean read GetActive write SetActive;
-    property Streamer : TBaseStreamer read FStreamer write FStreamer;
   published
     property SQL_ID : Int64 read FId write FId;
     property TIMESTAMPD : TDateTime read FTimestampd write FTimestampd;
+  end;
+
+  TAbstractMasterDetail = class(TObjectList)
+  public
+    class function GetObjectTyp : TClass;virtual;abstract;
   end;
 
 implementation
@@ -97,11 +99,6 @@ end;
 
 procedure TAbstractDBDataset2.SetActive(AValue: Boolean);
 begin
-end;
-
-constructor TAbstractDBDataset2.Create(Streamer: TBaseStreamer);
-begin
-  FStreamer := Streamer;
 end;
 
 procedure TAbstractDBDataset2.Open;

@@ -80,7 +80,12 @@ type
     property OPTION : string index 60 read FOption write FOption;
     property VALUE : string read FValue write FValue;
   end;
-  TOptions = class(TObjectList)
+
+  { TOptions }
+
+  TOptions = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
   TUser = class;
 
@@ -471,6 +476,13 @@ type
   end;
 }
 implementation
+
+{ TOptions }
+
+class function TOptions.GetObjectTyp: TClass;
+begin
+  Result := TOption;
+end;
 
 procedure TList.Add(Value: T);
 begin

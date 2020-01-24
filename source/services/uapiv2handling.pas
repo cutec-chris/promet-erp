@@ -46,7 +46,7 @@ begin
       Response.Code:=401;
       Response.CodeText:='You must login first';
       User := TUser.Create;
-      Data.Select(User,'NAME=Jemand');
+      Data.Select(TUser,'NAME=Jemand','NAME');
       {aOpt := TOption.Create(nil);
       aOpt.OPTION:='Key';
       aOpt.VALUE:='Value';

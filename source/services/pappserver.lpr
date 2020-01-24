@@ -10,6 +10,7 @@ begin
   Application.Port := 8085;
   Application.Threaded := true;
   Application.Initialize;
+  {
   write('connecting...');
   Data.ConfigPath := Application.GetOptionValue('config-path');
   if Data.ConfigPath = '' then Data.ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
@@ -26,6 +27,9 @@ begin
       end;
   end;
   writeln('done.');
+  }
+  Data.Select(TUser,'NAME=Jemand','NAME');
+
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
   Application.Run;
