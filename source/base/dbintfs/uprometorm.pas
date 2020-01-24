@@ -5,7 +5,7 @@ unit uPrometORM;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,
+  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,memds,
   MSSQLConn,
   SQLite3Conn,
   PQConnection,
@@ -44,6 +44,7 @@ type
     property Fields : TStrings read FFields;
     property TableName : string read FTableName write SetTableName;
     property SubTables[Table : Integer] : TQueryTable read GetTable;
+    function BuildSelect(aFilter,aFields : string) : string;
   end;
 
   { TSQLDBDataModule }
@@ -62,13 +63,14 @@ type
     Mandant : string;
     procedure Connect;
     function GetConnection(ConnectString : string) : TSQLConnection;
+    function FindDataSet(aThreadId : TThreadID;SQL : string) : TLockedQuery;
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
-    procedure Load(Obj : TPersistent;Cascadic : Boolean);
+    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean);
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
-    procedure Save(Obj : TPersistent;Cascadic : Boolean);
-    function Select(Obj: TClass; aFilter: string; aFields: string): Integer;
+    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean);
+    function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;
 
     property Mandants : TStringList read GetMandants;
     destructor Destroy; override;
@@ -107,7 +109,7 @@ constructor TQueryTable.Create(aClass: TClass);
     objType := ctx.GetType(Obj.ClassInfo);
      for Prop in objType.GetProperties do
        begin
-         Writeln(Format('"%s"."%s"',[Uppercase(Prefix),Uppercase(Prop.Name)]));
+         Fields.Add(Prop.Name);
          if (Prop.PropertyType.TypeKind=tkClass) then
            begin
              if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
@@ -135,6 +137,11 @@ destructor TQueryTable.Destroy;
 begin
   FFields.Free;
   inherited Destroy;
+end;
+
+function TQueryTable.BuildSelect(aFilter, aFields: string): string;
+begin
+
 end;
 
 { TSQLDBDataModule }
@@ -247,22 +254,39 @@ begin
   Properties.Free;
 end;
 
-procedure TSQLDBDataModule.Load(Obj: TPersistent; Cascadic: Boolean);
+function TSQLDBDataModule.FindDataSet(aThreadId: TThreadID; SQL: string
+  ): TLockedQuery;
 begin
-
+  Result := nil;
 end;
 
-procedure TSQLDBDataModule.Save(Obj: TPersistent; Cascadic: Boolean);
-begin
-
-end;
-
-function TSQLDBDataModule.Select(Obj: TClass; aFilter: string;
-  aFields: string): Integer;
+procedure TSQLDBDataModule.Load(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
 var
   aTable: TQueryTable;
 begin
+  aTable := GetTable(Obj.ClassType);
+end;
+
+procedure TSQLDBDataModule.Save(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
+var
+  aTable: TQueryTable;
+begin
+  aTable := GetTable(Obj.ClassType);
+end;
+
+function TSQLDBDataModule.Select(Obj: TClass; aFilter: string; aFields: string
+  ): TMemDataset;
+var
+  aTable: TQueryTable;
+  aDataSet: TLockedQuery;
+begin
   aTable := GetTable(Obj);
+  aDataSet := FindDataSet(ThreadID,aTable.BuildSelect(aFilter,aFields));
+  aDataSet.Query.Open;
+  Result := TMemDataset.Create(nil);
+  Result.CopyFromDataset(aDataSet.Query);
+  aDataSet.Query.Close;
+  aDataSet.Unlock;
 end;
 
 destructor TSQLDBDataModule.Destroy;
