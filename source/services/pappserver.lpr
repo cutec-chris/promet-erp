@@ -3,14 +3,16 @@ uses
   {$IFDEF UNIX}
   cthreads,
   {$ENDIF}
-  Classes, SysUtils, CustApp, general_nogui, LazFileUtils, ubasedbclasses,
-  uPrometORM, httproute, fphttpapp, fpwebfile, HTTPDefs, uapiv2handling;
+  Classes, SysUtils, CustApp, general_nogui, memds, LazFileUtils,
+  ubasedbclasses, uPrometORM, httproute, fphttpapp, fpwebfile, HTTPDefs,
+  uapiv2handling;
 
+var
+  aUsers: TMemDataset;
 begin
   Application.Port := 8085;
   Application.Threaded := true;
   Application.Initialize;
-  {
   write('connecting...');
   Data.ConfigPath := Application.GetOptionValue('config-path');
   if Data.ConfigPath = '' then Data.ConfigPath:=AppendPathDelim(GetAppConfigDir(True))+'prometerp';
@@ -27,8 +29,13 @@ begin
       end;
   end;
   writeln('done.');
-  }
-  Data.Select(TUser,'NAME=Jemand','NAME');
+  aUsers := Data.Select(TUser,'NAME=Jemand','NAME');
+  aUsers.First;
+  while not aUsers.EOF do
+    begin
+      writeln(aUsers.FieldByName('NAME').AsString);
+      aUsers.Next;
+    end;
 
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');

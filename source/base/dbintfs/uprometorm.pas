@@ -5,7 +5,7 @@ unit uPrometORM;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,memds,
+  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,memds,ubasedbclasses,
   MSSQLConn,
   SQLite3Conn,
   PQConnection,
@@ -26,7 +26,7 @@ type
     Query : TSQLQuery;
     constructor Create(aQuery : TSQLQuery);
     destructor Destroy; override;
-    procedure Lock;
+    function Lock : Boolean;
     procedure Unlock;
   end;
 
@@ -38,6 +38,7 @@ type
     FTableName: string;
     function GetTable(Table : Integer): TQueryTable;
     procedure SetTableName(AValue: string);
+    function QuoteField(aField : string) : string;
   public
     constructor Create(aClass : TClass);
     destructor Destroy; override;
@@ -92,6 +93,11 @@ begin
   FTableName:=AValue;
 end;
 
+function TQueryTable.QuoteField(aField: string): string;
+begin
+  Result := '"'+aField+'"';
+end;
+
 function TQueryTable.GetTable(Table : Integer): TQueryTable;
 begin
   Result := Items[Table] as TQueryTable;
@@ -129,7 +135,9 @@ constructor TQueryTable.Create(aClass: TClass);
 begin
   inherited Create(True);
   FFields := TStringList.Create;
-  FTableName:=copy(aClass.ClassName,2,length(aClass.ClassName));
+  if aClass.InheritsFrom(TBaseDBDataset) then
+    FTableName:=TBaseDBDataset(aClass).GetRealTableName
+  else FTableName:=copy(aClass.ClassName,2,length(aClass.ClassName));
   ListClassProperties(aClass,copy(aClass.ClassName,2,length(aClass.ClassName)));
 end;
 
@@ -140,8 +148,70 @@ begin
 end;
 
 function TQueryTable.BuildSelect(aFilter, aFields: string): string;
+var
+  ToFindFields,FoundFields,JoinedTables : TStringlist;
+  tmp: String;
+  i: Integer;
+  function RecoursiveFindField(Table : TQueryTable;Field : string) : Boolean;
+  var
+    bTableName , aField: string;
+    i: Integer;
+  begin
+    Result := False;
+    if pos('.',Field)>0 then
+      begin
+        bTableName := copy(Field,0,pos('.',Field)-1);
+        aField := copy(Field,pos('.',Field)+1,length(Field));
+      end
+    else
+      begin
+        aField := Field;
+        bTableName:=TableName;
+      end;
+    if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>0) then
+      begin
+        FoundFields.Add(QuoteField(bTableName)+'.'+QuoteField(aField));
+        ToFindFields.Delete(ToFindFields.IndexOf(Field));
+        JoinedTables.AddPair(QuoteField(TableName),QuoteField(bTableName));
+        Result := True;
+        exit;
+      end;
+    for i := 0 to Count-1 do
+      begin
+        if RecoursiveFindField(TQueryTable(Items[i]),Field) then
+          begin
+            Result := True;
+            exit;
+          end;
+      end;
+  end;
 begin
-
+  ToFindFields := TStringList.Create;
+  FoundFields := TStringList.Create;
+  JoinedTables := TStringList.Create;
+  try
+    ToFindFields.Delimiter:=',';
+    ToFindFields.DelimitedText:=aFields;
+    while ToFindFields.Count>0 do
+      if not RecoursiveFindField(Self,ToFindFields[0]) then
+        raise Exception.Create('Unable to build Select, Field "'+ToFindFields[0]+'" not found');
+    FoundFields.Delimiter:=',';
+    tmp := '';
+    for i := 0 to FoundFields.Count-1 do
+      tmp := FoundFields[i]+',';
+    Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
+    JoinedTables.Delete(0);
+    while JoinedTables.Count>0 do
+      begin
+        Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+        JoinedTables.Delete(0);
+      end;
+  finally
+    ToFindFields.Free;
+    FoundFields.Free;
+    JoinedTables.Free;
+  end;
+  writeln(Result);
 end;
 
 { TSQLDBDataModule }
@@ -256,8 +326,46 @@ end;
 
 function TSQLDBDataModule.FindDataSet(aThreadId: TThreadID; SQL: string
   ): TLockedQuery;
+var
+  aQuery: TLockedQuery;
+  i: Integer;
+  procedure SetupTransaction(Query : TSQLQuery);
+  var
+    aContext: ^TContext;
+    a: Integer;
+  begin
+    for a := 0 to length(Contexts)-1 do
+      if Contexts[a].Id = aThreadId then
+        begin
+          Query.Transaction := Contexts[a].Transaction;
+//          Query.DataBase := Query.Transaction.DataBase;
+          exit;
+        end;
+    Setlength(Contexts,length(Contexts)+1);
+    aContext := @Contexts[length(Contexts)-1];
+    aContext^.Transaction := TSQLTransaction.Create(MainConnection);
+    aContext^.Id:=aThreadId;
+    aContext^.Transaction.DataBase := MainConnection;
+    Query.DataBase := MainConnection;
+  end;
+
 begin
   Result := nil;
+  for i := 0 to length(Querys)-1 do
+    if (Querys[i].Query.SQL.Text = SQL)
+    and (Querys[i].Lock) then
+      begin
+        Result := Querys[i];
+        SetupTransaction(Result.Query);
+        exit;
+      end;
+  aQuery := TLockedQuery.Create(TSQLQuery.Create(MainConnection));
+  aQuery.Lock;
+  aQuery.Query.SQL.Text:=SQL;
+  Setlength(Querys,length(Querys)+1);
+  Querys[length(Querys)-1] := aQuery;
+  SetupTransaction(aQuery.Query);
+  Result := aQuery;
 end;
 
 procedure TSQLDBDataModule.Load(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
@@ -280,13 +388,16 @@ var
   aTable: TQueryTable;
   aDataSet: TLockedQuery;
 begin
+  Result := TMemDataset.Create(nil);
   aTable := GetTable(Obj);
   aDataSet := FindDataSet(ThreadID,aTable.BuildSelect(aFilter,aFields));
-  aDataSet.Query.Open;
-  Result := TMemDataset.Create(nil);
-  Result.CopyFromDataset(aDataSet.Query);
-  aDataSet.Query.Close;
-  aDataSet.Unlock;
+  if Assigned(aDataSet) then
+    begin
+      aDataSet.Query.Open;
+      Result.CopyFromDataset(aDataSet.Query);
+      aDataSet.Query.Close;
+      aDataSet.Unlock;
+    end;
 end;
 
 destructor TSQLDBDataModule.Destroy;
@@ -309,9 +420,9 @@ begin
   inherited Destroy;
 end;
 
-procedure TLockedQuery.Lock;
+function TLockedQuery.Lock: Boolean;
 begin
-  EnterCriticalSection(cs);
+  Result := TryEnterCriticalSection(cs) <> 0;
 end;
 
 procedure TLockedQuery.Unlock;

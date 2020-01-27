@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM,fpjsonrtti;
+  ubasedbclasses, uPrometORM,fpjsonrtti, memds;
 
 type
 
@@ -38,6 +38,7 @@ var
   User: TUser;
   aStreamer: TJSONStreamer;
   aOpt: TOption;
+  aUsers: TMemDataset;
 begin
   Handled := False;
   if Session.Variables['auth'] <> 'true' then
@@ -46,11 +47,14 @@ begin
       Response.Code:=401;
       Response.CodeText:='You must login first';
       User := TUser.Create;
-      Data.Select(TUser,'NAME=Jemand','NAME');
+      aUsers := Data.Select(TUser,'NAME=Jemand','NAME');
+      if aUsers.RecordCount=1 then
+        begin
       {aOpt := TOption.Create(nil);
       aOpt.OPTION:='Key';
       aOpt.VALUE:='Value';
       User.Options.Add(aOpt);}
+        end;
       aStreamer := TJSONStreamer.Create(nil);
       AResponse.Content:=aStreamer.ObjectToJSONString(User);
       aStreamer.Free;

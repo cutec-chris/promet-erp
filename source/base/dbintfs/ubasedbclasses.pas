@@ -16,6 +16,7 @@ type
   TBaseDBDataset = class(TAbstractDBDataset2)
   public
     constructor CreateEx(Module : TComponent;Owner : TComponent);virtual;
+    class function GetRealTableName : string;virtual;
   end;
   generic TList<T> = class
     Items: array of T;
@@ -80,14 +81,10 @@ type
     property OPTION : string index 60 read FOption write FOption;
     property VALUE : string read FValue write FValue;
   end;
-
-  { TOptions }
-
   TOptions = class(TAbstractMasterDetail)
   public
     class function GetObjectTyp: TClass; override;
   end;
-  TUser = class;
 
   { TUser }
 
@@ -121,6 +118,7 @@ type
     function CheckUserPasswort(aPassword : string) : Boolean;
     constructor Create;
     constructor CreateEx(Module: TComponent; Owner: TComponent);override;
+    class function GetRealTableName: string; override;
   published
     property TYP : string index 1 read FType write FType;
     property PARENT : Int64 read FParent write FParent;
@@ -496,6 +494,13 @@ constructor TBaseDBDataset.CreateEx(Module: TComponent; Owner: TComponent);
 begin
 end;
 
+class function TBaseDBDataset.GetRealTableName: string;
+begin
+  Result := Self.ClassName;
+  if copy(Result,0,1)='T' then
+    Result := copy(Result,2,length(Result));
+end;
+
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean
   ): Integer;
 begin
@@ -547,6 +552,11 @@ end;
 constructor TUser.CreateEx(Module: TComponent; Owner: TComponent);
 begin
   inherited CreateEx(Module, Owner);
+end;
+
+class function TUser.GetRealTableName: string;
+begin
+  Result:='USERS';
 end;
 
 { TBaseDbList }
