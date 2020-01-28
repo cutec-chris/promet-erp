@@ -49,6 +49,7 @@ type
     property Count : Integer read GetCount;
     property FullCount : Integer read GetFullCount;
     property Connection : TComponent read FConnection;
+    class function GetRealTableName : string;virtual;
     property TableName : string read FTableName write FTableName;
     procedure CascadicPost;virtual;
     procedure CascadicCancel;virtual;
@@ -117,6 +118,13 @@ end;
 procedure TAbstractDBDataset2.UnChange;
 begin
   FChanged:=False;
+end;
+
+class function TAbstractDBDataset2.GetRealTableName: string;
+begin
+  Result := Self.ClassName;
+  if copy(Result,0,1)='T' then
+    Result := copy(Result,2,length(Result));
 end;
 
 procedure TAbstractDBDataset2.CascadicPost;

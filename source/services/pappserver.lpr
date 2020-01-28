@@ -36,6 +36,8 @@ begin
       writeln(aUsers.FieldByName('NAME').AsString);
       aUsers.Next;
     end;
+  aUsers.Free;
+  aUsers := Data.Select(TUser,'NAME=Jemandanders','NAME');
 
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');

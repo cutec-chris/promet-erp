@@ -16,7 +16,6 @@ type
   TBaseDBDataset = class(TAbstractDBDataset2)
   public
     constructor CreateEx(Module : TComponent;Owner : TComponent);virtual;
-    class function GetRealTableName : string;virtual;
   end;
   generic TList<T> = class
     Items: array of T;
@@ -492,13 +491,6 @@ end;
 
 constructor TBaseDBDataset.CreateEx(Module: TComponent; Owner: TComponent);
 begin
-end;
-
-class function TBaseDBDataset.GetRealTableName: string;
-begin
-  Result := Self.ClassName;
-  if copy(Result,0,1)='T' then
-    Result := copy(Result,2,length(Result));
 end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean
