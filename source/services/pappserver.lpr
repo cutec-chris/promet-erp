@@ -37,8 +37,14 @@ begin
       aUsers.Next;
     end;
   aUsers.Free;
-  aUsers := Data.Select(TUser,'NAME=Jemandanders','NAME');
-
+  aUsers := Data.Select(TUser,'NAME=Gast','NAME');
+  aUsers.First;
+  while not aUsers.EOF do
+    begin
+      writeln(aUsers.FieldByName('NAME').AsString);
+      aUsers.Next;
+    end;
+  aUsers.Free;
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
   Application.Run;

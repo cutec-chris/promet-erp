@@ -377,7 +377,7 @@ var
       if Contexts[a].Id = aThreadId then
         begin
           Query.Transaction := Contexts[a].Transaction;
-//          Query.DataBase := Query.Transaction.DataBase;
+          Query.DataBase := Query.Transaction.DataBase;
           exit;
         end;
     Setlength(Contexts,length(Contexts)+1);
@@ -391,7 +391,7 @@ var
 begin
   Result := nil;
   for i := 0 to length(Querys)-1 do
-    if (Querys[i].Query.SQL.Text = SQL)
+    if (Querys[i].Query.SQL.Text = SQL+LineEnding)
     and (Querys[i].Lock) then
       begin
         Result := Querys[i];
