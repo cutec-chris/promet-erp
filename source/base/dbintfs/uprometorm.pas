@@ -47,6 +47,7 @@ type
     property TableName : string read FTableName write SetTableName;
     property SubTables[Table : Integer] : TQueryTable read GetTable;
     function BuildSelect(aFilter,aFields : string;Params : TStringList) : string;
+    function BuildLoad(aSelector : Variant;CascadicIndex : Integer = 0;aParams : TStringList = nil) : string;
   end;
 
   { TSQLDBDataModule }
@@ -71,9 +72,9 @@ type
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
-    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean);
+    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
-    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean);
+    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);
     function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;
 
     property Mandants : TStringList read GetMandants;
@@ -253,6 +254,12 @@ begin
   writeln(Result);
 end;
 
+function TQueryTable.BuildLoad(aSelector: Variant; CascadicIndex: Integer;
+  aParams: TStringList): string;
+begin
+  Result := '';
+end;
+
 { TSQLDBDataModule }
 
 function TSQLDBDataModule.GetMandants: TStringList;
@@ -279,7 +286,6 @@ begin
   Setlength(FTables,length(FTables)+1);
   FTables[length(Ftables)-1] := Result;
 end;
-
 procedure TSQLDBDataModule.Connect;
 var
   ConfigFile: TStringList;
@@ -297,7 +303,6 @@ begin
     ConfigFile.Free;
   end;
 end;
-
 function TSQLDBDataModule.GetConnection(ConnectString: string): TSQLConnection;
 var
   Port: Integer;
@@ -362,7 +367,6 @@ begin
   TSQLConnector(Result).Params.Add('application_name=''Avamm''');;
   Properties.Free;
 end;
-
 function TSQLDBDataModule.FindDataSet(aThreadId: TThreadID; SQL: string
   ): TLockedQuery;
 var
@@ -406,14 +410,37 @@ begin
   SetupTransaction(aQuery.Query);
   Result := aQuery;
 end;
-
 procedure TSQLDBDataModule.Load(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
 var
   aTable: TQueryTable;
+  aDataSet: TLockedQuery;
+  actCascade : Integer = 1;
+  bParams: TStringList;
+  actLoad: String;
+  i: Integer;
 begin
   aTable := GetTable(Obj.ClassType);
-end;
+  bParams := TStringList.Create;
+  actLoad := aTable.BuildLoad(Selector,0,bParams);
+  while actLoad <> '' do
+    begin
+      aDataSet := FindDataSet(ThreadID,actLoad);
+      if Assigned(aDataSet) then
+        begin
+          for i := 0 to bParams.Count-1 do
+            aDataSet.Query.Params.ParamValues[bParams.Names[i]]:=bParams.ValueFromIndex[i];
+          aDataSet.Query.Open;
+          //Fill in Class
 
+
+          aDataSet.Query.Close;
+          aDataSet.Unlock;
+          actLoad := aTable.BuildLoad(Selector,actCascade,bParams);
+          inc(actCascade);
+        end;
+    end;
+  bParams.Free;
+end;
 procedure TSQLDBDataModule.Save(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
 var
   aTable: TQueryTable;

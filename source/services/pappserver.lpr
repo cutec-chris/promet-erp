@@ -9,6 +9,7 @@ uses
 
 var
   aUsers: TMemDataset;
+  aUser : TUser;
 begin
   Application.Port := 8085;
   Application.Threaded := true;
@@ -29,7 +30,7 @@ begin
       end;
   end;
   writeln('done.');
-  aUsers := Data.Select(TUser,'NAME=Jemand','NAME');
+  aUsers := Data.Select(TUser,'NAME=Jemand','NAME,SQL_ID');
   aUsers.First;
   while not aUsers.EOF do
     begin
@@ -37,13 +38,14 @@ begin
       aUsers.Next;
     end;
   aUsers.Free;
-  aUsers := Data.Select(TUser,'NAME=Gast','NAME');
+  aUsers := Data.Select(TUser,'NAME=Gast','NAME,SQL_ID');
   aUsers.First;
   while not aUsers.EOF do
     begin
       writeln(aUsers.FieldByName('NAME').AsString);
       aUsers.Next;
     end;
+  Data.Load(aUser,aUsers.FieldByName('SQL_ID').AsLargeInt);
   aUsers.Free;
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
