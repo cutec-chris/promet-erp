@@ -118,6 +118,7 @@ constructor TQueryTable.Create(aClass: TClass);
      for Prop in objType.GetProperties do
        begin
          Fields.Add(Prop.Name);
+         writeln(Prop.Name);
          if (Prop.PropertyType.TypeKind=tkClass) then
            begin
              if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
@@ -173,7 +174,7 @@ var
         aField := Field;
         bTableName:=TableName;
       end;
-    if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>0) then
+    if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>=0) then
       begin
         JoinTableName:=bTableName;
         FieldTableName:=TableName;
@@ -202,14 +203,15 @@ begin
         begin
           FoundFields.Add(cFullFieldName);
           ToFindFields.Delete(0);
-          JoinedTables.AddPair(QuoteField(cFieldTableName),QuoteField(cJoinTableName));
+          if JoinedTables.IndexOf(QuoteField(cFieldTableName)+JoinedTables.NameValueSeparator+QuoteField(cJoinTableName))=-1 then
+            JoinedTables.AddPair(QuoteField(cFieldTableName),QuoteField(cJoinTableName));
         end
       else
         raise Exception.Create('Unable to build Select, Field "'+ToFindFields[0]+'" not found');
     FoundFields.Delimiter:=',';
     tmp := '';
     for i := 0 to FoundFields.Count-1 do
-      tmp := FoundFields[i]+',';
+      tmp += FoundFields[i]+',';
     Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
     JoinedTables.Delete(0);
     while JoinedTables.Count>0 do

@@ -45,8 +45,10 @@ begin
       writeln(aUsers.FieldByName('NAME').AsString);
       aUsers.Next;
     end;
+  aUser := TUser.Create;
   Data.Load(aUser,aUsers.FieldByName('SQL_ID').AsLargeInt);
   aUsers.Free;
+  aUser.Free;
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
   Application.Run;
