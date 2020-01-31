@@ -40,6 +40,8 @@ type
     procedure SetTableName(AValue: string);
     function QuoteField(aField : string) : string;
     function QuoteValue(aField : string) : string;
+  protected
+    Selected : Boolean;
   public
     constructor Create(aClass : TClass);
     destructor Destroy; override;
@@ -117,8 +119,11 @@ constructor TQueryTable.Create(aClass: TClass);
     objType := ctx.GetType(Obj.ClassInfo);
      for Prop in objType.GetProperties do
        begin
-         Fields.Add(Prop.Name);
-         writeln(Prop.Name);
+         if Obj.InheritsFrom(TAbstractDBDataset2) then
+           Fields.Add(TAbstractDBDataset2(Obj).MapField(Prop.Name))
+         else
+           Fields.Add(Prop.Name);
+         //writeln(Prop.Name);
          if (Prop.PropertyType.TypeKind=tkClass) then
            begin
              if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
@@ -137,6 +142,7 @@ constructor TQueryTable.Create(aClass: TClass);
   end;
 begin
   inherited Create(True);
+  Selected:=False;
   FFields := TStringList.Create;
   if aClass.InheritsFrom(TAbstractDBDataset2) then
     FTableName:=TAbstractDBDataset2(aClass).GetRealTableName
@@ -255,11 +261,50 @@ begin
   end;
   writeln(Result);
 end;
-
 function TQueryTable.BuildLoad(aSelector: Variant; CascadicIndex: Integer;
   aParams: TStringList): string;
+var
+  FoundFields, JoinedTables: TStringList;
+  tmp: String;
+  i: Integer;
+  procedure CollectFields(Table : TQueryTable);
+  var
+    i: Integer;
+  begin
+    if (CascadicIndex=0) or (not Table.Selected) then
+      begin
+        for i := 0 to Table.Fields.Count-1 do
+          FoundFields.Add(QuoteField(Table.TableName)+'.'+QuoteField(Table.Fields[i]));
+        Table.Selected:=True;
+      end;
+    for i := 0 to Table.Count-1 do
+      begin
+        if not TQueryTable(Table.Items[i]).Selected then
+          JoinedTables.AddPair(QuoteField(TQueryTable(Table.Items[i]).TableName),QuoteField(Table.TableName));
+        CollectFields(TQueryTable(Table.Items[i]));
+
+      end;
+  end;
 begin
   Result := '';
+  FoundFields := TStringList.Create;
+  JoinedTables := TStringList.Create;
+  try
+    CollectFields(Self);
+    tmp := '';
+    for i := 0 to FoundFields.Count-1 do
+      tmp += FoundFields[i]+',';
+    Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
+    JoinedTables.Delete(0);
+    while JoinedTables.Count>0 do
+      begin
+        Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+        JoinedTables.Delete(0);
+      end;
+  finally
+    FoundFields.Free;
+    JoinedTables.Free;
+  end;
 end;
 
 { TSQLDBDataModule }

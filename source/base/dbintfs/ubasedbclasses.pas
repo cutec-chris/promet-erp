@@ -72,10 +72,14 @@ type
   end;
   TBaseDbDataSetClass = class of TBaseDbDataSet;
   TBaseDbListClass = class of TBaseDbList;
+
+  { TOption }
+
   TOption = class(TBaseDBDataset)
   private
     FOption,FValue : string;
   public
+    class function GetRealTableName: string; override;
   published
     property OPTION : string index 60 read FOption write FOption;
     property VALUE : string read FValue write FValue;
@@ -118,6 +122,7 @@ type
     constructor Create;
     constructor CreateEx(Module: TComponent; Owner: TComponent);override;
     class function GetRealTableName: string; override;
+    class function MapField(aField: string): string; override;
   published
     property TYP : string index 1 read FType write FType;
     property PARENT : Int64 read FParent write FParent;
@@ -474,6 +479,13 @@ type
 }
 implementation
 
+{ TOption }
+
+class function TOption.GetRealTableName: string;
+begin
+  Result:='OPTIONS';
+end;
+
 { TOptions }
 
 class function TOptions.GetObjectTyp: TClass;
@@ -549,6 +561,14 @@ end;
 class function TUser.GetRealTableName: string;
 begin
   Result:='USERS';
+end;
+
+class function TUser.MapField(aField: string): string;
+begin
+  Result:=inherited MapField(aField);
+  case Result of
+  'TYP':Result := 'TYPE';
+  end;
 end;
 
 { TBaseDbList }

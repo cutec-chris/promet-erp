@@ -42,6 +42,7 @@ type
     procedure SetActive(AValue: Boolean);
   protected
   public
+    class function MapField(aField : string) : string;virtual;
     procedure Open;virtual;
     procedure Close;virtual;
     procedure Change;virtual;
@@ -100,6 +101,11 @@ end;
 
 procedure TAbstractDBDataset2.SetActive(AValue: Boolean);
 begin
+end;
+
+class function TAbstractDBDataset2.MapField(aField: string): string;
+begin
+  Result := aField;
 end;
 
 procedure TAbstractDBDataset2.Open;
