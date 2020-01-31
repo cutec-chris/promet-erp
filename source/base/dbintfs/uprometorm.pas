@@ -280,9 +280,8 @@ var
     for i := 0 to Table.Count-1 do
       begin
         if not TQueryTable(Table.Items[i]).Selected then
-          JoinedTables.AddPair(QuoteField(TQueryTable(Table.Items[i]).TableName),QuoteField(Table.TableName));
+          JoinedTables.AddPair(QuoteField(Table.TableName),QuoteField(TQueryTable(Table.Items[i]).TableName));
         CollectFields(TQueryTable(Table.Items[i]));
-
       end;
   end;
 begin
@@ -290,17 +289,22 @@ begin
   FoundFields := TStringList.Create;
   JoinedTables := TStringList.Create;
   try
+    JoinedTables.AddPair(QuoteField(Self.TableName),QuoteField(Self.TableName));
     CollectFields(Self);
     tmp := '';
     for i := 0 to FoundFields.Count-1 do
       tmp += FoundFields[i]+',';
-    Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
-    JoinedTables.Delete(0);
-    while JoinedTables.Count>0 do
+    if tmp <> '' then
       begin
-        Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+        Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
         JoinedTables.Delete(0);
+        while JoinedTables.Count>0 do
+          begin
+            Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+            JoinedTables.Delete(0);
+          end;
       end;
+    writeln(Result);
   finally
     FoundFields.Free;
     JoinedTables.Free;
