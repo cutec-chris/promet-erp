@@ -2,7 +2,7 @@
 <CONFIG>
   <Package Version="4">
     <PathDelim Value="\"/>
-    <Name Value="pPrometDBIntfs"/>
+    <Name Value="pPrometDBIntfs2"/>
     <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
@@ -27,8 +27,7 @@
     </i18n>
     <RequiredPkgs Count="1">
       <Item1>
-        <PackageName Value="promet_db_lowlevel"/>
-        <DefaultFilename Value="promet_db_lowlevel.lpk"/>
+        <PackageName Value="promet_db_lowlevel2"/>
       </Item1>
     </RequiredPkgs>
     <UsageOptions>

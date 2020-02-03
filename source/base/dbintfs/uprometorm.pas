@@ -88,7 +88,7 @@ var
 
 implementation
 
-uses uEncrypt;
+uses uEncrypt,db;
 
 procedure TQueryTable.SetTableName(AValue: string);
 begin
@@ -274,7 +274,7 @@ var
     if (CascadicIndex=0) or (not Table.Selected) then
       begin
         for i := 0 to Table.Fields.Count-1 do
-          FoundFields.Add(QuoteField(Table.TableName)+'.'+QuoteField(Table.Fields[i]));
+          FoundFields.Add(QuoteField(Table.TableName)+'.'+QuoteField(Table.Fields[i])+' as '+lowercase(Table.Tablename)+'_'+lowercase(Table.Fields[i]));
         Table.Selected:=True;
       end;
     for i := 0 to Table.Count-1 do
@@ -310,9 +310,6 @@ begin
     JoinedTables.Free;
   end;
 end;
-
-{ TSQLDBDataModule }
-
 function TSQLDBDataModule.GetMandants: TStringList;
 begin
   if not Assigned(FMandants) then
@@ -322,7 +319,6 @@ begin
 
     end;
 end;
-
 function TSQLDBDataModule.GetTable(aClass : TClass): TQueryTable;
 var
   i: Integer;
@@ -469,6 +465,35 @@ var
   bParams: TStringList;
   actLoad: String;
   i: Integer;
+  procedure FillDataSet(aObj : TPersistent;aDataSet : TDataset);
+  var
+    a: Integer;
+    ctx: TRttiContext;
+    objType: TRttiType;
+    Prop: TRttiProperty;
+    aFieldName, aTablename: String;
+    aField: TField;
+  begin
+    //Fill aObj Fields
+    ctx := TRttiContext.Create;
+    aTablename := lowercase(aObj.ClassName);
+    objType := ctx.GetType(aObj.ClassInfo);
+    if aObj.InheritsFrom(TAbstractDBDataset2) then
+      aTableName:=lowercase(TAbstractDBDataset2(aObj).GetRealTableName);
+    for Prop in objType.GetProperties do
+      begin
+        if aObj.InheritsFrom(TAbstractDBDataset2) then
+          aFieldName := lowercase(TAbstractDBDataset2(Obj).MapField(Prop.Name))
+        else
+          aFieldName := lowercase(Prop.Name);
+        aField := aDataSet.FieldByName(aTablename+'_'+aFieldName);
+        if Assigned(aField) then
+        //  Prop.SetValue(aObj,aField.AsVariant)
+        else raise Exception.Create('Property not Found !');
+      end;
+
+  end;
+
 begin
   aTable := GetTable(Obj.ClassType);
   bParams := TStringList.Create;
@@ -482,8 +507,8 @@ begin
             aDataSet.Query.Params.ParamValues[bParams.Names[i]]:=bParams.ValueFromIndex[i];
           aDataSet.Query.Open;
           //Fill in Class
-
-
+          aDataSet.Query.First;
+          FillDataSet(Obj,aDataSet.Query);
           aDataSet.Query.Close;
           aDataSet.Unlock;
           actLoad := aTable.BuildLoad(Selector,actCascade,bParams);
@@ -498,7 +523,6 @@ var
 begin
   aTable := GetTable(Obj.ClassType);
 end;
-
 function TSQLDBDataModule.Select(Obj: TClass; aFilter: string; aFields: string
   ): TMemDataset;
 var
@@ -522,37 +546,29 @@ begin
       aParams.Free;
     end;
 end;
-
 destructor TSQLDBDataModule.Destroy;
 begin
   FreeAndNil(MainConnection);
   inherited Destroy;
 end;
-
-{ TLockedQuery }
-
 constructor TLockedQuery.Create(aQuery: TSQLQuery);
 begin
   InitCriticalSection(cs);
   Query := aQuery;
 end;
-
 destructor TLockedQuery.Destroy;
 begin
   DoneCriticalSection(cs);
   inherited Destroy;
 end;
-
 function TLockedQuery.Lock: Boolean;
 begin
   Result := TryEnterCriticalSection(cs) <> 0;
 end;
-
 procedure TLockedQuery.Unlock;
 begin
   LeaveCriticalSection(cs);
 end;
-
 initialization
   Data := TSQLDBDataModule.Create(nil);
 finalization

@@ -1,0 +1,27 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ubasedbinterface.strenteranname
+msgid "enter an Name"
+msgstr ""
+
+#: ubasedbinterface.strfor
+msgid "für"
+msgstr ""
+
+#: ubasedbinterface.strguest
+msgid "Gast"
+msgstr ""
+
+#: ubasedbinterface.strprojectprocess
+msgid "Projekt/Prozess"
+msgstr ""
+
+#: ubasedbinterface.strscreenshotname
+msgid "Screenshot Name"
+msgstr ""
+
+#: ubasedbinterface.strwebsite
+msgid "Webseite"
+msgstr ""
+
