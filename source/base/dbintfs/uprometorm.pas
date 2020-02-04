@@ -555,7 +555,7 @@ var
       if aObj.InheritsFrom(TAbstractDBDataset2) then
         aTableName:=lowercase(TAbstractDBDataset2(aObj).GetRealTableName);
       aField := aDataSet.FieldByName(aTablename+'_sql_id');
-      if Assigned(aField) and (aField.AsLargeInt<>TAbstractDBDataset2(aObj).SQL_ID) then
+      if Assigned(aField) then
         for Prop in objType.GetProperties do
           begin
             if (Prop.PropertyType.TypeKind<>tkClass) then
@@ -624,10 +624,17 @@ var
                           end;
                       //not found we have to add an new object
                       nObj := GetObjectTyp.Create;
-                      Add(nObj);
-                      FillDataSet(TPersistent(nObj),aDataSet);
-                      SubClassFilled := True;
-                      break;
+                      aTableName := TAbstractDBDataset2(nObj).GetRealTableName;
+                      aField := aDataSet.FieldByName(aTablename+'_sql_id');
+                      if Assigned(aField) and (aField.AsLargeInt<>0) then
+                        begin
+                          nObj := GetObjectTyp.Create;
+                          Add(nObj);
+                          FillDataSet(TPersistent(nObj),aDataSet);
+                          SubClassFilled := True;
+                          break;
+                        end
+                      else FreeAndNil(nObj);
                     end;
                 end;
             end;

@@ -37,14 +37,6 @@ begin
       writeln(aUsers.FieldByName('NAME').AsString);
       aUsers.Next;
     end;
-  aUsers.Free;
-  aUsers := Data.Select(TUser,'NAME=Gast','NAME,SQL_ID');
-  aUsers.First;
-  while not aUsers.EOF do
-    begin
-      writeln(aUsers.FieldByName('NAME').AsString);
-      aUsers.Next;
-    end;
   aUser := TUser.Create;
   Data.Load(aUser,aUsers.FieldByName('SQL_ID').AsLargeInt);
   aUsers.Free;
