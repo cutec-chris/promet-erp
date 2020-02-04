@@ -265,8 +265,12 @@ function TQueryTable.BuildLoad(aSelector: Variant; CascadicIndex: Integer;
   aParams: TStringList): string;
 var
   FoundFields, JoinedTables: TStringList;
-  tmp: String;
+  tmp, aWhere, cFullFieldName, cFieldTableName, cJoinTableName,
+    aParName: String;
   i: Integer;
+  scanner: TFPExpressionScanner;
+  aVal: int64;
+  aToken: TTokenType;
   procedure CollectFields(Table : TQueryTable);
   var
     i: Integer;
@@ -282,6 +286,39 @@ var
         if not TQueryTable(Table.Items[i]).Selected then
           JoinedTables.AddPair(QuoteField(Table.TableName),QuoteField(TQueryTable(Table.Items[i]).TableName));
         CollectFields(TQueryTable(Table.Items[i]));
+      end;
+  end;
+  function RecoursiveFindField(Table : TQueryTable;Field : string;var FullFieldName,FieldTableName,JoinTableName : string) : Boolean;
+  var
+    bTableName , aField: string;
+    i: Integer;
+  begin
+    Result := False;
+    if pos('.',Field)>0 then
+      begin
+        bTableName := copy(Field,0,pos('.',Field)-1);
+        aField := copy(Field,pos('.',Field)+1,length(Field));
+      end
+    else
+      begin
+        aField := Field;
+        bTableName:=TableName;
+      end;
+    if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>=0) then
+      begin
+        JoinTableName:=bTableName;
+        FieldTableName:=TableName;
+        FullFieldName:=QuoteField(bTableName)+'.'+QuoteField(aField);
+        Result := True;
+        exit;
+      end;
+    for i := 0 to Table.Count-1 do
+      begin
+        if RecoursiveFindField(TQueryTable(Table.Items[i]),Field,FullFieldName,FieldTableName,JoinTableName) then
+          begin
+            Result := True;
+            exit;
+          end;
       end;
   end;
 begin
@@ -303,6 +340,38 @@ begin
             Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
             JoinedTables.Delete(0);
           end;
+        scanner := TFPExpressionScanner.Create;
+        try
+          aWhere := ' where ';
+          if TryStrToInt64(aSelector,aVal) then
+            scanner.source := 'SQL_ID='+IntToStr(aVal)
+          else
+            scanner.Source:=aSelector;
+          aToken := scanner.GetToken;
+          while aToken <> ttEOF do
+            begin
+              case aToken of
+              ttString,ttIdentifier:
+                begin
+                  if RecoursiveFindField(Self,scanner.Token,cFullFieldName,cFieldTableName,cJoinTableName) then
+                    aWhere+=cFullFieldName
+                  else
+                    begin
+                      aParName := 'PARAM'+IntToStr(aParams.Count);
+                      aParams.Values[aParName]:=scanner.Token;
+                      aWhere+= ':'+aParName;
+
+                    end;
+                end
+              else
+                aWhere+=scanner.Token;
+              end;
+              aToken := scanner.GetToken;
+            end;
+        finally
+          scanner.Free;
+        end;
+        Result := Result+aWhere;
       end;
     writeln(Result);
   finally
@@ -467,59 +536,109 @@ var
   i: Integer;
   procedure FillDataSet(aObj : TPersistent;aDataSet : TDataset);
   var
-    a: Integer;
+    a, b: Integer;
     ctx: TRttiContext;
     objType: TRttiType;
     Prop: TRttiProperty;
     aFieldName, aTablename: String;
     aField: TField;
     aVal: TValue;
+    aTyp, bTyp: TClass;
+    aDetail, nObj: TObject;
+    SubClassFilled : Boolean = False;
   begin
-    //Fill aObj Fields
-    ctx := TRttiContext.Create;
-    aTablename := lowercase(aObj.ClassName);
-    objType := ctx.GetType(aObj.ClassInfo);
-    if aObj.InheritsFrom(TAbstractDBDataset2) then
-      aTableName:=lowercase(TAbstractDBDataset2(aObj).GetRealTableName);
-    for Prop in objType.GetProperties do
-      begin
-        if aObj.InheritsFrom(TAbstractDBDataset2) then
-          aFieldName := lowercase(TAbstractDBDataset2(Obj).MapField(Prop.Name))
-        else
-          aFieldName := lowercase(Prop.Name);
-        aField := aDataSet.FieldByName(aTablename+'_'+aFieldName);
-        if Assigned(aField) then
+    repeat
+      //Fill aObj Fields
+      ctx := TRttiContext.Create;
+      aTablename := lowercase(aObj.ClassName);
+      objType := ctx.GetType(aObj.ClassInfo);
+      if aObj.InheritsFrom(TAbstractDBDataset2) then
+        aTableName:=lowercase(TAbstractDBDataset2(aObj).GetRealTableName);
+      aField := aDataSet.FieldByName(aTablename+'_sql_id');
+      if Assigned(aField) and (aField.AsLargeInt<>TAbstractDBDataset2(aObj).SQL_ID) then
+        for Prop in objType.GetProperties do
           begin
-            try
-              case Prop.PropertyType.TypeKind of
-              tkFloat:               // Also for TDateTime !
-                SetFloatProp(aObj,PPropInfo(Prop.Handle),aField.AsFloat);
-              tkInteger,tkInt64,tkQWord,tkChar,tkWChar:
-                Prop.SetValue(aObj, aField.AsLargeInt);
-              tkUString,tkAString:
-                Prop.SetValue(aObj, aField.AsString);
-              tkBool:
-                begin
-                  if aField.DataType=ftString then
-                    begin
-                      if aField.AsString='Y' then
-                        Prop.SetValue(aObj,1)
-                      else
-                        Prop.SetValue(aObj,0);
-                    end
-                  else
-                    Prop.SetValue(aObj, aField.AsLargeInt);
-                end;
-              // You should add other types as well
+            if (Prop.PropertyType.TypeKind<>tkClass) then
+              begin
+                if aObj.InheritsFrom(TAbstractDBDataset2) then
+                  aFieldName := lowercase(TAbstractDBDataset2(Obj).MapField(Prop.Name))
+                else
+                  aFieldName := lowercase(Prop.Name);
+                aField := aDataSet.FieldByName(aTablename+'_'+aFieldName);
+                if Assigned(aField) then
+                  begin
+                    try
+                      case Prop.PropertyType.TypeKind of
+                      tkFloat:               // Also for TDateTime !
+                        SetFloatProp(aObj,PPropInfo(Prop.Handle),aField.AsFloat);
+                      tkInteger,tkInt64,tkQWord,tkChar,tkWChar:
+                        Prop.SetValue(aObj, aField.AsLargeInt);
+                      tkUString,tkAString:
+                        Prop.SetValue(aObj, aField.AsString);
+                      tkBool:
+                        begin
+                          if aField.DataType=ftString then
+                            begin
+                              if aField.AsString='Y' then
+                                Prop.SetValue(aObj,1)
+                              else
+                                Prop.SetValue(aObj,0);
+                            end
+                          else
+                            Prop.SetValue(aObj, aField.AsLargeInt);
+                        end;
+                      // You should add other types as well
+                      end;
+                    except
+                      // Ignore any exception here. Likely to be caused by
+                      // invalid value format
+                    end;
+                  end
+                else
+                  raise Exception.Create('Property not Found !');
               end;
-            except
-              // Ignore any exception here. Likely to be caused by
-              // invalid value format
+          end;
+      for Prop in objType.GetProperties do
+        begin
+          if (Prop.PropertyType.TypeKind=tkClass) then
+            begin
+              if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
+                begin
+                  aDetail := GetObjectProp(aObj,PPropInfo(Prop.Handle));
+                  with TAbstractMasterDetail(aDetail) do
+                    begin
+                      for b := 0 to Count-1 do
+                        if Items[b] is TAbstractDBDataset2 then
+                          begin
+                            if Items[b].InheritsFrom(TAbstractDBDataset2) then
+                              aTableName:=lowercase(TAbstractDBDataset2(Items[b]).GetRealTableName)
+                            else aTablename := lowercase(Items[b].ClassName);
+                            aField := aDataSet.FieldByName(aTablename+'_sql_id');
+                            if Assigned(aField) and (aField.AsLargeInt=TAbstractDBDataset2(Items[b]).SQL_ID) then
+                              begin
+                                //we already have our row with that sql_id
+                                FillDataSet(TPersistent(aDetail),aDataSet);
+                                SubClassFilled := True;
+                                break;
+                              end;
+                          end;
+                      //not found we have to add an new object
+                      nObj := GetObjectTyp.Create;
+                      Add(nObj);
+                      FillDataSet(TPersistent(nObj),aDataSet);
+                      SubClassFilled := True;
+                      break;
+                    end;
+                end;
             end;
-          end
-        else raise Exception.Create('Property not Found !');
-      end;
-
+        end;
+      ctx.Free;
+      if not SubClassFilled then
+        begin
+          aDataSet.Next;
+          exit;
+        end;
+    until aDataSet.EOF;
   end;
 
 begin
