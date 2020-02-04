@@ -607,7 +607,7 @@ var
                   aDetail := GetObjectProp(aObj,PPropInfo(Prop.Handle));
                   with TAbstractMasterDetail(aDetail) do
                     begin
-                      for b := 0 to Count-1 do
+                      for b := Count-1 downto 0 do
                         if Items[b] is TAbstractDBDataset2 then
                           begin
                             if Items[b].InheritsFrom(TAbstractDBDataset2) then
