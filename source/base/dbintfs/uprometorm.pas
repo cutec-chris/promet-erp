@@ -473,6 +473,7 @@ var
     Prop: TRttiProperty;
     aFieldName, aTablename: String;
     aField: TField;
+    aVal: TValue;
   begin
     //Fill aObj Fields
     ctx := TRttiContext.Create;
@@ -488,7 +489,34 @@ var
           aFieldName := lowercase(Prop.Name);
         aField := aDataSet.FieldByName(aTablename+'_'+aFieldName);
         if Assigned(aField) then
-        //  Prop.SetValue(aObj,aField.AsVariant)
+          begin
+            try
+              case Prop.PropertyType.TypeKind of
+              tkFloat:               // Also for TDateTime !
+                SetFloatProp(aObj,PPropInfo(Prop.Handle),aField.AsFloat);
+              tkInteger,tkInt64,tkQWord,tkChar,tkWChar:
+                Prop.SetValue(aObj, aField.AsLargeInt);
+              tkUString,tkAString:
+                Prop.SetValue(aObj, aField.AsString);
+              tkBool:
+                begin
+                  if aField.DataType=ftString then
+                    begin
+                      if aField.AsString='Y' then
+                        Prop.SetValue(aObj,1)
+                      else
+                        Prop.SetValue(aObj,0);
+                    end
+                  else
+                    Prop.SetValue(aObj, aField.AsLargeInt);
+                end;
+              // You should add other types as well
+              end;
+            except
+              // Ignore any exception here. Likely to be caused by
+              // invalid value format
+            end;
+          end
         else raise Exception.Create('Property not Found !');
       end;
 
