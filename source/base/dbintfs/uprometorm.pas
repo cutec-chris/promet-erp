@@ -72,9 +72,9 @@ type
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
-    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);override;
+    function Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
-    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);override;
+    function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;override;
 
     property Mandants : TStringList read GetMandants;
@@ -521,7 +521,8 @@ begin
   SetupTransaction(aQuery.Query);
   Result := aQuery;
 end;
-procedure TSQLDBDataModule.Load(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
+function TSQLDBDataModule.Load(Obj: TPersistent; Selector: Variant;
+  Cascadic: Boolean): Boolean;
 var
   aTable: TQueryTable;
   aDataSet: TLockedQuery;
@@ -644,6 +645,7 @@ var
   end;
 
 begin
+  Result := False;
   aTable := GetTable(Obj.ClassType);
   bParams := TStringList.Create;
   actLoad := aTable.BuildLoad(Selector,0,bParams);
@@ -657,6 +659,7 @@ begin
           aDataSet.Query.Open;
           //Fill in Class
           aDataSet.Query.First;
+          if not aDataSet.Query.EOF then Result := True;
           FillDataSet(Obj,aDataSet.Query);
           aDataSet.Query.Close;
           aDataSet.Unlock;
@@ -666,10 +669,12 @@ begin
     end;
   bParams.Free;
 end;
-procedure TSQLDBDataModule.Save(Obj: TPersistent;Selector : Variant; Cascadic: Boolean);
+function TSQLDBDataModule.Save(Obj: TPersistent; Selector: Variant;
+  Cascadic: Boolean): Boolean;
 var
   aTable: TQueryTable;
 begin
+  Result := False;
   aTable := GetTable(Obj.ClassType);
 end;
 function TSQLDBDataModule.Select(Obj: TClass; aFilter: string; aFields: string
@@ -720,7 +725,5 @@ begin
 end;
 initialization
   DataM := TSQLDBDataModule.Create(nil);
-finalization
-  FreeAndNil(DataM);
 end.
 

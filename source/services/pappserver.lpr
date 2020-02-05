@@ -30,7 +30,8 @@ begin
   if Application.HasOption('u','user') then
     begin
       GlobalUser := TUser.Create;
-      Data.Load(GlobalUser,'NAME='+Application.GetOptionValue('u','user'));
+      if not Data.Load(GlobalUser,'NAME='+Application.GetOptionValue('u','user')) then
+        FreeAndNil(GlobalUser);
     end;
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');

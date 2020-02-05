@@ -32,8 +32,8 @@ type
     ConfigPath : string;
     Mandant : string;
     procedure Connect;virtual;abstract;
-    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);virtual;abstract;
-    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);virtual;abstract;
+    function Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;virtual;abstract;
+    function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;virtual;abstract;
     function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;virtual;abstract;
   end;
 
@@ -53,6 +53,7 @@ begin
 end;
 
 finalization
+  FreeAndNil(GlobalUser);
   FreeAndNil(DataM);
 end.
 
