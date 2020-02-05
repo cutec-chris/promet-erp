@@ -5,7 +5,7 @@ unit uPrometORM;
 interface
 
 uses
-  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,memds,fpExprPars,
+  Classes, SysUtils, TypInfo, SQLDB, Rtti,Contnrs,memds,fpExprPars,uData,
   MSSQLConn,
   SQLite3Conn,
   PQConnection,
@@ -54,7 +54,7 @@ type
 
   { TSQLDBDataModule }
 
-  TSQLDBDataModule = class(TComponent)
+  TSQLDBDataModule = class(TBaseDBModule)
   private
     FMandants: TStringList;
     FTables : array of TQueryTable;
@@ -66,25 +66,20 @@ type
     Querys : array of TLockedQuery;
     //Globally used Contzext List to hold an Transaction per Thread
     Contexts : array of TContext;
-    ConfigPath : string;
-    Mandant : string;
-    procedure Connect;
+    procedure Connect;override;
     function GetConnection(ConnectString : string) : TSQLConnection;
     function FindDataSet(aThreadId : TThreadID;SQL : string) : TLockedQuery;
     //generates SQL to Fill all Published properties and Gerneric TFPGList Types
     //(generates recursive joined Query for default TFPGList Type (or if only one is avalible) and separate Querys for all other)
     //only when this query fails the table structure for all sub-tables is checked so without changes of the table structure we dont have overhead
-    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);
+    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);override;
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
-    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);
-    function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;
+    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);override;
+    function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;override;
 
     property Mandants : TStringList read GetMandants;
     destructor Destroy; override;
   end;
-
-var
-  Data : TSQLDBDataModule;
 
 implementation
 
@@ -724,8 +719,8 @@ begin
   LeaveCriticalSection(cs);
 end;
 initialization
-  Data := TSQLDBDataModule.Create(nil);
+  DataM := TSQLDBDataModule.Create(nil);
 finalization
-  FreeAndNil(Data);
+  FreeAndNil(DataM);
 end.
 

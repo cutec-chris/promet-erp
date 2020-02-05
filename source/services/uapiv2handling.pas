@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM,fpjsonrtti, memds;
+  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData;
 
 type
 

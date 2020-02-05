@@ -24,14 +24,22 @@ unit uData;
 interface
 
 uses
-  Classes, SysUtils;
+  Classes, SysUtils, ubasedbclasses,memds;
 
 type
   TBaseDBModule = class(TComponent)
+  public
+    ConfigPath : string;
+    Mandant : string;
+    procedure Connect;virtual;abstract;
+    procedure Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);virtual;abstract;
+    procedure Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True);virtual;abstract;
+    function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;virtual;abstract;
   end;
 
 var
   DataM : TBaseDBModule = nil;
+  GlobalUser : TUser;
 
 function Data : TBaseDBModule;
 

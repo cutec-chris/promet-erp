@@ -5,11 +5,8 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp, general_nogui, memds, LazFileUtils,
   ubasedbclasses, uPrometORM, httproute, fphttpapp, fpwebfile, HTTPDefs,
-  uapiv2handling, pprometdbintfs2;
+  uapiv2handling, pprometdbintfs2, uData;
 
-var
-  aUsers: TMemDataset;
-  aUser : TUser;
 begin
   Application.Port := 8085;
   Application.Threaded := true;
@@ -30,17 +27,11 @@ begin
       end;
   end;
   writeln('done.');
-  aUsers := Data.Select(TUser,'NAME=Jemand','NAME,SQL_ID');
-  aUsers.First;
-  while not aUsers.EOF do
+  if Application.HasOption('u','user') then
     begin
-      writeln(aUsers.FieldByName('NAME').AsString);
-      aUsers.Next;
+      GlobalUser := TUser.Create;
+      Data.Load(GlobalUser,'NAME='+Application.GetOptionValue('u','user'));
     end;
-  aUser := TUser.Create;
-  Data.Load(aUser,aUsers.FieldByName('SQL_ID').AsLargeInt);
-  aUsers.Free;
-  aUser.Free;
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
   Application.Run;
