@@ -22,13 +22,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
+        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2 --user=RMA --password=SBD2a6dkyslxtL8w"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
+            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2 --user=RMA --password=SBD2a6dkyslxtL8w"/>
           </local>
         </Mode0>
       </Modes>

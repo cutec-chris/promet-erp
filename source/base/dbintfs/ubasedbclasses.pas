@@ -117,8 +117,11 @@ type
     FWeekWorktime: Integer;
     FWorktime: Integer;
     FPassword : string;
+    function MergeSalt(apasswort,aSalt : string) : string;
+    function GetRandomSalt : string;
   public
-    function CheckUserPasswort(aPassword : string) : Boolean;
+    function CheckUserPasswort(aPasswort: string): Boolean;
+    procedure SetPasswort(aPasswort : string);
     constructor Create;
     constructor CreateEx(Module: TComponent; Owner: TComponent);override;
     class function GetRealTableName: string; override;
@@ -479,6 +482,8 @@ type
 }
 implementation
 
+uses md5,sha1;
+
 { TOption }
 
 class function TOption.GetRealTableName: string;
@@ -543,9 +548,59 @@ begin
   Result:=inherited Delete;
 end;
 
-function TUser.CheckUserPasswort(aPassword: string): Boolean;
+function TUser.MergeSalt(apasswort, aSalt: string): string;
+var
+  i: Integer;
 begin
+  Result := '';
+  for i := 0 to length(aPasswort)-1 do
+    begin
+      Result += copy(aSalt,0,5);
+      aSalt := copy(aSalt,6,length(aSalt));
+      result += copy(aPasswort,0,1);
+      aPasswort := copy(aPasswort,2,length(aPasswort));
+    end;
+end;
 
+function TUser.GetRandomSalt: string;
+var
+  aSalt: String;
+  aGUID: TGUID;
+begin
+  CreateGUID(aGUID);
+  aSalt := md5Print(md5String(GUIDToString(aGUID)+NAME));
+  CreateGUID(aGUID);
+  aSalt += md5Print(md5String(GUIDToString(aGUID)+aSalt));
+  CreateGUID(aGUID);
+  aSalt += md5Print(md5String(GUIDToString(aGUID)));
+  aSalt :=copy(aSalt,0,104);
+  Result := aSalt;
+end;
+
+function TUser.CheckUserPasswort(aPasswort: string): Boolean;
+var
+  aSalt, aRes: String;
+begin
+  Result := False;
+  if copy(PASSWORD,0,1) <> '$' then
+    Result := md5print(MD5String(aPasswort)) = PASSWORD
+  else
+    begin
+      aSalt := SALT;
+      aRes := '$'+SHA1Print(SHA1String(SHA1Print(SHA1String(MergeSalt(aPasswort,aSalt)))));
+      Result := (copy(aRes,0,length(PASSWORD)) = PASSWORD) and (length(PASSWORD) > 30);
+    end;
+end;
+
+procedure TUser.SetPasswort(aPasswort: string);
+var
+  aGUID: TGUID;
+  aSalt: String;
+  aRes: String;
+begin
+  SALT:=GetRandomSalt;
+  aRes := '$'+SHA1Print(SHA1String(SHA1Print(SHA1String(MergeSalt(aPasswort,SALT)))));
+  PASSWORD:=aRes;
 end;
 
 constructor TUser.Create;

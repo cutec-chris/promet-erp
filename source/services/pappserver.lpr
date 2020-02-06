@@ -31,7 +31,15 @@ begin
     begin
       GlobalUser := TUser.Create;
       if not Data.Load(GlobalUser,'NAME='+Application.GetOptionValue('u','user')) then
-        FreeAndNil(GlobalUser);
+        begin
+          writeln('User not found...');
+          FreeAndNil(GlobalUser);
+        end;
+      if not GlobalUser.CheckUserPasswort(Application.GetOptionValue('p','password')) then
+        begin
+          writeln('Password incorrect...');
+          FreeAndNil(GlobalUser);
+        end;
     end;
   if DirectoryExistsUTF8('web') then
     RegisterFileLocation('*','web');
