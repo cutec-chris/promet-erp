@@ -702,7 +702,7 @@ begin
 end;
 destructor TSQLDBDataModule.Destroy;
 begin
-  FreeAndNil(MainConnection);
+  //MainConnection.Destroy;
   inherited Destroy;
 end;
 constructor TLockedQuery.Create(aQuery: TSQLQuery);

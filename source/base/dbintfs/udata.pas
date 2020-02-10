@@ -54,7 +54,7 @@ end;
 
 finalization
   FreeAndNil(GlobalUser);
-  FreeAndNil(DataM);
+  //FreeAndNil(DataM);
 end.
 
 

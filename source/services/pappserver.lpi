@@ -22,13 +22,13 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2 --user=RMA --password=SBD2a6dkyslxtL8w"/>
+        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2 --user=RMA --password=SBD2a6dkyslxtL8w"/>
+            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
           </local>
         </Mode0>
       </Modes>
@@ -90,7 +90,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="10">
+    <Exceptions Count="11">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -121,6 +121,9 @@
       <Item10>
         <Name Value="EAbstractError"/>
       </Item10>
+      <Item11>
+        <Name Value="EPQDatabaseError"/>
+      </Item11>
     </Exceptions>
   </Debugging>
 </CONFIG>
