@@ -37,9 +37,13 @@ type
     FFields: TStrings;
     FTableName: string;
     function GetTable(Table : Integer): TQueryTable;
+    function RecoursiveFindField(Table: TQueryTable; Field: string;
+      var FullFieldName, FieldTableName, JoinTableName: string): Boolean;
     procedure SetTableName(AValue: string);
     function QuoteField(aField : string) : string;
     function QuoteValue(aField : string) : string;
+    function BuildSelect(aFilter: Variant; FoundFields, JoinedTables,
+      Params: TStrings): string;
   protected
     Selected : Boolean;
   public
@@ -98,6 +102,97 @@ function TQueryTable.QuoteValue(aField: string): string;
 begin
   Result := ''''+aField+'''';
 end;
+function TQueryTable.RecoursiveFindField(Table : TQueryTable;Field : string;var FullFieldName,FieldTableName,JoinTableName : string) : Boolean;
+var
+  bTableName , aField: string;
+  i: Integer;
+begin
+  Result := False;
+  if pos('.',Field)>0 then
+    begin
+      bTableName := copy(Field,0,pos('.',Field)-1);
+      aField := copy(Field,pos('.',Field)+1,length(Field));
+    end
+  else
+    begin
+      aField := Field;
+      bTableName:=TableName;
+    end;
+  if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>=0) then
+    begin
+      JoinTableName:=bTableName;
+      FieldTableName:=TableName;
+      FullFieldName:=QuoteField(bTableName)+'.'+QuoteField(aField);
+      Result := True;
+      exit;
+    end;
+  for i := 0 to Table.Count-1 do
+    begin
+      if RecoursiveFindField(TQueryTable(Table.Items[i]),Field,FullFieldName,FieldTableName,JoinTableName) then
+        begin
+          Result := True;
+          exit;
+        end;
+    end;
+end;
+function TQueryTable.BuildSelect(aFilter: Variant; FoundFields, JoinedTables,
+  Params: TStrings): string;
+var
+  tmp, aWhere, cFullFieldName, cFieldTableName, cJoinTableName,
+    aParName: String;
+  i: Integer;
+  scanner: TFPExpressionScanner;
+  aToken: TTokenType;
+  aVal: int64;
+begin
+  FoundFields.Delimiter:=',';
+  tmp := '';
+  for i := 0 to FoundFields.Count-1 do
+    tmp += FoundFields[i]+',';
+  Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
+  JoinedTables.Delete(0);
+  while JoinedTables.Count>0 do
+    begin
+      Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+      JoinedTables.Delete(0);
+    end;
+  scanner := TFPExpressionScanner.Create;
+  try
+    aWhere := ' where ';
+    if TryStrToInt64(aFilter,aVal) then
+      scanner.source := 'SQL_ID='+IntToStr(aVal)
+    else
+      scanner.Source:=aFilter;
+    aToken := scanner.GetToken;
+    while aToken <> ttEOF do
+      begin
+        case aToken of
+        ttString,ttIdentifier:
+          begin
+            if RecoursiveFindField(Self,scanner.Token,cFullFieldName,cFieldTableName,cJoinTableName) then
+              aWhere+=cFullFieldName
+            else
+              begin
+                if (aParname = '') or (copy(aWhere,length(aWhere)-length(aParName)+1,length(aParName)) <> aParName) then
+                  begin
+                    aParName := 'PARAM'+IntToStr(Params.Count);
+                    Params.Values[aParName]:=scanner.Token;
+                    aWhere+= ':'+aParName;
+                  end
+                else Params.Values[aParName]:=Params.Values[aParName]+' '+scanner.Token
+              end;
+          end
+        else
+          aWhere+=' '+scanner.Token+' ';
+        end;
+        aToken := scanner.GetToken;
+      end;
+  finally
+    scanner.Free;
+  end;
+  Result := Result+aWhere;
+end;
+
 function TQueryTable.GetTable(Table : Integer): TQueryTable;
 begin
   Result := Items[Table] as TQueryTable;
@@ -159,39 +254,6 @@ var
   parser: TFPExpressionParser;
   scanner: TFPExpressionScanner;
   aToken: TTokenType;
-  function RecoursiveFindField(Table : TQueryTable;Field : string;var FullFieldName,FieldTableName,JoinTableName : string) : Boolean;
-  var
-    bTableName , aField: string;
-    i: Integer;
-  begin
-    Result := False;
-    if pos('.',Field)>0 then
-      begin
-        bTableName := copy(Field,0,pos('.',Field)-1);
-        aField := copy(Field,pos('.',Field)+1,length(Field));
-      end
-    else
-      begin
-        aField := Field;
-        bTableName:=TableName;
-      end;
-    if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>=0) then
-      begin
-        JoinTableName:=bTableName;
-        FieldTableName:=TableName;
-        FullFieldName:=QuoteField(bTableName)+'.'+QuoteField(aField);
-        Result := True;
-        exit;
-      end;
-    for i := 0 to Table.Count-1 do
-      begin
-        if RecoursiveFindField(TQueryTable(Table.Items[i]),Field,FullFieldName,FieldTableName,JoinTableName) then
-          begin
-            Result := True;
-            exit;
-          end;
-      end;
-  end;
 begin
   ToFindFields := TStringList.Create;
   FoundFields := TStringList.Create;
@@ -209,46 +271,7 @@ begin
         end
       else
         raise Exception.Create('Unable to build Select, Field "'+ToFindFields[0]+'" not found');
-    FoundFields.Delimiter:=',';
-    tmp := '';
-    for i := 0 to FoundFields.Count-1 do
-      tmp += FoundFields[i]+',';
-    Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
-    JoinedTables.Delete(0);
-    while JoinedTables.Count>0 do
-      begin
-        Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
-        JoinedTables.Delete(0);
-      end;
-    scanner := TFPExpressionScanner.Create;
-    try
-      aWhere := ' where ';
-      scanner.Source:=aFilter;
-      aToken := scanner.GetToken;
-      while aToken <> ttEOF do
-        begin
-          case aToken of
-          ttString,ttIdentifier:
-            begin
-              if RecoursiveFindField(Self,scanner.Token,cFullFieldName,cFieldTableName,cJoinTableName) then
-                aWhere+=cFullFieldName
-              else
-                begin
-                  aParName := 'PARAM'+IntToStr(Params.Count);
-                  Params.Values[aParName]:=scanner.Token;
-                  aWhere+= ':'+aParName;
-
-                end;
-            end
-          else
-            aWhere+=scanner.Token;
-          end;
-          aToken := scanner.GetToken;
-        end;
-    finally
-      scanner.Free;
-    end;
-    Result := Result+aWhere;
+    Result := BuildSelect(aFilter,FoundFields,JoinedTables,Params);
   finally
     ToFindFields.Free;
     FoundFields.Free;
@@ -283,39 +306,6 @@ var
         CollectFields(TQueryTable(Table.Items[i]));
       end;
   end;
-  function RecoursiveFindField(Table : TQueryTable;Field : string;var FullFieldName,FieldTableName,JoinTableName : string) : Boolean;
-  var
-    bTableName , aField: string;
-    i: Integer;
-  begin
-    Result := False;
-    if pos('.',Field)>0 then
-      begin
-        bTableName := copy(Field,0,pos('.',Field)-1);
-        aField := copy(Field,pos('.',Field)+1,length(Field));
-      end
-    else
-      begin
-        aField := Field;
-        bTableName:=TableName;
-      end;
-    if ((bTableName='') or (lowercase(bTableName)=lowercase(TableName))) and (Table.Fields.IndexOf(aField)>=0) then
-      begin
-        JoinTableName:=bTableName;
-        FieldTableName:=TableName;
-        FullFieldName:=QuoteField(bTableName)+'.'+QuoteField(aField);
-        Result := True;
-        exit;
-      end;
-    for i := 0 to Table.Count-1 do
-      begin
-        if RecoursiveFindField(TQueryTable(Table.Items[i]),Field,FullFieldName,FieldTableName,JoinTableName) then
-          begin
-            Result := True;
-            exit;
-          end;
-      end;
-  end;
 begin
   Result := '';
   FoundFields := TStringList.Create;
@@ -323,51 +313,7 @@ begin
   try
     JoinedTables.AddPair(QuoteField(Self.TableName),QuoteField(Self.TableName));
     CollectFields(Self);
-    tmp := '';
-    for i := 0 to FoundFields.Count-1 do
-      tmp += FoundFields[i]+',';
-    if tmp <> '' then
-      begin
-        Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
-        JoinedTables.Delete(0);
-        while JoinedTables.Count>0 do
-          begin
-            Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
-            JoinedTables.Delete(0);
-          end;
-        scanner := TFPExpressionScanner.Create;
-        try
-          aWhere := ' where ';
-          if TryStrToInt64(aSelector,aVal) then
-            scanner.source := 'SQL_ID='+IntToStr(aVal)
-          else
-            scanner.Source:=aSelector;
-          aToken := scanner.GetToken;
-          while aToken <> ttEOF do
-            begin
-              case aToken of
-              ttString,ttIdentifier:
-                begin
-                  if RecoursiveFindField(Self,scanner.Token,cFullFieldName,cFieldTableName,cJoinTableName) then
-                    aWhere+=cFullFieldName
-                  else
-                    begin
-                      aParName := 'PARAM'+IntToStr(aParams.Count);
-                      aParams.Values[aParName]:=scanner.Token;
-                      aWhere+= ':'+aParName;
-
-                    end;
-                end
-              else
-                aWhere+=scanner.Token;
-              end;
-              aToken := scanner.GetToken;
-            end;
-        finally
-          scanner.Free;
-        end;
-        Result := Result+aWhere;
-      end;
+    Result := BuildSelect(aSelector,FoundFields,JoinedTables,aParams);
     writeln(Result);
   finally
     FoundFields.Free;

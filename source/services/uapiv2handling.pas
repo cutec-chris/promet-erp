@@ -72,7 +72,7 @@ begin
             with aUser do
               begin
                 tmp := DecodeStringBase64(copy(ARequest.Authorization,7,length(ARequest.Authorization)));
-                if (not Data.Load(aUser,'NAME='+copy(tmp,0,pos(':',tmp)-1)))
+                if (not Data.Load(aUser,'NAME='+copy(tmp,0,pos(':',tmp)-1)+' OR LOGINNAME='+copy(tmp,0,pos(':',tmp)-1)+' OR EMAIL='+copy(tmp,0,pos(':',tmp)-1)))
                 or (not CheckUserPasswort(copy(tmp,pos(':',tmp)+1,length(tmp))))
                 then
                   begin
