@@ -16,9 +16,6 @@ type
     Transaction : TSQLTransaction;
     Id : TThreadID;
   end;
-
-  { TLockedQuery }
-
   TLockedQuery = class
   private
     cs : TRTLCriticalSection;
@@ -29,9 +26,6 @@ type
     function Lock : Boolean;
     procedure Unlock;
   end;
-
-  { TQueryTable }
-
   TQueryTable = class(TObjectList)
   private
     FFields: TStrings;
@@ -42,7 +36,7 @@ type
     procedure SetTableName(AValue: string);
     function QuoteField(aField : string) : string;
     function QuoteValue(aField : string) : string;
-    function BuildSelect(aFilter: Variant; FoundFields, JoinedTables,
+    function BuildInternalSelect(aFilter: Variant; FoundFields, JoinedTables,
       Params: TStrings): string;
   protected
     Selected : Boolean;
@@ -55,9 +49,6 @@ type
     function BuildSelect(aFilter,aFields : string;Params : TStringList) : string;
     function BuildLoad(aSelector : Variant;CascadicIndex : Integer = 0;aParams : TStringList = nil) : string;
   end;
-
-  { TSQLDBDataModule }
-
   TSQLDBDataModule = class(TBaseDBModule)
   private
     FMandants: TStringList;
@@ -80,14 +71,13 @@ type
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;override;
-
     property Mandants : TStringList read GetMandants;
     destructor Destroy; override;
   end;
 
 implementation
 
-uses uEncrypt,db;
+uses uEncrypt,db,math;
 
 procedure TQueryTable.SetTableName(AValue: string);
 begin
@@ -135,8 +125,8 @@ begin
         end;
     end;
 end;
-function TQueryTable.BuildSelect(aFilter: Variant; FoundFields, JoinedTables,
-  Params: TStrings): string;
+function TQueryTable.BuildInternalSelect(aFilter: Variant; FoundFields,
+  JoinedTables, Params: TStrings): string;
 var
   tmp, aWhere, cFullFieldName, cFieldTableName, cJoinTableName,
     aParName: String;
@@ -145,54 +135,57 @@ var
   aToken: TTokenType;
   aVal: int64;
 begin
+  Result := '';
   FoundFields.Delimiter:=',';
   tmp := '';
   for i := 0 to FoundFields.Count-1 do
     tmp += FoundFields[i]+',';
-  Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
-  JoinedTables.Delete(0);
-  while JoinedTables.Count>0 do
+  if tmp <> '' then
     begin
-      Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+      Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
       JoinedTables.Delete(0);
-    end;
-  scanner := TFPExpressionScanner.Create;
-  try
-    aWhere := ' where ';
-    if TryStrToInt64(aFilter,aVal) then
-      scanner.source := 'SQL_ID='+IntToStr(aVal)
-    else
-      scanner.Source:=aFilter;
-    aToken := scanner.GetToken;
-    while aToken <> ttEOF do
-      begin
-        case aToken of
-        ttString,ttIdentifier:
-          begin
-            if RecoursiveFindField(Self,scanner.Token,cFullFieldName,cFieldTableName,cJoinTableName) then
-              aWhere+=cFullFieldName
-            else
-              begin
-                if (aParname = '') or (copy(aWhere,length(aWhere)-length(aParName)+1,length(aParName)) <> aParName) then
-                  begin
-                    aParName := 'PARAM'+IntToStr(Params.Count);
-                    Params.Values[aParName]:=scanner.Token;
-                    aWhere+= ':'+aParName;
-                  end
-                else Params.Values[aParName]:=Params.Values[aParName]+' '+scanner.Token
-              end;
-          end
-        else
-          aWhere+=' '+scanner.Token+' ';
+      while JoinedTables.Count>0 do
+        begin
+          Result := Result+' left join '+JoinedTables.ValueFromIndex[0]+' on '+JoinedTables.Names[0]+'.'+QuoteField('SQL_ID')+'='+JoinedTables.ValueFromIndex[0]+'.'+QuoteField('REF_ID');
+          JoinedTables.Delete(0);
         end;
+      scanner := TFPExpressionScanner.Create;
+      try
+        aWhere := ' where ';
+        if TryStrToInt64(aFilter,aVal) then
+          scanner.source := 'SQL_ID='+IntToStr(aVal)
+        else
+          scanner.Source:=aFilter;
         aToken := scanner.GetToken;
+        while aToken <> ttEOF do
+          begin
+            case aToken of
+            ttString,ttIdentifier:
+              begin
+                if RecoursiveFindField(Self,scanner.Token,cFullFieldName,cFieldTableName,cJoinTableName) then
+                  aWhere+=cFullFieldName
+                else
+                  begin
+                    if (aParname = '') or (copy(aWhere,length(aWhere)-length(aParName)+1,length(aParName)) <> aParName) then
+                      begin
+                        aParName := 'PARAM'+IntToStr(Params.Count);
+                        Params.Values[aParName]:=scanner.Token;
+                        aWhere+= ':'+aParName;
+                      end
+                    else Params.Values[aParName]:=Params.Values[aParName]+' '+scanner.Token
+                  end;
+              end
+            else
+              aWhere+=' '+scanner.Token+' ';
+            end;
+            aToken := scanner.GetToken;
+          end;
+      finally
+        scanner.Free;
       end;
-  finally
-    scanner.Free;
-  end;
-  Result := Result+aWhere;
+      Result := Result+aWhere;
+    end;
 end;
-
 function TQueryTable.GetTable(Table : Integer): TQueryTable;
 begin
   Result := Items[Table] as TQueryTable;
@@ -271,7 +264,7 @@ begin
         end
       else
         raise Exception.Create('Unable to build Select, Field "'+ToFindFields[0]+'" not found');
-    Result := BuildSelect(aFilter,FoundFields,JoinedTables,Params);
+    Result := BuildInternalSelect(aFilter,FoundFields,JoinedTables,Params);
   finally
     ToFindFields.Free;
     FoundFields.Free;
@@ -313,7 +306,7 @@ begin
   try
     JoinedTables.AddPair(QuoteField(Self.TableName),QuoteField(Self.TableName));
     CollectFields(Self);
-    Result := BuildSelect(aSelector,FoundFields,JoinedTables,aParams);
+    Result := BuildInternalSelect(aSelector,FoundFields,JoinedTables,aParams);
     writeln(Result);
   finally
     FoundFields.Free;
@@ -488,7 +481,10 @@ var
     aTyp, bTyp: TClass;
     aDetail, nObj: TObject;
     SubClassFilled : Boolean = False;
+    //aPerf: QWord;
   begin
+    //aPerf := GetTickCount64;
+    //writeln('FillDataSet('+aObj.ClassName+')');
     repeat
       //Fill aObj Fields
       ctx := TRttiContext.Create;
@@ -549,7 +545,7 @@ var
                   aDetail := GetObjectProp(aObj,PPropInfo(Prop.Handle));
                   with TAbstractMasterDetail(aDetail) do
                     begin
-                      for b := Count-1 downto 0 do
+                      for b := Count-1 downto max(Count-2,0) do
                         if Items[b] is TAbstractDBDataset2 then
                           begin
                             if Items[b].InheritsFrom(TAbstractDBDataset2) then
@@ -571,12 +567,18 @@ var
                       if Assigned(aField) and (aField.AsLargeInt<>0) then
                         begin
                           nObj := GetObjectTyp.Create;
+                          //writeln('Creating Object:'+nObj.ClassName+' (sql_id:'+aField.AsString+')');
                           Add(nObj);
                           FillDataSet(TPersistent(nObj),aDataSet);
                           SubClassFilled := True;
                           break;
                         end
-                      else FreeAndNil(nObj);
+                      else
+                        begin
+                          //writeln('Destroying Object:'+nObj.ClassName+' (sql_id:'+aField.AsString+')');
+                          FreeAndNil(nObj);
+                          SubClassFilled:=False;
+                        end;
                     end;
                 end;
             end;
@@ -585,9 +587,11 @@ var
       if not SubClassFilled then
         begin
           aDataSet.Next;
+          //writeln('GetTickCount:'+IntToStr(GetTickCount64-aPerf));
           exit;
         end;
     until aDataSet.EOF;
+    //writeln('GetTickCount:'+IntToStr(GetTickCount64-aPerf));
   end;
 
 begin
@@ -604,11 +608,13 @@ begin
             aDataSet.Query.Params.ParamValues[bParams.Names[i]]:=bParams.ValueFromIndex[i];
           aDataSet.Query.Open;
           //Fill in Class
+          writeln(aDataSet.Query.RecordCount);
           aDataSet.Query.First;
           if not aDataSet.Query.EOF then Result := True;
           FillDataSet(Obj,aDataSet.Query);
           aDataSet.Query.Close;
           aDataSet.Unlock;
+          bParams.Clear;
           actLoad := aTable.BuildLoad(Selector,actCascade,bParams);
           inc(actCascade);
         end;
@@ -655,6 +661,7 @@ constructor TLockedQuery.Create(aQuery: TSQLQuery);
 begin
   InitCriticalSection(cs);
   Query := aQuery;
+  Query.PacketRecords:=-1;
 end;
 destructor TLockedQuery.Destroy;
 begin
