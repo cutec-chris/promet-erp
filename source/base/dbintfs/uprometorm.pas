@@ -49,6 +49,9 @@ type
     function BuildSelect(aFilter,aFields : string;Params : TStringList) : string;
     function BuildLoad(aSelector : Variant;CascadicIndex : Integer = 0;aParams : TStringList = nil) : string;
   end;
+
+  { TSQLDBDataModule }
+
   TSQLDBDataModule = class(TBaseDBModule)
   private
     FMandants: TStringList;
@@ -71,6 +74,8 @@ type
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;override;
+    function Delete(Selector: Variant): Boolean; override;
+    function GetID: Int64; override;
     property Mandants : TStringList read GetMandants;
     destructor Destroy; override;
   end;
@@ -651,6 +656,14 @@ begin
       aDataSet.Unlock;
       aParams.Free;
     end;
+end;
+function TSQLDBDataModule.Delete(Selector: Variant): Boolean;
+begin
+  Result := False;
+end;
+function TSQLDBDataModule.GetID: Int64;
+begin
+  Result := -1;
 end;
 destructor TSQLDBDataModule.Destroy;
 begin
