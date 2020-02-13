@@ -8,7 +8,7 @@ unit promet_db_lowlevel2;
 interface
 
 uses
-  ubasedbclasses, uPrometORM, ubasestreamer, uEncrypt;
+  uPrometORM, uEncrypt;
 
 implementation
 

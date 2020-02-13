@@ -8,7 +8,7 @@ unit pPrometDBIntfs2;
 interface
 
 uses
-  uIntfStrConsts, uData;
+  uIntfStrConsts, uData, ubasedbclasses, uBaseERPDBClasses;
 
 implementation
 
