@@ -609,6 +609,11 @@ begin
       aDataSet := FindDataSet(ThreadID,actLoad);
       if Assigned(aDataSet) then
         begin
+          if not aDataSet.Query.Prepared then
+            begin
+              writeln('Preparing DataSet ',IntToHex(Qword(@aDataSet),8));
+              aDataSet.Query.Prepare;
+            end;
           for i := 0 to bParams.Count-1 do
             aDataSet.Query.Params.ParamValues[bParams.Names[i]]:=bParams.ValueFromIndex[i];
           aDataSet.Query.Open;
