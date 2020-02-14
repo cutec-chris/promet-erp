@@ -2,14 +2,20 @@
   This source is only used to compile and install the package.
  }
 
-unit pPrometDBIntfs2;
+unit perp2;
 
 {$warn 5023 off : no warning about unused units}
 interface
 
 uses
-  uIntfStrConsts, uData, ubasedbclasses, uBaseERPDBClasses;
+  uMasterdata, uOrder, uPerson, LazarusPackageIntf;
 
 implementation
 
+procedure Register;
+begin
+end;
+
+initialization
+  RegisterPackage('perp2', @Register);
 end.

@@ -21,31 +21,80 @@ unit uMasterdata;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts,uBaseDatasetInterfaces;
+  Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts,uBaseDatasetInterfaces2;
 type
-
-  { TMasterdataList }
-
   TMasterdataList = class(TBaseERPList)
+  private
+    FType,FID,FVersion,FLanguage,FStatus,FBarcode,FMatchCode,FShorttext,FQuantityU,
+      FPType,FWarrenty,FManuFacnr,FDispoType,FCostCentre,FAccount,FCategory,
+      FCurrency,FScript,FScriptVer,FScriptFunc,FPrepText,FWorkText,FCreatedBy,FChangedBy : string;
+    FTreeentry,FImageRef : Int64;
+    FVat : ShortInt;
+    FWeight,FSellprice,FPurchase : double;
+    FValidFrom,FValidTo,FCRDate,FCHDate : TDateTime;
+    FRepairtime,FPackageUnit,FValidToMe : Integer;
+    FActive,FUseSerial,FOwnProd,FSaleItem,FUseBatch,FNoStorage,FIsTemplate : Boolean;
+    FAccountinginfo : TBlobData;
   protected
     function GetMatchCodeFieldName: string;override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetStatusFieldName : string;override;
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    constructor Create(aOwner : TComponent);override;
     function GetTyp: string; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
     procedure OpenItem(AccHistory: Boolean=True); override;
     procedure Select(aID : string);overload;
     procedure Select(aID : string;aVersion : Variant;aLanguage : Variant);overload;
     procedure Select(aID : string;aVersion : Variant);overload;
     function SelectFromLink(aLink: string): Boolean; override;
     function SelectFromLinkwoVersion(aLink: string): Boolean;
-  end;
-  TMasterdataHistory = class(TBaseHistory)
+    class function MapField(aField: string): string; override;
+  published
+    property Typ : string index 1 read FType write FType;
+    property ID : string index 40 read FID write FID;
+    property Version : string index 25 read FVersion write FVersion;
+    property Language : string index 3 read FLanguage write FLanguage;
+    property Active : Boolean read FActive write FActive;
+    property Status : string index 4 read FStatus write FStatus;
+    property Barcode : string index 20 read FBarcode write FBarcode;
+    property MatchCode : string index 200 read FMatchCode write FMatchCode;
+    property Shorttext : string index 240 read FShorttext write FShorttext;
+    property Treeentry : Int64 read FTreeentry write FTreeentry;
+    property QuantityU : string index 10 read FQuantityU write FQuantityU;//Mengeneinheit
+    property Vat : ShortInt read FVat write FVat;        //Mehrwertsteuer
+    property UseSerial : Boolean read FUseSerial write FUseSerial;
+    property OwnProd : Boolean read FOwnProd write FOwnProd;
+    property SaleItem : Boolean read FSaleItem write FSaleItem;
+    property UseBatch : Boolean read FUseBatch write FUseBatch;
+    property NoStorage : Boolean read FNoStorage write FNoStorage;
+    property PType : string index 1 read FPType write FPType;
+    property Weight : double read FWeight write FWeight;
+    property Repairtime : Integer read FRepairtime write FRepairtime;     //max. Reparaturzeit
+    property PackageUnit : Integer read FPackageUnit write FPackageUnit;     //Verpackungseinheit
+    property Warrenty : string index 10 read FWarrenty write FWarrenty;
+    property ManuFacnr : string index 40 read FManuFacnr write FManuFacnr;
+    property DispoType : string index 1 read FDispoType write FDispoType;   //Planart 0=nicht Disponieren 1=Volldispo 2=disponieren 3=Mindestbestand
+    property ValidFrom : TDateTime read FValidFrom write FValidFrom;   //Ein/Auslaufsteuerung
+    property ValidTo : TDateTime read FValidTo write FValidTo;     //gültig bis Datum
+    property ValidToMe : Integer read FValidToMe write FValidToMe;//gültig bis Menge
+    property CostCentre : string index 10 read FCostCentre write FCostCentre;//Kostenstelle
+    property Account : string index 10 read FAccount write FAccount; //Fibu Konto
+    property Accountinginfo : TBlobData read FAccountinginfo write FAccountinginfo; //Fibu Info
+    property Category : string index 60 read FCategory write FCategory;
+    property Sellprice : double read FSellprice write FSellprice;
+    property Purchase : double read FPurchase write FPurchase;
+    property IsTemplate : Boolean read FIsTemplate write FIsTemplate;
+    property Currency : string index 5 read FCurrency write FCurrency;
+    property ImageRef : Int64 read FImageRef write FImageRef;
+    property Script : string index 60 read FScript write FScript;
+    property ScriptVer : string index 8 read FScriptVer write FScriptVer;
+    property ScriptFunc : string index 60 read FScriptFunc write FScriptFunc;
+    property PrepText : string index 100 read FPrepText write FPrepText;
+    property WorkText : string index 100 read FWorkText write FWorkText;
+    property CRDate : TDateTime read FCRDate write FCRDate;
+    property CHDate : TDateTime read FCHDate write FCHDate;
+    property ChangedBy : string index 4 read FChangedBy write FChangedBy;
+    property CreatedBy : string index 4 read FCreatedBy write FCreatedBy;
   end;
   TMasterdata = class;
 
@@ -224,11 +273,11 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('FROMUNIT',ftFloat,0,False);
-            Add('QUANTITYU',ftString,10,False);
-            Add('DISCOUNT',ftFloat,0,False);
-            Add('PRICE',ftFloat,0,True);
-            Add('CURRENCY',ftString,3,False);
+            property FROMUNIT : double False);
+            property QUANTITYU : string index 10 read  write ;
+            property DISCOUNT : double False);
+            property PRICE : double True);
+            property CURRENCY : string index 3 read  write ;
           end;
     end;
 end;
@@ -257,12 +306,12 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('ACCOUNTNO',ftString,60,True);
-            Add('NAME',ftString,260,True);
-            Add('DELIVERTM',ftInteger,0,False);
-            Add('EID',ftString,30,False);
-            Add('TRANSPORT',ftFloat,0,False);
-            Add('TRANSCUR',ftString,3,False);
+            property ACCOUNTNO : string index 60 read  write ;
+            property NAME : string index 260 read  write ;
+            property DELIVERTM : Integer read  write ;
+            property EID : string index 30 read  write ;
+            property TRANSPORT : double False);
+            property TRANSCUR : string index 3 read  write ;
           end;
     end;
 end;
@@ -275,7 +324,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('PART',ftString,60,False);
+            property PART : string index 60 read  write ;
           end;
     end;
 end;
@@ -299,7 +348,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('ASSEMBLY',ftString,60,False);
+            property ASSEMBLY : string index 60 read  write ;
           end;
     end;
 end;
@@ -319,8 +368,8 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('TEXTTYPE',ftInteger,0,False);
-            Add('TEXT',ftMemo,0,False);
+            property TEXTTYPE : Integer read  write ;
+            property TEXT',ftMemo,0 read  write ;
           end;
     end;
 end;
@@ -333,9 +382,9 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('PROPERTY',ftString,50,false);
-            Add('VALUE',ftString,50,false);
-            Add('UNIT',ftString,10,false);
+            property PROPERTY : string index 50 read  write ;
+            property VALUE : string index 50 read  write ;
+            property UNIT : string index 10 read  write ;
           end;
     end;
 end;
@@ -395,15 +444,15 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('PTYPE',ftString,4,True);
-            Add('PRICE',ftFloat,0,false);
-            Add('NOTE',ftString,500,False);
-            Add('CURRENCY',ftString,3,true);
-            Add('MINCOUNT',ftFloat,0,False);
-            Add('MAXCOUNT',ftFloat,0,False);
-            Add('VALIDFROM',ftDate,0,False);
-            Add('VALIDTO',ftDate,0,False);
-            Add('CUSTOMER',ftString,20,False);
+            property PTYPE : string index 4 read  write ;
+            property PRICE : double false);
+            property NOTE : string index 500 read  write ;
+            property CURRENCY : string index 3 read  write ;
+            property MINCOUNT : double False);
+            property MAXCOUNT : double False);
+            property VALIDFROM : TDateTime read  write ;
+            property VALIDTO : TDateTime read  write ;
+            property CUSTOMER : string index 20 read  write ;
           end;
     end;
 end;
@@ -448,8 +497,8 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('SERIAL',ftString,30,False);
-            Add('NOTE',ftString,500,False);
+            property SERIAL : string index 30 read  write ;
+            property NOTE : string index 500 read  write ;
           end;
     end;
 end;
@@ -491,13 +540,13 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('STORAGEID',ftString,3,True);
-            Add('STORNAME',ftString,30,True);
-            Add('PLACE',ftString,20,False);
-            Add('QUANTITY',ftFloat,0,False);
-            Add('RESERVED',ftFloat,0,False);
-            Add('QUANTITYU',ftString,10,False);
-            Add('CHARGE',ftInteger,0,False);
+            property STORAGEID : string index 3 read  write ;
+            property STORNAME : string index 30 read  write ;
+            property PLACE : string index 20 read  write ;
+            property QUANTITY : double False);
+            property RESERVED : double False);
+            property QUANTITYU : string index 10 read  write ;
+            property CHARGE : Integer read  write ;
           end;
     end;
 end;
@@ -1088,99 +1137,6 @@ function TMasterdataList.GetStatusFieldName: string;
 begin
   Result:='STATUS';
 end;
-constructor TMasterdataList.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          UsePermissions:=True;
-        end;
-    end;
-end;
-
-constructor TMasterdataList.Create(aOwner: TComponent);
-begin
-  CreateEx(aOwner,Data,nil,nil);
-end;
-
-procedure TMasterdataList.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'MASTERDATA';
-      TableCaption := strMasterdata;
-      UpdateFloatFields:=True;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('TYPE',ftString,1,True);
-            Add('ID',ftString,40,True);
-            Add('VERSION',ftString,25,False);
-            Add('LANGUAGE',ftString,3,False);
-            Add('ACTIVE',ftString,1,True);
-            Add('STATUS',ftString,4,false);
-            Add('BARCODE',ftString,20,False);
-            Add('MATCHCODE',ftString,200,False);
-            Add('SHORTTEXT',ftString,240,False);
-            Add('TREEENTRY',ftLargeint,0,True);
-            Add('QUANTITYU',ftString,10,False);//Mengeneinheit
-            Add('VAT',ftString,1,True);        //Mehrwertsteuer
-            Add('USESERIAL',ftString,1,False);
-            Add('OWNPROD',ftString,1,False);
-            Add('SALEITEM',ftString,1,False);
-            Add('USEBATCH',ftString,1,False);
-            Add('NOSTORAGE',ftString,1,False);
-            Add('PTYPE',ftString,1,False);
-            Add('WEIGHT',ftFloat,0,False);
-            Add('REPAIRTIME',ftInteger,0,False);     //max. Reparaturzeit
-            Add('UNIT',ftInteger,0,False);     //Verpackungseinheit
-            Add('WARRENTY',ftString,10,False);
-            Add('MANUFACNR',ftString,40,False);
-            Add('DISPOTYPE',ftString,1,False);   //Planart 0=nicht Disponieren 1=Volldispo 2=disponieren 3=Mindestbestand
-            Add('VALIDFROM',ftDate,0,False);   //Ein/Auslaufsteuerung
-            Add('VALIDTO',ftDate,0,False);     //gültig bis Datum
-            Add('VALIDTOME',ftInteger,0,False);//gültig bis Menge
-            Add('COSTCENTRE',ftString,10,False);//Kostenstelle
-            Add('ACCOUNT',ftString,10,False); //Fibu Konto
-            Add('ACCOUNTINGINFO',ftMemo,0,False); //Fibu Info
-            Add('CATEGORY',ftString,60,False);
-            Add('SELLPRICE',ftFloat,0,False);
-            Add('PURCHASE',ftFloat,0,False);
-            Add('ISTEMPLATE',ftString,1,False);
-            Add('CURRENCY',ftString,5,False);
-            Add('IMAGEREF',ftLargeint,0,False);
-            Add('SCRIPT',ftString,60,False);
-            Add('SCRIPTVER',ftString,8,False);
-            Add('SCRIPTFUNC',ftString,60,False);
-            Add('PRSCRIPT',ftString,60,False);
-            Add('PRSCRIPTVER',ftString,8,False);
-            Add('PRSCRIPTFUNC',ftString,160,False);
-            Add('PREPTEXT',ftString,100,False);
-            Add('WORKTEXT',ftString,100,False);
-            Add('CRDATE',ftDate,0,False);
-            Add('CHDATE',ftDate,0,False);
-            Add('CHANGEDBY',ftString,4,False);
-            Add('CREATEDBY',ftString,4,true);
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            Add('ID','TYPE;ID;VERSION;LANGUAGE',[ixUnique]);
-            Add('BARCODE','BARCODE',[]);
-            Add('SHORTTEXT','SHORTTEXT',[]);
-            Add('STATUS','STATUS',[]);
-            Add('MATCHCODE','MATCHCODE',[]);
-          end;
-      if Data.ShouldCheckTable(TableName) then
-        DefineUserFields(aDataSet);
-    end;
-  with aDataSet as IBaseDbFilter, BaseApplication as IBaseDbInterface do
-    BaseFilter := Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y');
-end;
-
 procedure TMasterdataList.OpenItem(AccHistory: Boolean);
 var
   aObj: TObjects = nil;
@@ -1218,7 +1174,7 @@ begin
                 aObj.Status.AsString := Self.Status.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
               aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
-              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet),True);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet) read  write ;
               aObj.FieldByName('VERSION').AsString:=Self.FieldByName('VERSION').AsString;
               aObj.Post;
               Self.GenerateThumbnail;

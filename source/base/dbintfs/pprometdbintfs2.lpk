@@ -11,7 +11,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="5">
+    <Files Count="4">
       <Item1>
         <Filename Value="uintfstrconsts.pas"/>
         <UnitName Value="uIntfStrConsts"/>
@@ -28,10 +28,6 @@
         <Filename Value="ubaseerpdbclasses.pas"/>
         <UnitName Value="uBaseERPDBClasses"/>
       </Item4>
-      <Item5>
-        <Filename Value="uorder.pas"/>
-        <UnitName Value="uOrder"/>
-      </Item5>
     </Files>
     <i18n>
       <EnableI18N Value="True"/>
