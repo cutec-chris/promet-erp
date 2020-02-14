@@ -38,12 +38,18 @@ type
     function Delete(Selector: Variant) : Boolean;virtual;abstract;
     function GetID : Int64;virtual;abstract;
   end;
+  DatasetClass = record
+    aName : string;
+    aClass : TBaseDBDatasetClass;
+  end;
 
 var
   DataM : TBaseDBModule = nil;
   GlobalUser : TUser;
+  DatasetClasses : array of DatasetClass;
 
 function Data : TBaseDBModule;
+procedure RegisterdataSetClass(aName: string;aClass : TBaseDBDatasetClass);
 
 implementation
 
@@ -52,6 +58,26 @@ begin
   if not Assigned(DataM) then
     DataM := TBaseDBModule.Create(nil);
   Result := DataM;
+end;
+
+procedure RegisterdataSetClass(aName: string; aClass: TBaseDBDatasetClass);
+var
+  i: Integer;
+  Found: Boolean;
+begin
+  Found := False;
+  for i := low(DatasetClasses) to High(DatasetClasses) do
+    if DatasetClasses[i].aName=aName then
+      begin
+        Found := True;
+        break;
+      end;
+  if not Found then
+    begin
+      SetLength(DatasetClasses,length(DatasetClasses)+1);
+      DatasetClasses[length(DatasetClasses)-1].aName:=aName;
+      DatasetClasses[length(DatasetClasses)-1].aClass:=aClass;
+    end;
 end;
 
 finalization

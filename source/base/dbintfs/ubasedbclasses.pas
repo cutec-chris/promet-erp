@@ -5,7 +5,7 @@ unit ubasedbclasses;
 interface
 
 uses
-  Classes, SysUtils, uBaseDatasetInterfaces2, db, Contnrs, ubasestreamer;
+  Classes, SysUtils, uBaseDatasetInterfaces2, db, Contnrs;
 
 type
   TRawBlob = class

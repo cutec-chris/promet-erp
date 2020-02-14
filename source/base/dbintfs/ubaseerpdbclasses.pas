@@ -37,10 +37,7 @@ type
   protected
     property UpdateHistory : Boolean read FUpdateHistory write FUpdateHistory;
   public
-    function CombineItems(aRemoteLink : string) : Boolean;virtual;
   published
-    procedure CascadicPost;override;
-    procedure CascadicCancel; override;
   end;
   TStorageTypes = class(TBaseDBDataSet)
   private
@@ -147,10 +144,11 @@ type
     //FImages: TImages;
     FPosNo : Integer;
     FPosFormat: string;
-    FPosTyp,FActive,FTPosNo,FIdent,FVersion,FLanguage,FTextType,FShorttext,
+    FPosTyp,FTPosNo,FIdent,FVersion,FLanguage,FTextType,FShorttext,
       FStorage,FSerial,FManufacNr,FUnit,FScript,FScriptVer,FScriptFunc,FPrepText,FWorkText,FChangedBy,FCreatedBy: string;
     FWeight,FAvalible,FQuantity,FQuantityD,FQuantityC,FQuantityO,FSetupTime,FPlanTime,FTime,FBufferTime,
       FPurchase,FSellprice,FComprice,FDiscount,FRepairtime,FPosPrice,FGrossPrice : double;
+    FActive : Boolean;
     FText : TBlobData;
     FVat : SmallInt;
     FImageRef,FParent,FOldId : Int64;
@@ -168,7 +166,6 @@ type
     function GetPosTyp: TPositionTyp;
     procedure DoCalcPosPrice(Setprice : Boolean = False);
     procedure DoCalcGrossPosPrice;
-    function GetShorttext: TField;
     procedure SetGrossPrice(AValue: double);
     procedure SetPosTyp(AIndex: Integer; AValue: string);
     procedure SetQuantity(AValue: double);
@@ -196,7 +193,6 @@ type
   public
     constructor CreateEx(Module: TComponent; Owner: TComponent); override;
     destructor Destroy;override;
-    procedure Open;override;
     procedure FillDefaults;override;
     procedure Assign(Source: TPersistent); override;
     property PosTyp : TPositionTyp read GetPosTyp;
@@ -211,54 +207,54 @@ type
     procedure AppendSubTotal;
     //Fields
   published
-    property POSNO : Integer read FPosNo write FPosNo;
-    property POSTYPE : string index 3 read FPosTyp write SetPosTyp;
-    property ACTIVE : string index 1 read FActive write FActive;
-    property TPOSNO : string index 15 read FTPosNo write FTPosNo;                //Auschreibungsnummer
-    property IDENT : string index 40 read FIdent write FIdent;
-    property VERSION : string index 25 read FVersion write FVersion;
-    property LANGUAGE : string index 3 read FLanguage write FLanguage;
-    property TEXTTYPE : string index 1 read FTextType write FTextType;
-    property SHORTTEXT : string index 200 read FShorttext write FShorttext;
-    property TEXT : TBlobData read FText write FText;
-    property STORAGE : string index 3 read FStorage write FStorage;                //Lagerentname
-    property SERIAL : string index 20 read FSerial write FSerial;                //Serienummer
-    property MANUFACNR : string index 40 read FManufacNr write FManufacNr;
-    property WEIGHT : double read FWeight write FWeight;
-    property AVALIBLE : double read FAvalible write FAvalible;                //verfügbar
-    property DELIVERY : TDateTime read FDelivery write FDelivery;                 //wann verfügbar
-    property QUANTITY : double read FQuantity write SetQuantity;                //Menge
-    property QUANTITYD : double read FQuantityD write FQuantityD;               //Menge Geliefert
-    property QUANTITYC : double read FQuantityC write FQuantityC;               //Menge berechnet
-    property QUANTITYO : double read FQuantityO write FQuantityO;               //Auftragsmenge
-    property QUANTITYU : string index 10 read FUnit write FUnit;             //Mengeneinheit
-    property SETUPTIME : double read FSetupTime write FSetupTime;               //Rüstzeit
-    property PLANTIME : double read FPlanTime write FPlanTime;                //geplante Zeit
-    property TIME : double read FTime write FTime;                    //benötigte Zeit
-    property BUFFERTIME : double read FBufferTime write FBufferTime;              //Wartezeit (wann darf nächste Aufgabe frühestens starten)
-    property STARTDATE : TDateTime read FStartDate write FStartDate;
-    property DUEDATE : TDateTime read FStartDate write FStartDate;
-    property EARLIEST : TDateTime read FEarliest write FEarliest;
-    property LATEST : TDateTime read FLatest write FLatest;
+    property PosNo : Integer read FPosNo write FPosNo;
+    property PosType : string index 3 read FPosTyp write SetPosTyp;
+    property Active : Boolean read FActive write FActive;
+    property TPosNo : string index 15 read FTPosNo write FTPosNo;                //Auschreibungsnummer
+    property Ident : string index 40 read FIdent write FIdent;
+    property Version : string index 25 read FVersion write FVersion;
+    property Language : string index 3 read FLanguage write FLanguage;
+    property TextType : string index 1 read FTextType write FTextType;
+    property Shorttext : string index 200 read FShorttext write FShorttext;
+    property Text : TBlobData read FText write FText;
+    property Storage : string index 3 read FStorage write FStorage;                //Lagerentname
+    property Serial : string index 20 read FSerial write FSerial;                //Serienummer
+    property ManufacNr : string index 40 read FManufacNr write FManufacNr;
+    property Weight : double read FWeight write FWeight;
+    property Avalible : double read FAvalible write FAvalible;                //verfügbar
+    property Delivery : TDateTime read FDelivery write FDelivery;                 //wann verfügbar
+    property Quantity : double read FQuantity write SetQuantity;                //Menge
+    property QuantityD : double read FQuantityD write FQuantityD;               //Menge Geliefert
+    property QuantityC : double read FQuantityC write FQuantityC;               //Menge berechnet
+    property QuantityO : double read FQuantityO write FQuantityO;               //Auftragsmenge
+    property QuantityU : string index 10 read FUnit write FUnit;             //Mengeneinheit
+    property SetupTime : double read FSetupTime write FSetupTime;               //Rüstzeit
+    property PlanTime : double read FPlanTime write FPlanTime;                //geplante Zeit
+    property Time : double read FTime write FTime;                    //benötigte Zeit
+    property BufferTime : double read FBufferTime write FBufferTime;              //Wartezeit (wann darf nächste Aufgabe frühestens starten)
+    property StartDate : TDateTime read FStartDate write FStartDate;
+    property DueDate : TDateTime read FStartDate write FStartDate;
+    property Earliest : TDateTime read FEarliest write FEarliest;
+    property Latest : TDateTime read FLatest write FLatest;
 
-    property PURCHASE : double read FPurchase write FPurchase;                //Einkaufspreis
-    property SELLPRICE : double read FSellprice write SetSellProce;               //Verkaufspreis
-    property COMPRICE : double read FComprice write FComprice;                //Common Price
-    property DISCOUNT : double read FDiscount write FDiscount;                //Rabatt
-    property VAT : SmallInt read FVat write SetVat;                  //MwSt Typ
-    property REPAIRTIME : double read FRepairtime write FRepairtime;              //reparaturzeit
-    property POSPRICE : double read FPosPrice write FPosPrice;                //Gesamtpreis
-    property GROSSPRICE : double read FGrossPrice write SetGrossPrice;              //Bruttoprice
-    property IMAGEREF : Int64 read FImageRef write FImageRef;
-    property PARENT : Int64 read FParent write FParent;
-    property OLD_ID : Int64 read FOldId write FOldId;
-    property SCRIPT : string index 60 read FScript write FScript;
-    property SCRIPTVER : string index 8 read FScriptVer write FScriptVer;
-    property SCRIPTFUNC : string index 60 read FScriptFunc write FScriptFunc;
-    property PREPTEXT : string index 100 read FPrepText write FPrepText;
-    property WORKTEXT : string index 100 read FWorkText write FWorkText;
-    property CHANGEDBY : string index 4 read FChangedBy write FChangedBy;
-    property CREATEDBY : string index 4 read FCreatedBy write FCreatedBy;
+    property Purchase : double read FPurchase write FPurchase;                //Einkaufspreis
+    property SellPrice : double read FSellprice write SetSellProce;               //Verkaufspreis
+    property ComPrice : double read FComprice write FComprice;                //Common Price
+    property Discount : double read FDiscount write FDiscount;                //Rabatt
+    property Vat : SmallInt read FVat write SetVat;                  //MwSt Typ
+    property RepairTime : double read FRepairtime write FRepairtime;              //reparaturzeit
+    property PosPrice : double read FPosPrice write FPosPrice;                //Gesamtpreis
+    property GrossPrice : double read FGrossPrice write SetGrossPrice;              //Bruttoprice
+    property ImageRef : Int64 read FImageRef write FImageRef;
+    property Parent : Int64 read FParent write FParent;
+    property Old_Id : Int64 read FOldId write FOldId;
+    property Script : string index 60 read FScript write FScript;
+    property ScriptVer : string index 8 read FScriptVer write FScriptVer;
+    property ScriptFunc : string index 60 read FScriptFunc write FScriptFunc;
+    property PrepText : string index 100 read FPrepText write FPrepText;
+    property WorkText : string index 100 read FWorkText write FWorkText;
+    property ChangedBy : string index 4 read FChangedBy write FChangedBy;
+    property CreatedBy : string index 4 read FCreatedBy write FCreatedBy;
   end;
   TStorageType = class(TBaseDBDataSet)
   private
@@ -266,8 +262,8 @@ type
     FDefaultSt : Boolean;
   published
     property ID : string index 3 read FId write FId;
-    property NAME : string index 30 read FName write FName;
-    property DEFAULTST : Boolean read FDefaultSt write FDefaultSt;
+    property Name : string index 30 read FName write FName;
+    property DefaultSt : Boolean read FDefaultSt write FDefaultSt;
   end;
   TStorageJournal = class(TBaseDBDataSet)
   private
@@ -275,26 +271,26 @@ type
     FOrderNo,FPosNo : Integer;
     FQuantity : double;
   published
-    property STORAGEID : string index 3 read FStorageID write FStorageID;
-    property ORDERNO : Integer read FOrderNo write FOrderNo;
-    property OSTATUS : string index 3 read FOStatus write FOStatus;
-    property POSNO : Integer read FPosNo write FPosNo;
-    property TYP : string index 1 read FType write FType;
+    property StorageID : string index 3 read FStorageID write FStorageID;
+    property OrderNo : Integer read FOrderNo write FOrderNo;
+    property OStatus : string index 3 read FOStatus write FOStatus;
+    property PosNo : Integer read FPosNo write FPosNo;
+    property Typ : string index 1 read FType write FType;
     property ID : string index 20 read FId write FId;
-    property VERSION : string index 25 read FVersion write FVersion;
-    property LANGUAGE : string index 3 read FLanguage write FLanguage;
-    property SERIAL : string index 30 read FSerial write FSerial;
-    property NOTE : string index 500 read FNote write FNote;
-    property QUANTITY : double read FQuantity write FQuantity;
-    property QUANTITYU : string index 10 read FQuantityU write FQuantityU;
+    property Version : string index 25 read FVersion write FVersion;
+    property Language : string index 3 read FLanguage write FLanguage;
+    property Serial : string index 30 read FSerial write FSerial;
+    property Note : string index 500 read FNote write FNote;
+    property Quantity : double read FQuantity write FQuantity;
+    property QuantityU : string index 10 read FQuantityU write FQuantityU;
   end;
   TCountries = class(TBaseDBDataSet)
   private
     FId,FName,FLanguage : string;
   published
     property ID : string index 3 read FId write FId;
-    property NAME : string index 30 read FName write FName;
-    property LANGUAGE : string index 2 read FLanguage write FLanguage;
+    property Name : string index 30 read FName write FName;
+    property Language : string index 2 read FLanguage write FLanguage;
   end;
   TLanguages = class(TBaseDbDataSet)
   private
@@ -302,19 +298,19 @@ type
       FCountry,FDEFAULTLNG : string;
     FSaturation,FCompclose,FTitles : TBlobData;
   published
-    property LANGUAGE : string index 30 read FLanguage write FLanguage;
+    property Language : string index 30 read FLanguage write FLanguage;
     property ISO6391 : string index 2 read FISO6391 write FISO6391;
     property ISO6392 : string index 3 read FISO6392 write FISO6392;
-    property DATEFORMAT : string index 20 read FDateformat write FDateformat;
-    property TIMEFORMAT : string index 8 read FTimeFormat write FTimeFormat;
-    property STDCURR : string index 3 read FSTDCURR write FSTDCURR;
-    property DECSEP : string index 1 read FDECSEP write FDECSEP;
-    property THOUSEP : string index 1 read FTHOUSEP write FTHOUSEP;
-    property SATUTATION : TBlobData read FSaturation write FSaturation;
-    property COMPCLOSE: TBlobData read FCompclose write FCompclose;
-    property TITLES : TBlobdata read FTitles write FTitles;
-    property COUNTRY : string index 30 read FCountry write FCountry;
-    property DEFAULTLNG : string index 1 read FDEFAULTLNG write FDEFAULTLNG;
+    property DateFormat : string index 20 read FDateformat write FDateformat;
+    property TimeFormat : string index 8 read FTimeFormat write FTimeFormat;
+    property STDCurr : string index 3 read FSTDCURR write FSTDCURR;
+    property DecSep : string index 1 read FDECSEP write FDECSEP;
+    property ThouSep : string index 1 read FTHOUSEP write FTHOUSEP;
+    property Satutation : TBlobData read FSaturation write FSaturation;
+    property Compclose: TBlobData read FCompclose write FCompclose;
+    property Titles : TBlobdata read FTitles write FTitles;
+    property Country : string index 30 read FCountry write FCountry;
+    property DefalulLng : string index 1 read FDEFAULTLNG write FDEFAULTLNG;
   end;
   TStates = class(TBaseDBDataSet)
   private
@@ -441,7 +437,7 @@ var
   PriceTypes : TPriceTypes;
   RepairProblems : TRepairProblems;
 implementation
-uses Math,Variants,uRTFtoTXT;
+uses Math,Variants,uRTFtoTXT,uData;
 resourcestring
   strEdited                        = 'bearbeitet';
   strCreated                       = 'erstellt';
