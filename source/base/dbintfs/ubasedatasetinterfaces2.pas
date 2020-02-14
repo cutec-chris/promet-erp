@@ -43,6 +43,7 @@ type
   protected
   public
     class function MapField(aField : string) : string;virtual;
+    procedure FillDefaults;virtual;
     procedure Open;virtual;
     procedure Close;virtual;
     procedure Change;virtual;
@@ -106,6 +107,10 @@ end;
 class function TAbstractDBDataset2.MapField(aField: string): string;
 begin
   Result := aField;
+end;
+
+procedure TAbstractDBDataset2.FillDefaults;
+begin
 end;
 
 procedure TAbstractDBDataset2.Open;

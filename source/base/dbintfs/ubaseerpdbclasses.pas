@@ -84,10 +84,14 @@ type
     property DAYS : Integer read FDays write FDays;                 //Tage
     property DEFAULTPT : string index 1 read FDefaultPT write FDefaultPT;
   end;
+
+  { TPositionTyp }
+
   TPositionTyp = class(TBaseDBDataSet)
   private
     FName,FType,FText : string;
   public
+    class function GetRealTableName: string; override;
   published
     property NAME : string index 3 read FName write FName;
     property TYP : string index 1 read FType write FType;
@@ -128,33 +132,29 @@ type
     class function GetRealTableName: string; override;
   public
   published
-    property REF_ID : Int64 read FRefID write FRefID;
-    property TYP : string index 4 read FType write FType;
-    property PRICE : double read FPrice write FPrice;
-    property MINCOUNT : double read FMinCount write FMinCount;
-    property MAXCOUNT : double read FMaxCount write FMaxCount;
-    property CUSTOMER : string index 20 read FCustomer write FCustomer;
+    property Ref_Id : Int64 read FRefID write FRefID;
+    property Typ : string index 4 read FType write FType;
+    property Price : double read FPrice write FPrice;
+    property MinCount : double read FMinCount write FMinCount;
+    property MaxCount : double read FMaxCount write FMaxCount;
+    property Customer : string index 20 read FCustomer write FCustomer;
   end;
 
   { TBaseDBPosition }
 
   TBaseDBPosition = class(TBaseDbDataSet)
-    procedure DataSetAfterCancel(aDataSet: TDataSet);
-    procedure DataSetAfterDelete(aDataSet: TDataSet);
-    procedure DataSetAfterPost(aDataSet: TDataSet);
-    procedure DataSetBeforeCancel(aDataSet: TDataSet);
-    procedure DataSetBeforeDelete(aDataSet: TDataSet);
-    procedure FIntDataSourceDataChange(Sender: TObject; Field: TField);
-    procedure FIntDataSourceStateChange(Sender: TObject);
   private
     //FImages: TImages;
     FPosNo : Integer;
     FPosFormat: string;
     FPosTyp,FActive,FTPosNo,FIdent,FVersion,FLanguage,FTextType,FShorttext,
-      FStorage,FSerial,FManufacNr,FUnit: string;
-    FWeight,FAvalible,FQuantity,FQuantityD,FQuantityC,FQuantityO : double;
+      FStorage,FSerial,FManufacNr,FUnit,FScript,FScriptVer,FScriptFunc,FPrepText,FWorkText,FChangedBy,FCreatedBy: string;
+    FWeight,FAvalible,FQuantity,FQuantityD,FQuantityC,FQuantityO,FSetupTime,FPlanTime,FTime,FBufferTime,
+      FPurchase,FSellprice,FComprice,FDiscount,FRepairtime,FPosPrice,FGrossPrice : double;
     FText : TBlobData;
-    FDelivery : TDateTime;
+    FVat : SmallInt;
+    FImageRef,FParent,FOldId : Int64;
+    FDelivery,FStartDate,FEarliest,FLatest : TDateTime;
     FCalculationDisabled : Integer;
     FDoNumber: Boolean;
     FUseRTF: Boolean;
@@ -162,7 +162,6 @@ type
     OldGrossPrice : real;
     OldPosWeight : real;
     FOldPosNo: Integer;
-    FVat: TVat;
     PriceTypes : TPriceTypes;
     function GetIdent: TField;
     function GetPosNo: TField;
@@ -170,6 +169,11 @@ type
     procedure DoCalcPosPrice(Setprice : Boolean = False);
     procedure DoCalcGrossPosPrice;
     function GetShorttext: TField;
+    procedure SetGrossPrice(AValue: double);
+    procedure SetPosTyp(AIndex: Integer; AValue: string);
+    procedure SetQuantity(AValue: double);
+    procedure SetSellProce(AValue: double);
+    procedure SetVat(AValue: SmallInt);
   protected
     FPosCalc: TPositionCalc;
     function GetAccountNo : string;virtual;
@@ -190,16 +194,15 @@ type
     procedure DoInsert;virtual;
     procedure DoEdit;virtual;
   public
+    constructor CreateEx(Module: TComponent; Owner: TComponent); override;
     destructor Destroy;override;
     procedure Open;override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults;override;
     procedure Assign(Source: TPersistent); override;
-    procedure DirectAssign(Source: TPersistent);override;
     property PosTyp : TPositionTyp read GetPosTyp;
     property PosTypDec : Integer read GetPosTypDec;
     property PosCalc : TPositionCalc read FPosCalc;
     //property Images : TImages read FImages;
-    property Vat : TVat read FVat;
     property PosFormat : string read FPosFormat write FPosFormat;
     property CanHandleRTF : Boolean read FUseRTF write FUseRTF;
     procedure DisableCalculation;
@@ -209,7 +212,7 @@ type
     //Fields
   published
     property POSNO : Integer read FPosNo write FPosNo;
-    property POSTYPE : string index 3 read FPosTyp write FPosTyp;
+    property POSTYPE : string index 3 read FPosTyp write SetPosTyp;
     property ACTIVE : string index 1 read FActive write FActive;
     property TPOSNO : string index 15 read FTPosNo write FTPosNo;                //Auschreibungsnummer
     property IDENT : string index 40 read FIdent write FIdent;
@@ -224,7 +227,7 @@ type
     property WEIGHT : double read FWeight write FWeight;
     property AVALIBLE : double read FAvalible write FAvalible;                //verfügbar
     property DELIVERY : TDateTime read FDelivery write FDelivery;                 //wann verfügbar
-    property QUANTITY : double read FQuantity write FQuantity;                //Menge
+    property QUANTITY : double read FQuantity write SetQuantity;                //Menge
     property QUANTITYD : double read FQuantityD write FQuantityD;               //Menge Geliefert
     property QUANTITYC : double read FQuantityC write FQuantityC;               //Menge berechnet
     property QUANTITYO : double read FQuantityO write FQuantityO;               //Auftragsmenge
@@ -233,110 +236,200 @@ type
     property PLANTIME : double read FPlanTime write FPlanTime;                //geplante Zeit
     property TIME : double read FTime write FTime;                    //benötigte Zeit
     property BUFFERTIME : double read FBufferTime write FBufferTime;              //Wartezeit (wann darf nächste Aufgabe frühestens starten)
-    property STARTDATE',ftDateTime,0 read  write ;
-    property DUEDATE',ftDateTime,0 read  write ;
-    property EARLIEST',ftDateTime,0 read  write ;
-    property LATEST',ftDateTime,0 read  write ;
+    property STARTDATE : TDateTime read FStartDate write FStartDate;
+    property DUEDATE : TDateTime read FStartDate write FStartDate;
+    property EARLIEST : TDateTime read FEarliest write FEarliest;
+    property LATEST : TDateTime read FLatest write FLatest;
 
-    property PURCHASE',ftFloat,0 read  write ;                //Einkaufspreis
-    property SELLPRICE',ftFloat,0 read  write ;               //Verkaufspreis
-    property COMPRICE',ftFloat,0 read  write ;                //Common Price
-    property DISCOUNT',ftFloat,0 read  write ;                //Rabatt
-    property VAT',ftSmallInt,0 read  write ;                  //MwSt Typ
-    property REPAIRTIME',ftFloat,0 read  write ;              //reparaturzeit
-    property POSPRICE',ftFloat,0 read  write ;                //Gesamtpreis
-    property GROSSPRICE',ftFloat,0 read  write ;              //Bruttoprice
-    property IMAGEREF',ftLargeInt,0 read  write ;
-    property PARENT',ftLargeInt,0 read  write ;
-    property OLD_ID',ftLargeInt,0 read  write ;
-    property SCRIPT : string index 60 read  write ;
-    property SCRIPTVER : string index 8 read  write ;
-    property SCRIPTFUNC : string index 60 read  write ;
-    property PRSCRIPT : string index 60 read  write ;
-    property PRSCRIPTVER : string index 8 read  write ;
-    property PRSCRIPTFUNC : string index 160 read  write ;
-    property PREPTEXT : string index 100 read  write ;
-    property WORKTEXT : string index 100 read  write ;
-    property CHANGEDBY : string index 4 read  write ;
-    property CREATEDBY : string index 4 read  write ;
+    property PURCHASE : double read FPurchase write FPurchase;                //Einkaufspreis
+    property SELLPRICE : double read FSellprice write SetSellProce;               //Verkaufspreis
+    property COMPRICE : double read FComprice write FComprice;                //Common Price
+    property DISCOUNT : double read FDiscount write FDiscount;                //Rabatt
+    property VAT : SmallInt read FVat write SetVat;                  //MwSt Typ
+    property REPAIRTIME : double read FRepairtime write FRepairtime;              //reparaturzeit
+    property POSPRICE : double read FPosPrice write FPosPrice;                //Gesamtpreis
+    property GROSSPRICE : double read FGrossPrice write SetGrossPrice;              //Bruttoprice
+    property IMAGEREF : Int64 read FImageRef write FImageRef;
+    property PARENT : Int64 read FParent write FParent;
+    property OLD_ID : Int64 read FOldId write FOldId;
+    property SCRIPT : string index 60 read FScript write FScript;
+    property SCRIPTVER : string index 8 read FScriptVer write FScriptVer;
+    property SCRIPTFUNC : string index 60 read FScriptFunc write FScriptFunc;
+    property PREPTEXT : string index 100 read FPrepText write FPrepText;
+    property WORKTEXT : string index 100 read FWorkText write FWorkText;
+    property CHANGEDBY : string index 4 read FChangedBy write FChangedBy;
+    property CREATEDBY : string index 4 read FCreatedBy write FCreatedBy;
   end;
-  TStorageTyp = class(TBaseDBDataSet)
-  public
-    procedure DefineFields(aDataSet : TDataSet);override;
+  TStorageType = class(TBaseDBDataSet)
+  private
+    FId,FName : string;
+    FDefaultSt : Boolean;
+  published
+    property ID : string index 3 read FId write FId;
+    property NAME : string index 30 read FName write FName;
+    property DEFAULTST : Boolean read FDefaultSt write FDefaultSt;
   end;
   TStorageJournal = class(TBaseDBDataSet)
+  private
+    FStorageID,FOStatus,FType,FId,FVersion,FLanguage,FSerial,FNote,FQuantityU : string;
+    FOrderNo,FPosNo : Integer;
+    FQuantity : double;
   published
     property STORAGEID : string index 3 read FStorageID write FStorageID;
     property ORDERNO : Integer read FOrderNo write FOrderNo;
     property OSTATUS : string index 3 read FOStatus write FOStatus;
     property POSNO : Integer read FPosNo write FPosNo;
-    property TYP : string index 1 read  write ;
-    property ID : string index 20 read  write ;
-    property VERSION : string index 25 read  write ;
-    property LANGUAGE : string index 3 read  write ;
-    property SERIAL : string index 30 read  write ;
-    property NOTE : string index 500 read  write ;
-    property QUANTITY',ftFloat,0 read  write ;
-    property QUANTITYU : string index 10 read  write ;
+    property TYP : string index 1 read FType write FType;
+    property ID : string index 20 read FId write FId;
+    property VERSION : string index 25 read FVersion write FVersion;
+    property LANGUAGE : string index 3 read FLanguage write FLanguage;
+    property SERIAL : string index 30 read FSerial write FSerial;
+    property NOTE : string index 500 read FNote write FNote;
+    property QUANTITY : double read FQuantity write FQuantity;
+    property QUANTITYU : string index 10 read FQuantityU write FQuantityU;
   end;
   TCountries = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FId,FName,FLanguage : string;
+  published
+    property ID : string index 3 read FId write FId;
+    property NAME : string index 30 read FName write FName;
+    property LANGUAGE : string index 2 read FLanguage write FLanguage;
   end;
   TLanguages = class(TBaseDbDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FLanguage,FISO6391,FISO6392,FDateformat,FTimeFormat,FSTDCURR,FDECSEP,FTHOUSEP,
+      FCountry,FDEFAULTLNG : string;
+    FSaturation,FCompclose,FTitles : TBlobData;
+  published
+    property LANGUAGE : string index 30 read FLanguage write FLanguage;
+    property ISO6391 : string index 2 read FISO6391 write FISO6391;
+    property ISO6392 : string index 3 read FISO6392 write FISO6392;
+    property DATEFORMAT : string index 20 read FDateformat write FDateformat;
+    property TIMEFORMAT : string index 8 read FTimeFormat write FTimeFormat;
+    property STDCURR : string index 3 read FSTDCURR write FSTDCURR;
+    property DECSEP : string index 1 read FDECSEP write FDECSEP;
+    property THOUSEP : string index 1 read FTHOUSEP write FTHOUSEP;
+    property SATUTATION : TBlobData read FSaturation write FSaturation;
+    property COMPCLOSE: TBlobData read FCompclose write FCompclose;
+    property TITLES : TBlobdata read FTitles write FTitles;
+    property COUNTRY : string index 30 read FCountry write FCountry;
+    property DEFAULTLNG : string index 1 read FDEFAULTLNG write FDEFAULTLNG;
   end;
   TStates = class(TBaseDBDataSet)
+  private
+    FType,FStatus,FStatusName,FDerivate,FColor : string;
+    FActive : Boolean;
+    FIcon : Integer;
   published
     property TYP : string index 1 read FType write FType;
     property STATUS : string index 4 read FStatus write FStatus;
     property STATUSNAME : string index 30 read FStatusName write FStatusName;
     property DERIVATIVE : string index 30 read FDerivate write FDerivate;
-    property ACTIVE : string index 1 read  write ;
-    property COLOR : string index 8 read  write ;
-    property ICON',ftInteger,0 read  write ;
+    property ACTIVE : Boolean read FActive write FActive;
+    property COLOR : string index 8 read FColor write FColor;
+    property ICON : Integer read FIcon write FIcon;
   end;
   TCategory = class(TBaseDBDataSet)
+  private
+    FType,FName,FColor : string;
+    FActive : Boolean;
   published
     property TYP : string index 1 read FType write  FType;
     property NAME : string index 60 read FName write FName;
     property COLOR : string index 30 read FColor write FColor;
-    property ACTIVE : string index 1 read FActive write FActive;
+    property ACTIVE : Boolean read FActive write FActive;
   end;
+
+  { TFinancialAccounts }
+
   TFinancialAccounts = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FAccountno,FName : string;
+    FActive : Boolean;
+  public
+    class function GetRealTableName: string; override;
+  published
+    property Accountno : string index 10 read FAccountno write FAccountno;
+    property Name : string index 60 read FName write FName;
+    property Active : Boolean read FActive write FActive;
   end;
   TUnits = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FName : string;
+  published
+    property Name : string index 160 read FName write FName;
   end;
   TDispatchTypes = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FId,FCountry,FName,FOutputDrv,FArticle : string;
+    FWeight : double;
+  published
+    property ID : string index 3 read FID write FID;
+    property Country : string index 3 read FCountry write FCountry;
+    property Name : string index 20 read FName write FName;
+    property OutputDrv : string index 60 read FOutputDrv write FOutputDrv;
+    property Weight : Double read FWeight write FWeight;
+    property Article : string index 40 read FArticle write FArticle;
   end;
   TRepairProblems = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FProblem : string;
+  published
+    property Problem : string index 60 read FProblem write FProblem;
   end;
   TTextTypes = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FName : string;
+    FTyp : Integer;
+  published
+    property Name : string index 20 read FName write FName;
+    property Typ : Integer read FTyp write FTyp;
   end;
   TInventoryPos = class(TBaseDbDataSet)
   private
-    FInv: TBaseDbList;
+    FIdent,FVersion,FLanguage,FShorttext,FStorage,FQuantityU,FCurrency : string;
+    FPosNo : Integer;
+    FQuantity,FQuantityC,FPurchase,FPrice : double;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
-    property Inventory : TBaseDbList read FInv;
+    property PosNo : Integer read FPosNo write FPosNo;
+    property Ident : string index 20 read FIdent write FIdent;
+    property Version : string index 25 read FVersion write FVersion;
+    property Language : string index 3 read FLanguage write FLanguage;
+    property Shorttext : string index 200 read FShorttext write FShorttext;
+    property Storage : string index 3 read FStorage write FStorage;
+    property Quantity : double read FQuantity write FQuantity;
+    property QuantityC : double read FQuantityC write FQuantityC;
+    property QuantityU : string index 10 read FQuantityU write FQuantityU;
+    property Purchase : double read FPurchase write FPurchase;
+    property Price : double read FPrice write FPrice;
+    property Currency : string index 5 read FCurrency write FCurrency;
+  end;
+  TInventoryPositions = class(TBaseERPList)
   end;
 
   { TInventorys }
 
-  TInventorys = class(TBaseDbList)
+  TInventory = class(TBaseDbList)
   private
-    FPos: TInventoryPos;
+    FPos: TInventoryPositions;
+    FInvNo : Integer;
+    FDesc,FStatus,FCreatedBy : string;
+    FDate : TDateTime;
+    FPurchase,FPurchased,FPrice,FPriced : double;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    destructor Destroy; override;
-    function CreateTable : Boolean;override;
-    procedure FillDefaults(aDataSet: TDataSet); override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    property Positions : TInventoryPos read FPos;
+    procedure FillDefaults; override;
+  published
+    property InvNo : Integer read FInvNo write FInvNo;
+    property Desc : string index 30 read FDesc write FDesc;
+    property Status : string index 4 read FStatus write FStatus;
+    property Date : TDateTime read FDate write FDate;
+    property Purchase : double read FPurchase write FPurchase;
+    property Price : double read FPrice write FPrice;
+    property Purchased : double read FPurchased write FPurchased;
+    property Priced : double read FPriced write FPriced;
+    property CreatedBy : string index 4 read FCreatedBy write FCreatedBy;
+    property Positions : TInventoryPositions read FPos;
   end;
   function InternalRound(Value: Extended;nk : Integer = 4): Extended;
 //Often used and not often changed global Tables
@@ -348,8 +441,7 @@ var
   PriceTypes : TPriceTypes;
   RepairProblems : TRepairProblems;
 implementation
-uses uBaseDBInterface,uMasterdata, uBaseApplication,Math,Variants,uRTFtoTXT,
-  uDocuments,usync,uprometscripts;
+uses Math,Variants,uRTFtoTXT;
 resourcestring
   strEdited                        = 'bearbeitet';
   strCreated                       = 'erstellt';
@@ -366,530 +458,38 @@ end;
 
 { TFinancialAccounts }
 
-procedure TFinancialAccounts.DefineFields(aDataSet: TDataSet);
+class function TFinancialAccounts.GetRealTableName: string;
 begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'FACCOUNTS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ACCOUNTNO : string index 10 read  write ;
-            property NAME : string index 60 read  write ;
-            property ACTIVE : string index 1 read  write ;
-          end;
-    end;
+  Result:='FACCOUNTS';
 end;
-
-constructor TCategory.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
+procedure TInventory.FillDefaults;
 begin
-  inherited;
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseManageDB do
-        UseIntegrity:=False;
-      with DataSet as IBaseDBFilter do
-        begin
-          Limit := 0;
-        end;
-    end;
-end;
-
-procedure TInventoryPos.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'INVENTORYPOS';
-      TableCaption := strInventoryPos;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property POSNO',ftInteger,0 read  write ;
-            property IDENT : string index 20 read  write ;
-            property VERSION : string index 25 read  write ;
-            property LANGUAGE : string index 3 read  write ;
-            property SHORTTEXT : string index 200 read  write ;
-            property STORAGE : string index 3 read  write ;
-            property QUANTITY',ftFloat,0 read  write ;
-            property QUANTITYC',ftFloat,0 read  write ;
-            property QUANTITYU : string index 10 read  write ;
-            property PURCHASE',ftFloat,0 read  write ;
-            property PRICE',ftFloat,0 read  write ;
-            property CURRENCY : string index 5 read  write ;
-          end;
-    end;
-end;
-constructor TInventorys.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(AOwner,DM,aConnection,aMasterdata);
-  FPos := TInventoryPos.CreateEx(Owner,DataModule,aConnection,DataSet);
-  FPos.FInv := Self;
-end;
-destructor TInventorys.Destroy;
-begin
-  inherited Destroy;
-end;
-function TInventorys.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FPos.CreateTable;
-end;
-
-procedure TInventorys.FillDefaults(aDataSet: TDataSet);
-begin
-  inherited FillDefaults(aDataSet);
-  with aDataSet,BaseApplication as IBaseDbInterface do
-    begin
-      FieldByName('INVNO').AsInteger := RecordCount+1;
-    end;
-end;
-
-procedure TInventorys.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'INVENTORY';
-      TableCaption := strInventory;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property INVNO',ftInteger,0 read  write ;
-            property DESC : string index 30 read  write ;
-            property STATUS : string index 4 read  write ;
-            property DATE',ftDateTime,0 read  write ;
-            property PURCHASE',ftFloat,0 read  write ;
-            property PRICE',ftFloat,0 read  write ;
-            property PURCHASED',ftFloat,0 read  write ;
-            property PRICED',ftFloat,0 read  write ;
-            property CREATEDBY : string index 4 read  write ;
-          end;
-    end;
-end;
-constructor TBaseERPList.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FUpdateHistory:=True;
-end;
-procedure TBaseERPList.CascadicPost;
-var
-  Hist : IBaseHistory;
-  sType: String;
-  i: Integer;
-  saType: String;
-  aField: TField;
-begin
-  if CanEdit then
-    begin
-      Post;
-      if UpdateHistory and Supports(Self, IBaseHistory, Hist) then
-        begin
-          if not Hist.History.DataSet.Active then Hist.History.Open;
-          if (Hist.History.Count=0) or (DataSet.State = dsInsert) then
-            begin
-              sType := strCreated;
-            end
-          else
-            begin
-              sType := strEdited;
-              if not Hist.History.ChangedDuringSession then
-                begin
-                  try
-                    saType:=' (';
-                    for i := 0 to DataSet.Fields.Count-1 do
-                      begin
-                        aField := DataSet.Fields[i];
-                        if aField.OldValue<>aField.NewValue then
-                          saType := saType+','+aField.FieldName;
-                      end;
-                    saType:=Stringreplace(saType,'(,','(',[rfReplaceAll])+')';
-                    saType:=Stringreplace(saType,'()','',[rfReplaceAll]);
-                  except
-                    saType:='';
-                  end;
-                end;
-            end;
-          sType:=sType+saType;
-          Hist.History.AddItem(Self.DataSet,sType,'','',nil,0,'',True,True read  write ;
-          Hist.History.ChangedDuringSession := False;
-        end;
-    end;
-  inherited CascadicPost;
-end;
-procedure TBaseERPList.CascadicCancel;
-var
-  Hist : IBaseHistory;
-begin
-  inherited CascadicCancel;
-  if Supports(Self, IBaseHistory, Hist) then
-    Hist.History.ChangedDuringSession := False;
-end;
-
-function TBaseERPList.CombineItems(aRemoteLink: string): Boolean;
-var
-  aClass: TBaseDBDatasetClass;
-  aObject: TBaseDBDataset;
-  Hist,OwnHist : IBaseHistory;
-  aDoc: TDocuments;
-  aSync: TSyncItems;
-begin
-  if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
-    begin
-      aObject := aClass.CreateEx(nil,DataModule);
-      TBaseDbList(aObject).SelectFromLink(aRemoteLink);
-      aObject.Open;
-      if aObject.Count>0 then
-        begin
-          //Combine History
-          if Supports(aObject, IBaseHistory, Hist)
-          and Supports(Self, IBaseHistory, OwnHist)
-          then
-            begin
-              with Hist.GetHistory.DataSet as IBaseManageDB do
-                UpdateStdFields := False;
-              with Hist.GetHistory do
-                begin
-                  while not EOF do
-                    begin
-                      Edit;
-                      FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-                      Post;
-                      Next;
-                    end;
-                end;
-            end;
-          //Combine Documents
-          aDoc := TDocuments.CreateEx(nil,DataModule);
-          aDoc.SelectByReference(aObject.Id.AsVariant);
-          aDoc.Open;
-          while not aDoc.EOF do
-            begin
-              aDoc.Edit;
-              aDoc.FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-              aDoc.Post;
-              aDoc.Next;
-            end;
-          aDoc.Free;
-          //Combine SyncItems
-          aSync:= TSyncItems.CreateEx(nil,DataModule);
-          aSync.SelectByReference(aObject.Id.AsVariant);
-          aSync.Open;
-          while not aSync.EOF do
-            begin
-              aSync.Edit;
-              aSync.FieldByName('LOCAL_ID').AsVariant:=Self.Id.AsVariant;
-              aSync.Post;
-              aSync.Next;
-            end;
-          aSync.Free;
-        end;
-      aObject.Delete;
-      aObject.Free;
-    end;
-end;
-
-procedure TTextTypes.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'TEXTTYP';
-      TableCaption:=strTexttypes;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property NAME : string index 20 read  write ;
-            property TYP',ftInteger,0 read  write ;
-          end;
-    end;
-end;
-procedure TRepairProblems.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'REPAIRPROBLEMS';
-      TableCaption:=strRepairProblems;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property PROBLEM : string index 60 read  write ;
-          end;
-    end;
-end;
-procedure TPriceTypes.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'PRICETYPES';
-      TableCaption:=strPriceTypes;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-    end;
+  //FieldByName('INVNO').AsInteger := RecordCount+1;
 end;
 function TPriceTypes.Get(aSymbol: string): Integer;
 begin
   Result := 0;
   Open;
-  if DataSet.Locate('SYMBOL', trim(aSymbol), []) then
-    Result := StrToIntDef(copy(DataSet.FieldByName('TYPE').AsString, 0, 2), 0);
+  if Locate('SYMBOL', trim(aSymbol), []) then
+    Result := StrToIntDef(copy(FieldByName('TYPE').AsString, 0, 2), 0);
 end;
-
-constructor TPositionCalc.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  UpdateFloatFields:=True;
-end;
-
 class function TPositionCalc.MapField(aField: string): string;
 begin
   Result := aField;
-  if aFie
+  if aField = 'TYP' then Result := 'TYPE';
 end;
 
 class function TPositionCalc.GetRealTableName: string;
 begin
   Result:='ORDERPOSCALC';
 end;
-
-procedure TDispatchTypes.DefineFields(aDataSet: TDataSet);
+class function TPositionTyp.GetRealTableName: string;
 begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'DISPATCHTYPES';
-      TableCaption:=strDispatchtyoes;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ID : string index 3 read  write ;
-            property COUNTRY : string index 3 read  write ;
-            property NAME : string index 20 read  write ;
-            property OUTPUTDRV : string index 60 read  write ;
-            property WEIGHT',ftFloat,0 read  write ;
-            property ARTICLE : string index 40 read  write ;
-          end;
-    end;
-end;
-procedure TUnits.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'UNITS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property NAME : string index 160 read  write ;
-          end;
-    end;
-end;
-procedure TStates.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'STATES';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-          end;
-    end;
-end;
-procedure TLanguages.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'LANGUAGES';
-      TableCaption:=strLanguages;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property LANGUAGE : string index 30 read  write ;
-            property ISO6391 : string index 2 read  write ;
-            property ISO6392 : string index 3 read  write ;
-            property DATEFORMAT : string index 20 read  write ;
-            property TIMEFORMAT : string index 8 read  write ;
-            property STDCURR : string index 3 read  write ;
-            property DECSEP : string index 1 read  write ;
-            property THOUSEP : string index 1 read  write ;
-            property SATUTATION',ftMemo,0 read  write ;
-            property COMPCLOSE',ftMemo,0 read  write ;
-            property TITLES',ftMemo,0 read  write ;
-            property COUNTRY : string index 30 read  write ;
-            property DEFAULTLNG : string index 1 read  write ;
-          end;
-    end;
-end;
-procedure TCountries.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'COUNTRIES';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ID : string index 3 read  write ;
-            property NAME : string index 30 read  write ;
-            property LANGUAGE : string index 2 read  write ;
-          end;
-    end;
-end;
-procedure TStorageJournal.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'STORAGEJOURNAL';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-    end;
-end;
-procedure TStorageTyp.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'STORAGETYPE';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ID : string index 3 read  write ;
-            property NAME : string index 30 read  write ;
-            property DEFAULTST : string index 1 read  write ;
-          end;
-    end;
-end;
-procedure TPositionTyp.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERPOSTYP';
-      TableCaption:=strPositionType;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-    end;
-end;
-
-procedure TBaseDBPosition.DataSetAfterCancel(aDataSet: TDataSet);
-begin
-  if FDoNumber then
-    FOldPosNo:=PosNo.AsInteger;
-end;
-
-procedure TBaseDBPosition.DataSetAfterDelete(aDataSet: TDataSet);
-var
-  PosPrice: Double;
-  GrossPrice: Double;
-begin
-  DoDelete;
-  if (OldGrossPrice <> 0)
-  or (OldPosPrice <> 0) then
-    begin
-      PosPrice := (-OldPosPrice);
-      GrossPrice := (-OldGrossPrice);
-      PosPriceChanged(PosPrice,GrossPrice);
-    end;
-  if OldPosWeight <> 0 then
-    begin
-      PosPrice := (-OldPosWeight);
-      PosWeightChanged(PosPrice);
-    end;
-end;
-procedure TBaseDBPosition.DataSetAfterPost(aDataSet: TDataSet);
-var
-  PosPrice: Extended;
-  GrossPrice: Extended;
-begin
-  if IsCalculationDisabled then exit;
-  DoPost;
-  if (OldGrossPrice <> DataSet.FieldByName('GROSSPRICE').AsFloat)
-  or (OldPosPrice <> DataSet.FieldByName('POSPRICE').AsFloat) then
-    begin
-      PosPrice := (DataSet.FieldByName('POSPRICE').AsFloat-OldPosPrice);
-      GrossPrice := (DataSet.FieldByName('GROSSPRICE').AsFloat-OldGrossPrice);
-      PosPriceChanged(PosPrice,GrossPrice);
-    end;
-  if (OldPosWeight <> DataSet.FieldByName('WEIGHT').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat) then
-    begin
-      PosPrice := ((DataSet.FieldByName('WEIGHT').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat)-OldPosWeight);
-      PosWeightChanged(PosPrice);
-    end;
-end;
-
-procedure TBaseDBPosition.DataSetBeforeCancel(aDataSet: TDataSet);
-begin
-  FDoNumber := DataSet.State=dsInsert;
-end;
-
-procedure TBaseDBPosition.DataSetBeforeDelete(aDataSet: TDataSet);
-begin
-  OldPosPrice := DataSet.FieldByName('POSPRICE').AsFloat;
-  OldGrossPrice := DataSet.FieldByName('GROSSPRICE').AsFloat;
-  OldPosWeight := DataSet.FieldByName('WEIGHT').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat;
-end;
-procedure TBaseDBPosition.FIntDataSourceDataChange(Sender: TObject;
-  Field: TField);
-var
-  tmp: Extended;
-begin
-  if not Assigned(Field) then exit;
-  if FCalculationDisabled > 0 then exit;
-  DoDataChange(Sender,Field);
-  if (Field.FieldName = 'DISCOUNT')
-  or (Field.FieldName = 'IS_OPTION')
-  or (Field.FieldName = 'IS_ALTERNA')
-  or (Field.FieldName = 'POSPRICE') then
-    DoModifyPosPrice
-  else
-  if (Field.FieldName = 'QUANTITY') then
-    begin
-      DoCalcPosPrice;
-    end
-  else if (Field.FieldName = 'POSTYP') then
-    begin
-      DoModifyPosPrice;
-    end
-  else if (Field.FieldName = 'SELLPRICE') then
-    begin
-      DoCalcPosPrice(True);
-    end
-  else if (Field.FieldName = 'GROSSPRICE') then
-    begin
-      DoCalcGrossPosPrice;
-    end
-  else if (Field.FieldName = 'VAT') then
-    begin
-      DoModifyPosPrice;
-    end
-  ;
-end;
-procedure TBaseDBPosition.FIntDataSourceStateChange(Sender: TObject);
-begin
-  if FIntDataSource.State=dsInsert then
-    begin
-      OldPosPrice := 0;
-      OldGrossPrice := 0;
-      OldPosWeight := 0;
-      DoInsert;
-    end
-  else if FIntDataSource.State=dsEdit then
-    begin
-      OldPosPrice := DataSet.FieldByName('POSPRICE').AsFloat;
-      OldGrossPrice := DataSet.FieldByName('GROSSPRICE').AsFloat;
-      OldPosWeight := DataSet.FieldByName('WEIGHT').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat;
-      DoEdit;
-    end;
+  Result := 'ORDERPOSTYP';
 end;
 function TBaseDBPosition.GetIdent: TField;
 begin
-  Result := DataSet.FieldByName('IDENT');
+  Result := FieldByName('IDENT');
 end;
 function TBaseDBPosition.GetPosNo: TField;
 begin
@@ -898,9 +498,9 @@ end;
 function TBaseDBPosition.GetPosTyp: TPositionTyp;
 begin
   Result := nil;
-  FPosTyp.Open;
+  {FPosTyp.Open;
   FPosTyp.DataSet.Locate('NAME',Self.FieldByName('POSTYP').AsVariant,[loCaseInsensitive]);
-  Result := FPosTyp;
+  Result := FPosTyp;}
 end;
 function TBaseDBPosition.GetPosTypDec: Integer;
 var
@@ -917,12 +517,13 @@ var
   tmp: Extended;
 begin
   if FCalculationDisabled > 0 then exit;
+  try
+  {
   if (not DataSet.FieldByName('QUANTITY').IsNull) and (not TryStrToFloat(DataSet.FieldByName('QUANTITY').AsString,tmp)) then exit;
   if (not DataSet.FieldByName('SELLPRICE').IsNull) and (not TryStrToFloat(DataSet.FieldByName('SELLPRICE').AsString,tmp)) then exit;
   if (not DataSet.FieldByName('COMPRICE').IsNull) and (not TryStrToFloat(DataSet.FieldByName('COMPRICE').AsString,tmp)) then exit;
   if (not DataSet.FieldByName('DISCOUNT').IsNull) and (not TryStrToFloat(DataSet.FieldByName('DISCOUNT').AsString,tmp)) then exit;
   DisableCalculation;
-  try
     //Menge
     tmp := DataSet.FieldByName('SELLPRICE').AsFloat*DataSet.FieldByName('QUANTITY').AsFloat;
     //+CommonPrice
@@ -948,6 +549,7 @@ begin
             DataSet.FieldByName('GROSSPRICE').AsFloat := RoundPos(DataSet.FieldByName('POSPRICE').AsFloat*(1+(Vat.FieldByName('VALUE').AsFloat/100)));
           end;
       end;
+      }
   finally
     EnableCalculation;
   end;
@@ -982,8 +584,7 @@ var
   Rec,CRec,SRec,CSRec : Variant;
 begin
   DisableCalculation;
-  DataSet.DisableControls;
-  PosCalc.DataSet.DisableControls;
+  {
   try
     //Einkaufspreis
     EKPrice := 0;
@@ -1120,12 +721,14 @@ begin
     DataSet.EnableControls;
     DoModifyPosPrice;
   end;
+  }
 end;
 procedure TBaseDBPosition.DoCalcGrossPosPrice;
 var
   tmp: Extended = 0;
 begin
   if FCalculationDisabled > 0 then exit;
+  {
   if (not DataSet.FieldByName('QUANTITY').IsNull) and (not TryStrToFloat(DataSet.FieldByName('QUANTITY').AsString,tmp)) then exit;
   if (not DataSet.FieldByName('DISCOUNT').IsNull) and (not TryStrToFloat(DataSet.FieldByName('DISCOUNT').AsString,tmp)) then exit;
   DisableCalculation;
@@ -1166,11 +769,41 @@ begin
     PosCalc.DataSet.EnableControls;
     DoCalcPosPrice(True);
   end;
+  }
 end;
 
-function TBaseDBPosition.GetShorttext: TField;
+procedure TBaseDBPosition.SetGrossPrice(AValue: double);
 begin
-  Result := FieldByName('SHORTTEXT');
+  if FGrossPrice=AValue then Exit;
+  FGrossPrice:=AValue;
+  DoCalcGrossPosPrice;
+end;
+
+procedure TBaseDBPosition.SetPosTyp(AIndex: Integer; AValue: string);
+begin
+  if FPosTyp=AValue then exit;
+  FPosTyp:=AValue;
+  DoModifyPosPrice;
+end;
+procedure TBaseDBPosition.SetQuantity(AValue: double);
+begin
+  if FQuantity=AValue then Exit;
+  FQuantity:=AValue;
+  DoModifyPosPrice;
+end;
+
+procedure TBaseDBPosition.SetSellProce(AValue: double);
+begin
+  if FSellprice=AValue then Exit;
+  FSellprice:=AValue;
+  DoCalcPosPrice(True);
+end;
+
+procedure TBaseDBPosition.SetVat(AValue: SmallInt);
+begin
+  if FVat=AValue then Exit;
+  FVat:=AValue;
+  DoModifyPosPrice;
 end;
 
 function TBaseDBPosition.GetAccountNo: string;
@@ -1206,75 +839,38 @@ function TBaseDBPosition.GetOrderTyp: Integer;
 begin
   Result := 0;
 end;
-constructor TBaseDBPosition.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TBaseDBPosition.CreateEx(Module: TComponent; Owner: TComponent);
 begin
-  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
   FUseRTF:=False;
-  UpdateFloatFields:=True;
   FPosFormat := '%d';
-  FPosTyp := TPositionTyp.CreateEx(Owner,DataModule,aConnection);
-  FImages := TImages.CreateEx(Self,DataModule,aConnection,DataSet);
-  FImages.ActualFilter := TBaseDBModule(DataModule).QuoteField('REF_ID')+'='+':'+TBaseDBModule(DataModule).QuoteField('IMAGEREF');
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Limit := 0;
-          SortFields:='POSNO';
-          SortDirection:=sdAscending;
-        end;
-    end;
-  FPosCalc := TPositionCalc.CreateExIntegrity(Self,DataModule,False,aConnection,DataSet);
-  FIntDataSource := TDataSource.Create(Self);
-  FIntDataSource.DataSet := DataSet;
-  FIntDataSource.OnDataChange:=@FIntDataSourceDataChange;
-  FIntDataSource.OnStateChange:=@FIntDataSourceStateChange;
-  DataSet.AfterPost:=@DataSetAfterPost;
-  DataSet.BeforeDelete:=@DataSetBeforeDelete;
-  DataSet.AfterDelete:=@DataSetAfterDelete;
-  DataSet.AfterCancel:=@DataSetAfterCancel;
-  DataSet.BeforeCancel:=@DataSetBeforeCancel;
-  FVat := TVat.CreateEx(Self,DataModule,Connection);
-  PriceTypes := TPriceTypes.CreateEx(Self,DataModule,Connection);
+  //FPosTyp := TPositionTyp.CreateEx(Owner,DataModule,aConnection);
+  //FImages := TImages.CreateEx(Self,DataModule,aConnection,DataSet);
+  //FImages.ActualFilter := TBaseDBModule(DataModule).QuoteField('REF_ID')+'='+':'+TBaseDBModule(DataModule).QuoteField('IMAGEREF');
+  //FPosCalc := TPositionCalc.CreateExIntegrity(Self,DataModule,False,aConnection,DataSet);
+  //FVat := TVat.CreateEx(Self,DataModule,Connection);
+  //PriceTypes := TPriceTypes.CreateEx(Self,DataModule,Connection);
 end;
 destructor TBaseDBPosition.Destroy;
 begin
   PriceTypes.Destroy;
-  Vat.Destroy;
   FPosCalc.Destroy;
-  FPosTyp.Destroy;
-  FIntDataSource.Destroy;
   inherited Destroy;
 end;
-procedure TBaseDBPosition.Open;
-var
-  aRec: LargeInt;
-begin
-  inherited Open;
-  FPosTyp.Open;
-  aRec := GetBookmark;
-  Last;
-  FOldPosNo := PosNo.AsInteger;
-  GotoBookmark(aRec);
-end;
-procedure TBaseDBPosition.FillDefaults(aDataSet: TDataSet);
+procedure TBaseDBPosition.FillDefaults;
 begin
   DisableCalculation;
-  with aDataSet,BaseApplication as IBaseDbInterface do
-    begin
 //      if FieldByName('POSTYP').Required then
-      FieldByName('POSTYP').AsString   := PosTyp.FieldByName('NAME').AsString;
-      PosNo.AsInteger := (FOldPosNo+1);
-      FOldPosNo:=PosNo.AsInteger;
-    //      FieldByName('TPOSNO').AsString   := fOrders.TPosNumber;
-      FieldByName('TEXTTYPE').AsString := '0';
-      FieldByName('VAT').AsString      := '1';
-      FieldByName('QUANTITY').AsFloat  := 1;
-    end;
+  FieldByName('POSTYP').AsString   := PosTyp.FieldByName('NAME').AsString;
+  //PosNo.AsInteger := (FOldPosNo+1);
+  //FOldPosNo:=PosNo.AsInteger;
+//      FieldByName('TPOSNO').AsString   := fOrders.TPosNumber;
+  //FieldByName('TEXTTYPE').AsString := '0';
+  //FieldByName('VAT').AsString      := '1';
+  //FieldByName('QUANTITY').AsFloat  := 1;
   EnableCalculation;
 end;
 procedure TBaseDBPosition.Assign(Source: TPersistent);
+{
 var
   aMasterdata : TMasterdata;
   aQuantity: Double;
@@ -1351,8 +947,9 @@ var
     EnableCalculation;
     DoCalcPosPrice;
   end;
-
+}
 begin
+{
   if Source is TMasterdata then
     begin
       aMasterdata := Source as TMasterdata;
@@ -1439,13 +1036,7 @@ begin
     end
   else
     inherited Assign(Source);
-end;
-
-procedure TBaseDBPosition.DirectAssign(Source: TPersistent);
-begin
-  DisableCalculation;
-  inherited DirectAssign(Source);
-  EnableCalculation;
+}
 end;
 
 procedure TBaseDBPosition.DisableCalculation;
@@ -1466,6 +1057,7 @@ procedure TBaseDBPosition.AppendSubTotal;
 var
   aPos: TPositionTyp;
 begin
+  {
   aPos := TPositionTyp.CreateEx(nil,DataModule,Connection);
   aPos.Open;
   if aPos.DataSet.Locate('TYPE',4,[loCaseInsensitive]) then
@@ -1476,12 +1068,14 @@ begin
       Dataset.Post;
     end;
   aPos.Free;
+  }
 end;
 
 function TCurrency.Convert(Price: real; SourceCurr, TargetCurr: string): real;
 var
   tmp: real;
 begin
+  {
   Result := price;
   if SourceCurr = TargetCurr then
     exit;
@@ -1501,18 +1095,7 @@ begin
     Result := tmp / DataSet.FieldByName('FACTOR').AsFloat
   else
     Result := 0;
-end;
-procedure TStorageTypes.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'STORAGETYPE';
-      TableCaption:=strStorageTypes;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-    end;
+  }
 end;
 initialization
   TextTyp:=nil;
