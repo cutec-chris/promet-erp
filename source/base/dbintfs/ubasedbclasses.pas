@@ -371,24 +371,28 @@ type
     property SORTFIELD : string index 20;
     property USER : string index 20;
   end;
+}
+
+  { TLinks }
+
   TLinks = class(TBaseDBDataSet)
   private
-    FOrigFilter : string;
+    FLink,FName,FChangedBy,FCreatedBy,FReference : string;
+    FLink_Ref_ID,FRRef_ID : Int64;
+    FIcon : Integer;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    procedure Open;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
     function Add(aLink : string) : Boolean;
   published
-    property RREF_ID: Int64;
-    property LINK : string index 400;
-    property LINK_REF_ID: Int64;
-    property ICON: Integer;
-    property NAME : string index 400;
-    property REFERENCE : string index 30;
-    property CHANGEDBY : string index 4;
-    property CREATEDBY : string index 4;
+    property RRef_ID: Int64 read FRRef_ID write FRRef_ID;
+    property Link : string index 400 read FLink write FLink;
+    property Link_Ref_ID: Int64 read FLink_Ref_ID write FLink_Ref_ID;
+    property Icon: Integer read FIcon write FIcon;
+    property Name : string index 400 read FName write FName;
+    property Reference : string index 30 read FReference write FReference;
+    property ChangedBy : string index 4 read FChangedBy write FChangedBy;
+    property CreatedBy : string index 4 read FCreatedBy write FCreatedBy;
   end;
+{
   TListEntrys = class(TBaseDBDataSet)
   private
     FList: TBaseDbList;
@@ -483,6 +487,13 @@ type
 implementation
 
 uses md5,sha1;
+
+{ TLinks }
+
+function TLinks.Add(aLink: string): Boolean;
+begin
+
+end;
 
 { TOption }
 

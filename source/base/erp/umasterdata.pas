@@ -109,51 +109,70 @@ type
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff :Extended);override;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class function GetRealTableName: string; override;
     property Masterdata : TMasterdata read FMasterdata write FMasterdata;
   end;
   TSerials = class(TBaseDbDataSet)
+  private
+    FSerial,FNote : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    property Serial : string index 30 read FSerial write FSerial;
+    property Note : string index 500 read FNote write FNote;
   end;
   TStorage = class(TBaseDBDataSet)
   private
     FJournal: TStorageJournal;
+    FStorageID,FStorName,FPlace,FQuantityU : string;
+    FQuantity,FReserved : double;
+    FCharge : Integer;
     function GetJournal: TStorageJournal;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
-    function CreateTable : Boolean;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
     property Journal : TStorageJournal read GetJournal;
     function DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
       aStorage: string; aQuantity, aReserve: real; QuantityUnit, PosNo: string
   ): real;
+  published
+    property StorageID : string index 3 read FStorageID write FStorageID;
+    property StorName : string index 30 read FStorName write FStorName;
+    property Place : string index 20 read FPlace write FPlace;
+    property Quantity : double read FQuantity write FQuantity;
+    property Reserved : double read FReserved write FReserved;
+    property QuantityU : string index 10 read FQuantityU write FQuantityU;
+    property Charge : Integer read FCharge write FCharge;
   end;
 
   { TSupplierPrices }
 
   TSupplierPrices = class(TBaseDBDataSet)
   private
-  public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent
-  =nil; aMasterdata: TDataSet=nil); override;
-    procedure DefineFields(aDataSet : TDataSet);override;
+    FFromUnit,FDiscount,FPrice : double;
+    FQuantityU,FCurrency : string;
+  published
+    property FromUnit : double read FFromUnit write FFromUnit;
+    property QuantityU : string index 10 read FQuantityU write FQuantityU;
+    property Discount : double read FDiscount write FDiscount;
+    property Price : double read FPrice write FPrice;
+    property Currency : string index 3 read FCurrency write FCurrency;
   end;
   TSupplier = class(TBaseDBDataSet)
   private
     FPrices: TSupplierPrices;
+    FAccountNo,FName,FEID,FTransCUR : string;
+    FDeliverTm : Integer;
+    FTransport : double;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    destructor Destroy; override;
-    function CreateTable : Boolean;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
     property Prices : TSupplierPrices read FPrices;
+  published
+    property AccountNo : string index 60 read FAccountNo write FAccountNo;
+    property Name : string index 260 read FName write FName;
+    property DeliverTm : Integer read FDeliverTm write FDeliverTm;
+    property EID : string index 30 read FEID write FEID;
+    property Transport : double read FTransport write FTransport;
+    property TransCUR : string index 3 read FTransCUR write FTransCUR;
   end;
   TMasterdataLinks = class(TLinks)
   public
-    procedure FillDefaults(aDataSet : TDataSet);override;
   end;
 
   { TMasterdataPrices }
@@ -163,36 +182,56 @@ type
   private
     FDS: TDataSource;
     FMasterdata: TMasterdataList;
+    FPType,FNote,FCurrency,FCustomer : string;
+    FMinCount,FMaxCount,FPrice : double;
+    FValidFrom,FValidTo : TDateTime;
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    destructor Destroy; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FillDefaults(aDataSet: TDataSet); override;
+    class function GetRealTableName: string; override;
+    procedure FillDefaults; override;
     function GetPriceType : Integer;
     function FormatCurrency(Value : real) : string;
     property Masterdata : TMasterdataList read FMasterdata write FMasterdata;
+  published
+    property PType : string index 4 read FPType write FPType;
+    property Price : double read FPrice write FPrice;
+    property Note : string index 500 read FNote write FNote;
+    property Currency : string index 3 read FCurrency write FCurrency;
+    property MinCount : double read FMinCount write FMinCount;
+    property MaxCount : double read FMaxCount write FMaxCount;
+    property ValidFrom : TDateTime read FValidFrom write FValidFrom;
+    property ValidTo : TDateTime read FValidTo write FValidTo;
+    property Customer : string index 20 read FCustomer write FCustomer;
   end;
   TMdProperties = class(TBaseDbDataSet)
+  private
+    FProperty,FValue,FQuantityU : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    property Prop : string index 50 read FProperty write FProperty;
+    property Value : string index 50 read FValue write FValue;
+    property QuantityU : string index 10 read FQuantityU write FQuantityU;
   end;
   TMasterdataTexts = class(TBaseDbDataSet)
-  public
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FTextType : Integer;
+    FText : TBlobData;
+  published
+    property TextType : Integer read FTextType write FTextType;
+    property Text : TBlobData read FText write FText;
   end;
   TRepairParts = class(TBaseDbDataSet)
+  private
+    FPart : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    property Part : string index 60 read FPart write FPart;
   end;
   TRepairAssembly = class(TBaseDbDataSet)
   private
     FParts: TRepairParts;
+    FAssembly : string;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
-    destructor Destroy;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    function CreateTable : Boolean;override;
     property Parts : TRepairParts read FParts;
+  published
+    property Assembly : string index 60 read FAssembly write FAssembly;
   end;
   TMasterdata = class(TMasterdataList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
@@ -257,138 +296,6 @@ implementation
 uses uBaseDBInterface, uBaseSearch, uBaseApplication, uBaseApplicationTools,
   uData, Utils,uOrder,uthumbnails,uprometscripts;
 
-constructor TSupplierPrices.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  UpdateFloatFields:=True;
-end;
-
-procedure TSupplierPrices.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'SUPPLIERPRICES';
-      TableCaption:=strPrices;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property FROMUNIT : double False);
-            property QUANTITYU : string index 10 read  write ;
-            property DISCOUNT : double False);
-            property PRICE : double True);
-            property CURRENCY : string index 3 read  write ;
-          end;
-    end;
-end;
-constructor TSupplier.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FPrices := TSupplierPrices.CreateEx(Owner,DataModule,aConnection,DataSet);
-end;
-destructor TSupplier.Destroy;
-begin
-  FPrices.Free;
-  inherited Destroy;
-end;
-function TSupplier.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FPrices.CreateTable;
-end;
-procedure TSupplier.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'SUPPLIER';
-      TableCaption:=strSupplier;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ACCOUNTNO : string index 60 read  write ;
-            property NAME : string index 260 read  write ;
-            property DELIVERTM : Integer read  write ;
-            property EID : string index 30 read  write ;
-            property TRANSPORT : double False);
-            property TRANSCUR : string index 3 read  write ;
-          end;
-    end;
-end;
-procedure TRepairParts.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'REPAIRPARTS';
-      TableCaption:=strRepairParts;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property PART : string index 60 read  write ;
-          end;
-    end;
-end;
-constructor TRepairAssembly.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FParts := TRepairParts.CreateEx(Self,DataModule,aConnection,DataSet);
-end;
-destructor TRepairAssembly.Destroy;
-begin
-  FParts.Free;
-  inherited Destroy;
-end;
-procedure TRepairAssembly.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'REPAIRASSEMBLY';
-      TableCaption:=strRepairAssembly;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ASSEMBLY : string index 60 read  write ;
-          end;
-    end;
-end;
-
-function TRepairAssembly.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FParts.CreateTable;
-end;
-
-procedure TMasterdataTexts.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'TEXTS';
-      TableCaption:=strTexts;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property TEXTTYPE : Integer read  write ;
-            property TEXT',ftMemo,0 read  write ;
-          end;
-    end;
-end;
-procedure TMdProperties.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'PROPERTIES';
-      TableCaption:=strProperties;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property PROPERTY : string index 50 read  write ;
-            property VALUE : string index 50 read  write ;
-            property UNIT : string index 10 read  write ;
-          end;
-    end;
-end;
-
 procedure TMasterdataPrices.FDSDataChange(Sender: TObject; Field: TField);
 begin
   if not Assigned(Field) then exit;
@@ -419,44 +326,10 @@ begin
     end;
 end;
 
-constructor TMasterdataPrices.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
+class function TMasterdataPrices.GetRealTableName: string;
 begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FDS := TDataSource.Create(Self);
-  FDS.DataSet := DataSet;
-  FDS.OnDataChange:=@FDSDataChange;
+  Result:='MDPRICES';
 end;
-
-destructor TMasterdataPrices.Destroy;
-begin
-  FDS.Free;
-  inherited Destroy;
-end;
-
-procedure TMasterdataPrices.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'MDPRICES';
-      TableCaption:=strPrices;
-      UpdateFloatFields:=True;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property PTYPE : string index 4 read  write ;
-            property PRICE : double false);
-            property NOTE : string index 500 read  write ;
-            property CURRENCY : string index 3 read  write ;
-            property MINCOUNT : double False);
-            property MAXCOUNT : double False);
-            property VALIDFROM : TDateTime read  write ;
-            property VALIDTO : TDateTime read  write ;
-            property CUSTOMER : string index 20 read  write ;
-          end;
-    end;
-end;
-
 procedure TMasterdataPrices.FillDefaults(aDataSet: TDataSet);
 begin
   inherited FillDefaults(aDataSet);
@@ -488,21 +361,6 @@ begin
   inherited FillDefaults(aDataSet);
   aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TMasterdata).Id.AsVariant;
 end;
-procedure TSerials.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'SERIALS';
-      TableCaption:=strSerial;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property SERIAL : string index 30 read  write ;
-            property NOTE : string index 500 read  write ;
-          end;
-    end;
-end;
-
 function TStorage.GetJournal: TStorageJournal;
 begin
   if not Assigned(FJournal) then
@@ -512,45 +370,6 @@ begin
     end;
   Result := FJournal;
 end;
-
-constructor TStorage.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
-end;
-
-destructor TStorage.Destroy;
-begin
-  if Assigned(FJournal) then FJournal.Free;
-  inherited Destroy;
-end;
-
-function TStorage.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-end;
-
-procedure TStorage.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      UpdateFloatFields:=True;
-      TableName := 'STORAGE';
-      TableCaption:=strStorage;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property STORAGEID : string index 3 read  write ;
-            property STORNAME : string index 30 read  write ;
-            property PLACE : string index 20 read  write ;
-            property QUANTITY : double False);
-            property RESERVED : double False);
-            property QUANTITYU : string index 10 read  write ;
-            property CHARGE : Integer read  write ;
-          end;
-    end;
-end;
-
 function TStorage.DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
   aStorage: string; aQuantity, aReserve: real; QuantityUnit,PosNo: string): real;
 var
@@ -1107,19 +926,10 @@ begin
     Masterdata.DataSet.Edit;
   Masterdata.FieldByName('WEIGHT').AsFloat := Masterdata.FieldByName('WEIGHT').AsFloat+aPosDiff;
 end;
-constructor TMDPos.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
+
+class function TMDPos.GetRealTableName: string;
 begin
-  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
-  DataSet.AfterPost:=@DataSetAfterPost;
-end;
-procedure TMDPos.DefineFields(aDataSet: TDataSet);
-begin
-  inherited DefineFields(aDataSet);
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'MDPOSITIONS';
-    end;
+  Result:='MDPOSITIONS';
 end;
 function TMasterdataList.GetMatchCodeFieldName: string;
 begin
