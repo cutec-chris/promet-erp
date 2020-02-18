@@ -392,6 +392,68 @@ type
     property ChangedBy : string index 4 read FChangedBy write FChangedBy;
     property CreatedBy : string index 4 read FCreatedBy write FCreatedBy;
   end;
+  TBaseHistoryItem = class(TBaseDBList)
+  private
+    FRef_ID,FRoot,FParent : Int64;
+    FActionIcon : Integer;
+    FSummary,FReference,FLink,FObject,FRefObject,FCommission,FSource,FTags,
+      FChangedBy,FParentStr: string;
+    FAction : TRawBlob;
+    FRead,FIgnore : Boolean;
+    FDate : TDateTime;
+  protected
+    //procedure OpenItem(AccHistory: Boolean=True); override;
+  public
+    //procedure Change; override;
+
+    //procedure SelectByParent(aParent: Variant);
+    //procedure SelectByParentStr(aParent: string);
+    //procedure SelectByRoot(aParent: Variant);
+
+    //function AddItem(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    //function AddItemSR(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    //function AddItemPlain(aObject: string; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    //procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
+    //procedure AddParentedItemPlain(aObject: string; aAction: string;aParent: Variant; aLink: string; aReference: string; aRefObject: string;aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;DoChange: Boolean); virtual;
+    //procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
+
+    //procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+    //procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+
+    //function GetTextFieldName: string;override;
+    //function GetNumberFieldName : string;override;
+  published
+    property Ref_ID: Int64 read FRef_ID write FRef_ID;
+    property ActionIcon: Integer read FActionIcon write FActionIcon;
+    property Summary: string index 220 read FSummary write FSummary;
+    property Action : TRawBlob read FAction write FAction;
+    property Reference : string index 150 read FReference write FReference;
+    property Link : string index 400 read FLink write FLink;
+    property ObjectLink : string index 200 read FObject write FObject;
+    property RefObject: string index 200 read FRefObject write FRefObject;
+    property Commission: string index 60 read FCommission write FCommission;
+    property Source: string index 60 read FSource write FSource;
+    property Read: Boolean read FRead write FRead;
+    property Ignore: Boolean read FIgnore write FIgnore;//ignore item in reports
+    property Tags: string index 200 read FTags write FTags;
+    property ChangedBy: string index 4 read FChangedBy write FChangedBy;
+    property Parent: Int64 read FParent write FParent;
+    property ParentStr: string index 30 read FParentStr write FParentStr;
+    property Root: Int64 read FRoot write FRoot;
+    property Date : TDateTime read FDate write FDate;
+  end;
+
+  { TBaseHistory }
+
+  TBaseHistory = class(TAbstractMasterDetail)
+  public
+   class function GetObjectTyp: TClass; override;
+  end;
+
+  IBaseHistory = interface['{8BA16E96-1A06-49E2-88B1-301CF9E5C8FC}']
+    function GetHistory: TBaseHistory;
+    property History : TBaseHistory read GetHistory;
+  end;
 {
   TListEntrys = class(TBaseDBDataSet)
   private
@@ -426,67 +488,83 @@ type
     property NAME : string index 100;
     property TEXT: TSQLRawBlob;
   end;
+}
   TImages = class(TBaseDBDataSet)
+  private
+    FRef_ID : Int64;
+    FImage : TRawBlob;
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure GenerateThumbnail(aThumbnail : TBaseDbDataSet);
+    //procedure GenerateThumbnail(aThumbnail : TBaseDbDataSet);
   published
-    property REF_ID: Int64;
-    property IMAGE: TSQLRawBlob;
+    property Ref_ID: Int64 read FRef_ID write FRef_ID;
+    property Image: TRawBlob read FImage write FImage;
   end;
   TDeletedItems = class(TBaseDBDataSet)
+  private
+    FRef_ID_ID : Int64;
+    FLink : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
   published
-    property REF_ID_ID: Int64;
-    property LINK : string index 400;
+    property Ref_ID_ID: Int64 read FRef_ID_ID write FRef_ID_ID;
+    property Link : string index 400 read FLink write FLink;
   end;
   TMeasurementData = class(TBaseDBDataset)
-  public
-    procedure DefineFields(aDataSet: TDataSet); override;
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    procedure FillDefaults(aDataSet: TDataSet); override;
-  published
-    property DATA: Double;
-    property DATE : TDateTime;
-  end;
-  TMeasurement = class(TBaseDBDataset)
-    procedure DataSetAfterPost(aDataSet: TDataSet);
-    procedure DataSetBeforeEdit(aDataSet: TDataSet);
-    procedure FDSDataChange(Sender: TObject; Field: TField);
   private
+    FData : double;
+    FDate : TDateTime;
+  published
+    property Data: Double read FData write FData;
+    property Date : TDateTime read FDate write FDate;
+  end;
+  TMeasurementDates = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
+  { TMeasurement }
+
+  TMeasurement = class(TBaseDBDataset)
+  private
+    FData: TMeasurementDates;
+    FName,FID,FTyp,FMUnit,FChart,FColor,FRange,FPosition,FInterpolate : string;
+    FCurrent,FTollerance : double;
     CurrentChanged : Boolean;
     CurrentValue : real;
     FMesdata: TMeasurementData;
     FDS: TDataSource;
-    function GetCurrent: TField;
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    destructor Destroy; override;
-    procedure DefineFields(aDataSet: TDataSet); override;
-    function CreateTable: Boolean; override;
-    property Data : TMeasurementData read FMesdata;
-    property Current : TField read GetCurrent;
   published
-    property NAME : string index 100;
-    property ID : string index 100;
-    property TYP : string index 100;
-    property CURRENT: Double;
-    property MUNIT : string index 15;
-    property CHART : string index 1;
-    property COLOR : string index 30;
-    property RANGE : string index 20;
-    property POSITION : string index 1;
-    property INTERPOLATE : string index 1;
-    property TOLLERANCE: Double;
+    property Name : string index 100 read FName write FName;
+    property ID : string index 100 read FID write FID;
+    property Typ : string index 100 read FTyp write FTyp;
+    property Current: Double read FCurrent write FCurrent;
+    property MUnit : string index 15 read FMUnit write FMUnit;
+    property Chart : string index 1 read FChart write FChart;
+    property Color : string index 30 read FColor write FColor;
+    property Range : string index 20 read FRange write FRange;
+    property Position : string index 1 read FPosition write FPosition;
+    property Interpolate : string index 1 read FInterpolate write FInterpolate;
+    property Tollerance: Double read FTollerance write FTollerance;
+    property Data : TMeasurementDates read FData write FData;
   end;
-}
+
 implementation
 
 uses md5,sha1;
+
+{ TMeasurementDates }
+
+class function TMeasurementDates.GetObjectTyp: TClass;
+begin
+  Result := TMeasurementData;
+end;
+
+{ TBaseHistory }
+
+class function TBaseHistory.GetObjectTyp: TClass;
+begin
+  Result := TBaseHistoryItem;
+end;
 
 { TLinks }
 

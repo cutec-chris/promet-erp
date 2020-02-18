@@ -238,7 +238,7 @@ type
     procedure FSupplierDataSetAfterPost(aDataSet: TDataSet);
   private
     FAssembly: TRepairAssembly;
-    FHistory: TMasterdataHistory;
+    FHistory: TBaseHistory;
     FImages: TImages;
     FLinks: TMasterdataLinks;
     FMeasurement: TMeasurement;
@@ -251,23 +251,20 @@ type
     FSupplier: TSupplier;
     FTexts: TMasterdataTexts;
     FDS: TDataSource;
-    FSTatus : string;
     function GetHistory : TBaseHistory;
     function GetLanguage: TField;
     function GetVersion: TField;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(Module: TComponent; Owner: TComponent); override;
     destructor Destroy;override;
     procedure Open;override;
-    function CreateTable : Boolean;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults;override;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
     property Version : TField read GetVersion;
     property Language : TField read GetLanguage;
     property Positions : TMDPos read FPosition;
-    property History : TMasterdataHistory read FHistory;
+    property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Links : TMasterdataLinks read FLinks;
     property Texts : TMasterdataTexts read FTexts;
@@ -294,7 +291,7 @@ type
   end;
 implementation
 uses uBaseDBInterface, uBaseSearch, uBaseApplication, uBaseApplicationTools,
-  uData, Utils,uOrder,uthumbnails,uprometscripts;
+  uData, Utils,uOrder,uthumbnails;
 
 procedure TMasterdataPrices.FDSDataChange(Sender: TObject; Field: TField);
 begin
@@ -618,8 +615,7 @@ function TMasterdata.GetLanguage: TField;
 begin
   Result := DataSet.FieldByName('LANGUAGE');
 end;
-constructor TMasterdata.CreateEx(aOwner: TComponent;DM : TComponent; aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TMasterdata.CreateEx(Module: TComponent; Owner: TComponent);
 begin
   inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
   with BaseApplication as IBaseDbInterface do
@@ -672,32 +668,7 @@ begin
   FStatus := Status.AsString;
 end;
 
-function TMasterdata.CreateTable : Boolean;
-var
-  aUnits: TUnits;
-begin
-  Result := inherited CreateTable;
-  FPosition.CreateTable;
-  FStorage.CreateTable;
-  FHistory.CreateTable;
-  FTexts.CreateTable;
-  FLinks.CreateTable;
-  FPrices.CreateTable;
-  FProperties.CreateTable;
-  FSerials.CreateTable;
-  FAssembly.CreateTable;
-  FSupplier.CreateTable;
-  aUnits := TUnits.CreateEx(nil,DataModule,Connection);
-  aUnits.CreateTable;
-  aUnits.Free;
-end;
-procedure TMasterdata.DefineFields(aDataSet: TDataSet);
-begin
-  inherited DefineFields(aDataSet);
-  with aDataSet as IBaseDbFilter, BaseApplication as IBaseDbInterface do
-    BaseFilter := '';
-end;
-procedure TMasterdata.FillDefaults(aDataSet: TDataSet);
+procedure TMasterdata.FillDefaults;
 var
   Vat: TVat;
 begin
