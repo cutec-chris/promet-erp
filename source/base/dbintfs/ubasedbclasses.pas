@@ -14,8 +14,11 @@ type
   { TBaseDBDataset }
 
   TBaseDBDataset = class(TAbstractDBDataset2)
+  private
+    FDataModule: TComponent;
   public
-    constructor CreateEx(Module : TComponent;Owner : TComponent);virtual;
+    constructor CreateEx(Owner : TObject;Module : TComponent);virtual;
+    property DataModule : TComponent read FDataModule write FDataModule;
   end;
   generic TList<T> = class
     Items: array of T;
@@ -123,7 +126,7 @@ type
     function CheckUserPasswort(aPasswort: string): Boolean;
     procedure SetPasswort(aPasswort : string);
     constructor Create;
-    constructor CreateEx(Module: TComponent; Owner: TComponent);override;
+    constructor CreateEx(Owner: TObject;Module: TComponent);override;
     class function GetRealTableName: string; override;
     class function MapField(aField: string): string; override;
   published
@@ -401,27 +404,6 @@ type
     FAction : TRawBlob;
     FRead,FIgnore : Boolean;
     FDate : TDateTime;
-  protected
-    //procedure OpenItem(AccHistory: Boolean=True); override;
-  public
-    //procedure Change; override;
-
-    //procedure SelectByParent(aParent: Variant);
-    //procedure SelectByParentStr(aParent: string);
-    //procedure SelectByRoot(aParent: Variant);
-
-    //function AddItem(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
-    //function AddItemSR(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
-    //function AddItemPlain(aObject: string; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
-    //procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
-    //procedure AddParentedItemPlain(aObject: string; aAction: string;aParent: Variant; aLink: string; aReference: string; aRefObject: string;aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;DoChange: Boolean); virtual;
-    //procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
-
-    //procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
-    //procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
-
-    //function GetTextFieldName: string;override;
-    //function GetNumberFieldName : string;override;
   published
     property Ref_ID: Int64 read FRef_ID write FRef_ID;
     property ActionIcon: Integer read FActionIcon write FActionIcon;
@@ -446,7 +428,27 @@ type
   { TBaseHistory }
 
   TBaseHistory = class(TAbstractMasterDetail)
+  protected
+    //procedure OpenItem(AccHistory: Boolean=True); override;
   public
+    //procedure Change; override;
+
+    //procedure SelectByParent(aParent: Variant);
+    //procedure SelectByParentStr(aParent: string);
+    //procedure SelectByRoot(aParent: Variant);
+
+    function AddItem(aObject: TBaseDBDataset; aAction: string; aLink: string=''; aReference: string=''; aRefObject: TBaseDBDataset=nil; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    //function AddItemSR(aObject: TDataSet; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    //function AddItemPlain(aObject: string; aAction: string; aLink: string=''; aReference: string=''; aRefObject: string=''; aIcon: Integer=0;aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False) : Boolean; virtual;
+    //procedure AddParentedItem(aObject: TDataSet; aAction: string;aParent : Variant; aLink: string=''; aReference: string=''; aRefObject: TDataSet=nil; aIcon: Integer=0; aComission: string=''; CheckDouble: Boolean=True; DoPost: Boolean=True; DoChange: Boolean=False); virtual;
+    //procedure AddParentedItemPlain(aObject: string; aAction: string;aParent: Variant; aLink: string; aReference: string; aRefObject: string;aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;DoChange: Boolean); virtual;
+    //procedure AddItemWithoutUser(aObject : TDataSet;aAction : string;aLink : string = '';aReference : string = '';aRefObject : TDataSet = nil;aIcon : Integer = 0;aComission : string = '';CheckDouble: Boolean=True;DoPost : Boolean = True;DoChange : Boolean = False);virtual;
+
+    //procedure AddMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+    //procedure AddAnsweredMessageItem(aObject: TDataSet; aMessage, aSubject, aSource, aLink: string; aParent: LargeInt = 0);
+
+    //function GetTextFieldName: string;override;
+    //function GetNumberFieldName : string;override;
    class function GetObjectTyp: TClass; override;
   end;
 
@@ -561,6 +563,14 @@ end;
 
 { TBaseHistory }
 
+function TBaseHistory.AddItem(aObject: TBaseDBDataset; aAction: string;
+  aLink: string; aReference: string; aRefObject: TBaseDBDataset;
+  aIcon: Integer; aComission: string; CheckDouble: Boolean; DoPost: Boolean;
+  DoChange: Boolean): Boolean;
+begin
+  //TODO
+end;
+
 class function TBaseHistory.GetObjectTyp: TClass;
 begin
   Result := TBaseHistoryItem;
@@ -595,8 +605,9 @@ end;
 
 { TBaseDBDataset }
 
-constructor TBaseDBDataset.CreateEx(Module: TComponent; Owner: TComponent);
+constructor TBaseDBDataset.CreateEx(Owner: TObject; Module: TComponent);
 begin
+  FDataModule:=Module;
 end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean
@@ -697,9 +708,9 @@ begin
   FOptions := TOptions.Create;
 end;
 
-constructor TUser.CreateEx(Module: TComponent; Owner: TComponent);
+constructor TUser.CreateEx(Owner: TObject; Module: TComponent);
 begin
-  inherited CreateEx(Module, Owner);
+  inherited CreateEx(Owner,Module);
 end;
 
 class function TUser.GetRealTableName: string;

@@ -21,7 +21,7 @@ unit uPerson;
 {$mode objfpc}{$H+}
 interface
 uses
-  Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts,uBaseDatasetInterfaces;
+  Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts, uBaseDatasetInterfaces2;
 type
 
   { TPersonList }

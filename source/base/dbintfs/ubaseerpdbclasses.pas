@@ -191,7 +191,7 @@ type
     procedure DoInsert;virtual;
     procedure DoEdit;virtual;
   public
-    constructor CreateEx(Module: TComponent; Owner: TComponent); override;
+    constructor CreateEx(Owner: TObject;Module: TComponent); override;
     destructor Destroy;override;
     procedure FillDefaults;override;
     procedure Assign(Source: TPersistent); override;
@@ -835,8 +835,9 @@ function TBaseDBPosition.GetOrderTyp: Integer;
 begin
   Result := 0;
 end;
-constructor TBaseDBPosition.CreateEx(Module: TComponent; Owner: TComponent);
+constructor TBaseDBPosition.CreateEx(Owner: TObject; Module: TComponent);
 begin
+  inherited CreateEx(Owner,Module);
   FUseRTF:=False;
   FPosFormat := '%d';
   //FPosTyp := TPositionTyp.CreateEx(Owner,DataModule,aConnection);

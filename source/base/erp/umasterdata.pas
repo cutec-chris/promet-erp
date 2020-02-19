@@ -171,7 +171,12 @@ type
     property Transport : double read FTransport write FTransport;
     property TransCUR : string index 3 read FTransCUR write FTransCUR;
   end;
+
+  { TMasterdataLinks }
+
   TMasterdataLinks = class(TLinks)
+  private
+    procedure FillDefaults;
   public
   end;
 
@@ -185,15 +190,17 @@ type
     FPType,FNote,FCurrency,FCustomer : string;
     FMinCount,FMaxCount,FPrice : double;
     FValidFrom,FValidTo : TDateTime;
+    procedure SetPrice(AValue: double);
   public
     class function GetRealTableName: string; override;
+    constructor CreateEx(Owner: TObject;Module: TComponent); override;
     procedure FillDefaults; override;
     function GetPriceType : Integer;
     function FormatCurrency(Value : real) : string;
     property Masterdata : TMasterdataList read FMasterdata write FMasterdata;
   published
     property PType : string index 4 read FPType write FPType;
-    property Price : double read FPrice write FPrice;
+    property Price : double read FPrice write SetPrice;
     property Note : string index 500 read FNote write FNote;
     property Currency : string index 3 read FCurrency write FCurrency;
     property MinCount : double read FMinCount write FMinCount;
@@ -252,17 +259,17 @@ type
     FTexts: TMasterdataTexts;
     FDS: TDataSource;
     function GetHistory : TBaseHistory;
-    function GetLanguage: TField;
-    function GetVersion: TField;
+    function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
+    procedure SetStatus(AValue: string);
+    function _AddRef: longint; stdcall;
+    function _Release: longint; stdcall;
   public
-    constructor CreateEx(Module: TComponent; Owner: TComponent); override;
+    constructor CreateEx(Owner: TObject;Module: TComponent); override;
     destructor Destroy;override;
     procedure Open;override;
     procedure FillDefaults;override;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
-    property Version : TField read GetVersion;
-    property Language : TField read GetLanguage;
     property Positions : TMDPos read FPosition;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
@@ -288,51 +295,63 @@ type
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     procedure GenerateThumbnail; override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
+  published
+    property Status : string read FStatus write SetStatus;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uBaseApplication, uBaseApplicationTools,
-  uData, Utils,uOrder,uthumbnails;
+uses uData, Utils;
 
 procedure TMasterdataPrices.FDSDataChange(Sender: TObject; Field: TField);
 begin
-  if not Assigned(Field) then exit;
-  if DataSet.ControlsDisabled then exit;
-  if Field.FieldName = 'PRICE' then
+  PType:='SAP';
+  {TODO
+  if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
+    FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
+  }
+end;
+
+procedure TMasterdataPrices.SetPrice(AValue: double);
+begin
+  if FPrice=AValue then Exit;
+  FPrice:=AValue;
+  {TODO
+  if Masterdata.FieldByName('CURRENCY').AsString='' then
     begin
-      if Masterdata.FieldByName('CURRENCY').AsString='' then
-        begin
-          Masterdata.Edit;
-          if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
-            Masterdata.FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
-          Masterdata.Post;
-        end;
-      case GetPriceType of
-      1:if Assigned(Masterdata.FieldByName('PURCHASE')) then
-        begin
-          Masterdata.Edit;
-          Masterdata.FieldByName('PURCHASE').AsFloat:=Data.Currency.Convert(DataSet.FieldByName('PRICE').AsFloat,DataSet.FieldByName('CURRENCY').AsString,Masterdata.DataSet.FieldByName('CURRENCY').AsString);
-          Masterdata.Post;
-        end;
-      4:if Assigned(Masterdata.FieldByName('SELLPRICE')) then
-          begin
-            Masterdata.Edit;
-            Masterdata.FieldByName('SELLPRICE').AsFloat:=Data.Currency.Convert(DataSet.FieldByName('PRICE').AsFloat,DataSet.FieldByName('CURRENCY').AsString,Masterdata.DataSet.FieldByName('CURRENCY').AsString);
-            Masterdata.Post;
-          end;
-      end;
+      Masterdata.Edit;
+      if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
+        Masterdata.FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
+      Masterdata.Post;
     end;
+  case GetPriceType of
+  1:if Assigned(Masterdata.FieldByName('PURCHASE')) then
+    begin
+      Masterdata.Edit;
+      Masterdata.FieldByName('PURCHASE').AsFloat:=Data.Currency.Convert(DataSet.FieldByName('PRICE').AsFloat,DataSet.FieldByName('CURRENCY').AsString,Masterdata.DataSet.FieldByName('CURRENCY').AsString);
+      Masterdata.Post;
+    end;
+  4:if Assigned(Masterdata.FieldByName('SELLPRICE')) then
+      begin
+        Masterdata.Edit;
+        Masterdata.FieldByName('SELLPRICE').AsFloat:=Data.Currency.Convert(DataSet.FieldByName('PRICE').AsFloat,DataSet.FieldByName('CURRENCY').AsString,Masterdata.DataSet.FieldByName('CURRENCY').AsString);
+        Masterdata.Post;
+      end;
+  end;
+  }
 end;
 
 class function TMasterdataPrices.GetRealTableName: string;
 begin
   Result:='MDPRICES';
 end;
-procedure TMasterdataPrices.FillDefaults(aDataSet: TDataSet);
+
+constructor TMasterdataPrices.CreateEx(Owner: TObject; Module: TComponent);
 begin
-  inherited FillDefaults(aDataSet);
-  FieldByName('PTYPE').AsString:='SAP';
-  if Data.Currency.DataSet.Active and Data.Currency.DataSet.Locate('DEFAULTCUR', 'Y', []) then
-    FieldByName('CURRENCY').AsString := Data.Currency.FieldByName('SYMBOL').AsString;
+  inherited CreateEx(Owner,Module);
+end;
+
+procedure TMasterdataPrices.FillDefaults;
+begin
+  inherited FillDefaults;
 end;
 
 function TMasterdataPrices.GetPriceType: Integer;
@@ -340,6 +359,7 @@ var
   PriceType: TPriceTypes;
 begin
   Result := 0;
+  {TODO
   try
     PriceType := TPriceTypes.CreateEx(Self,DataModule,Connection);
     PriceType.Open;
@@ -348,23 +368,20 @@ begin
   finally
     PriceType.Free;
   end;
+  }
 end;
 function TMasterdataPrices.FormatCurrency(Value: real): string;
 begin
-  Result := FormatFloat('0.00',Value)+' '+DataSet.FieldByName('CURRENCY').AsString;
+  Result := FormatFloat('0.00',Value)+' '+Currency;
 end;
-procedure TMasterdataLinks.FillDefaults(aDataSet: TDataSet);
+procedure TMasterdataLinks.FillDefaults;
 begin
-  inherited FillDefaults(aDataSet);
-  aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TMasterdata).Id.AsVariant;
+  //aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TMasterdata).Id.AsVariant;
 end;
 function TStorage.GetJournal: TStorageJournal;
 begin
   if not Assigned(FJournal) then
-    begin
-      FJournal := TStorageJournal.CreateEx(Self,DataModule,Connection);
-      FJournal.CreateTable;
-    end;
+    FJournal := TStorageJournal.CreateEx(Self,DataModule);
   Result := FJournal;
 end;
 function TStorage.DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
@@ -379,6 +396,7 @@ begin
   try
     if not Active then Open;
     //Lager selektieren oder anlegen
+    {
     if not Data.StorageType.Active then
       Data.StorageType.Open;
     if ((FieldByName('STORAGEID').AsString<>trim(copy(aStorage, 0, 3)))
@@ -567,14 +585,33 @@ begin
           Journal.FieldByName('QUANTITYU').AsString := QuantityUnit;
           Journal.Post;
         end;
+    }
   except
     result := 0;
   end;
 end;
 
-function TMasterdata.GetVersion: TField;
+function TMasterdata.QueryInterface(constref iid: tguid; out obj): longint;
+  stdcall;
 begin
-  Result := DataSet.FieldByName('VERSION');
+end;
+
+procedure TMasterdata.SetStatus(AValue: string);
+begin
+  if FStatus=AValue then Exit;
+  History.AddItem(Self,Format(strStatusChanged,[FStatus,AValue]),'','',nil,ACICON_STATUSCH);
+  FStatus:=AValue;
+  if Assigned(FStateChange) then
+    FStateChange(Self);
+  OpenItem(False);
+end;
+
+function TMasterdata._AddRef: longint; stdcall;
+begin
+end;
+
+function TMasterdata._Release: longint; stdcall;
+begin
 end;
 
 function TMasterdataList.GetTyp: string;
@@ -588,13 +625,6 @@ begin
   if DataSet.ControlsDisabled then exit;
   if Field.FieldName = 'STATUS' then
     begin
-      if FStatus=Field.AsString then exit;
-      History.Open;
-      History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
-      FStatus := Field.AsString;
-      if Assigned(FStateChange) then
-        FStateChange(Self);
-      OpenItem(False);
     end;
   if (Field.FieldName = 'ID') then
     begin
@@ -615,9 +645,9 @@ function TMasterdata.GetLanguage: TField;
 begin
   Result := DataSet.FieldByName('LANGUAGE');
 end;
-constructor TMasterdata.CreateEx(Module: TComponent; Owner: TComponent);
+constructor TMasterdata.CreateEx(Owner: TObject; Module: TComponent);
 begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  inherited CreateEx(aOwner, Module);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
