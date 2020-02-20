@@ -142,6 +142,13 @@ type
     property Charge : Integer read FCharge write FCharge;
   end;
 
+  { TStorageList }
+
+  TStorageList = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
   { TSupplierPrices }
 
   TSupplierPrices = class(TBaseDBDataSet)
@@ -149,6 +156,7 @@ type
     FFromUnit,FDiscount,FPrice : double;
     FQuantityU,FCurrency : string;
   published
+    constructor Create;
     property FromUnit : double read FFromUnit write FFromUnit;
     property QuantityU : string index 10 read FQuantityU write FQuantityU;
     property Discount : double read FDiscount write FDiscount;
@@ -171,19 +179,16 @@ type
     property Transport : double read FTransport write FTransport;
     property TransCUR : string index 3 read FTransCUR write FTransCUR;
   end;
-
-  { TMasterdataLinks }
-
-  TMasterdataLinks = class(TLinks)
-  private
-    procedure FillDefaults;
+  TSuppliers = class(TAbstractMasterDetail)
   public
+    class function GetObjectTyp: TClass; override;
   end;
-
-  { TMasterdataPrices }
-
-  TMasterdataPrices = class(TBaseDbDataSet)
-    procedure FDSDataChange(Sender: TObject; Field: TField);
+  TMasterdataLinks = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+    function Add(AObject: TObject): Integer;
+  end;
+  TMasterdataPrice = class(TBaseDbDataSet)
   private
     FDS: TDataSource;
     FMasterdata: TMasterdataList;
@@ -199,6 +204,7 @@ type
     function FormatCurrency(Value : real) : string;
     property Masterdata : TMasterdataList read FMasterdata write FMasterdata;
   published
+    constructor Create;
     property PType : string index 4 read FPType write FPType;
     property Price : double read FPrice write SetPrice;
     property Note : string index 500 read FNote write FNote;
@@ -209,7 +215,11 @@ type
     property ValidTo : TDateTime read FValidTo write FValidTo;
     property Customer : string index 20 read FCustomer write FCustomer;
   end;
-  TMdProperties = class(TBaseDbDataSet)
+  TMasterdataPrices = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+  TMdProperty = class(TBaseDbDataSet)
   private
     FProperty,FValue,FQuantityU : string;
   public
@@ -217,13 +227,29 @@ type
     property Value : string index 50 read FValue write FValue;
     property QuantityU : string index 10 read FQuantityU write FQuantityU;
   end;
-  TMasterdataTexts = class(TBaseDbDataSet)
+
+  { TMdProperties }
+
+  TMdProperties = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
+  { TMasterdataTexts }
+
+  TMasterdataText = class(TBaseDbDataSet)
   private
     FTextType : Integer;
     FText : TBlobData;
+  public
+    class function GetRealTableName: string; override;
   published
     property TextType : Integer read FTextType write FTextType;
     property Text : TBlobData read FText write FText;
+  end;
+  TMasterdataTexts = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
   TRepairParts = class(TBaseDbDataSet)
   private
@@ -240,11 +266,15 @@ type
   published
     property Assembly : string index 60 read FAssembly write FAssembly;
   end;
+  TRepairAssembies = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
   TMasterdata = class(TMasterdataList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
     procedure FSupplierDataSetAfterPost(aDataSet: TDataSet);
   private
-    FAssembly: TRepairAssembly;
+    FAssembly: TRepairAssembies;
     FHistory: TBaseHistory;
     FImages: TImages;
     FLinks: TMasterdataLinks;
@@ -254,12 +284,13 @@ type
     FProperties: TMdProperties;
     FSerials: TSerials;
     FStateChange: TNotifyEvent;
-    FStorage: TStorage;
-    FSupplier: TSupplier;
+    FStorage: TStorageList;
+    FSupplier: TSuppliers;
     FTexts: TMasterdataTexts;
     FDS: TDataSource;
     function GetHistory : TBaseHistory;
     function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
+    procedure SetId(AValue: string);
     procedure SetStatus(AValue: string);
     function _AddRef: longint; stdcall;
     function _Release: longint; stdcall;
@@ -270,18 +301,6 @@ type
     procedure FillDefaults;override;
     procedure CascadicPost;override;
     procedure CascadicCancel;override;
-    property Positions : TMDPos read FPosition;
-    property History : TBaseHistory read FHistory;
-    property Images : TImages read FImages;
-    property Links : TMasterdataLinks read FLinks;
-    property Texts : TMasterdataTexts read FTexts;
-    property Storage : TStorage read FStorage;
-    property Supplier : TSupplier read FSupplier;
-    property Prices : TMasterdataPrices read FPrices;
-    property Properties : TMdProperties read FProperties;
-    property Assembly : TRepairAssembly read FAssembly;
-    property Serials : TSerials read FSerials;
-    property Measurements : TMeasurement read FMeasurement;
     function Copy(aNewVersion : Variant;aNewLanguage : Variant;cPrices : Boolean = True;
                                                                cProperties : Boolean = True;
                                                                cTexts : Boolean = True;
@@ -297,11 +316,45 @@ type
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   published
     property Status : string read FStatus write SetStatus;
+    property ID : string read FID write SetId;
+    property Storage : TStorageList read FStorage;
+    property Positions : TMDPos read FPosition;
+    property History : TBaseHistory read FHistory;
+    property Images : TImages read FImages;
+    property Links : TMasterdataLinks read FLinks;
+    property Texts : TMasterdataTexts read FTexts;
+    property Supplier : TSuppliers read FSupplier;
+    property Prices : TMasterdataPrices read FPrices;
+    property Properties : TMdProperties read FProperties;
+    property Assembly : TRepairAssembies read FAssembly;
+    property Serials : TSerials read FSerials;
+    property Measurements : TMeasurement read FMeasurement;
   end;
 implementation
 uses uData, Utils;
 
-procedure TMasterdataPrices.FDSDataChange(Sender: TObject; Field: TField);
+{ TSuppliers }
+
+class function TSuppliers.GetObjectTyp: TClass;
+begin
+  Result := TSupplier;
+end;
+
+{ TRepairAssembies }
+
+class function TRepairAssembies.GetObjectTyp: TClass;
+begin
+  Result := TRepairAssembly;
+end;
+
+{ TMdProperties }
+
+class function TMdProperties.GetObjectTyp: TClass;
+begin
+  Result := TMdProperty;
+end;
+
+constructor TMasterdataPrice.Create;
 begin
   PType:='SAP';
   {TODO
@@ -310,7 +363,41 @@ begin
   }
 end;
 
-procedure TMasterdataPrices.SetPrice(AValue: double);
+{ TMasterdataText }
+
+class function TMasterdataText.GetRealTableName: string;
+begin
+  Result:='TEXTS';
+end;
+
+{ TMasterdataTexts }
+
+class function TMasterdataTexts.GetObjectTyp: TClass;
+begin
+  Result:=TMasterdataText;
+end;
+
+{ TMasterdataLinks }
+
+class function TMasterdataLinks.GetObjectTyp: TClass;
+begin
+  Result := TLinks;
+end;
+
+function TMasterdataLinks.Add(AObject: TObject): Integer;
+begin
+  Result := inherited Add(AObject);
+  TLinks(Result).RRef_ID:=(Parent as TMasterdata).SQL_ID;
+end;
+
+{ TStorageList }
+
+class function TStorageList.GetObjectTyp: TClass;
+begin
+  Result := TStorage;
+end;
+
+procedure TMasterdataPrice.SetPrice(AValue: double);
 begin
   if FPrice=AValue then Exit;
   FPrice:=AValue;
@@ -339,22 +426,22 @@ begin
   }
 end;
 
-class function TMasterdataPrices.GetRealTableName: string;
+class function TMasterdataPrice.GetRealTableName: string;
 begin
   Result:='MDPRICES';
 end;
 
-constructor TMasterdataPrices.CreateEx(Owner: TObject; Module: TComponent);
+constructor TMasterdataPrice.CreateEx(Owner: TObject; Module: TComponent);
 begin
   inherited CreateEx(Owner,Module);
 end;
 
-procedure TMasterdataPrices.FillDefaults;
+procedure TMasterdataPrice.FillDefaults;
 begin
   inherited FillDefaults;
 end;
 
-function TMasterdataPrices.GetPriceType: Integer;
+function TMasterdataPrice.GetPriceType: Integer;
 var
   PriceType: TPriceTypes;
 begin
@@ -370,14 +457,16 @@ begin
   end;
   }
 end;
-function TMasterdataPrices.FormatCurrency(Value: real): string;
+function TMasterdataPrice.FormatCurrency(Value: real): string;
 begin
   Result := FormatFloat('0.00',Value)+' '+Currency;
 end;
-procedure TMasterdataLinks.FillDefaults;
+
+class function TMasterdataPrices.GetObjectTyp: TClass;
 begin
-  //aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TMasterdata).Id.AsVariant;
+  Result := TMasterdataPrice;
 end;
+
 function TStorage.GetJournal: TStorageJournal;
 begin
   if not Assigned(FJournal) then
@@ -596,6 +685,13 @@ function TMasterdata.QueryInterface(constref iid: tguid; out obj): longint;
 begin
 end;
 
+procedure TMasterdata.SetId(AValue: string);
+begin
+  if FID=AValue then Exit;
+  FID:=AValue;
+  History.AddItem(Self,Format(strNumberChanged,[AValue]),'','',Self,ACICON_EDITED);
+end;
+
 procedure TMasterdata.SetStatus(AValue: string);
 begin
   if FStatus=AValue then Exit;
@@ -619,60 +715,26 @@ begin
   Result := 'M';
 end;
 
-procedure TMasterdata.FDSDataChange(Sender: TObject; Field: TField);
-begin
-  if not Assigned(Field) then exit;
-  if DataSet.ControlsDisabled then exit;
-  if Field.FieldName = 'STATUS' then
-    begin
-    end;
-  if (Field.FieldName = 'ID') then
-    begin
-      History.AddItem(Self.DataSet,Format(strNumberChanged,[Field.AsString]),'','',DataSet,ACICON_EDITED);
-    end;
-end;
-
-procedure TMasterdata.FSupplierDataSetAfterPost(aDataSet: TDataSet);
-begin
-  Change;
-end;
-
 function TMasterdata.GetHistory: TBaseHistory;
 begin
   Result := History;
 end;
-function TMasterdata.GetLanguage: TField;
-begin
-  Result := DataSet.FieldByName('LANGUAGE');
-end;
 constructor TMasterdata.CreateEx(Owner: TObject; Module: TComponent);
 begin
-  inherited CreateEx(aOwner, Module);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          UsePermissions:=False;
-        end;
-    end;
-  FPosition := TMDPos.CreateEx(Self, DataModule,aConnection,DataSet);
+  inherited CreateEx(Owner, Module);
+  FPosition := TMDPos.CreateEx(Self, DataModule);
   FPosition.Masterdata:=Self;
-  FStorage := TStorage.CreateEx(Self,DataModule,aConnection,DataSet);
-  FHistory := TMasterdataHistory.CreateEx(Self,DataModule,aConnection,DataSet);
-  FImages := TImages.CreateEx(Self,DataModule,aConnection,DataSet);
-  FLinks := TMasterdataLinks.CreateEx(Self,DataModule,aConnection);
-  FTexts := TMasterdataTexts.CreateEx(Self,DataModule,aConnection,DataSet);
-  FPrices := TMasterdataPrices.CreateEx(Self,DataModule,aConnection,DataSet);
-  FPrices.Masterdata:=Self;
-  FProperties := TMdProperties.CreateEx(Self,DataModule,aConnection,DataSet);
-  FAssembly := TRepairAssembly.CreateEx(Self,DataModule,aConnection,DataSet);
-  FSupplier := TSupplier.CreateEx(Self,DataModule,aConnection,DataSet);
+  FStorage := TStorageList.Create(Self);
+  FHistory := TBaseHistory.Create(Self);
+  FImages := TImages.Create(Self);
+  FLinks := TMasterdataLinks.Create(Self);
+  FTexts := TMasterdataTexts.Create(Self);
+  FPrices := TMasterdataPrices.Create(Self);
+  FProperties := TMdProperties.Create(Self);
+  FAssembly := TRepairAssembies.Create(Self);
+  FSupplier := TSuppliers.Create(Self);
   FSerials := TSerials.CreateEx(Self,DataModule,aConnection,DataSet);
   FMeasurement := TMeasurement.CreateEx(Self,DataModule,aConnection,DataSet);
-  FDS := TDataSource.Create(Self);
-  FDS.DataSet := DataSet;
-  FDS.OnDataChange:=@FDSDataChange;
-  FSupplier.DataSet.AfterPost:=@FSupplierDataSetAfterPost;
 end;
 destructor TMasterdata.Destroy;
 begin

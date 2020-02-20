@@ -76,12 +76,25 @@ type
     property TIMESTAMPD : TDateTime read FTimestampd write FTimestampd;
   end;
 
+  { TAbstractMasterDetail }
+
   TAbstractMasterDetail = class(TObjectList)
+  private
+    FParent: TPersistent;
   public
+    constructor Create(aParent : TPersistent);
+    property Parent : TPersistent read FParent;
     class function GetObjectTyp : TClass;virtual;abstract;
   end;
 
 implementation
+
+{ TAbstractMasterDetail }
+
+constructor TAbstractMasterDetail.Create(aParent: TPersistent);
+begin
+  FParent := aParent;
+end;
 
 { TAbstractDBDataset2 }
 

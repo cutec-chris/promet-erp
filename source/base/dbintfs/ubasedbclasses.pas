@@ -385,6 +385,7 @@ type
     FIcon : Integer;
   public
     function Add(aLink : string) : Boolean;
+    class function GetRealTableName: string; override;
   published
     property RRef_ID: Int64 read FRRef_ID write FRRef_ID;
     property Link : string index 400 read FLink write FLink;
@@ -491,15 +492,21 @@ type
     property TEXT: TSQLRawBlob;
   end;
 }
-  TImages = class(TBaseDBDataSet)
+
+  TPImage = class(TBaseDBDataSet)
   private
     FRef_ID : Int64;
     FImage : TRawBlob;
   public
     //procedure GenerateThumbnail(aThumbnail : TBaseDbDataSet);
+    class function GetRealTableName: string; override;
   published
     property Ref_ID: Int64 read FRef_ID write FRef_ID;
     property Image: TRawBlob read FImage write FImage;
+  end;
+  TImages = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
   TDeletedItems = class(TBaseDBDataSet)
   private
@@ -554,6 +561,20 @@ implementation
 
 uses md5,sha1;
 
+{ TImages }
+
+class function TImages.GetObjectTyp: TClass;
+begin
+  Result := TPImage;
+end;
+
+{ TImage }
+
+class function TPImage.GetRealTableName: string;
+begin
+  Result:='IMAGES';
+end;
+
 { TMeasurementDates }
 
 class function TMeasurementDates.GetObjectTyp: TClass;
@@ -581,6 +602,11 @@ end;
 function TLinks.Add(aLink: string): Boolean;
 begin
 
+end;
+
+class function TLinks.GetRealTableName: string;
+begin
+  Result:='LINKS';//dont use derivated Table Names
 end;
 
 { TOption }
@@ -705,7 +731,7 @@ end;
 
 constructor TUser.Create;
 begin
-  FOptions := TOptions.Create;
+  FOptions := TOptions.Create(Self);
 end;
 
 constructor TUser.CreateEx(Owner: TObject; Module: TComponent);
