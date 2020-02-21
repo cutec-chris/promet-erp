@@ -117,7 +117,7 @@ begin
     begin
       JoinTableName:=bTableName;
       FieldTableName:=TableName;
-      FullFieldName:=QuoteField(bTableName)+'.'+QuoteField(aField);
+      FullFieldName:=QuoteField(Uppercase(bTableName))+'.'+QuoteField(Uppercase(aField));
       Result := True;
       exit;
     end;
@@ -207,12 +207,14 @@ constructor TQueryTable.Create(aClass: TClass);
     objType := ctx.GetType(Obj.ClassInfo);
      for Prop in objType.GetProperties do
        begin
-         if Obj.InheritsFrom(TAbstractDBDataset2) then
-           Fields.Add(TAbstractDBDataset2(Obj).MapField(Prop.Name))
-         else
-           Fields.Add(Prop.Name);
-         //writeln(Prop.Name);
-         if (Prop.PropertyType.TypeKind=tkClass) then
+         if (Prop.PropertyType.TypeKind<>tkClass) then
+           begin
+             if Obj.InheritsFrom(TAbstractDBDataset2) then
+               Fields.Add(TAbstractDBDataset2(Obj).MapField(Prop.Name))
+             else
+               Fields.Add(Prop.Name);
+           end
+         else if (Prop.PropertyType.TypeKind=tkClass) then
            begin
              if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
                begin
@@ -294,7 +296,7 @@ var
     if (CascadicIndex=0) or (not Table.Selected) then
       begin
         for i := 0 to Table.Fields.Count-1 do
-          FoundFields.Add(QuoteField(Table.TableName)+'.'+QuoteField(Table.Fields[i])+' as '+lowercase(Table.Tablename)+'_'+lowercase(Table.Fields[i]));
+          FoundFields.Add(QuoteField(Uppercase(Table.TableName))+'.'+QuoteField(Uppercase(Table.Fields[i]))+' as '+lowercase(Table.Tablename)+'_'+lowercase(Table.Fields[i]));
         Table.Selected:=True;
       end;
     for i := 0 to Table.Count-1 do
@@ -309,7 +311,7 @@ begin
   FoundFields := TStringList.Create;
   JoinedTables := TStringList.Create;
   try
-    JoinedTables.AddPair(QuoteField(Self.TableName),QuoteField(Self.TableName));
+    JoinedTables.AddPair(QuoteField(Uppercase(Self.TableName)),QuoteField(Uppercase(Self.TableName)));
     CollectFields(Self);
     Result := BuildInternalSelect(aSelector,FoundFields,JoinedTables,aParams);
     writeln(Result);

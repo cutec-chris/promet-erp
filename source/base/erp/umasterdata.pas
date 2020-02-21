@@ -23,9 +23,6 @@ interface
 uses
   Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts,uBaseDatasetInterfaces2;
 type
-
-  { TMasterdataList }
-
   TMasterdataList = class(TBaseERPList)
   private
     FType,FID,FVersion,FLanguage,FStatus,FBarcode,FMatchCode,FShorttext,FQuantityU,
@@ -97,9 +94,6 @@ type
     property CreatedBy : string index 4 read FCreatedBy write FCreatedBy;
   end;
   TMasterdata = class;
-
-  { TMDPos }
-
   TMDPos = class(TBaseDBPosition)
   private
   protected
@@ -109,9 +103,6 @@ type
   public
     class function GetRealTableName: string; override;
   end;
-
-  { TSerial }
-
   TSerial = class(TBaseDbDataSet)
   private
     FSerial,FNote : string;
@@ -121,9 +112,6 @@ type
     property Serial : string index 30 read FSerial write FSerial;
     property Note : string index 500 read FNote write FNote;
   end;
-
-  { TSerials }
-
   TSerials = class(TAbstractMasterDetail)
   public
     class function GetObjectTyp: TClass; override;
@@ -149,16 +137,10 @@ type
     property QuantityU : string index 10 read FQuantityU write FQuantityU;
     property Charge : Integer read FCharge write FCharge;
   end;
-
-  { TStorageList }
-
   TStorageList = class(TAbstractMasterDetail)
   public
     class function GetObjectTyp: TClass; override;
   end;
-
-  { TSupplierPrices }
-
   TSupplierPrices = class(TBaseDBDataSet)
   private
     FFromUnit,FDiscount,FPrice : double;
@@ -195,9 +177,6 @@ type
     class function GetObjectTyp: TClass; override;
     function Add(AObject: TObject): Integer;
   end;
-
-  { TMasterdataPrice }
-
   TMasterdataPrice = class(TBaseDbDataSet)
   private
     FDS: TDataSource;
@@ -237,16 +216,10 @@ type
     property Value : string index 50 read FValue write FValue;
     property QuantityU : string index 10 read FQuantityU write FQuantityU;
   end;
-
-  { TMdProperties }
-
   TMdProperties = class(TAbstractMasterDetail)
   public
     class function GetObjectTyp: TClass; override;
   end;
-
-  { TMasterdataTexts }
-
   TMasterdataText = class(TBaseDbDataSet)
   private
     FTextType : Integer;
@@ -317,10 +290,10 @@ type
                                                                cPiecelists : Boolean = True) : Boolean;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   published
-    //property Status : string read FStatus write SetStatus;
-    //property ID : string read FID write SetId;
+    property Status : string read FStatus write SetStatus;
+    property ID : string read FID write SetId;
     //property Storage : TStorageList read FStorage;
-    //property Positions : TMDPos read FPosition;
+    property Positions : TMDPos read FPosition;
     //property History : TBaseHistory read FHistory;
     //property Images : TImages read FImages;
     //property Links : TMasterdataLinks read FLinks;
@@ -1123,8 +1096,11 @@ end;
 class function TMasterdataList.MapField(aField: string): string;
 begin
   Result := aField;
-  if Result = 'TYP' then
-    Result := 'TYPE';
+  if Result = 'Typ' then
+    Result := 'TYPE'
+  else if Result = 'PackageUnit' then
+    Result := 'UNIT'
+  ;
 end;
 
 initialization

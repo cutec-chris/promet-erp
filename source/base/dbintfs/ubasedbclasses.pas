@@ -56,22 +56,12 @@ type
     procedure BuildSearchIndexes;virtual;
     procedure CascadicPost; override;
     procedure GenerateThumbnail;virtual;
-  published
-    property Text : TField read GetText;
-    property Number : TField read GetNumber;
-    property BookNumber : TField read GetBookNumber;
-    property Barcode : TField read GetBarcode;
-    property Description : TField read GetDescription;
-    property Commission : TField read GetCommission;
-    property Status : TField read GetStatus;
-    property Typ : string read GetTyp;
-    property IsActive : Boolean read GetActive;
-    property Matchcode: TField read GetMatchcode;
     function SelectFromLink(aLink : string) : Boolean;virtual;
     function SelectFromNumber(aNumber : string) : Boolean;virtual;
     function SelectFromTreeEntry(aParent : LargeInt) : Boolean;virtual;
     function ChangeStatus(aNewStatus : string) : Boolean;virtual;
     function Duplicate : Boolean;virtual;
+  published
   end;
   TBaseDbDataSetClass = class of TBaseDbDataSet;
   TBaseDbListClass = class of TBaseDbList;

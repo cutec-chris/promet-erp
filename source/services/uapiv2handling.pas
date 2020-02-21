@@ -114,14 +114,23 @@ begin
         then
           begin
             Streamer := TJSONStreamer.Create(Self);
-            aData := DatasetClasses[i].aClass.CreateEx(Self,Data);
-            case aRequest.Method of
-            'GET':
+            tmp := ARequest.GetNextPathInfo;
+            case tmp of
+            'sql_id':
               begin
-                Response.Code:=200;
-                Response.CodeText:='OK';
-                Response.Content:=Streamer.ObjectToJSON(aData).AsString;
-                exit;
+                aData := DatasetClasses[i].aClass.CreateEx(Self,Data);
+                case aRequest.Method of
+                'GET':
+                  begin
+                    if Data.Load(aData,ARequest.GetNextPathInfo) then
+                      begin
+                        Response.Code:=200;
+                        Response.CodeText:='OK';
+                        Response.Content:=Streamer.ObjectToJSON(aData).AsString;
+                        exit;
+                      end;
+                  end;
+                end;
               end;
             end;
           end;
