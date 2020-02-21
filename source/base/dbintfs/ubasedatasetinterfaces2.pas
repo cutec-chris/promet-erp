@@ -34,6 +34,7 @@ type
     FChanged: Boolean;
     FConnection: TComponent;
     FId: Int64;
+    FParent: TPersistent;
     FTableName: string;
     FTimestampd: TDateTime;
     function GetActive: Boolean;
@@ -42,6 +43,8 @@ type
     procedure SetActive(AValue: Boolean);
   protected
   public
+    constructor Create(aParent : TPersistent);
+    property Parent : TPersistent read FParent;
     class function MapField(aField : string) : string;virtual;
     procedure FillDefaults;virtual;
     procedure Open;virtual;
@@ -94,6 +97,7 @@ implementation
 constructor TAbstractMasterDetail.Create(aParent: TPersistent);
 begin
   FParent := aParent;
+  Inherited Create;
 end;
 
 { TAbstractDBDataset2 }
@@ -115,6 +119,12 @@ end;
 
 procedure TAbstractDBDataset2.SetActive(AValue: Boolean);
 begin
+end;
+
+constructor TAbstractDBDataset2.Create(aParent: TPersistent);
+begin
+  inherited Create;
+  FParent := aParent;
 end;
 
 class function TAbstractDBDataset2.MapField(aField: string): string;

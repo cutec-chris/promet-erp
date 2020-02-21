@@ -191,9 +191,10 @@ type
     procedure DoInsert;virtual;
     procedure DoEdit;virtual;
   public
-    constructor CreateEx(Owner: TObject;Module: TComponent); override;
+    constructor CreateEx(Owner: TPersistent;Module: TComponent); override;
     destructor Destroy;override;
     procedure FillDefaults;override;
+    class function MapField(aField: string): string; override;
     procedure Assign(Source: TPersistent); override;
     property PosTyp : TPositionTyp read GetPosTyp;
     property PosTypDec : Integer read GetPosTypDec;
@@ -246,7 +247,7 @@ type
     property PosPrice : double read FPosPrice write FPosPrice;                //Gesamtpreis
     property GrossPrice : double read FGrossPrice write SetGrossPrice;              //Bruttoprice
     property ImageRef : Int64 read FImageRef write FImageRef;
-    property Parent : Int64 read FParent write FParent;
+    property ParentID : Int64 read FParent write FParent;
     property Old_Id : Int64 read FOldId write FOldId;
     property Script : string index 60 read FScript write FScript;
     property ScriptVer : string index 8 read FScriptVer write FScriptVer;
@@ -835,7 +836,7 @@ function TBaseDBPosition.GetOrderTyp: Integer;
 begin
   Result := 0;
 end;
-constructor TBaseDBPosition.CreateEx(Owner: TObject; Module: TComponent);
+constructor TBaseDBPosition.CreateEx(Owner: TPersistent; Module: TComponent);
 begin
   inherited CreateEx(Owner,Module);
   FUseRTF:=False;
@@ -866,6 +867,14 @@ begin
   //FieldByName('QUANTITY').AsFloat  := 1;
   EnableCalculation;
 end;
+
+class function TBaseDBPosition.MapField(aField: string): string;
+begin
+  Result:=aField;
+  if aField = 'PARENTID' then
+    aField := 'PARENT';
+end;
+
 procedure TBaseDBPosition.Assign(Source: TPersistent);
 {
 var

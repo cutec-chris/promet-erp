@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession,iniwebsession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData;
+  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, uMasterdata;
 
 type
   TAPIV2Session = class(TIniWebSession)
@@ -57,10 +57,12 @@ procedure TAPIV2Module.DoHandleRequest(Sender: TObject; ARequest: TRequest;
   AResponse: TResponse; var Handled: Boolean);
 var
   aUser: TUser;
-  aStreamer: TJSONStreamer;
+  aStreamer, Streamer: TJSONStreamer;
   aOpt: TOption;
   aUsers: TMemDataset;
   tmp: String;
+  aData : TBaseDBDataset;
+  i: Integer;
 begin
   Handled := False;
   if (not Assigned(TAPIV2Session(Session).User)) and (not Assigned(GlobalUser)) then
@@ -100,11 +102,30 @@ begin
           exit;
         end;
     end;
-
+  Response.Code:=404;
+  Response.CodeText:='Not found';
   Handled:=True;
-  Response.Code:=200;
-  Response.CodeText:='OK';
-  Response.Content:='Hello World !';
+  if ARequest.GetNextPathInfo = 'v2' then
+    begin  //api/v2
+      tmp := ARequest.GetNextPathInfo;
+      for i := 0 to length(DatasetClasses)-1 do
+        if DatasetClasses[i].aClass.InheritsFrom(TBaseDBDataset)
+        and (lowercase(tmp) = lowercase(DatasetClasses[i].aClass.GetRealTableName))
+        then
+          begin
+            Streamer := TJSONStreamer.Create(Self);
+            aData := DatasetClasses[i].aClass.CreateEx(Self,Data);
+            case aRequest.Method of
+            'GET':
+              begin
+                Response.Code:=200;
+                Response.CodeText:='OK';
+                Response.Content:=Streamer.ObjectToJSON(aData).AsString;
+                exit;
+              end;
+            end;
+          end;
+    end;
 end;
 
 procedure TAPIV2Module.NewSession(Sender: TObject);

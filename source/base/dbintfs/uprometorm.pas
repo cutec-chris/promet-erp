@@ -548,6 +548,7 @@ var
               if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
                 begin
                   aDetail := GetObjectProp(aObj,PPropInfo(Prop.Handle));
+                  if Assigned(aDetail) then
                   with TAbstractMasterDetail(aDetail) do
                     begin
                       for b := Count-1 downto max(Count-2,0) do

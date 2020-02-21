@@ -8,7 +8,7 @@ unit perp2;
 interface
 
 uses
-  uMasterdata, uOrder, uPerson, LazarusPackageIntf;
+  uMasterdata, LazarusPackageIntf;
 
 implementation
 

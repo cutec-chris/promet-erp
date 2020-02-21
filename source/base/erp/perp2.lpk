@@ -11,19 +11,11 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="3">
+    <Files Count="1">
       <Item1>
         <Filename Value="umasterdata.pas"/>
         <UnitName Value="uMasterdata"/>
       </Item1>
-      <Item2>
-        <Filename Value="uorder.pas"/>
-        <UnitName Value="uOrder"/>
-      </Item2>
-      <Item3>
-        <Filename Value="uperson.pas"/>
-        <UnitName Value="uPerson"/>
-      </Item3>
     </Files>
     <RequiredPkgs Count="2">
       <Item1>

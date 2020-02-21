@@ -23,6 +23,9 @@ interface
 uses
   Classes, SysUtils, db, uBaseDbClasses, uBaseERPDBClasses, uIntfStrConsts,uBaseDatasetInterfaces2;
 type
+
+  { TMasterdataList }
+
   TMasterdataList = class(TBaseERPList)
   private
     FType,FID,FVersion,FLanguage,FStatus,FBarcode,FMatchCode,FShorttext,FQuantityU,
@@ -43,12 +46,10 @@ type
   public
     function GetTyp: string; override;
     procedure OpenItem(AccHistory: Boolean=True); override;
-    procedure Select(aID : string);overload;
-    procedure Select(aID : string;aVersion : Variant;aLanguage : Variant);overload;
-    procedure Select(aID : string;aVersion : Variant);overload;
     function SelectFromLink(aLink: string): Boolean; override;
     function SelectFromLinkwoVersion(aLink: string): Boolean;
     class function MapField(aField: string): string; override;
+    property Accountinginfo : TBlobData read FAccountinginfo write FAccountinginfo; //Fibu Info
   published
     property Typ : string index 1 read FType write FType;
     property ID : string index 40 read FID write FID;
@@ -79,7 +80,6 @@ type
     property ValidToMe : Integer read FValidToMe write FValidToMe;//gültig bis Menge
     property CostCentre : string index 10 read FCostCentre write FCostCentre;//Kostenstelle
     property Account : string index 10 read FAccount write FAccount; //Fibu Konto
-    property Accountinginfo : TBlobData read FAccountinginfo write FAccountinginfo; //Fibu Info
     property Category : string index 60 read FCategory write FCategory;
     property Sellprice : double read FSellprice write FSellprice;
     property Purchase : double read FPurchase write FPurchase;
@@ -101,23 +101,32 @@ type
   { TMDPos }
 
   TMDPos = class(TBaseDBPosition)
-    procedure DataSetAfterPost(aDataSet: TDataSet);
   private
-    FMasterdata: TMasterdata;
   protected
     function GetCurrency : string;override;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
     procedure PosWeightChanged(aPosDiff :Extended);override;
   public
     class function GetRealTableName: string; override;
-    property Masterdata : TMasterdata read FMasterdata write FMasterdata;
   end;
-  TSerials = class(TBaseDbDataSet)
+
+  { TSerial }
+
+  TSerial = class(TBaseDbDataSet)
   private
     FSerial,FNote : string;
   public
+    class function GetRealTableName: string; override;
+  published
     property Serial : string index 30 read FSerial write FSerial;
     property Note : string index 500 read FNote write FNote;
+  end;
+
+  { TSerials }
+
+  TSerials = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
   TStorage = class(TBaseDBDataSet)
   private
@@ -127,7 +136,6 @@ type
     FCharge : Integer;
     function GetJournal: TStorageJournal;
   public
-    destructor Destroy; override;
     property Journal : TStorageJournal read GetJournal;
     function DoPost(OrderType: TBaseDBDataset; Order: TBaseDBDataset;
       aStorage: string; aQuantity, aReserve: real; QuantityUnit, PosNo: string
@@ -156,7 +164,6 @@ type
     FFromUnit,FDiscount,FPrice : double;
     FQuantityU,FCurrency : string;
   published
-    constructor Create;
     property FromUnit : double read FFromUnit write FFromUnit;
     property QuantityU : string index 10 read FQuantityU write FQuantityU;
     property Discount : double read FDiscount write FDiscount;
@@ -188,6 +195,9 @@ type
     class function GetObjectTyp: TClass; override;
     function Add(AObject: TObject): Integer;
   end;
+
+  { TMasterdataPrice }
+
   TMasterdataPrice = class(TBaseDbDataSet)
   private
     FDS: TDataSource;
@@ -198,7 +208,7 @@ type
     procedure SetPrice(AValue: double);
   public
     class function GetRealTableName: string; override;
-    constructor CreateEx(Owner: TObject;Module: TComponent); override;
+    constructor CreateEx(Owner: TPersistent;Module: TComponent); override;
     procedure FillDefaults; override;
     function GetPriceType : Integer;
     function FormatCurrency(Value : real) : string;
@@ -271,14 +281,12 @@ type
     class function GetObjectTyp: TClass; override;
   end;
   TMasterdata = class(TMasterdataList,IBaseHistory)
-    procedure FDSDataChange(Sender: TObject; Field: TField);
-    procedure FSupplierDataSetAfterPost(aDataSet: TDataSet);
   private
     FAssembly: TRepairAssembies;
     FHistory: TBaseHistory;
     FImages: TImages;
     FLinks: TMasterdataLinks;
-    FMeasurement: TMeasurement;
+    FMeasurement: TMeasurements;
     FPosition: TMDPos;
     FPrices: TMasterdataPrices;
     FProperties: TMdProperties;
@@ -287,7 +295,6 @@ type
     FStorage: TStorageList;
     FSupplier: TSuppliers;
     FTexts: TMasterdataTexts;
-    FDS: TDataSource;
     function GetHistory : TBaseHistory;
     function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
     procedure SetId(AValue: string);
@@ -295,12 +302,9 @@ type
     function _AddRef: longint; stdcall;
     function _Release: longint; stdcall;
   public
-    constructor CreateEx(Owner: TObject;Module: TComponent); override;
+    constructor CreateEx(Owner: TPersistent;Module: TComponent); override;
     destructor Destroy;override;
-    procedure Open;override;
     procedure FillDefaults;override;
-    procedure CascadicPost;override;
-    procedure CascadicCancel;override;
     function Copy(aNewVersion : Variant;aNewLanguage : Variant;cPrices : Boolean = True;
                                                                cProperties : Boolean = True;
                                                                cTexts : Boolean = True;
@@ -311,27 +315,39 @@ type
                                                                cTexts : Boolean = True;
                                                                cSupplier : Boolean = True;
                                                                cPiecelists : Boolean = True) : Boolean;
-    function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
-    procedure GenerateThumbnail; override;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
   published
-    property Status : string read FStatus write SetStatus;
-    property ID : string read FID write SetId;
-    property Storage : TStorageList read FStorage;
-    property Positions : TMDPos read FPosition;
-    property History : TBaseHistory read FHistory;
-    property Images : TImages read FImages;
-    property Links : TMasterdataLinks read FLinks;
-    property Texts : TMasterdataTexts read FTexts;
-    property Supplier : TSuppliers read FSupplier;
-    property Prices : TMasterdataPrices read FPrices;
-    property Properties : TMdProperties read FProperties;
-    property Assembly : TRepairAssembies read FAssembly;
-    property Serials : TSerials read FSerials;
-    property Measurements : TMeasurement read FMeasurement;
+    //property Status : string read FStatus write SetStatus;
+    //property ID : string read FID write SetId;
+    //property Storage : TStorageList read FStorage;
+    //property Positions : TMDPos read FPosition;
+    //property History : TBaseHistory read FHistory;
+    //property Images : TImages read FImages;
+    //property Links : TMasterdataLinks read FLinks;
+    //property Texts : TMasterdataTexts read FTexts;
+    //property Supplier : TSuppliers read FSupplier;
+    //property Prices : TMasterdataPrices read FPrices;
+    //property Properties : TMdProperties read FProperties;
+    //property Assembly : TRepairAssembies read FAssembly;
+    //property Serials : TSerials read FSerials;
+    //property Measurements : TMeasurements read FMeasurement;
   end;
 implementation
 uses uData, Utils;
+
+{ TSerials }
+
+class function TSerials.GetObjectTyp: TClass;
+begin
+  Result := TSerial;
+end;
+
+{ TSerial }
+
+class function TSerial.GetRealTableName: string;
+begin
+  Result:='SERIALS';
+end;
 
 { TSuppliers }
 
@@ -431,7 +447,7 @@ begin
   Result:='MDPRICES';
 end;
 
-constructor TMasterdataPrice.CreateEx(Owner: TObject; Module: TComponent);
+constructor TMasterdataPrice.CreateEx(Owner: TPersistent; Module: TComponent);
 begin
   inherited CreateEx(Owner,Module);
 end;
@@ -689,13 +705,13 @@ procedure TMasterdata.SetId(AValue: string);
 begin
   if FID=AValue then Exit;
   FID:=AValue;
-  History.AddItem(Self,Format(strNumberChanged,[AValue]),'','',Self,ACICON_EDITED);
+  FHistory.AddItem(Self,Format(strNumberChanged,[AValue]),'','',Self,ACICON_EDITED);
 end;
 
 procedure TMasterdata.SetStatus(AValue: string);
 begin
   if FStatus=AValue then Exit;
-  History.AddItem(Self,Format(strStatusChanged,[FStatus,AValue]),'','',nil,ACICON_STATUSCH);
+  FHistory.AddItem(Self,Format(strStatusChanged,[FStatus,AValue]),'','',nil,ACICON_STATUSCH);
   FStatus:=AValue;
   if Assigned(FStateChange) then
     FStateChange(Self);
@@ -717,13 +733,12 @@ end;
 
 function TMasterdata.GetHistory: TBaseHistory;
 begin
-  Result := History;
+  Result := FHistory;
 end;
-constructor TMasterdata.CreateEx(Owner: TObject; Module: TComponent);
+constructor TMasterdata.CreateEx(Owner: TPersistent; Module: TComponent);
 begin
   inherited CreateEx(Owner, Module);
   FPosition := TMDPos.CreateEx(Self, DataModule);
-  FPosition.Masterdata:=Self;
   FStorage := TStorageList.Create(Self);
   FHistory := TBaseHistory.Create(Self);
   FImages := TImages.Create(Self);
@@ -733,12 +748,11 @@ begin
   FProperties := TMdProperties.Create(Self);
   FAssembly := TRepairAssembies.Create(Self);
   FSupplier := TSuppliers.Create(Self);
-  FSerials := TSerials.CreateEx(Self,DataModule,aConnection,DataSet);
-  FMeasurement := TMeasurement.CreateEx(Self,DataModule,aConnection,DataSet);
+  FSerials := TSerials.Create(Self);
+  FMeasurement := TMeasurements.Create(Self);
 end;
 destructor TMasterdata.Destroy;
 begin
-  FDS.Free;
   FMeasurement.Free;
   FSerials.Free;
   FPosition.Free;
@@ -754,16 +768,9 @@ begin
   inherited Destroy;
 end;
 
-procedure TMasterdata.Open;
-begin
-  inherited Open;
-  FStatus := Status.AsString;
-end;
-
 procedure TMasterdata.FillDefaults;
-var
-  Vat: TVat;
 begin
+  {
   Vat := TVat.CreateEx(Self,DataModule,Connection);
   Vat.Open;
   with aDataSet,BaseApplication as IBaseDBInterface do
@@ -790,30 +797,7 @@ begin
       aDataSet.EnableControls;
     end;
   Vat.Free;
-end;
-procedure TMasterdata.CascadicPost;
-begin
-  FPosition.CascadicPost;
-  FStorage.CascadicPost;
-  FHistory.CascadicPost;
-  FTexts.CascadicPost;
-  FLinks.CascadicPost;
-  FPrices.CascadicPost;
-  FProperties.CascadicPost;
-  FAssembly.CascadicPost;
-  inherited CascadicPost;
-end;
-procedure TMasterdata.CascadicCancel;
-begin
-  FPosition.CascadicCancel;
-  FStorage.CascadicCancel;
-  FHistory.CascadicCancel;
-  FTexts.CascadicCancel;
-  FLinks.CascadicCancel;
-  FPrices.CascadicCancel;
-  FProperties.CascadicCancel;
-  FAssembly.CascadicCancel;
-  inherited CascadicCancel;
+  }
 end;
 function TMasterdata.Copy(aNewVersion: Variant; aNewLanguage: Variant;
   cPrices: Boolean; cProperties: Boolean; cTexts: Boolean; cSupplier: Boolean;
@@ -821,6 +805,7 @@ function TMasterdata.Copy(aNewVersion: Variant; aNewLanguage: Variant;
 var
   bMasterdata: TMasterdata;
 begin
+  {
   Result := True;
   bMasterdata := TMasterdata.CreateEx(Self,DataModule,Self.Connection);
   try
@@ -899,6 +884,7 @@ begin
   end;
   DataSet.Edit;
   Change;
+  }
 end;
 
 function TMasterdata.Versionate(aNewversion: Variant; aMakeActive: Boolean;
@@ -907,6 +893,7 @@ function TMasterdata.Versionate(aNewversion: Variant; aMakeActive: Boolean;
 var
   bMasterdata: TMasterdata;
 begin
+  {
   Result := Copy(aNewversion,FieldByName('LANGUAGE').AsVariant,cPrices,cProperties,cTexts,cSupplier,cPiecelists);
   if aMakeActive then
     begin
@@ -939,44 +926,12 @@ begin
       FieldByName('ACTIVE').AsString:='N';
       Post;
     end;
-end;
-
-function TMasterdata.Find(aIdent: string;Unsharp : Boolean = False): Boolean;
-begin
-  with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
-    Filter := '('+Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent)+') OR ('+Data.QuoteField('MATCHCODE')+'='+Data.QuoteValue(aIdent)+') and ('+Data.QuoteField('ACTIVE')+'='+Data.QuoteValue('Y')+')';
-  Open;
-  Result := Count > 0;
-  if (not Result) and Unsharp then
-    begin
-      with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
-        Filter := '('+Data.ProcessTerm(Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent+'*'))+') OR ('+Data.ProcessTerm(Data.QuoteField('MATCHCODE')+'='+Data.QuoteValue(aIdent+'*'))+')';
-      Open;
-      Result := Count > 0;
-    end;
-end;
-
-procedure TMasterdata.GenerateThumbnail;
-var
-  aThumbnail: TThumbnails;
-begin
-  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
-  aThumbnail.CreateTable;
-  aThumbnail.SelectByRefId(Self.Id.AsVariant);
-  aThumbnail.Open;
-  if aThumbnail.Count=0 then
-    Images.GenerateThumbnail(aThumbnail);
-  aThumbnail.Free;
-end;
-
-procedure TMDPos.DataSetAfterPost(aDataSet: TDataSet);
-begin
-  FMasterdata.Change;
+  }
 end;
 
 function TMDPos.GetCurrency: string;
 begin
-  Result:=Masterdata.FieldByName('CURRENCY').AsString;
+  Result:=(Parent as TMasterdata).Currency;
 end;
 
 procedure TMDPos.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
@@ -985,9 +940,7 @@ begin
 end;
 procedure TMDPos.PosWeightChanged(aPosDiff: Extended);
 begin
-  if not ((Masterdata.DataSet.State = dsEdit) or (Masterdata.DataSet.State = dsInsert)) then
-    Masterdata.DataSet.Edit;
-  Masterdata.FieldByName('WEIGHT').AsFloat := Masterdata.FieldByName('WEIGHT').AsFloat+aPosDiff;
+  Weight := Weight+aPosDiff;
 end;
 
 class function TMDPos.GetRealTableName: string;
@@ -1011,11 +964,13 @@ begin
   Result:='STATUS';
 end;
 procedure TMasterdataList.OpenItem(AccHistory: Boolean);
-var
+{var
   aObj: TObjects = nil;
   aID: String;
   aFilter: String;
+  }
 begin
+  {
   if Self.Count=0 then exit;
   try
     try
@@ -1100,38 +1055,7 @@ begin
     end;
   except
   end;
-end;
-
-procedure TMasterdataList.Select(aID: string);
-begin
-  SelectFromNumber(aID);
-end;
-procedure TMasterdataList.Select(aID: string; aVersion: Variant; aLanguage: Variant
-  );
-begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Filter := '('
-                   +Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID))+' and '
-                   +Data.ProcessTerm(Data.QuoteField('VERSION')+'='+VarToStr(aVersion))+' and '
-                   +Data.ProcessTerm(Data.QuoteField('LANGUAGE')+'='+VarToStr(aLanguage))+')';
-        end;
-    end;
-end;
-
-procedure TMasterdataList.Select(aID: string; aVersion: Variant);
-begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Filter := '('
-                   +Data.ProcessTerm(Data.QuoteField('ID')+'='+Data.QuoteValue(aID))+' and '
-                   +Data.ProcessTerm(Data.QuoteField('VERSION')+'='+VarToStr(aVersion))+')';
-        end;
-    end;
+  }
 end;
 
 function TMasterdataList.SelectFromLink(aLink: string) : Boolean;
@@ -1160,8 +1084,8 @@ begin
       tmp3 := aLink;
       if tmp2 <> '' then tmp2v := tmp2;
       if tmp3 <> '' then tmp3v := tmp3;
-      Select(tmp1,tmp2v,tmp3v);
-      Result := True;
+      //Select(tmp1,tmp2v,tmp3v);
+      //Result := True;
     end;
 end;
 
@@ -1191,9 +1115,16 @@ begin
       tmp3 := aLink;
       if tmp2 <> '' then tmp2v := tmp2;
       if tmp3 <> '' then tmp3v := tmp3;
-      Select(tmp1,tmp2v);
-      Result := True;
+      //Select(tmp1,tmp2v);
+      //Result := True;
     end;
+end;
+
+class function TMasterdataList.MapField(aField: string): string;
+begin
+  Result := aField;
+  if Result = 'TYP' then
+    Result := 'TYPE';
 end;
 
 initialization

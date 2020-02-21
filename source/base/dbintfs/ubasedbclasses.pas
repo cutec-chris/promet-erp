@@ -17,7 +17,7 @@ type
   private
     FDataModule: TComponent;
   public
-    constructor CreateEx(Owner : TObject;Module : TComponent);virtual;
+    constructor CreateEx(Owner: TPersistent; Module: TComponent); virtual;
     property DataModule : TComponent read FDataModule write FDataModule;
   end;
   generic TList<T> = class
@@ -126,7 +126,7 @@ type
     function CheckUserPasswort(aPasswort: string): Boolean;
     procedure SetPasswort(aPasswort : string);
     constructor Create;
-    constructor CreateEx(Owner: TObject;Module: TComponent);override;
+    constructor CreateEx(Owner: TPersistent;Module: TComponent);override;
     class function GetRealTableName: string; override;
     class function MapField(aField: string): string; override;
   published
@@ -557,9 +557,23 @@ type
     property Data : TMeasurementDates read FData write FData;
   end;
 
+  { TMeasurements }
+
+  TMeasurements = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
 implementation
 
 uses md5,sha1;
+
+{ TMeasurements }
+
+class function TMeasurements.GetObjectTyp: TClass;
+begin
+  Result := TMeasurement;
+end;
 
 { TImages }
 
@@ -631,9 +645,10 @@ end;
 
 { TBaseDBDataset }
 
-constructor TBaseDBDataset.CreateEx(Owner: TObject; Module: TComponent);
+constructor TBaseDBDataset.CreateEx(Owner: TPersistent; Module: TComponent);
 begin
   FDataModule:=Module;
+  inherited Create(Owner);
 end;
 
 function TRights.Right(Element: string; Recursive: Boolean; UseCache: Boolean
@@ -734,7 +749,7 @@ begin
   FOptions := TOptions.Create(Self);
 end;
 
-constructor TUser.CreateEx(Owner: TObject; Module: TComponent);
+constructor TUser.CreateEx(Owner: TPersistent; Module: TComponent);
 begin
   inherited CreateEx(Owner,Module);
 end;
