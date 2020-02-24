@@ -501,7 +501,8 @@ var
       objType := ctx.GetType(aObj.ClassInfo);
       if aObj.InheritsFrom(TAbstractDBDataset2) then
         aTableName:=lowercase(TAbstractDBDataset2(aObj).GetRealTableName);
-      aField := aDataSet.FieldByName(aTablename+'_sql_id');
+      if aDataSet.FieldDefs.IndexOf(aTablename+'_sql_id')>-1 then
+        aField := aDataSet.FieldByName(aTablename+'_sql_id');
       if Assigned(aField) then
         for Prop in objType.GetProperties do
           begin

@@ -93,6 +93,7 @@ type
   public
     constructor CreateEx(aOwner: TPersistent; DM: TComponent); override;
     destructor Destroy; override;
+    class function MapField(aField: string): string; override;
     class function GetRealTableName: string; override;
     function GetStatusIcon: Integer; override;
     procedure Select(aID : string);overload;
@@ -147,11 +148,16 @@ type
     property ChangedBy: string index 4 read FChangedBy write FChangedBy;
     property CreatedBy: string index 4 read FCreatedBy write FCreatedBy;
   end;
+
+  { TOrderQMTestDetail }
+
   TOrderQMTestDetail = class(TBaseDBDataSet)
   private
     FModul,FName,FType,FMUnit,FExpected,FResult : string;
     FStep : Integer;
     FResultShort : Boolean;
+  public
+    class function MapField(aField: string): string; override;
   published
     property Modul: string index 60 read FModul write FModul;
     property Step: Integer read FStep write FStep;
@@ -397,7 +403,6 @@ type
     procedure RefreshActive(aOrderno: string='');
     property Commission : TField read GetCommission;
     //property Address : TOrderAddresses read FOrderAddress;
-    property Positions : TOrderPositions read FOrderPos;
     property Links : TOrderLinks read FLinks;
     function CombineItems(aRemoteLink: string): Boolean;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
@@ -416,6 +421,8 @@ type
     function GetOrderTyp: Integer;
     function SelectFromLink(aLink: string): Boolean; override;
     function Duplicate : Boolean;override;
+  published
+    property Positions : TOrderPositions read FOrderPos;
   end;
 implementation
 uses uIntfStrConsts,uData;
@@ -429,6 +436,18 @@ resourcestring
   strOrders                     = 'Aufträge';
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
+
+{ TOrderQMTestDetail }
+
+class function TOrderQMTestDetail.MapField(aField: string): string;
+begin
+  Result:=inherited MapField(aField);
+  if Result = 'Typ' then
+    Result := 'TYPE'
+  else if Result = 'MUnit' then
+    Result := 'UNIT'
+  ;
+end;
 
 { TOrderRepairs }
 
@@ -1858,6 +1877,14 @@ begin
   FHistory.Free;
   FOrderTyp.Free;
   inherited Destroy;
+end;
+
+class function TOrderList.MapField(aField: string): string;
+begin
+  Result:=inherited MapField(aField);
+  if Result = 'PQuantity' then
+    Result := 'PQUATITY'
+  ;
 end;
 
 class function TOrderList.GetRealTableName: string;
