@@ -22,7 +22,6 @@ type
   TAPIV2SessionFactory = class(TIniSessionFactory)
   protected
     constructor Create(AOwner: TComponent); override;
-    Function DoCreateSession(ARequest : TRequest) : TCustomSession; override;
   end;
 
   { TAPIV2Module }
@@ -32,7 +31,6 @@ type
   private
     procedure DoHandleRequest(Sender: TObject; ARequest: TRequest;
       AResponse: TResponse; var Handled: Boolean);
-    procedure NewSession(Sender: TObject);
   end;
 
 implementation
@@ -45,14 +43,6 @@ constructor TAPIV2SessionFactory.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   Cached:=True;
-  CheckSessionDir;
-  writeln(SessionDir);
-end;
-
-function TAPIV2SessionFactory.DoCreateSession(ARequest: TRequest
-  ): TCustomSession;
-begin
-  Result := TAPIV2Session.Create(nil);
 end;
 
 { TAPIV2Module }
@@ -60,7 +50,6 @@ end;
 constructor TAPIV2Module.CreateNew(AOwner: TComponent; CreateMode: Integer);
 begin
   inherited CreateNew(AOwner, CreateMode);
-  OnNewSession:=@NewSession;
   OnRequest:=@DoHandleRequest;
   CreateSession := True;
 end;
@@ -198,12 +187,9 @@ begin
     end;
 end;
 
-procedure TAPIV2Module.NewSession(Sender: TObject);
-begin
-end;
-
 initialization
   RegisterHTTPModule('api/v2', TAPIV2Module, True);
   SessionFactoryClass:=TAPIV2SessionFactory;
+  IniWebSessionClass:=TAPIV2Session;
 end.
 

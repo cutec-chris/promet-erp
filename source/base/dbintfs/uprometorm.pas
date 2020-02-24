@@ -156,7 +156,6 @@ begin
         end;
       scanner := TFPExpressionScanner.Create;
       try
-        aWhere := ' where ';
         if TryStrToInt64(aFilter,aVal) then
           scanner.source := 'SQL_ID='+IntToStr(aVal)
         else
@@ -188,7 +187,8 @@ begin
       finally
         scanner.Free;
       end;
-      Result := Result+aWhere;
+      if aWhere <> '' then
+        Result := Result+' where '+aWhere;
     end;
 end;
 function TQueryTable.GetTable(Table : Integer): TQueryTable;
