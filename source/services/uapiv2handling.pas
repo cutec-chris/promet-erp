@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession,iniwebsession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, perp2;
+  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, perp2, db;
 
 type
   TAPIV2Session = class(TIniWebSession)
@@ -14,10 +14,14 @@ type
     User : TUser;
   end;
 
+  TDatasetToJSONOption = (djoSetNull, djoCurrentRecord, djoPreserveCase);
+  TDatasetToJSONOptions = set of TDatasetToJSONOption;
+
   { TAPIV2SessionFactory }
 
   TAPIV2SessionFactory = class(TIniSessionFactory)
   protected
+    constructor Create(AOwner: TComponent); override;
     Function DoCreateSession(ARequest : TRequest) : TCustomSession; override;
   end;
 
@@ -36,6 +40,14 @@ implementation
 uses base64;
 
 { TAPIV2SessionFactory }
+
+constructor TAPIV2SessionFactory.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  Cached:=True;
+  CheckSessionDir;
+  writeln(SessionDir);
+end;
 
 function TAPIV2SessionFactory.DoCreateSession(ARequest: TRequest
   ): TCustomSession;
@@ -59,10 +71,44 @@ var
   aUser: TUser;
   aStreamer, Streamer: TJSONStreamer;
   aOpt: TOption;
-  aUsers: TMemDataset;
+  aUsers, aDS: TMemDataset;
   tmp: String;
   aData : TBaseDBDataset;
   i: Integer;
+  arr: TJSONArray;
+
+  procedure DatasetToJSON(Dataset: TDataset; JSONArray: TJSONArray; Options: TDatasetToJSONOptions);
+  var
+    OldRecNo: Integer;
+    RecordData: TJSONArray;
+  begin
+    if Dataset.IsEmpty then
+      Exit;
+    if djoCurrentRecord in Options then
+    begin
+      RecordData := TJSONArray.Create;
+      DatasetToJSON(Dataset, RecordData, Options);
+      JSONArray.Add(RecordData);
+    end
+    else
+    begin
+      Dataset.DisableControls;
+      OldRecNo := Dataset.RecNo;
+      try
+        Dataset.First;
+        while not Dataset.EOF do
+        begin
+          RecordData := TJSONArray.Create;
+          DatasetToJSON(Dataset, RecordData, Options);
+          JSONArray.Add(RecordData);
+          Dataset.Next;
+        end;
+      finally
+        Dataset.RecNo := OldRecNo;
+        Dataset.EnableControls;
+      end;
+    end;
+  end;
 begin
   Handled := False;
   if (not Assigned(TAPIV2Session(Session).User)) and (not Assigned(GlobalUser)) then
@@ -117,7 +163,7 @@ begin
             Streamer.Options:=[jsoDateTimeAsString,jsoLowerPropertyNames,jsoSetAsString,jsoCheckEmptyDateTime];
             tmp := ARequest.GetNextPathInfo;
             case tmp of
-            'sql_id':
+            'by-id':
               begin
                 aData := DatasetClasses[i].aClass.CreateEx(Self,Data);
                 case aRequest.Method of
@@ -133,6 +179,19 @@ begin
                       end;
                   end;
                 end;
+              end;
+            'index.json':
+              begin
+                aDS := Data.Select(DatasetClasses[i].aClass,'','SQL_ID');
+                if Assigned(aDS) then
+                  begin
+                    Response.Code:=200;
+                    Response.CodeText:='OK';
+                    Response.ContentType:='text/json';
+                    arr := TJSONArray.Create;
+                    DatasetToJSON(aDS,arr,[]);
+                    Response.Content:=Streamer.ObjectToJSON(arr).FormatJSON;
+                  end;
               end;
             end;
           end;
