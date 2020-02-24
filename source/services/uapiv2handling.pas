@@ -114,6 +114,7 @@ begin
         then
           begin
             Streamer := TJSONStreamer.Create(Self);
+            Streamer.Options:=[jsoDateTimeAsString,jsoLowerPropertyNames,jsoSetAsString,jsoCheckEmptyDateTime];
             tmp := ARequest.GetNextPathInfo;
             case tmp of
             'sql_id':
@@ -126,7 +127,8 @@ begin
                       begin
                         Response.Code:=200;
                         Response.CodeText:='OK';
-                        Response.Content:=Streamer.ObjectToJSON(aData).AsString;
+                        Response.Content:=Streamer.ObjectToJSON(aData).FormatJSON;
+                        Response.ContentType:='text/json';
                         exit;
                       end;
                   end;

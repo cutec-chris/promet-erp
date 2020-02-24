@@ -143,7 +143,7 @@ type
     FWeight,FAvalible,FQuantity,FQuantityD,FQuantityC,FQuantityO,FSetupTime,FPlanTime,FTime,FBufferTime,
       FPurchase,FSellprice,FComprice,FDiscount,FRepairtime,FPosPrice,FGrossPrice : double;
     FActive : Boolean;
-    FText : TBlobData;
+    FText : string;
     FVat : SmallInt;
     FImageRef,FParent,FOldId : Int64;
     FDelivery,FStartDate,FEarliest,FLatest : TDateTime;
@@ -211,7 +211,7 @@ type
     property Language : string index 3 read FLanguage write FLanguage;
     property TextType : string index 1 read FTextType write FTextType;
     property Shorttext : string index 200 read FShorttext write FShorttext;
-    property Text : TBlobData read FText write FText;
+    property Text : string read FText write FText;
     property Storage : string index 3 read FStorage write FStorage;                //Lagerentname
     property Serial : string index 20 read FSerial write FSerial;                //Serienummer
     property ManufacNr : string index 40 read FManufacNr write FManufacNr;
