@@ -86,9 +86,6 @@ type
     FOrigID: String;
     function GetHistory: TBaseHistory;
     function GetOrderTyp: TOrdertyp;
-    function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
-    function _AddRef: longint; stdcall;
-    function _Release: longint; stdcall;
   protected
   public
     constructor CreateEx(aOwner: TPersistent; DM: TComponent); override;
@@ -1855,16 +1852,6 @@ begin
   Result := FOrderTyp;
 end;
 
-function TOrderList.QueryInterface(constref iid: tguid; out obj): longint;
-  stdcall;
-begin
-end;
-function TOrderList._AddRef: longint; stdcall;
-begin
-end;
-function TOrderList._Release: longint; stdcall;
-begin
-end;
 constructor TOrderList.CreateEx(aOwner: TPersistent; DM: TComponent);
 begin
   inherited CreateEx(aOwner, DM);

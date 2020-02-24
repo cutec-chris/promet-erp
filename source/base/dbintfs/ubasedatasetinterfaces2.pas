@@ -29,7 +29,7 @@ uses
 type
   { TAbstractDBDataset2 }
 
-  TAbstractDBDataset2 = class(TPersistent)
+  TAbstractDBDataset2 = class(TInterfacedPersistent)
   private
     FChanged: Boolean;
     FConnection: TComponent;

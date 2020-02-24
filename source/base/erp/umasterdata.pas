@@ -278,9 +278,6 @@ type
     function GetHistory : TBaseHistory;
     procedure SetId(AValue: string);
     procedure SetStatus(AValue: string);
-    function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
-    function _AddRef: longint; stdcall;
-    function _Release: longint; stdcall;
   public
     constructor CreateEx(Owner: TPersistent;Module: TComponent); override;
     destructor Destroy;override;
@@ -390,7 +387,7 @@ end;
 function TMasterdataLinks.Add(AObject: TObject): Integer;
 begin
   Result := inherited Add(AObject);
-  TLinks(Result).RRef_ID:=(Parent as TMasterdata).SQL_ID;
+  TLinks(AObject).RRef_ID:=(Parent as TMasterdata).SQL_ID;
 end;
 
 { TStorageList }
@@ -683,11 +680,6 @@ begin
   end;
 end;
 
-function TMasterdata.QueryInterface(constref iid: tguid; out obj): longint;
-  stdcall;
-begin
-end;
-
 procedure TMasterdata.SetId(AValue: string);
 begin
   if FID=AValue then Exit;
@@ -703,14 +695,6 @@ begin
   if Assigned(FStateChange) then
     FStateChange(Self);
   OpenItem(False);
-end;
-
-function TMasterdata._AddRef: longint; stdcall;
-begin
-end;
-
-function TMasterdata._Release: longint; stdcall;
-begin
 end;
 
 function TMasterdataList.GetTyp: string;
