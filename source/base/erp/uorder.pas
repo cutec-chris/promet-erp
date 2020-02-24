@@ -22,108 +22,274 @@ unit uOrder;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db,
-  uBaseERPDBClasses, uMasterdata, uPerson, Variants, uAccounting
-  ,uBaseDatasetInterfaces;
+  uBaseERPDBClasses, uMasterdata, Variants ,uBaseDatasetInterfaces2;
 type
+
+  { TOrderTyp }
+
   TOrderTyp = class(TBaseDBDataSet)
+  private
+    FStatus,FStatusName,FType,FDerivative,FNumberSet,FDefPostyp,
+      FB_Storage,FB_Reserved,FB_STOrder,FB_Journal,FB_Serials,FB_InvR,FB_InvO,FB_Dunning,FB_CHist: string;
+    FIcon,FTextTyp : Integer;
+    FIsDerivate,FDoCopy,FChangeAble,FRoundPos,
+      FSI_Order,FSI_Pos,FSI_Prod,FSI_Acc,FSI_InvR,FSI_InvO: Boolean;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class function GetRealTableName: string; override;
+  published
+    property Status: string index 4 read FStatus write FStatus;
+    property StatusName: string index 30 read FStatusName write FStatusName;
+    property Typ: string index 1 read FType write FType;
+    property Icon: Integer read FIcon write FIcon;
+    property IsDerivate: Boolean read FIsDerivate write FIsDerivate;
+    property Derivative: string index 30 read FDerivative write FDerivative;
+    property DoCopy: Boolean read FDoCopy write FDoCopy;    //Auftrag kopieren ? (Nur bei N wird nicth kopiert)
+    property NumberSet: string index 30 read FNumberSet write FNumberSet;
+    property DefPostyp: string index 3 read FDefPostyp write FDefPostyp; //welcher positionstyp wird nach insert gesetzt?
+    property TextTyp: Integer read FTextTyp write FTextTyp;  //welcher text ist standardtext
+    property ChangeAble: Boolean read FChangeAble write FChangeAble;//nach Buchen änderbar
+
+    property RoundPos: Boolean read FRoundPos write FRoundPos;  //Positionen werden gerundet
+
+    property SI_Order: Boolean read FSI_Order write FSI_Order;  //im Auftrag anzeigen
+    property SI_Pos: Boolean read FSI_Pos write FSI_Pos;    //in der Kasse anzeigen (Point of Sale)
+    property SI_Prod: Boolean read FSI_Prod write FSI_Prod;   //in der Produktion anzeigen
+    property SI_Acc: Boolean read FSI_Acc write FSI_Acc;    //in der Fibu anzeigen (Accounting)
+    property SI_InvR: Boolean read FSI_InvR write FSI_InvR;   //im Rechnungseingang anzeigen (Invoice Receipt)
+    property SI_InvO: Boolean read FSI_InvO write FSI_InvO;   //im Rechnungsausgang anzeigen (Outgoing Invoice)
+
+    property B_Storage: string index 1 read FB_Storage write FB_Storage; //Lagerbuchung                 (+ 0 -)
+    property B_Reserved: string index 1 read FB_Reserved write FB_Reserved;//Lagerbuchung Reserviert      (+ 0 -)
+    property B_STOrder: string index 1 read FB_STOrder write FB_STOrder; //Lagereintrag im Hauptvorgang (+ 0 -)
+    property B_Journal: string index 1 read FB_Journal write FB_Journal; //Kassenbuch                   (+ 0 -)
+    property B_Serials: string index 1 read FB_Serials write FB_Serials; //Serienummerverwaltung        (+ 0 -)
+    property B_InvR: string index 1 read FB_InvR write FB_InvR;    //Rechnungseingang             (+ 0 -)
+    property B_InvO: string index 1 read FB_InvO write FB_InvO;    //Rechnungsausgang             (+ 0 -)
+    property B_Dunning: string index 1 read FB_Dunning write FB_Dunning; //Mahnwesen                    (+ 0 -)
+    property B_CHist: string index 1 read FB_CHist write FB_CHist;   //Kundenhistorie               (+ 0)
   end;
 
   { TOrderList }
 
   TOrderList = class(TBaseERPList,IBaseHistory)
   private
+    FOrderNo : Integer;
+    FActive,FDone,FDelivered : Boolean;
+    FStatus,FLanguage,FNumber,FCustNo,FCustName,FCustZip,FEMail,FStorage,FCurrency,
+      FPaymentTar,FPID,FPVersion,FPLanguage,FShipping,FCommission,FProject,FProjectNr,
+      FNote,FHeaderText,FFooterText,FChangedBy,FCreatedBy: string;
+    FDate,FDoAFQ,FDWish,FODate,FDAppr,FShippingD,FPayedOn,FDeliveredOn : TDateTime;
+    FPQuantity,FWeight,FVatH,FVatF,FNetPrice,FDiscPrice,FDiscount,FGrossPrice : double;
     FHistory : TBaseHistory;
     FOrderTyp: TOrdertyp;
+    FProjectID : Int64;
     FOrigID: String;
     function GetHistory: TBaseHistory;
     function GetOrderTyp: TOrdertyp;
+    function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
+    function _AddRef: longint; stdcall;
+    function _Release: longint; stdcall;
   protected
-    function GetTextFieldName: string;override;
-    function GetNumberFieldName : string;override;
-    function GetBookNumberFieldName : string;override;
-    function GetStatusFieldName : string;override;
-    function GetCommissionFieldName: string;override;
-    function GetBarcodeFieldName: string;override;
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent; aConnection: TComponent=nil;
-      aMasterdata: TDataSet=nil); override;
+    constructor CreateEx(aOwner: TPersistent; DM: TComponent); override;
     destructor Destroy; override;
-    function CreateTable: Boolean; override;
+    class function GetRealTableName: string; override;
     function GetStatusIcon: Integer; override;
-    procedure Open; override;
     procedure Select(aID : string);overload;
     function GetTyp: string; override;
     function SelectFromCommission(aNumber : string) : Boolean;
     procedure OpenItem(AccHistory: Boolean=True); override;
-    procedure DefineFields(aDataSet : TDataSet);override;
     property History : TBaseHistory read FHistory;
     property OrderType : TOrdertyp read GetOrderTyp;
     function SelectOrderType : Boolean;
+  published
+    property OrderNo: Integer read FOrderNo write FOrderNo;
+    property Active: Boolean read FActive write FActive;
+    property Status: string index 4 read FStatus write FStatus;
+    property Language: string index 3 read FLanguage write FLanguage;
+    property Date: TDateTime read FDate write FDate;
+    property Number: string index 20 read FNumber write FNumber;
+    property CustNo: string index 20 read FCustNo write FCustNo;
+    property CustName: string index 200 read FCustName write FCustName;
+    property CustZip: string index 8 read FCustZip write FCustZip;
+    property EMail: string index 200 read FEMail write FEMail;                //Vorgangsmail z.b. bei Angabe im Webshop oder RMA System
+    property DoAFQ: TDateTime read FDoAFQ write FDoAFQ;                    //Anfragedatum
+    property DWish: TDateTime read FDWish write FDWish;                    //Wunschdatum
+    property DAppr: TDateTime read FDAppr write FDAppr;                    //Bestätigt (Approved)
+    property ODate: TDateTime read FODate write FODate;                    //Original Date
+    property Storage: string index 3 read FStorage write FStorage;
+    property Currency: string index 5 read FCurrency write FCurrency;
+    property PaymentTar: string index 2 read FPaymentTar write FPaymentTar;
+    property PID: string index 250 read FPID write FPID;                   //Produktid wird mit Artikeln befüllt die hinzugefügt werden beim Produktionsauftrag = zu Fertigender Artikel
+    property PVersion: string index 8 read FPVersion write FPVersion;               //Version des zu fertigen Artikels
+    property PLanguage: string index 4 read FPLanguage write FPLanguage;              //Sprache des zu fertigen Artikels
+    property PQuantity: double read FPQuantity write FPQuantity;                //Fertigungsmenge
+    property Shipping: string index 3 read FShipping write FShipping;
+    property ShippingD: TDateTime read FShippingD write FShippingD;
+    property Weight: double read FWeight write FWeight;
+    property VatH: double read FVatH write FVatH;                   //Halbe MwSt
+    property VatF: double read FVatF write FVatF;                   //Volle MwSt
+    property NetPrice: double read FNetPrice write FNetPrice;                //Nettopreis
+    property DiscPrice: double read FDiscPrice write FDiscPrice;              //Skontopreis
+    property Discount: double read FDiscount write FDiscount;                //Rabatt
+    property GrossPrice: double read FGrossPrice write FGrossPrice;              //Bruttoprice
+    property Done: Boolean read FDone write FDone;
+    property Delivered: Boolean read FDelivered write FDelivered;
+    property PayedOn: TDateTime read FPayedOn write FPayedOn;
+    property DeliveredOn: TDateTime read FDeliveredOn write FDeliveredOn;
+    property Commission: string index 30 read FCommission write FCommission;
+    property ProjectID: Int64 read FProjectID write FProjectID;
+    property Project: string index 260 read FProject write FProject;
+    property ProjectNr: string index 20 read FProjectNr write FProjectNr;
+    property Note: string read FNote write FNote;
+    property HeaderText: string read FHeaderText write FHeaderText;
+    property FooterText: string read FFooterText write FFooterText;
+    property ChangedBy: string index 4 read FChangedBy write FChangedBy;
+    property CreatedBy: string index 4 read FCreatedBy write FCreatedBy;
   end;
-  TOrderQMTestDetails = class(TBaseDBDataSet)
+  TOrderQMTestDetail = class(TBaseDBDataSet)
+  private
+    FModul,FName,FType,FMUnit,FExpected,FResult : string;
+    FStep : Integer;
+    FResultShort : Boolean;
+  published
+    property Modul: string index 60 read FModul write FModul;
+    property Step: Integer read FStep write FStep;
+    property Name: string index 60 read FName write FName;
+    property Typ: string index 10 read FType write FType;
+    property MUnit: string index 20 read FMUnit write FMUnit;
+    property Expected : string read FExpected write FExpected;
+    property Result : string read FResult write FResult;
+    property ResultShort: Boolean read FResultShort write FResultShort;
+  end;
+  TOrderQMTestDetails = class(TAbstractMasterDetail)
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class function GetObjectTyp: TClass; override;
   end;
   TOrderQMTest = class(TBaseDBDataSet)
   private
     FDetails: TOrderQMtestDetails;
+    FID : Int64;
+    FName,FSerial,FNotes,FRawData : string;
+    FTestTime,FTestEnd : TDateTime;
+    FDuration : Integer;
+    FResult : Boolean;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
     destructor Destroy;override;
-    function CreateTable : Boolean;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
+  published
+    property ID: Int64 read FID write FID;
+    property Name: string index 20 read FName write FName;
+    property Result: Boolean read FResult write FResult;
+    property Serial: string index 30 read FSerial write FSerial;
+    property Notes : string read FNotes write FNotes;
+    property RawData: string read FRawData write FRawData;
+    property TestTime : TDateTime read FTestTime write FTestTime;
+    property TestEnd : TDateTime read FTestEnd write FTestEnd;
+    property Duration: Integer read FDuration write FDuration;
     property Details : TOrderQMtestDetails read FDetails;
   end;
+
+  { TOrderQMTests }
+
+  TOrderQMTests = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
   TOrder = class;
-  TRepairProblems = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  TRepairProblem = class(TBaseDBDataSet)
+  private
+    FProblem : string;
+  published
+    property Problem: string index 60 read FProblem write FProblem;
   end;
   TOrderRepairDetail = class(TBaseDbDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FAssembly,FPart,FError : string;
+  published
+    property Assembly: string index 60 read FAssembly write FAssembly;
+    property Part: string index 60 read FPart write FPart;
+    property Error: string index 120 read FError write FError;
+  end;
+  TOrderRepairDetails = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
   TRepairImageLinks = class(TLinks)
   public
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults; override;
   end;
-  TOrderRepairImages = class(TBaseDbDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FDSDataChange(Sender: TObject; Field: TField);
+
+  { TOrderRepairImage }
+
+  TOrderRepairImage = class(TBaseDbDataSet)
   private
+    FName,FCustName,FStatus,FSymtoms,FCategory,FUser,FDesc,FSolve,FNotes,FIntNotes : string;
+    FCounter : Integer;
     FDetail: TOrderRepairDetail;
     FHistory: TBaseHistory;
-    FStatus : string;
     FImages: TImages;
     FLinks: TRepairImageLinks;
     FDS : TDataSource;
+    procedure SetStatus(AIndex: Integer; AValue: string);
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-      aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor CreateEx(aOwner: TPersistent; DM: TComponent); override;
     destructor Destroy; override;
     procedure Open; override;
-    function CreateTable: Boolean; override;
     property RepairDetail : TOrderRepairDetail read FDetail;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Links : TRepairImageLinks read FLinks;
+  published
+    property Name: string index 100 read FName write FName;
+    property CustName: string index 100 read FCustName write FCustName;
+    property Status: string index 4 read FStatus write SetStatus;
+    property Symtoms: string index 800 read FSymtoms write FSymtoms;
+    property Category: string index 40 read FCategory write FCategory;
+    property User: string index 20 read FUser write FUser;
+    property Desc: string read FDesc write FDesc;
+    property Solve: string read FSolve write FSolve;
+    property Notes: string read FNotes write FNotes;
+    property IntNotes: string read FIntNotes write FIntNotes;
+    property Counter: Integer read FCounter write FCounter;
   end;
   TOrderRepair = class(TBaseDBDataSet)
   private
-    FDetails: TOrderRepairDetail;
+    FDetails: TOrderRepairDetails;
+    FID : Integer;
+    FOperation,FErrDesc,FNotes,FIntNotes,FImagename,FChangedBy : string;
+    FWarrenty : Boolean;
+    FErrImage : Int64;
+    FTime : double;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
     destructor Destroy;override;
-    function CreateTable : Boolean;override;
-    property Details : TOrderRepairDetail read FDetails;
+  published
+    property ID: Integer read FID write FID;
+    property Operation: string index 20 read FOperation write FOperation;
+    property ErrDesc: string read FErrDesc write FErrDesc;
+    property Notes: string read FNotes write FNotes;
+    property IntNotes: string read FIntNotes write FIntNotes;
+    property Warrenty: Boolean read FWarrenty write FWarrenty;
+    property ErrImage: Int64 read FErrImage write FErrImage;
+    property Imagename: string index 100 read FImagename write FImagename;
+    property Time: double read FTime write FTime;
+    property ChangedBy: string index 4 read FChangedBy write FChangedBy;
+    property Details : TOrderRepairDetails read FDetails;
+  end;
+
+  { TOrderRepairs }
+
+  TOrderRepairs = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
   TOrderPos = class(TBaseDBPosition)
   private
     FOrder: TOrder;
-    FOrderRepair: TOrderRepair;
-    FQMTest: TOrderQMTest;
+    FOrderRepair: TOrderRepairs;
+    FQMTest: TOrderQMTests;
+    FCostCentre,FAccount,FProjectNr : string;
   protected
     function GetAccountNo : string;override;
     procedure PosPriceChanged(aPosDiff,aGrossDiff :Extended);override;
@@ -133,17 +299,27 @@ type
     function GetCurrency : string;override;
     function GetOrderTyp : Integer;override;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
     destructor Destroy;override;
-    function CreateTable : Boolean;override;
-    procedure Open; override;
     procedure Assign(aSource : TPersistent);override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
-    property QMTest : TOrderQMTest read FQMTest;
+    procedure FillDefaults; override;
     property Order : TOrder read FOrder write FOrder;
-    property Repair : TOrderRepair read FOrderRepair;
+    property Repair : TOrderRepairs read FOrderRepair;
+  published
+    property CostCentre: string index 10 read FCostCentre write FCostCentre;//Kostenstelle
+    property Account: string index 10 read FAccount write FAccount; //Fibu Konto
+    property ProjectNr: string index 20 read FProjectNr write FProjectNr;
+    property QMTest : TOrderQMTests read FQMTest;
   end;
+
+  { TOrderPositions }
+
+  TOrderPositions = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
+{
   TOrderAddress = class(TBaseDBAddress)
   private
     FOrder: TOrder;
@@ -156,62 +332,84 @@ type
     procedure Post; override;
     property Order : TOrder read FOrder write FOrder;
   end;
+}
   TOrderPosTyp = class(TBaseDBDataSet)
+  private
+    FName,FType : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+  published
+    property Name: string index 3 read FName write FName;
+    property Typ: string index 1 read FType write FType;
   end;
-  TDispatchTypes = class(TBaseDBDataSet)
+  TDispatchType = class(TBaseDBDataSet)
+  private
+    FID,FCountry,FName,FOutputDrv,FArticle : string;
+    FWeight : double;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure SelectByCountryAndWeight(aCountry : string;aWeight : real);
+  published
+    property ID: string index 3 read FID write FID;
+    property Country: string index 3 read FCountry write FCountry;
+    property Name: string index 20 read FName write FName;
+    property OutputDrv: string index 60 read FOutputDrv write FOutputDrv;
+    property Weight: double read FWeight write FWeight;
+    property Article: string index 40 read FArticle write FArticle;
   end;
   TPaymentTargets = class(TBaseDBDataSet)
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FID,FName,FText,FFAccounts : string;
+    FCashDisc : double;
+    FCashDiscD,FDays : Integer;
+    FDefaultPT : Boolean;
+  published
+    property ID: string index 2 read FID write FID;
+    property Name: string index 10 read FName write FName;
+    property Text: string index 30 read FText write FText;
+    property FAccounts: string read FFAccounts write FFAccounts;
+    property CashDisc: double read FCashDisc write FCashDisc;               //Skonto
+    property CashDiscD: Integer read FCashDiscD write FCashDiscD;            //Skonto Tage
+    property Days: Integer read FDays write FDays;                 //Tage
+    property DefaultPT: Boolean read FDefaultPT write FDefaultPT;
   end;
   TOrderLinks = class(TLinks)
   public
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults;override;
   end;
   TOnGetStorageEvent = function(Sender : TOrder;aStorage : TStorage) : Boolean of object;
   TOnGetSerialEvent = function(Sender : TOrder;aMasterdata : TMasterdata;aQuantity : Integer) : Boolean of object;
   TOrder = class(TOrderList,IPostableDataSet,IShipableDataSet)
   private
-    FCurrency: TCurrency;
+    //FCurrency: TCurrency;
     FFailMessage: string;
     FLinks: TOrderLinks;
     FOnGetSerial: TOnGetSerialEvent;
     FOnGetStorage: TOnGetStorageEvent;
-    FOrderAddress: TOrderAddress;
-    FOrderPos: TOrderPos;
+    //FOrderAddress: TOrderAddresses;
+    FOrderPos: TOrderPositions;
     function GetCommission: TField;
     procedure ReplaceParentFields(aField: TField; aOldValue: string;
       var aNewValue: string);
     function Round(Value: Extended): Extended;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
     destructor Destroy;override;
-    function CreateTable : Boolean;override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults;override;
     procedure Open;override;
-    procedure RefreshActive(Orderno: string='');
-    procedure CascadicPost;override;
-    procedure CascadicCancel;override;
-    function Delete: Boolean; override;
+    procedure RefreshActive(aOrderno: string='');
     property Commission : TField read GetCommission;
-    property Address : TOrderAddress read FOrderAddress;
-    property Positions : TOrderPos read FOrderPos;
+    //property Address : TOrderAddresses read FOrderAddress;
+    property Positions : TOrderPositions read FOrderPos;
     property Links : TOrderLinks read FLinks;
-    function CombineItems(aRemoteLink: string): Boolean; override;
+    function CombineItems(aRemoteLink: string): Boolean;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
-    property Currency : TCurrency read FCurrency;
+    //property Currency : TCurrency read FCurrency;
     function SelectCurrency : Boolean;
     procedure Recalculate;
     function ChangeStatus(aNewStatus : string) : Boolean;override;
     procedure ShippingOutput;
     function DoPost: TPostResult;
     function PostArticle(aTyp, aID, aVersion, aLanguage: variant; Quantity: real; QuantityUnit, PosNo: string; var aStorage: string; var OrderDelivered: boolean) : Boolean;
-    function DoBookPositionCalc(AccountingJournal : TAccountingJournal) : Boolean;
+    //function DoBookPositionCalc(AccountingJournal : TAccountingJournal) : Boolean;
     function FailMessage : string;
     function FormatCurrency(Value : real) : string;
     function CalcDispatchType : Boolean;
@@ -220,8 +418,7 @@ type
     function Duplicate : Boolean;override;
   end;
 implementation
-uses uBaseDBInterface, uBaseSearch, uData, Process,uRTFtoTXT,
-  uIntfStrConsts,Utils;
+uses uIntfStrConsts,uData;
 resourcestring
   strStatusnotfound             = 'Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator';
   strMainOrdernotfound          = 'Hauptvorgang nicht gefunden !';
@@ -233,7 +430,46 @@ resourcestring
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
 
-{ TRepairImageLinks }
+{ TOrderRepairs }
+
+class function TOrderRepairs.GetObjectTyp: TClass;
+begin
+  Result := TOrderRepair;
+end;
+
+{ TOrderQMTests }
+
+class function TOrderQMTests.GetObjectTyp: TClass;
+begin
+  Result := TOrderQMTest;
+end;
+
+{ TOrderRepairDetails }
+
+class function TOrderRepairDetails.GetObjectTyp: TClass;
+begin
+  Result := TOrderRepairDetail;
+end;
+
+{ TOrderRepairImage }
+
+procedure TOrderRepairImage.SetStatus(AIndex: Integer; AValue: string);
+begin
+  if FStatus = AValue then exit;
+  History.AddItem(Self,Format(strStatusChanged,[FStatus,AValue]),'','',nil,ACICON_STATUSCH);
+  FStatus := AValue;
+end;
+procedure TOrderRepairImage.Open;
+begin
+  inherited Open;
+end;
+
+{ TOrderPositions }
+
+class function TOrderPositions.GetObjectTyp: TClass;
+begin
+  Result := TOrderPos;
+end;
 
 procedure TOrder.ReplaceParentFields(aField: TField; aOldValue: string;
   var aNewValue: string);
@@ -252,63 +488,21 @@ begin
     end;
 end;
 
-procedure TRepairImageLinks.FillDefaults(aDataSet: TDataSet);
+procedure TRepairImageLinks.FillDefaults;
 begin
-  inherited FillDefaults(aDataSet);
-  aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrderRepairImages).Id.AsVariant;
+  inherited FillDefaults;
+  RRef_ID:=(Parent as TOrderRepairImage).SQL_ID;
+end;
+constructor TOrderRepairImage.CreateEx(aOwner: TPersistent; DM: TComponent);
+begin
+  inherited CreateEx(aOwner, DM);
+  FHistory := TBaseHistory.Create(Self);
+  FImages := TImages.Create(Self);
+  FLinks := TRepairImageLinks.Create(Self);
+  FDetail := TOrderRepairDetail.Create(Self);
 end;
 
-{ TOrderRepairImages }
-
-procedure TOrderRepairImages.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERREPAIRIMAGE';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('NAME',ftString,100,True);
-            Add('CUSTNAME',ftString,100,False);
-            Add('STATUS',ftString,4,false);
-            Add('SYMTOMS',ftString,800,False);
-            Add('CATEGORY',ftString,40,False);
-            Add('USER',ftString,20,False);
-            Add('DESC',ftMemo,0,False);
-            Add('SOLVE',ftMemo,0,False);
-            Add('NOTES',ftMemo,0,False);
-            Add('INTNOTES',ftMemo,0,False);
-            Add('COUNTER',ftInteger,0,False);
-          end;
-    end;
-end;
-
-procedure TOrderRepairImages.FDSDataChange(Sender: TObject; Field: TField);
-begin
-  if not Assigned(Field) then exit;
-  if DataSet.ControlsDisabled then exit;
-  if Field.FieldName = 'STATUS' then
-    begin
-      History.Open;
-      History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
-      FStatus := Field.AsString;
-    end;
-end;
-
-constructor TOrderRepairImages.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.CreateEx(Self,DataModule,aConnection,DataSet);
-  FImages := TImages.CreateEx(Self,DataModule,aConnection,DataSet);
-  FLinks := TRepairImageLinks.CreateEx(Self,DataModule,aConnection);
-  FDetail := TOrderRepairDetail.CreateExIntegrity(Self,DataModule,False,aConnection,DataSet);
-  FDS := TDataSource.Create(Self);
-  FDS.DataSet := DataSet;
-  FDS.OnDataChange:=@FDSDataChange;
-end;
-
-destructor TOrderRepairImages.Destroy;
+destructor TOrderRepairImage.Destroy;
 begin
   FDS.Free;
   FDetail.Free;
@@ -317,99 +511,22 @@ begin
   FHistory.Free;
   inherited Destroy;
 end;
-
-procedure TOrderRepairImages.Open;
+constructor TOrderRepair.CreateEx(aOwner: TPersistent; DM: TComponent);
 begin
-  inherited Open;
-  FStatus := FieldByName('STATUS').AsString;
-end;
-
-function TOrderRepairImages.CreateTable: Boolean;
-begin
-  Result:=inherited CreateTable;
-  FImages.CreateTable;
-  FHistory.CreateTable;
-end;
-
-procedure TOrderRepairDetail.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERREPAIRDETAIL';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ASSEMBLY',ftString,60,False);
-            Add('PART',ftString,60,False);
-            Add('ERROR',ftString,120,False);
-          end;
-    end;
-end;
-procedure TOrderRepair.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERREPAIR';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ID',ftInteger,0,False);
-            Add('OPERATION',ftString,20,False);
-            Add('ERRDESC',ftMemo,0,False);
-            Add('NOTES',ftMemo,0,False);
-            Add('INTNOTES',ftMemo,0,False);
-            Add('WARRENTY',ftString,1,True);
-            Add('ERRIMAGE',ftLargeint,0,False);
-            Add('IMAGENAME',ftString,100,False);
-            Add('TIME',ftFloat,0,False);
-            Add('CHANGEDBY',ftString,4,False);
-          end;
-    end;
-end;
-procedure TOrderRepair.FillDefaults(aDataSet: TDataSet);
-begin
-  with aDataSet,BaseApplication as IBaseDbInterface do
-    begin
-      FieldByName('WARRENTY').AsString := 'U';
-      FieldByName('ID').AsInteger:=Self.Count+1;
-    end;
-  inherited FillDefaults(aDataSet);
-end;
-constructor TOrderRepair.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FDetails := TOrderRepairDetail.CreateEx(Owner,DM,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM);
+  FDetails := TOrderRepairDetails.Create(Self);
 end;
 destructor TOrderRepair.Destroy;
 begin
   FDetails.Free;
   inherited Destroy;
 end;
-function TOrderRepair.CreateTable : Boolean;
+procedure TOrderLinks.FillDefaults;
 begin
-  Result := inherited CreateTable;
-  FDetails.CreateTable;
+  inherited FillDefaults;
+  RRef_ID:=(Parent as TOrder).SQL_ID;
 end;
-procedure TOrderPosTyp.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERPOSTYP';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('NAME',ftString,3,True);
-            Add('TYPE',ftString,1,True);
-          end;
-    end;
-end;
-procedure TOrderLinks.FillDefaults(aDataSet: TDataSet);
-begin
-  inherited FillDefaults(aDataSet);
-  aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TOrder).Id.AsVariant;
-end;
-
+{
 constructor TOrderAddress.CreateEx(aOwner: TComponent; DM: TComponent;
   aConnection: TComponent; aMasterdata: TDataSet);
 begin
@@ -425,7 +542,7 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('ACCOUNTNO',ftString,20,False);
+            property ACCOUNTNO: string index 20 read write ;
           end;
     end;
 end;
@@ -486,176 +603,27 @@ procedure TOrderAddress.Post;
 begin
   inherited Post;
 end;
+}
 
-procedure TRepairProblems.DefineFields(aDataSet: TDataSet);
+class function TOrderTyp.GetRealTableName: string;
 begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'REPAIRPROBLEMS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('PROBLEM',ftString,60,True);
-          end;
-    end;
+  Result:='ORDERTYPE';
 end;
-procedure TPaymentTargets.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'PAYMENTTARGETS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ID',ftString,2,True);
-            Add('NAME',ftString,10,True);
-            Add('TEXT',ftString,30,True);
-            Add('FACCOUNTS',ftMemo,0,false);
-            Add('CASHDISC',ftFloat,0,True);               //Skonto
-            Add('CASHDISCD',ftInteger,0,True);            //Skonto Tage
-            Add('DAYS',ftInteger,0,True);                 //Tage
-            Add('DEFAULTPT',ftString,1,True);
-          end;
-    end;
-end;
-procedure TDispatchTypes.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'DISPATCHTYPES';
-      UpdateFloatFields:=True;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ID',ftString,3,True);
-            Add('COUNTRY',ftString,3,True);
-            Add('NAME',ftString,20,false);
-            Add('OUTPUTDRV',ftString,60,false);
-            Add('WEIGHT',ftFloat,0,false);
-            Add('ARTICLE',ftString,40,false);
-          end;
-    end;
-end;
-procedure TDispatchTypes.SelectByCountryAndWeight(aCountry: string;aWeight : real);
-var
-  aFilter: String;
-begin
-  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
-    begin
-      Filter := '('+QuoteField('COUNTRY')+'='+QuoteValue(aCountry)+') AND ('+QuoteField('WEIGHT')+'>='+QuoteValue(FloatToStr(aWeight))+')';
-      SortFields:='WEIGHT';
-    end;
-end;
-procedure TOrderTyp.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERTYPE';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('STATUS',ftString,4,True);
-            Add('STATUSNAME',ftString,30,True);
-            Add('TYPE',ftString,1,false);
-            Add('ICON',ftInteger,0,false);
-            Add('ISDERIVATE',ftString,1,false);
-            Add('DERIVATIVE',ftString,30,false);
-            Add('DOCOPY',ftString,1,false);    //Auftrag kopieren ? (Nur bei N wird nicth kopiert)
-            Add('NUMBERSET',ftString,30,false);
-            Add('DEFPOSTYP',ftString,3,False); //welcher positionstyp wird nach insert gesetzt?
-            Add('TEXTTYP',ftInteger,0,False);  //welcher text ist standardtext
-            Add('CHANGEABLE',ftString,1,false);//nach Buchen änderbar
 
-            Add('ROUNDPOS',ftString,1,False);  //Positionen werden gerundet
-
-            Add('SI_ORDER',ftString,1,false);  //im Auftrag anzeigen
-            Add('SI_POS',ftString,1,false);    //in der Kasse anzeigen (Point of Sale)
-            Add('SI_PROD',ftString,1,false);   //in der Produktion anzeigen
-            Add('SI_ACC',ftString,1,false);    //in der Fibu anzeigen (Accounting)
-            Add('SI_INVR',ftString,1,false);   //im Rechnungseingang anzeigen (Invoice Receipt)
-            Add('SI_INVO',ftString,1,false);   //im Rechnungsausgang anzeigen (Outgoing Invoice)
-
-            Add('B_STORAGE',ftString,1,false); //Lagerbuchung                 (+ 0 -)
-            Add('B_RESERVED',ftString,1,false);//Lagerbuchung Reserviert      (+ 0 -)
-            Add('B_STORDER',ftString,1,false); //Lagereintrag im Hauptvorgang (+ 0 -)
-            Add('B_JOURNAL',ftString,1,false); //Kassenbuch                   (+ 0 -)
-            Add('B_SERIALS',ftString,1,false); //Serienummerverwaltung        (+ 0 -)
-            Add('B_INVR',ftString,1,false);    //Rechnungseingang             (+ 0 -)
-            Add('B_INVO',ftString,1,false);    //Rechnungsausgang             (+ 0 -)
-            Add('B_DUNNING',ftString,1,false); //Mahnwesen                    (+ 0 -)
-            Add('B_CHIST',ftString,1,false);   //Kundenhistorie               (+ 0)
-          end;
-    end;
-end;
-procedure TOrderQMTestDetails.DefineFields(aDataSet: TDataSet);
+class function TOrderQMTestDetails.GetObjectTyp: TClass;
 begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERQMTESTDETAIL';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('MODUL',ftString,60,False);
-            Add('STEP',ftInteger,0,False);
-            Add('NAME',ftString,60,False);
-            Add('TYPE',ftString,10,False);
-            Add('UNIT',ftString,20,False);
-            Add('EXPECTED',ftMemo,0,False);
-            Add('RESULT',ftMemo,0,False);
-            Add('RESULTSHORT',ftString,1,False);
-          end;
-    end;
+  Result := TOrderQMTestDetail;
 end;
-constructor TOrderQMTest.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TOrderQMTest.CreateEx(aOwner: TPersistent; DM: TComponent);
 begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  with DataSet as IBaseDBFilter do
-    begin
-      BaseSortFields := 'TESTTIME';
-      SortFields := 'TESTTIME';
-      SortDirection := sdDescending;
-      Limit:=0;
-    end;
-  FDetails := TOrderQMTestDetails.CreateEx(aOwner,DataModule,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM);
+  FDetails := TOrderQMTestDetails.Create(Self);
 end;
 destructor TOrderQMTest.Destroy;
 begin
   FDetails.Free;
   inherited Destroy;
 end;
-function TOrderQMTest.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FDetails.CreateTable;
-end;
-procedure TOrderQMTest.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERQMTEST';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ID',ftLargeint,0,False);
-            Add('NAME',ftString,20,False);
-            Add('RESULT',ftString,1,False);
-            Add('SERIAL',ftString,30,False);
-            Add('NOTES',ftMemo,0,False);
-            Add('RAWDATA',ftMemo,0,False);
-            Add('TESTTIME',ftDateTime,0,False);
-            Add('TESTEND',ftDateTime,0,False);
-            Add('DURATION',ftInteger,0,False);
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            Add('TESTTIME','TESTTIME',[]);
-            Add('RESULT','RESULT',[]);
-          end;
-    end;
-end;
-
 function TOrder.GetCommission: TField;
 begin
   result := FieldByName('COMMISSION');
@@ -669,53 +637,34 @@ function TOrder.Round(Value: Extended): Extended;
 var
   nk: Integer = 2;
 begin
+  {TODO
   if SelectCurrency and (Currency.FieldByName('DECIMALPL').AsInteger>0) then
     nk := Currency.FieldByName('DECIMALPL').AsInteger;
   if SelectCurrency and (Currency.FieldByName('ROUNDGRAN').AsFloat>0) then
     Result := InternalRound(RoundToGranularity(Value,Currency.FieldByName('ROUNDGRAN').AsFloat),nk)
   else Result := InternalRound(Value,nk);
+  }
 end;
 
-constructor TOrder.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TOrder.CreateEx(aOwner: TPersistent; DM: TComponent);
 begin
-  inherited CreateEx(aOwner,DM, aConnection, aMasterdata);
-  UpdateFloatFields:=True;
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          BaseSortFields := 'ORDERNO';
-          SortFields := 'ORDERNO';
-          SortDirection := sdAscending;
-          UsePermissions:=False;
-        end;
-    end;
-  FOrderAddress := TOrderAddress.CreateEx(Self,DataModule,aConnection,DataSet);
-  FOrderAddress.Order := Self;
-  FOrderPos := TOrderPos.CreateEx(Self,DataModule,aConnection,DataSet);
-  FOrderPos.Order:=Self;
-  FLinks := TOrderLinks.CreateEx(Self,DataModule,aConnection);
-  FCurrency := TCurrency.CreateEx(Self,DataModule,aConnection);
+  inherited CreateEx(aOwner,DM);
+  //FOrderAddress := TOrderAddresses.CreateEx(Self,DataModule,aConnection,DataSet);
+  FOrderPos := TOrderPositions.Create(Self);
+  FLinks := TOrderLinks.Create(Self);
+  //FCurrency := TCurrency.CreateEx(Self,DataModule,aConnection);
 end;
 destructor TOrder.Destroy;
 begin
-  FCurrency.Free;
-  FOrderAddress.Free;
+  //FCurrency.Free;
+  //FOrderAddress.Free;
   FOrderPos.Free;
   FreeAndnil(FLinks);
   inherited Destroy;
 end;
-function TOrder.CreateTable : Boolean;
+procedure TOrder.FillDefaults;
 begin
-  Result := inherited CreateTable;
-  FOrderAddress.CreateTable;
-  FOrderPos.CreateTable;
-  FOrderTyp.CreateTable;
-  FHistory.CreateTable;
-end;
-procedure TOrder.FillDefaults(aDataSet: TDataSet);
-begin
+  {
   with aDataSet,BaseApplication as IBaseDBInterface do
     begin
       FieldByName('ORDERNO').AsString := Data.Numbers.GetNewNumber('ORDERS') + '00';
@@ -737,11 +686,13 @@ begin
       FieldByName('DELIVERED').AsString := 'N';
       FieldByName('CREATEDBY').AsString := Data.Users.IDCode.AsString;
     end;
+  }
 end;
 procedure TOrderList.Select(aID : string);
 var
   aFilter: String;
 begin
+  {
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       if length(aID) > 4 then
@@ -755,6 +706,7 @@ begin
       FOrigID := aID;
       Limit := 99;
     end;
+  }
 end;
 
 function TOrderList.GetTyp: string;
@@ -766,32 +718,32 @@ function TOrderList.SelectFromCommission(aNumber: string): Boolean;
 var
   aFilter: String;
 begin
+  {
   with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
     begin
       aFilter :=  QuoteField('COMMISSION')+'='+QuoteValue(aNumber);
       Filter := aFilter;
       Limit := 99;
     end;
+  }
 end;
 
 procedure TOrder.Open;
 begin
-  if not Assigned(DataSet) then exit;
-  if DataSet.Active then exit;
   inherited Open;
-  DataSet.Locate('ORDERNO',FOrigID,[]);
   OrderType.Open;
-  OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
-  Address.Open;
+  OrderType.Locate('STATUS',Status,[]);
+  //Address.Open;
   SelectCurrency;
 end;
 
-procedure TOrder.RefreshActive(Orderno : string = '');
+procedure TOrder.RefreshActive(aOrderno: string);
 var
   aRec: TBookmark;
   Found: Boolean = False;
   MainOrder: TOrderList;
 begin
+  {
   if not DataSet.Active then exit;
   if Orderno = '' then
     Orderno := Self.FieldByName('ORDERNO').AsString;
@@ -842,35 +794,7 @@ begin
     end;
   except
   end;
-end;
-
-procedure TOrder.CascadicPost;
-begin
-  if FOrderPos.CanEdit or CanEdit then
-    Recalculate;
-  FOrderAddress.CascadicPost;
-  FHistory.CascadicPost;
-  FOrderPos.CascadicPost;
-  FLinks.CascadicPost;
-  RefreshActive;
-  inherited CascadicPost;
-end;
-procedure TOrder.CascadicCancel;
-begin
-  FHistory.CascadicCancel;
-  FOrderAddress.CascadicCancel;
-  FOrderPos.CascadicCancel;
-  FLinks.CascadicCancel;
-  inherited CascadicCancel;
-end;
-
-function TOrder.Delete: Boolean;
-var
-  aOrderno: String;
-begin
-  aOrderno := FieldByName('ORDERNO').AsString;
-  Result:=inherited Delete;
-  RefreshActive(aOrderno);
+  }
 end;
 
 function TOrder.CombineItems(aRemoteLink: string): Boolean;
@@ -882,6 +806,7 @@ var
   tmp: String;
 begin
   Result := False;
+  {
   Result := True;
   if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
     begin
@@ -917,16 +842,19 @@ begin
         end;
       aObject.Free;
     end;
+  }
 end;
 
 function TOrder.SelectCurrency: Boolean;
 begin
+  {
   if not FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]) then
     begin
       FCurrency.Filter(Data.QuoteField('SYMBOL')+'='+Data.QuoteValue(FieldByName('CURRENCY').AsString));
       result := FCurrency.Locate('SYMBOL',FieldByName('CURRENCY').AsString,[]);
     end
   else Result := True;
+  }
 end;
 
 procedure TOrder.Recalculate;
@@ -937,6 +865,7 @@ var
   aVatV : Double = 0;
   Vat: TVat;
 begin
+  {
   Vat := TVat.Create(nil);
   Positions.DataSet.DisableControls;
   Positions.Open;
@@ -980,14 +909,15 @@ begin
   if CanEdit then DataSet.Post;
   Positions.DataSet.EnableControls;
   Vat.Free;
+  }
 end;
 
 function TOrder.DoPost: TPostResult;
 var
   Orders: TOrderList;
-  Accountingjournal: TAccountingJournal = nil;
+  //Accountingjournal: TAccountingJournal = nil;
   MasterdataList: TMasterdataList = nil;
-  Person: TPerson = nil;
+  //Person: TPerson = nil;
   MainOrder: TOrder = nil;
 
   MainOrderId: LargeInt = 0;
@@ -1006,6 +936,7 @@ begin
   Result := prFailed;
   CascadicPost;
   Recalculate;
+  {
   Orders := TOrderList.CreateEx(nil,DataModule,Connection);
   MasterdataList := TMasterdataList.CreateEx(nil,DataModule,Connection);
   MainOrder := TOrder.CreateEx(nil,DataModule,Connection);
@@ -1054,7 +985,7 @@ begin
           Data.ProcessTerm(Data.QuoteField('ORDERNO')+'='+Data.QuoteValue(DataSet.FieldByName('ORDERNO').AsString))
           );
         end;
-      Data.StartTransaction(Connection,True);
+      Data.StartTransaction(Connection read write ;
       try
         OrderDone      := True;
         OrderDelivered := True;
@@ -1252,6 +1183,7 @@ begin
   FreeAndnil(Orders);
   FreeAndNil(MasterdataList);
   FreeAndNil(MainOrder);
+  }
 end;
 
 function TOrder.FailMessage: string;
@@ -1269,6 +1201,7 @@ var
   OldRec: Variant;
 begin
   Result := False;
+  {
   OrderType.Open;
   if not OrderType.DataSet.Locate('STATUS',aNewStatus,[loCaseInsensitive]) then
     Data.SetFilter(OrderType,'');
@@ -1400,15 +1333,17 @@ begin
           end;
       end;
     end;
+  }
 end;
 procedure TOrder.ShippingOutput;
 var
   OrderTyp: Integer;
-  aProcess: TProcess;
+  //aProcess: TProcess;
   CommaCount: Integer;
   tmp: String;
   Dispatchtypes: TDispatchTypes;
 begin
+  {
   Dispatchtypes := TDispatchTypes.Create(nil);
   if not OrderType.DataSet.Locate('STATUS', DataSet.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
     raise Exception.Create(strStatusnotfound);
@@ -1458,6 +1393,7 @@ begin
       aProcess.Free;
     end;
   Dispatchtypes.Free;
+  }
 end;
 
 function TOrder.PostArticle(aTyp, aID, aVersion, aLanguage: variant;
@@ -1471,6 +1407,7 @@ var
   aBooked: Real;
   aFirstStorage: Boolean;
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       try
@@ -1568,7 +1505,9 @@ begin
         FreeAndNil(Masterdata);
       end;
     end;
+  }
 end;
+{
 function TOrder.DoBookPositionCalc(AccountingJournal : TAccountingJournal): Boolean;
 var
   aType : string;
@@ -1646,9 +1585,10 @@ begin
       Post;
     end;
 end;
+}
 function TOrder.FormatCurrency(Value: real): string;
 begin
-  Result := FormatFloat('0.00',Value)+' '+DataSet.FieldByName('CURRENCY').AsString;
+  Result := FormatFloat('0.00',Value)+' '+Currency;
 end;
 function TOrder.CalcDispatchType: Boolean;
 var
@@ -1656,6 +1596,7 @@ var
   aMasterdata: TMasterdata;
   aPosTyp: TPositionTyp;
 begin
+  {
   aPosTyp := TPositionTyp.CreateEx(Self,DataModule,Connection);
   aPosTyp.Open;
   if aPosTyp.DataSet.Locate('TYPE',6,[loCaseInsensitive]) then
@@ -1690,17 +1631,19 @@ begin
       aDisp.Free;
     end;
   aPosTyp.Free;
+  }
 end;
 
 function TOrder.GetOrderTyp: Integer;
 begin
   Result := -1;
-  if OrderType.DataSet.Locate('STATUS', DataSet.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
-    Result := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), -1);
+  //if OrderType.DataSet.Locate('STATUS', DataSet.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
+  //  Result := StrToIntDef(trim(copy(OrderType.FieldByName('TYPE').AsString, 0, 2)), -1);
 end;
 
 function TOrder.SelectFromLink(aLink: string): Boolean;
 begin
+  {
   if pos('{',aLink) > 0 then
     aLink := copy(aLink,0,pos('{',aLink)-1)
   else if rpos('(',aLink) > 0 then
@@ -1718,6 +1661,7 @@ begin
       else
         Result:=inherited SelectFromLink(aLink);
     end;
+  }}}
 end;
 
 function TOrder.Duplicate: Boolean;
@@ -1725,6 +1669,7 @@ var
   Copied: String;
   OldRec: LargeInt;
 begin
+  {
   OldRec := GetBookmark;
   with DataSet as IBaseDBFilter do
     Filter := Data.QuoteField('ORDERNO')+'='+Data.QuoteValue(DataSet.FieldByName('ORDERNO').AsString);
@@ -1759,16 +1704,20 @@ begin
       Post;
     end;
   Positions.EnableCalculation;
+  }
 end;
 
 function TOrderPos.GetAccountNo: string;
 begin
+  {
   if Assigned(Order) and (Order.Address.Count>0) then
     Result:=Order.Address.FieldByName('ACCOUNTNO').AsString
   else inherited;
+  }
 end;
 procedure TOrderPos.PosPriceChanged(aPosDiff, aGrossDiff: Extended);
 begin
+  {
   if not ((Order.DataSet.State = dsEdit) or (Order.DataSet.State = dsInsert)) then
     Order.DataSet.Edit;
   Order.FieldByName('NETPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat+aPosDiff);
@@ -1776,12 +1725,15 @@ begin
   if Data.PaymentTargets.DataSet.Locate('ID',Order.FieldByName('PAYMENTTAR').AsString,[]) then
     Order.FieldByName('DISCPRICE').AsFloat := Round(Order.FieldByName('NETPRICE').AsFloat-((Order.FieldByName('NETPRICE').AsFloat/100)*Data.PaymentTargets.FieldByName('CASHDISC').AsFloat));
   Order.FieldByName('GROSSPRICE').AsFloat := Round(Order.FieldByName('GROSSPRICE').AsFloat+aGrossDiff);
+  }
 end;
 procedure TOrderPos.PosWeightChanged(aPosDiff : Extended);
 begin
+  {
   if not ((Order.DataSet.State = dsEdit) or (Order.DataSet.State = dsInsert)) then
     Order.DataSet.Edit;
   Order.FieldByName('WEIGHT').AsFloat := Order.FieldByName('WEIGHT').AsFloat+aPosDiff;
+  }
 end;
 
 function TOrderPos.Round(aValue: Extended): Extended;
@@ -1804,15 +1756,16 @@ end;
 function TOrderPos.GetOrderTyp: Integer;
 begin
   Result := 0;
+  {
   if Order.OrderType.DataSet.Locate('STATUS', Order.FieldByName('STATUS').AsString, [loCaseInsensitive]) then
     Result := StrToIntDef(trim(copy(Order.OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
+  }
 end;
-constructor TOrderPos.CreateEx(aOwner: TComponent; DM : TComponent;aConnection: TComponent;
-  aMasterdata: TDataSet);
+constructor TOrderPos.CreateEx(aOwner: TPersistent; DM: TComponent);
 begin
-  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
-  FQMTest := TOrderQMTest.CreateEx(Owner,DataModule,aConnection,DataSet);
-  FOrderRepair := TOrderRepair.CreateEx(Owner,DataModule,aConnection,DataSet);
+  inherited CreateEx(aOwner, DM);
+  FQMTest := TOrderQMTests.Create(Self);
+  FOrderRepair := TOrderRepairs.Create(Self);
 end;
 destructor TOrderPos.Destroy;
 begin
@@ -1820,24 +1773,13 @@ begin
   FQMTest.Free;
   inherited Destroy;
 end;
-function TOrderPos.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FOrderRepair.CreateTable;
-  FQMTest.CreateTable;
-end;
-
-procedure TOrderPos.Open;
-begin
-  inherited Open;
-end;
-
 procedure TOrderPos.Assign(aSource: TPersistent);
 var
   aMasterdata: TMasterdata;
   tmpPID: String;
 begin
   inherited Assign(aSource);
+  {
   if aSource is TMasterdata then
     begin
       aMasterdata := aSource as TMasterdata;
@@ -1867,26 +1809,11 @@ begin
           Order.FieldByName('PID').AsString:=tmpPID;
         end;
     end;
+  }
 end;
-procedure TOrderPos.DefineFields(aDataSet: TDataSet);
+procedure TOrderPos.FillDefaults;
 begin
-  inherited DefineFields(aDataSet);
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERPOS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('COSTCENTRE',ftString,10,False);//Kostenstelle
-            Add('ACCOUNT',ftString,10,False); //Fibu Konto
-            Add('PROJECTNR',ftString,20,False);
-          end;
-      if Data.ShouldCheckTable(TableName) then
-        DefineUserFields(aDataSet);
-    end;
-end;
-procedure TOrderPos.FillDefaults(aDataSet: TDataSet);
-begin
+  {TODO
   with aDataSet,BaseApplication as IBaseDbInterface do
     begin
       PosTyp.DataSet.Locate('TYPE', '0', []);
@@ -1897,6 +1824,7 @@ begin
         FieldByName('ORDERNO').AsString  := TOrder(Parent).FieldByName('ORDERNO').AsString;
     end;
   inherited FillDefaults(aDataSet);
+  }
 end;
 function TOrderList.GetHistory: TBaseHistory;
 begin
@@ -1908,45 +1836,21 @@ begin
   Result := FOrderTyp;
 end;
 
-function TOrderList.GetTextFieldName: string;
+function TOrderList.QueryInterface(constref iid: tguid; out obj): longint;
+  stdcall;
 begin
-  Result:='CUSTNAME';
 end;
-function TOrderList.GetNumberFieldName: string;
+function TOrderList._AddRef: longint; stdcall;
 begin
-  Result:='ORDERNO';
 end;
-function TOrderList.GetBookNumberFieldName: string;
+function TOrderList._Release: longint; stdcall;
 begin
-  Result:='NUMBER';
 end;
-function TOrderList.GetStatusFieldName: string;
+constructor TOrderList.CreateEx(aOwner: TPersistent; DM: TComponent);
 begin
-  Result:='STATUS';
-end;
-function TOrderList.GetCommissionFieldName: string;
-begin
-  Result:='COMMISSION';
-end;
-
-function TOrderList.GetBarcodeFieldName: string;
-begin
-  Result:='CUSTZIP';
-end;
-
-constructor TOrderList.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  FHistory := TBaseHistory.CreateEx(Self,DataModule,aConnection,DataSet);
-  FOrderTyp := TOrderTyp.CreateEx(Self,DataModule,aConnection);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          UsePermissions:=True;
-        end;
-    end;
+  inherited CreateEx(aOwner, DM);
+  FHistory := TBaseHistory.Create(Self);
+  FOrderTyp := TOrderTyp.CreateEx(Self,DataModule);
 end;
 
 destructor TOrderList.Destroy;
@@ -1956,10 +1860,9 @@ begin
   inherited Destroy;
 end;
 
-function TOrderList.CreateTable: Boolean;
+class function TOrderList.GetRealTableName: string;
 begin
-  Result:=inherited CreateTable;
-  OrderType.CreateTable;
+  Result:='ORDERS';
 end;
 
 function TOrderList.GetStatusIcon: Integer;
@@ -1972,28 +1875,18 @@ begin
   else
     begin
       OrderType.Open;
-      if OrderType.DataSet.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]) then
-        Result := StrToIntDef(OrderType.DataSet.FieldByName('ICON').AsString,-1);
+      if OrderType.Locate('STATUS',Status,[]) then
+        Result := OrderType.Icon;
       FStatusCache.Values[FieldByName(GetStatusFieldName).AsString] := IntToStr(Result);
     end;
 end;
-
-procedure TOrderList.Open;
-begin
-  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
-    begin
-      if Filter='' then
-        Filter := QuoteField('ACTIVE')+'='+QuoteValue('Y')+' or '+Data.ProcessTerm(QuoteField('ACTIVE')+'='+QuoteValue(''));;
-    end;
-  inherited Open;
-end;
-
 procedure TOrderList.OpenItem(AccHistory: Boolean);
 var
-  aObj: TObjects;
+  //aObj: TObjects;
   aID: String;
   aFilter: String;
 begin
+  {
   if Self.Count=0 then exit;
   try
     try
@@ -2031,7 +1924,7 @@ begin
                 aObj.Status.AsString := Self.Status.AsString;
               aObj.Number.AsVariant:=Self.Number.AsVariant;
               aObj.FieldByName('LINK').AsString:=Data.BuildLink(Self.DataSet);
-              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet),True);
+              aObj.FieldByName('ICON').AsInteger:=Data.GetLinkIcon(Data.BuildLink(Self.DataSet) read write ;
               aObj.Post;
               Self.GenerateThumbnail;
             end
@@ -2070,82 +1963,12 @@ begin
     end;
   except
   end;
-end;
-
-procedure TOrderList.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERS';
-      TableCaption := strOrders;
-      UpdateFloatFields:=True;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ORDERNO',ftInteger,0,True);
-            Add('ACTIVE',ftString,1,False);
-            Add('STATUS',ftString,4,True);
-            Add('LANGUAGE',ftString,3,False);
-            Add('DATE',ftDate,0,False);
-            Add('NUMBER',ftString,20,False);
-            Add('CUSTNO',ftString,20,False);
-            Add('CUSTNAME',ftString,200,False);
-            Add('CUSTZIP',ftString,8,False);
-            Add('EMAIL',ftString,200,False);                //Vorgangsmail z.b. bei Angabe im Webshop oder RMA System
-            Add('DOAFQ',ftDate,0,False);                    //Anfragedatum
-            Add('DWISH',ftDate,0,False);                    //Wunschdatum
-            Add('DAPPR',ftDate,0,False);                    //Bestätigt (Approved)
-            Add('ODATE',ftDate,0,False);                    //Original Date
-            Add('STORAGE',ftString,3,False);
-            Add('CURRENCY',ftString,5,False);
-            Add('PAYMENTTAR',ftString,2,False);
-            Add('PID',ftString,250,False);                   //Produktid wird mit Artikeln befüllt die hinzugefügt werden beim Produktionsauftrag = zu Fertigender Artikel
-            Add('PVERSION',ftString,8,False);               //Version des zu fertigen Artikels
-            Add('PLANGUAGE',ftString,4,False);              //Sprache des zu fertigen Artikels
-            Add('PQUATITY',ftFloat,0,False);                //Fertigungsmenge
-            Add('SHIPPING',ftString,3,False);
-            Add('SHIPPINGD',ftDate,0,False);
-            Add('WEIGHT',ftFloat,0,False);
-            Add('VATH',ftFloat,0,False);                   //Halbe MwSt
-            Add('VATF',ftFloat,0,False);                   //Volle MwSt
-            Add('NETPRICE',ftFloat,0,False);                //Nettopreis
-            Add('DISCPRICE',ftFloat,0,False);              //Skontopreis
-            Add('DISCOUNT',ftFloat,0,False);                //Rabatt
-            Add('GROSSPRICE',ftFloat,0,False);              //Bruttoprice
-            Add('DONE',ftString,1,False);
-            Add('DELIVERED',ftString,1,False);
-            Add('PAYEDON',ftDate,0,False);
-            Add('DELIVEREDON',ftDate,0,False);
-            Add('COMMISSION',ftString,30,False);
-            Add('PROJECTID',ftLargeInt,0,False);
-            Add('PROJECT',ftString,260,False);
-            Add('PROJECTNR',ftString,20,False);
-            Add('NOTE',ftMemo,0,False);
-            Add('HEADERTEXT',ftMemo,0,False);
-            Add('FOOTERTEXT',ftMemo,0,False);
-            Add('CHANGEDBY',ftString,4,False);
-            Add('CREATEDBY',ftString,4,False);
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            Add('ORDERNO','ORDERNO',[ixUnique]);
-            Add('NUMBER','NUMBER',[]);
-            Add('DATE','DATE',[]);
-            Add('ODATE','ODATE',[]);
-            Add('STATUS','STATUS',[]);
-            Add('CUSTNO','CUSTNO',[]);
-            Add('CUSTNAME','CUSTNAME',[]);
-            Add('COMMISSION','COMMISSION',[]);
-          end;
-      if Data.ShouldCheckTable(TableName) then
-        DefineUserFields(aDataSet);
-    end;
+  }
 end;
 
 function TOrderList.SelectOrderType: Boolean;
 begin
-  Result := FOrderTyp.Locate('STATUS',DataSet.FieldByName('STATUS').AsString,[]);
+  Result := FOrderTyp.Locate('STATUS',Status,[]);
 end;
 
 initialization

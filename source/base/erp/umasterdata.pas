@@ -276,9 +276,9 @@ type
     FSupplier: TSuppliers;
     FTexts: TMasterdataTexts;
     function GetHistory : TBaseHistory;
-    function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
     procedure SetId(AValue: string);
     procedure SetStatus(AValue: string);
+    function QueryInterface(constref iid: tguid; out obj): longint; stdcall;
     function _AddRef: longint; stdcall;
     function _Release: longint; stdcall;
   public

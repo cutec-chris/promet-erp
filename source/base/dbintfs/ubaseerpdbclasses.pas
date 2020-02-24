@@ -56,13 +56,13 @@ type
   public
     function Convert(Price: real; SourceCurr, TargetCurr: string): real;
   published
-    property SYMBOL : string index 5 read FSymbol write FSymbol;
-    property NAME : string index 40 read FName write FName;
-    property MASK : string index 20 read FMask write FMask;
-    property DECIMALPL : SmallInt read FDecimalPL write FDecimalPL;
-    property FACTOR : double read FFactor write FFactor;
-    property DEFAULTCUR : string index 1 read FDefaultCUR write FDefaultCUR;
-    property ROUNDGRAN : double read FRoundGran write FRoundGran;
+    property Symbol : string index 5 read FSymbol write FSymbol;
+    property Name : string index 40 read FName write FName;
+    property Mask : string index 20 read FMask write FMask;
+    property DecimalPL : SmallInt read FDecimalPL write FDecimalPL;
+    property Factor : double read FFactor write FFactor;
+    property DefaultCur : string index 1 read FDefaultCUR write FDefaultCUR;
+    property RoundGran: double read FRoundGran write FRoundGran;
   end;
   TPaymentTargets = class(TBaseDBDataSet)
   private
@@ -351,7 +351,7 @@ type
   published
     property Name : string index 160 read FName write FName;
   end;
-  TDispatchTypes = class(TBaseDBDataSet)
+  TDispatchType = class(TBaseDBDataSet)
   private
     FId,FCountry,FName,FOutputDrv,FArticle : string;
     FWeight : double;
@@ -362,6 +362,14 @@ type
     property OutputDrv : string index 60 read FOutputDrv write FOutputDrv;
     property Weight : Double read FWeight write FWeight;
     property Article : string index 40 read FArticle write FArticle;
+  end;
+
+  { TDispatchTypes }
+
+  TDispatchTypes = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+    procedure SelectByCountryAndWeight(aCountry: string;aWeight : real);
   end;
   TRepairProblems = class(TBaseDBDataSet)
   private
@@ -445,6 +453,27 @@ begin
   multi := IntPower(10, nk);
   nValue := (Value*multi);
   Result := (Trunc(nValue) + Trunc (Frac(nValue) * 2))/multi;
+end;
+
+{ TDispatchTypes }
+
+class function TDispatchTypes.GetObjectTyp: TClass;
+begin
+  Result := TDispatchType;
+end;
+
+procedure TDispatchTypes.SelectByCountryAndWeight(aCountry: string;
+  aWeight: real);
+var
+  aFilter: String;
+begin
+  {
+  with  DataSet as IBaseDBFilter, BaseApplication as IBaseDBInterface, DataSet as IBaseManageDB do
+    begin
+      Filter := '('+QuoteField('COUNTRY')+'='+QuoteValue(aCountry)+') AND ('+QuoteField('WEIGHT')+'>='+QuoteValue(FloatToStr(aWeight))+')';
+      SortFields:='WEIGHT';
+    end;
+  }
 end;
 
 { TFinancialAccounts }
