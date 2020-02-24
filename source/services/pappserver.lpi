@@ -95,7 +95,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="11">
+    <Exceptions Count="12">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -129,6 +129,9 @@
       <Item11>
         <Name Value="EPQDatabaseError"/>
       </Item11>
+      <Item12>
+        <Name Value="EJSONRTTI"/>
+      </Item12>
     </Exceptions>
   </Debugging>
 </CONFIG>

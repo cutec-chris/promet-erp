@@ -216,7 +216,7 @@ constructor TQueryTable.Create(aClass: TClass);
            end
          else if (Prop.PropertyType.TypeKind=tkClass) then
            begin
-             if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
+             if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType.InheritsFrom(TAbstractMasterDetail) then
                begin
                  aTyp := TRttiInstanceType(Prop.PropertyType).MetaClassType;
                  try
@@ -226,7 +226,9 @@ constructor TQueryTable.Create(aClass: TClass);
                    //on e : exception do
                    //  debugln(e.message);
                  end;
-               end;
+               end
+             else
+               writeln('MetaClassType not found: '+TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType.ClassName);
            end;
        end;
   end;
@@ -266,8 +268,8 @@ begin
         begin
           FoundFields.Add(cFullFieldName);
           ToFindFields.Delete(0);
-          if JoinedTables.IndexOf(QuoteField(cFieldTableName)+JoinedTables.NameValueSeparator+QuoteField(cJoinTableName))=-1 then
-            JoinedTables.AddPair(QuoteField(cFieldTableName),QuoteField(cJoinTableName));
+          if JoinedTables.IndexOf(QuoteField(Uppercase(cFieldTableName))+JoinedTables.NameValueSeparator+QuoteField(Uppercase(cJoinTableName)))=-1 then
+            JoinedTables.AddPair(QuoteField(Uppercase(cFieldTableName)),QuoteField(Uppercase(cJoinTableName)));
         end
       else
         raise Exception.Create('Unable to build Select, Field "'+ToFindFields[0]+'" not found');
@@ -302,7 +304,7 @@ var
     for i := 0 to Table.Count-1 do
       begin
         if not TQueryTable(Table.Items[i]).Selected then
-          JoinedTables.AddPair(QuoteField(Table.TableName),QuoteField(TQueryTable(Table.Items[i]).TableName));
+          JoinedTables.AddPair(QuoteField(Uppercase(Table.TableName)),QuoteField(Uppercase(TQueryTable(Table.Items[i]).TableName)));
         CollectFields(TQueryTable(Table.Items[i]));
       end;
   end;
@@ -506,7 +508,7 @@ var
             if (Prop.PropertyType.TypeKind<>tkClass) then
               begin
                 if aObj.InheritsFrom(TAbstractDBDataset2) then
-                  aFieldName := lowercase(TAbstractDBDataset2(Obj).MapField(Prop.Name))
+                  aFieldName := lowercase(TAbstractDBDataset2(aObj).MapField(Prop.Name))
                 else
                   aFieldName := lowercase(Prop.Name);
                 aField := aDataSet.FieldByName(aTablename+'_'+aFieldName);

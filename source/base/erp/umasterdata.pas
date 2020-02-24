@@ -103,6 +103,13 @@ type
   public
     class function GetRealTableName: string; override;
   end;
+
+  { TMDPositions }
+
+  TMDPositions = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
   TSerial = class(TBaseDbDataSet)
   private
     FSerial,FNote : string;
@@ -260,7 +267,7 @@ type
     FImages: TImages;
     FLinks: TMasterdataLinks;
     FMeasurement: TMeasurements;
-    FPosition: TMDPos;
+    FPosition: TMDPositions;
     FPrices: TMasterdataPrices;
     FProperties: TMdProperties;
     FSerials: TSerials;
@@ -293,7 +300,7 @@ type
     property Status : string read FStatus write SetStatus;
     property ID : string read FID write SetId;
     //property Storage : TStorageList read FStorage;
-    property Positions : TMDPos read FPosition;
+    property Positions : TMDPositions read FPosition;
     //property History : TBaseHistory read FHistory;
     //property Images : TImages read FImages;
     //property Links : TMasterdataLinks read FLinks;
@@ -307,6 +314,13 @@ type
   end;
 implementation
 uses uData, Utils;
+
+{ TMDPositions }
+
+class function TMDPositions.GetObjectTyp: TClass;
+begin
+  Result := TMDPos;
+end;
 
 { TSerials }
 
@@ -711,7 +725,7 @@ end;
 constructor TMasterdata.CreateEx(Owner: TPersistent; Module: TComponent);
 begin
   inherited CreateEx(Owner, Module);
-  FPosition := TMDPos.CreateEx(Self, DataModule);
+  FPosition := TMDPositions.Create(Self);
   FStorage := TStorageList.Create(Self);
   FHistory := TBaseHistory.Create(Self);
   FImages := TImages.Create(Self);

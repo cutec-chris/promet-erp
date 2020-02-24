@@ -116,9 +116,6 @@ type
     property FKEY : string index 10 read FFKey write FFKey; //Fibu Schlüssel (Financial accounting key ??)
   end;
   TBaseDBPosition = class;
-
-  { TPositionCalc }
-
   TPositionCalc = class(TbaseDBDataSet)
   private
     FRefID : Int64;
@@ -136,9 +133,6 @@ type
     property MaxCount : double read FMaxCount write FMaxCount;
     property Customer : string index 20 read FCustomer write FCustomer;
   end;
-
-  { TBaseDBPosition }
-
   TBaseDBPosition = class(TBaseDbDataSet)
   private
     //FImages: TImages;
@@ -871,8 +865,11 @@ end;
 class function TBaseDBPosition.MapField(aField: string): string;
 begin
   Result:=aField;
-  if aField = 'PARENTID' then
-    aField := 'PARENT';
+  if aField = 'ParentID' then
+    Result := 'PARENT'
+  else if aField = 'PosType' then
+    Result := 'POSTYP'
+  ;
 end;
 
 procedure TBaseDBPosition.Assign(Source: TPersistent);
