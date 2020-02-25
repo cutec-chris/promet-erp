@@ -43,7 +43,7 @@ type
     procedure SetActive(AValue: Boolean);
   protected
   public
-    constructor Create(aParent : TPersistent);
+    constructor Create(aParent : TPersistent);virtual;
     property Parent : TPersistent read FParent;
     class function MapField(aField : string) : string;virtual;
     procedure FillDefaults;virtual;
@@ -78,7 +78,7 @@ type
     property SQL_ID : Int64 read FId write FId;
     property TIMESTAMPD : TDateTime read FTimestampd write FTimestampd;
   end;
-
+  TAbstractDBDataset2Class = class of TAbstractDBDataset2;
   { TAbstractMasterDetail }
 
   TAbstractMasterDetail = class(TObjectList)

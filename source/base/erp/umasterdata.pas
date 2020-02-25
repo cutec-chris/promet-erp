@@ -193,14 +193,13 @@ type
     FValidFrom,FValidTo : TDateTime;
     procedure SetPrice(AValue: double);
   public
+    constructor Create;
     class function GetRealTableName: string; override;
-    constructor CreateEx(Owner: TPersistent;Module: TComponent); override;
     procedure FillDefaults; override;
     function GetPriceType : Integer;
     function FormatCurrency(Value : real) : string;
     property Masterdata : TMasterdataList read FMasterdata write FMasterdata;
   published
-    constructor Create;
     property PType : string index 4 read FPType write FPType;
     property Price : double read FPrice write SetPrice;
     property Note : string index 500 read FNote write FNote;
@@ -260,6 +259,9 @@ type
   public
     class function GetObjectTyp: TClass; override;
   end;
+
+  { TMasterdata }
+
   TMasterdata = class(TMasterdataList,IBaseHistory)
   private
     FAssembly: TRepairAssembies;
@@ -279,7 +281,7 @@ type
     procedure SetId(AValue: string);
     procedure SetStatus(AValue: string);
   public
-    constructor CreateEx(Owner: TPersistent;Module: TComponent); override;
+    constructor Create;
     destructor Destroy;override;
     procedure FillDefaults;override;
     function Copy(aNewVersion : Variant;aNewLanguage : Variant;cPrices : Boolean = True;
@@ -429,11 +431,6 @@ end;
 class function TMasterdataPrice.GetRealTableName: string;
 begin
   Result:='MDPRICES';
-end;
-
-constructor TMasterdataPrice.CreateEx(Owner: TPersistent; Module: TComponent);
-begin
-  inherited CreateEx(Owner,Module);
 end;
 
 procedure TMasterdataPrice.FillDefaults;
@@ -706,9 +703,8 @@ function TMasterdata.GetHistory: TBaseHistory;
 begin
   Result := FHistory;
 end;
-constructor TMasterdata.CreateEx(Owner: TPersistent; Module: TComponent);
+constructor TMasterdata.Create;
 begin
-  inherited CreateEx(Owner, Module);
   FPosition := TMDPositions.Create(Self);
   FStorage := TStorageList.Create(Self);
   FHistory := TBaseHistory.Create(Self);

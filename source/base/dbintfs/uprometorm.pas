@@ -487,13 +487,14 @@ var
     aFieldName, aTablename: String;
     aField: TField;
     aVal: TValue;
-    aTyp, bTyp: TClass;
+    aTyp, bTyp : TClass;
+    aObjTyp: TAbstractDBDataset2Class;
     aDetail, nObj: TObject;
     SubClassFilled : Boolean = False;
-    //aPerf: QWord;
+    aPerf: QWord;
   begin
-    //aPerf := GetTickCount64;
-    //writeln('FillDataSet('+aObj.ClassName+')');
+    aPerf := GetTickCount64;
+    writeln('FillDataSet('+aObj.ClassName+')');
     repeat
       //Fill aObj Fields
       ctx := TRttiContext.Create;
@@ -559,9 +560,12 @@ var
                       for b := Count-1 downto max(Count-2,0) do
                         if Items[b] is TAbstractDBDataset2 then
                           begin
-                            if Items[b].InheritsFrom(TAbstractDBDataset2) then
-                              aTableName:=lowercase(TAbstractDBDataset2(Items[b]).GetRealTableName)
-                            else aTablename := lowercase(Items[b].ClassName);
+                            if aTableName = '' then
+                              begin
+                                if Items[b].InheritsFrom(TAbstractDBDataset2) then
+                                  aTableName:=lowercase(TAbstractDBDataset2(Items[b]).GetRealTableName)
+                                else aTablename := lowercase(Items[b].ClassName);
+                              end;
                             aField := aDataSet.FieldByName(aTablename+'_sql_id');
                             if Assigned(aField) and (aField.AsLargeInt=TAbstractDBDataset2(Items[b]).SQL_ID) then
                               begin
@@ -572,13 +576,13 @@ var
                               end;
                           end;
                       //not found we have to add an new object
-                      nObj := GetObjectTyp.Create;
+                      aObjTyp := TAbstractDBDataset2Class(GetObjectTyp);
+                      //writeln('Creating Object:'+nObj.ClassName+' (sql_id:'+aField.AsString+')');
+                      nObj := aObjTyp.Create(aObj);
                       aTableName := TAbstractDBDataset2(nObj).GetRealTableName;
                       aField := aDataSet.FieldByName(aTablename+'_sql_id');
                       if Assigned(aField) and (aField.AsLargeInt<>0) then
                         begin
-                          nObj := GetObjectTyp.Create;
-                          //writeln('Creating Object:'+nObj.ClassName+' (sql_id:'+aField.AsString+')');
                           Add(nObj);
                           FillDataSet(TPersistent(nObj),aDataSet);
                           SubClassFilled := True;
@@ -602,7 +606,7 @@ var
           exit;
         end;
     until aDataSet.EOF;
-    //writeln('GetTickCount:'+IntToStr(GetTickCount64-aPerf));
+    writeln('GetTickCounte:'+IntToStr(GetTickCount64-aPerf)+' Size:'+IntToStr(aObj.InstanceSize));
   end;
 
 begin

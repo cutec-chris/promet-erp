@@ -88,7 +88,7 @@ type
     function GetOrderTyp: TOrdertyp;
   protected
   public
-    constructor CreateEx(aOwner: TPersistent; DM: TComponent); override;
+    constructor Create(aParent : TPersistent);override;
     destructor Destroy; override;
     class function MapField(aField: string): string; override;
     class function GetRealTableName: string; override;
@@ -178,7 +178,7 @@ type
     FDuration : Integer;
     FResult : Boolean;
   public
-    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
+    constructor Create(aParent : TPersistent);override;
     destructor Destroy;override;
   published
     property ID: Int64 read FID write FID;
@@ -236,7 +236,7 @@ type
     FDS : TDataSource;
     procedure SetStatus(AIndex: Integer; AValue: string);
   public
-    constructor CreateEx(aOwner: TPersistent; DM: TComponent); override;
+    constructor Create(aParent : TPersistent);override;
     destructor Destroy; override;
     procedure Open; override;
     property RepairDetail : TOrderRepairDetail read FDetail;
@@ -265,7 +265,7 @@ type
     FErrImage : Int64;
     FTime : double;
   public
-    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
+    constructor Create(aParent : TPersistent);override;
     destructor Destroy;override;
   published
     property ID: Integer read FID write FID;
@@ -287,6 +287,9 @@ type
   public
     class function GetObjectTyp: TClass; override;
   end;
+
+  { TOrderPos }
+
   TOrderPos = class(TBaseDBPosition)
   private
     FOrder: TOrder;
@@ -302,7 +305,7 @@ type
     function GetCurrency : string;override;
     function GetOrderTyp : Integer;override;
   public
-    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
+    constructor Create(aParent : TPersistent);override;
     destructor Destroy;override;
     procedure Assign(aSource : TPersistent);override;
     procedure FillDefaults; override;
@@ -327,8 +330,7 @@ type
   private
     FOrder: TOrder;
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor Create;override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure CascadicPost; override;
     procedure Assign(Source: TPersistent); override;
@@ -393,7 +395,7 @@ type
       var aNewValue: string);
     function Round(Value: Extended): Extended;
   public
-    constructor CreateEx(aOwner : TPersistent;DM : TComponent=nil);override;
+    constructor Create(aParent : TPersistent);override;
     destructor Destroy;override;
     procedure FillDefaults;override;
     procedure Open;override;
@@ -509,9 +511,9 @@ begin
   inherited FillDefaults;
   RRef_ID:=(Parent as TOrderRepairImage).SQL_ID;
 end;
-constructor TOrderRepairImage.CreateEx(aOwner: TPersistent; DM: TComponent);
+constructor TOrderRepairImage.Create(aParent: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM);
+  inherited;
   FHistory := TBaseHistory.Create(Self);
   FImages := TImages.Create(Self);
   FLinks := TRepairImageLinks.Create(Self);
@@ -527,9 +529,9 @@ begin
   FHistory.Free;
   inherited Destroy;
 end;
-constructor TOrderRepair.CreateEx(aOwner: TPersistent; DM: TComponent);
+constructor TOrderRepair.Create(aParent: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM);
+  inherited;
   FDetails := TOrderRepairDetails.Create(Self);
 end;
 destructor TOrderRepair.Destroy;
@@ -543,12 +545,6 @@ begin
   RRef_ID:=(Parent as TOrder).SQL_ID;
 end;
 {
-constructor TOrderAddress.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-end;
-
 procedure TOrderAddress.DefineFields(aDataSet: TDataSet);
 begin
   inherited DefineFields(aDataSet);
@@ -630,9 +626,9 @@ class function TOrderQMTestDetails.GetObjectTyp: TClass;
 begin
   Result := TOrderQMTestDetail;
 end;
-constructor TOrderQMTest.CreateEx(aOwner: TPersistent; DM: TComponent);
+constructor TOrderQMTest.Create(aParent: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM);
+  inherited;
   FDetails := TOrderQMTestDetails.Create(Self);
 end;
 destructor TOrderQMTest.Destroy;
@@ -662,9 +658,9 @@ begin
   }
 end;
 
-constructor TOrder.CreateEx(aOwner: TPersistent; DM: TComponent);
+constructor TOrder.Create(aParent: TPersistent);
 begin
-  inherited CreateEx(aOwner,DM);
+  inherited;
   //FOrderAddress := TOrderAddresses.CreateEx(Self,DataModule,aConnection,DataSet);
   FOrderPos := TOrderPositions.Create(Self);
   FLinks := TOrderLinks.Create(Self);
@@ -1777,9 +1773,9 @@ begin
     Result := StrToIntDef(trim(copy(Order.OrderType.FieldByName('TYPE').AsString, 0, 2)), 0);
   }
 end;
-constructor TOrderPos.CreateEx(aOwner: TPersistent; DM: TComponent);
+constructor TOrderPos.Create(aParent: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM);
+  inherited;
   FQMTest := TOrderQMTests.Create(Self);
   FOrderRepair := TOrderRepairs.Create(Self);
 end;
@@ -1852,9 +1848,9 @@ begin
   Result := FOrderTyp;
 end;
 
-constructor TOrderList.CreateEx(aOwner: TPersistent; DM: TComponent);
+constructor TOrderList.Create(aParent: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM);
+  inherited;
   FHistory := TBaseHistory.Create(Self);
   FOrderTyp := TOrderTyp.CreateEx(Self,DataModule);
 end;

@@ -38,7 +38,6 @@ type
   protected
     FStatusCache: TStringList;
   public
-    //constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
     destructor Destroy; override;
     function GetStatusIcon : Integer;virtual;
     function GetTyp: string;virtual;
@@ -115,8 +114,7 @@ type
   public
     function CheckUserPasswort(aPasswort: string): Boolean;
     procedure SetPasswort(aPasswort : string);
-    constructor Create;
-    constructor CreateEx(Owner: TPersistent;Module: TComponent);override;
+    constructor Create(aParent : TPersistent);override;
     class function GetRealTableName: string; override;
     class function MapField(aField: string): string; override;
   published
@@ -734,14 +732,10 @@ begin
   PASSWORD:=aRes;
 end;
 
-constructor TUser.Create;
+constructor TUser.Create(aParent: TPersistent);
 begin
+  inherited;
   FOptions := TOptions.Create(Self);
-end;
-
-constructor TUser.CreateEx(Owner: TPersistent; Module: TComponent);
-begin
-  inherited CreateEx(Owner,Module);
 end;
 
 class function TUser.GetRealTableName: string;

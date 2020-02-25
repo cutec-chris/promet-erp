@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession,iniwebsession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, perp2, db;
+  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, perp2, db, uorder;
 
 type
   TAPIV2Session = class(TIniWebSession)
@@ -16,13 +16,6 @@ type
 
   TDatasetToJSONOption = (djoSetNull, djoCurrentRecord, djoPreserveCase);
   TDatasetToJSONOptions = set of TDatasetToJSONOption;
-
-  { TAPIV2SessionFactory }
-
-  TAPIV2SessionFactory = class(TIniSessionFactory)
-  protected
-    constructor Create(AOwner: TComponent); override;
-  end;
 
   { TAPIV2Module }
 
@@ -36,14 +29,6 @@ type
 implementation
 
 uses base64;
-
-{ TAPIV2SessionFactory }
-
-constructor TAPIV2SessionFactory.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  Cached:=True;
-end;
 
 { TAPIV2Module }
 
@@ -104,7 +89,7 @@ begin
     begin
       if lowercase(copy(ARequest.Authorization,0,6))='basic ' then
         begin
-          aUser := TUser.Create;
+          aUser := TUser.Create(nil);
           try
             with aUser do
               begin
@@ -189,7 +174,6 @@ end;
 
 initialization
   RegisterHTTPModule('api/v2', TAPIV2Module, True);
-  SessionFactoryClass:=TAPIV2SessionFactory;
   IniWebSessionClass:=TAPIV2Session;
 end.
 

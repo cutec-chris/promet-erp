@@ -29,7 +29,7 @@ begin
   writeln('done.');
   if Application.HasOption('u','user') then
     begin
-      GlobalUser := TUser.Create;
+      GlobalUser := TUser.Create(nil);
       if not Data.Load(GlobalUser,'NAME='+Application.GetOptionValue('u','user')) then
         begin
           writeln('User not found...');
