@@ -139,7 +139,7 @@ begin
             case tmp of
             'by-id':
               begin
-                aData := DatasetClasses[i].aClass.CreateEx(Self,Data);
+                aData := DatasetClasses[i].aClass.Create(Self);
                 case aRequest.Method of
                 'GET':
                   begin
