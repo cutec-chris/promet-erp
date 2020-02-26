@@ -35,12 +35,12 @@
     </RunParams>
     <RequiredPackages Count="4">
       <Item1>
-        <PackageName Value="perp2"/>
-        <DefaultFilename Value="..\base\erp\perp2.lpk"/>
+        <PackageName Value="pwiki2"/>
+        <DefaultFilename Value="..\base\wiki\pwiki2.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="pPrometDBIntfs2"/>
-        <DefaultFilename Value="..\base\dbintfs\pprometdbintfs2.lpk"/>
+        <PackageName Value="perp2"/>
+        <DefaultFilename Value="..\base\erp\perp2.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="LCLBase"/>

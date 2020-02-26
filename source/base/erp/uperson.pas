@@ -106,14 +106,16 @@ type
     property Descr: string index 30 read FDescr write FDescr;
     property Active: Boolean read FActive write FActive;
   end;
+
+  { TPersonContactData }
+
   TPersonContactData = class(TBaseDBList)
   private
+    FAccountNo,FDescr,FType,FData,FLink : string;
+    Factive : Boolean;
   public
     class function GetRealTableName: string; override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
-    function GetNumberFieldName : string;override;
-    function GetTextFieldName: string;override;
+    procedure FillDefaults;override;
   published
     property AccountNo: string index 20 read FAccountNo write FAccountNo;
     property Descr: string index 30 read FDescr write FDescr;
@@ -122,18 +124,40 @@ type
     property Link: string index 400 read FLink write FLink;
     property Active: Boolean read FActive write FActive;
   end;
+
+  { TPersonBanking }
+
   TPersonBanking = class(TBaseDBDataSet)
+  private
+    FSortCode,FInstitute,FAccount : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class function GetRealTableName: string; override;
     function CheckAccount : Boolean;
+  published
+    property SortCode: string index 20 read FSortCode write FSortCode;
+    property Account: string index 200 read FAccount write FAccount;
+    property Institute: string index 60 read FInstitute write FInstitute;
   end;
+
+  { TPersonLinks }
+
   TPersonLinks = class(TLinks)
   public
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults;override;
   end;
+
+  { TPersonEmployees }
+
   TPersonEmployees = class(TBaseDbDataSet)
+  private
+    FName,FDepartment,FPosition,FEmployee : string;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
+    class function GetRealTableName: string; override;
+  published
+    property Name: string index 40 read FName write FName;
+    property Department: string index 30 read FDepartment write FDepartment;
+    property Position: string index 30 read FPosition write FPosition;
+    property Employee: string index 20 read FEmployee write FEmployee;
   end;
   TPerson = class(TPersonList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
@@ -145,20 +169,14 @@ type
     FImages: TImages;
     FLinks: TPersonLinks;
     FPersonAddress: TPersonAddress;
-    FStatus : string;
     FDS : TDataSource;
     FStateChange: TNotifyEvent;
-    function GetAccountNo: TField;
     function GetHistory: TBaseHistory;
-    function GetInfo: TField;
   public
-    constructor CreateEx(aOwner : TComponent;DM : TComponent=nil;aConnection : TComponent = nil;aMasterdata : TDataSet = nil);override;
+    constructor Create(aOwner : TPersistent);override;
     destructor Destroy;override;
     procedure Open; override;
-    function CreateTable : Boolean;override;
-    procedure CascadicPost;override;
-    procedure CascadicCancel;override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    procedure FillDefaults;override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     property Address : TPersonAddress read FPersonAddress;
     property ContactData : TPersonContactData read FCustomerCont;
@@ -167,50 +185,31 @@ type
     property Banking : TPersonBanking read FBanking;
     property Links : TPersonLinks read FLinks;
     property Employees : TPersonEmployees read FEmployees;
-    property AccountNo : TField read GetAccountNo;
-    property Info : TField read GetInfo;
     function SelectFromContactData(aCont : string) : Boolean;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
     procedure GenerateThumbnail; override;
   end;
 
 implementation
-uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils,
+uses uData, Utils,
   comparewild;
 
-procedure TPersonEmployees.DefineFields(aDataSet: TDataSet);
+{ TPersonEmployees }
+
+class function TPersonEmployees.GetRealTableName: string;
 begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'EMPLOYEES';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property NAME: string index 40 read  write ;
-            property DEPARTMENT: string index 30 read  write ;
-            property POSITION: string index 30 read  write ;
-            property EMPLOYEE: string index 20 read  write ;
-          end;
-    end;
+  Result:='EMPLOYEES';
 end;
-procedure TPersonLinks.FillDefaults(aDataSet: TDataSet);
+
+procedure TPersonLinks.FillDefaults;
 begin
-  inherited FillDefaults(aDataSet);
-  aDataSet.FieldByName('RREF_ID').AsVariant:=(Parent as TPerson).Id.AsVariant;
+  inherited FillDefaults;
+  RRef_ID:=(Parent as TPerson).SQL_ID;
 end;
-procedure TPersonBanking.DefineFields(aDataSet: TDataSet);
+
+class function TPersonBanking.GetRealTableName: string;
 begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'CUSTOMERBANKING';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property SORTCODE: string index 20 read  write ;
-            property ACCOUNT: string index 200 read  write ;
-            property INSTITUTE: string index 60 read  write ;
-          end;
-    end;
+  Result:='CUSTOMERBANKING';
 end;
 
 function TPersonBanking.CheckAccount: Boolean;
@@ -308,54 +307,14 @@ begin
   Result := TestIBAN(FieldByName('ACCOUNT').AsString);
 end;
 
-function TPersonContactData.Getcomment: TField;
+class function TPersonContactData.GetRealTableName: string;
 begin
-  Result := FieldByName('DESCR');
+  Result:='CUSTOMERCONT';
 end;
 
-function TPersonContactData.GetData: TField;
+procedure TPersonContactData.FillDefaults;
 begin
-  Result := FieldByName('DATA');
-end;
-
-function TPersonContactData.GetTyp: TField;
-begin
-  Result := FieldByName('TYPE');
-end;
-
-procedure TPersonContactData.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'CUSTOMERCONT';
-      TableCaption := strCustomerCont;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-       if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-          end;
-   end;
-end;
-procedure TPersonContactData.FillDefaults(aDataSet: TDataSet);
-begin
-  with aDataSet,BaseApplication as IBaseDBInterface do
-    begin
-      if DataSet.FieldDefs.IndexOf('ACCOUNTNO') > -1 then
-        FieldByName('ACCOUNTNO').AsString := TPerson(Parent).FieldByName('ACCOUNTNO').AsString;
-    end;
-end;
-
-function TPersonContactData.GetNumberFieldName: string;
-begin
-  Result := 'LINK';
-end;
-
-function TPersonContactData.GetTextFieldName: string;
-begin
-  Result := 'DATA';
+  AccountNo := (Parent as TPerson).AccountNo;
 end;
 
 class function TPersonAddress.GetRealTableName: string;
@@ -363,18 +322,10 @@ begin
   Result:='ADDRESSES';
 end;
 
-procedure TPersonAddress.DefineFields(aDataSet: TDataSet);
+procedure TPersonAddress.FillDefaults;
 begin
-  inherited DefineFields(aDataSet);
-end;
-
-procedure TPersonAddress.FillDefaults(aDataSet: TDataSet);
-begin
-  inherited FillDefaults(aDataSet);
-  with aDataSet,BaseApplication as IBaseDBInterface do
-    begin
-      if DataSet.FieldDefs.IndexOf('ACCOUNTNO') > -1 then
-        FieldByName('ACCOUNTNO').AsString := TPerson(Parent).FieldByName('ACCOUNTNO').AsString;
+  inherited FillDefaults;
+  AccountNo := TPerson(Parent).FieldByName('ACCOUNTNO').AsString;
       FieldByName('ADDRNO').AsInteger := DataSet.RecordCount+1;
       FieldByName('COUNTRY').AsString := UpperCase(TPerson(Parent).FieldByName('LANGUAGE').AsString);
     end;
@@ -693,10 +644,9 @@ function TPerson.GetAccountNo: TField;
 begin
   Result := DataSet.FieldByName('ACCOUNTNO');
 end;
-constructor TPerson.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
+constructor TPerson.Create(aOwner: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM,aConnection, aMasterdata);
+  inherited Create(aOwner);
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -743,7 +693,7 @@ begin
   FLinks.CreateTable;
   FEmployees.CreateTable;
 end;
-procedure TPerson.FillDefaults(aDataSet: TDataSet);
+procedure TPerson.FillDefaults;
 var
   Languages: TLanguages;
 begin

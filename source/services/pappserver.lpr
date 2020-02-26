@@ -5,7 +5,7 @@ uses
   {$ENDIF}
   Classes, SysUtils, CustApp, general_nogui, memds, LazFileUtils,
   ubasedbclasses, uPrometORM, httproute, fphttpapp, fpwebfile, HTTPDefs,
-  uapiv2handling, pprometdbintfs2, uData;
+  uapiv2handling, uData;
 
 begin
   Application.Port := 8085;
