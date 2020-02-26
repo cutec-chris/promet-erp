@@ -22,7 +22,7 @@ unit uOrder;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db,
-  uBaseERPDBClasses, uMasterdata, Variants ,uBaseDatasetInterfaces2;
+  uBaseERPDBClasses, uMasterdata, uPerson, Variants ,uBaseDatasetInterfaces2;
 type
 
   { TOrderTyp }
@@ -309,12 +309,11 @@ type
     destructor Destroy;override;
     procedure Assign(aSource : TPersistent);override;
     procedure FillDefaults; override;
-    property Order : TOrder read FOrder write FOrder;
-    property Repair : TOrderRepairs read FOrderRepair;
   published
     property CostCentre: string index 10 read FCostCentre write FCostCentre;//Kostenstelle
     property Account: string index 10 read FAccount write FAccount; //Fibu Konto
     property ProjectNr: string index 20 read FProjectNr write FProjectNr;
+    property Repair : TOrderRepairs read FOrderRepair;
     property QMTest : TOrderQMTests read FQMTest;
   end;
 
@@ -388,7 +387,7 @@ type
     FLinks: TOrderLinks;
     FOnGetSerial: TOnGetSerialEvent;
     FOnGetStorage: TOnGetStorageEvent;
-    //FOrderAddress: TOrderAddresses;
+    FOrderAddress: TOrderAddresses;
     FOrderPos: TOrderPositions;
     function GetCommission: TField;
     procedure ReplaceParentFields(aField: TField; aOldValue: string;
@@ -401,7 +400,7 @@ type
     procedure Open;override;
     procedure RefreshActive(aOrderno: string='');
     property Commission : TField read GetCommission;
-    //property Address : TOrderAddresses read FOrderAddress;
+    property Address : TOrderAddresses read FOrderAddress;
     property Links : TOrderLinks read FLinks;
     function CombineItems(aRemoteLink: string): Boolean;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
@@ -1750,20 +1749,20 @@ end;
 
 function TOrderPos.Round(aValue: Extended): Extended;
 begin
-  if Assigned(Order) then
-    Result := Order.Round(aValue)
+  if Assigned(Parent) then
+    Result := (Parent as TOrder).Round(aValue)
   else Result:=inherited Round(aValue);
 end;
 function TOrderPos.RoundPos(aValue: Extended): Extended;
 begin
-  if Order.SelectOrderType and (Order.OrderType.FieldByName('ROUNDPOS').AsString='Y') then
+  if (Parent as TOrder).SelectOrderType and ((Parent as TOrder).OrderType. FieldByName('ROUNDPOS').AsString='Y') then
     Result := Round(aValue)
   else result := aValue;
 end;
 
 function TOrderPos.GetCurrency: string;
 begin
-  Result:=Order.FieldByName('CURRENCY').AsString;
+  Result:=(Parent as TOrder).Currency;
 end;
 function TOrderPos.GetOrderTyp: Integer;
 begin

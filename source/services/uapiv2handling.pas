@@ -148,7 +148,7 @@ begin
                         Response.Code:=200;
                         Response.CodeText:='OK';
                         Response.Content:=Streamer.ObjectToJSON(aData).FormatJSON;
-                        Response.ContentType:='text/json';
+                        Response.ContentType:='application/json';
                         exit;
                       end;
                   end;
@@ -161,7 +161,7 @@ begin
                   begin
                     Response.Code:=200;
                     Response.CodeText:='OK';
-                    Response.ContentType:='text/json';
+                    Response.ContentType:='application/json';
                     arr := TJSONArray.Create;
                     DatasetToJSON(aDS,arr,[]);
                     Response.Content:=Streamer.ObjectToJSON(arr).FormatJSON;

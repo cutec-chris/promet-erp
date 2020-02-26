@@ -873,8 +873,8 @@ begin
 end;
 destructor TBaseDBPosition.Destroy;
 begin
-  PriceTypes.Destroy;
-  FPosCalc.Destroy;
+  //FPriceTypes.Destroy;
+  //FPosCalc.Destroy;
   inherited Destroy;
 end;
 procedure TBaseDBPosition.FillDefaults;

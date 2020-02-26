@@ -27,64 +27,100 @@ type
   { TPersonList }
 
   TPersonList = class(TBaseERPList)
+  private
+    FAccountNo,FMatchCode,FName,FDiscountGr,FDefPrice,FLanguage,FCurrency,FEAccount,
+    FPaymentTar,FType,FInfo,FCategory,FCreatedBy,FChangedBy,FStatus,FOld_ID : string;
+    FTreeEntry : Int64;
+    FDiscount : double;
+    FCrDate,FCHDate : TDateTime;
   public
     function GetMatchCodeFieldName: string;override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetStatusFieldName : string;override;
     function GetTyp: string; override;
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    procedure DefineFields(aDataSet : TDataSet);override;
+    constructor Create(aOwner: TPersistent); override;
     function SelectFromLink(aLink : string) : Boolean;override;
     procedure SelectByAccountNo(aAccountNo : string);overload;
-    function CombineItems(aRemoteLink: string): Boolean; override;
+    //function CombineItems(aRemoteLink: string): Boolean; override;
+  published
+    property AccountNo: string index 20 read FAccountNo write FAccountNo;
+    property MatchCode: string index 200 read FMatchCode write FMatchCode;
+    property Status: string index 4 read FStatus write FStatus;
+    property Name: string index 200 read FName write FName;
+    property TreeEntry: Int64 read FTreeEntry write FTreeEntry;
+    property Discount: double read FDiscount write FDiscount;
+    property DiscountGr: string index 2 read FDiscountGr write FDiscountGr;
+    property DefPrice: string index 2 read FDefPrice write FDefPrice;
+    property Language: string index 3 read FLanguage write FLanguage;
+    property Currency: string index 5 read FCurrency write FCurrency;
+    property EAccount: string index 20 read FEAccount write FEAccount;//Remote Accountno
+    property PaymentTar: string index 2 read FPaymentTar write FPaymentTar;
+    property Typ: string index 1 read FType write FType;
+    property Info: string read FInfo write FInfo;
+    property Category: string index 60 read FCategory write FCategory;
+    property Old_Id: string index 200 read FOld_Id write FOld_Id;
+    property CrDate: TDateTime read FCrDate write FCrDate;
+    property ChDate: TDateTime read FChDate write FChDate;
+    property CreatedBy: string index 4 read FCreatedBy write FCreatedBy;
+    property ChangedBy: string index 4 read FChangedBy write FChangedBy;
   end;
 
   TBaseDbAddress = class(TBaseDBList)
   private
-    function GetAddress: TField;
-    function GetCity: TField;
-    function GetCountry: TField;
-    function GetName: TField;
-    function GetTitle: TField;
-    function GetZip: TField;
+    FType,FTitle,FName,FCName,FAdditional,FAddress,FCity,FZip,FState,FCountry : string;
+    FPoBox : Integer;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
     procedure Assign(Source: TPersistent); override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
     function ToString: ansistring;override;
-    procedure OpenItem(AccHistory: Boolean=True); override;
     procedure FromString(aStr : AnsiString);virtual;
-    property Title : TField read GetTitle;
-    property AdressName : TField read GetName;
-    property Address : TField read GetAddress;
-    property Country : TField read GetCountry;
-    property City : TField read GetCity;
-    property Zip : TField read GetZip;
+  published
+    property Typ: string index 3 read FType write FType;
+    property Title: string index 8 read FTitle write FTitle;
+    property Name: string index 200 read FName write FName;
+    property CName: string index 40 read FCName write FCName;
+    property Additional: string index 200 read FAdditional write FAdditional;
+    property Address: string read FAddress write FAddress;
+    property City: string index 40 read FCity write FCity;
+    property Zip: string index 10 read FZip write FZip;
+    property State: string index 50 read FState write FState;
+    property Country: string index 3 read FCountry write FCountry;
+    property PoBox: Integer read FPoBox write FPoBox;
   end;
   TPerson = class;
+
+  { TPersonAddress }
+
   TPersonAddress = class(TBaseDBAddress)
+  private
+    FAddrNo,FDescr : string;
+    FActive : Boolean;
   public
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
+    class function GetRealTableName: string; override;
+    procedure FillDefaults;override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName : string;override;
+  published
+    property AddrNo: string index 15 read FAddrNo write FAddrNo;
+    property Descr: string index 30 read FDescr write FDescr;
+    property Active: Boolean read FActive write FActive;
   end;
   TPersonContactData = class(TBaseDBList)
   private
-    function Getcomment: TField;
-    function GetData: TField;
-    function GetTyp: TField;
   public
+    class function GetRealTableName: string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     function GetNumberFieldName : string;override;
     function GetTextFieldName: string;override;
-    property Typ : TField read GetTyp;
-    property Data : TField read GetData;
-    property Description : TField read Getcomment;
+  published
+    property AccountNo: string index 20 read FAccountNo write FAccountNo;
+    property Descr: string index 30 read FDescr write FDescr;
+    property Typ: string index 4 read FType write FType;
+    property Data: string index 80 read FData write FData;
+    property Link: string index 400 read FLink write FLink;
+    property Active: Boolean read FActive write FActive;
   end;
   TPersonBanking = class(TBaseDBDataSet)
   public
@@ -139,7 +175,7 @@ type
   end;
 
 implementation
-uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils,uthumbnails,
+uses uBaseDBInterface, uBaseSearch, uBaseApplication, uData, Utils,
   comparewild;
 
 procedure TPersonEmployees.DefineFields(aDataSet: TDataSet);
@@ -150,10 +186,10 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('NAME',ftString,40,True);
-            Add('DEPARTMENT',ftString,30,False);
-            Add('POSITION',ftString,30,False);
-            Add('EMPLOYEE',ftString,20,False);
+            property NAME: string index 40 read  write ;
+            property DEPARTMENT: string index 30 read  write ;
+            property POSITION: string index 30 read  write ;
+            property EMPLOYEE: string index 20 read  write ;
           end;
     end;
 end;
@@ -170,9 +206,9 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('SORTCODE',ftString,20,False);
-            Add('ACCOUNT',ftString,200,False);
-            Add('INSTITUTE',ftString,60,false);
+            property SORTCODE: string index 20 read  write ;
+            property ACCOUNT: string index 200 read  write ;
+            property INSTITUTE: string index 60 read  write ;
           end;
     end;
 end;
@@ -296,19 +332,10 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('ACCOUNTNO',ftString,20,True);
-            Add('DESCR',ftString,30,False);
-            Add('TYPE',ftString,4,False);
-            Add('DATA',ftString,80,False);
-            Add('LINK',ftString,400,False);
-            Add('ACTIVE',ftString,1,False);
           end;
        if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
-            Add('ACCOUNTNO','ACCOUNTNO',[]);
-            Add('TYPE','TYPE',[]);
-            Add('DATA','DATA',[]);
           end;
    end;
 end;
@@ -331,21 +358,16 @@ begin
   Result := 'DATA';
 end;
 
+class function TPersonAddress.GetRealTableName: string;
+begin
+  Result:='ADDRESSES';
+end;
+
 procedure TPersonAddress.DefineFields(aDataSet: TDataSet);
 begin
   inherited DefineFields(aDataSet);
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ADDRESSES';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('ADDRNO',ftString,15,True);
-            Add('DESCR',ftString,30,False);
-            Add('ACTIVE',ftString,1,False);
-          end;
-    end;
 end;
+
 procedure TPersonAddress.FillDefaults(aDataSet: TDataSet);
 begin
   inherited FillDefaults(aDataSet);
@@ -408,17 +430,6 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('TYPE',ftString,3,True);
-            Add('TITLE',ftString,8,False);
-            Add('NAME',ftString,200,false);
-            Add('CNAME',ftString,40,false);
-            Add('ADDITIONAL',ftString,200,False);
-            Add('ADDRESS',ftMemo,0,False);
-            Add('CITY',ftString,40,False);
-            Add('ZIP',ftString,10,False);
-            Add('STATE',ftString,50,False);
-            Add('COUNTRY',ftString,3,False);
-            Add('POBOX',ftInteger,0,False);
           end;
     end;
 end;
@@ -877,18 +888,6 @@ begin
   Result := 'C';
 end;
 
-constructor TPersonList.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
-begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          UsePermissions:=True;
-        end;
-    end;
-end;
 procedure TPersonList.DefineFields(aDataSet: TDataSet);
 begin
   with aDataSet as IBaseManageDB do
@@ -898,34 +897,14 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            Add('ACCOUNTNO',ftString,20,True);
-            Add('MATCHCODE',ftString,200,False);
-            Add('STATUS',ftString,4,false);
-            Add('NAME',ftString,200,True);
-            Add('TREEENTRY',ftLargeInt,0,True);
-            Add('DISCOUNT',ftFloat,0,False);
-            Add('DISCOUNTGR',ftString,2,False);
-            Add('DEFPRICE',ftString,2,False);
-            Add('LANGUAGE',ftString,3,False);
-            Add('CURRENCY',ftString,5,False);
-            Add('EACCOUNT',ftString,20,False);//Remote Accountno
-            Add('PAYMENTTAR',ftString,2,False);
-            Add('TYPE',ftString,1,True);
-            Add('INFO',ftMemo,0,False);
-            Add('CATEGORY',ftString,60,False);
-            Add('OLD_ID',ftString,200,False);
-            Add('CRDATE',ftDate,0,False);
-            Add('CHDATE',ftDate,0,False);
-            Add('CREATEDBY',ftString,4,True);
-            Add('CHANGEDBY',ftString,4,False);
           end;
       if Assigned(ManagedIndexdefs) then
         with ManagedIndexDefs do
           begin
-            Add('ACCOUNTNO','ACCOUNTNO',[ixUnique]);
-            Add('MATCHCODE','MATCHCODE',[]);
-            Add('NAME','NAME',[]);
-            Add('STATUS','STATUS',[]);
+            property ACCOUNTNO','ACCOUNTNO',[ixUnique]);
+            property MATCHCODE','MATCHCODE',[]);
+            property NAME','NAME',[]);
+            property STATUS','STATUS',[]);
           end;
       if Data.ShouldCheckTable(TableName) then
         DefineUserFields(aDataSet);

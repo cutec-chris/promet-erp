@@ -494,7 +494,7 @@ var
     aPerf: QWord;
   begin
     aPerf := GetTickCount64;
-    writeln('FillDataSet('+aObj.ClassName+')');
+    //writeln('FillDataSet('+aObj.ClassName+')');
     repeat
       //Fill aObj Fields
       ctx := TRttiContext.Create;
