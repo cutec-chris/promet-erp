@@ -279,7 +279,7 @@ begin
     FoundFields.Free;
     JoinedTables.Free;
   end;
-  writeln(Result);
+  //writeln(Result);
 end;
 function TQueryTable.BuildLoad(aSelector: Variant; CascadicIndex: Integer;
   aParams: TStringList): string;
@@ -316,7 +316,7 @@ begin
     JoinedTables.AddPair(QuoteField(Uppercase(Self.TableName)),QuoteField(Uppercase(Self.TableName)));
     CollectFields(Self);
     Result := BuildInternalSelect(aSelector,FoundFields,JoinedTables,aParams);
-    writeln(Result);
+    //writeln(Result);
   finally
     FoundFields.Free;
     JoinedTables.Free;
@@ -475,7 +475,7 @@ var
   aTable: TQueryTable;
   aDataSet: TLockedQuery;
   actCascade : Integer = 1;
-  bParams: TStringList;
+  bParams, sl: TStringList;
   actLoad: String;
   i: Integer;
   procedure FillDataSet(aObj : TPersistent;aDataSet : TDataset);
@@ -492,20 +492,22 @@ var
     aDetail, nObj: TObject;
     SubClassFilled : Boolean = False;
     aPerf: QWord;
+    aProps : array of TRttiProperty;
   begin
     aPerf := GetTickCount64;
     //writeln('FillDataSet('+aObj.ClassName+')');
+    ctx := TRttiContext.Create;
     repeat
       //Fill aObj Fields
-      ctx := TRttiContext.Create;
       aTablename := lowercase(aObj.ClassName);
       objType := ctx.GetType(aObj.ClassInfo);
       if aObj.InheritsFrom(TAbstractDBDataset2) then
         aTableName:=lowercase(TAbstractDBDataset2(aObj).GetRealTableName);
       if aDataSet.FieldDefs.IndexOf(aTablename+'_sql_id')>-1 then
         aField := aDataSet.FieldByName(aTablename+'_sql_id');
+      aProps := objType.GetProperties;
       if Assigned(aField) then
-        for Prop in objType.GetProperties do
+        for Prop in aProps do
           begin
             if (Prop.PropertyType.TypeKind<>tkClass) then
               begin
@@ -547,12 +549,13 @@ var
                   raise Exception.Create('Property not Found !');
               end;
           end;
-      for Prop in objType.GetProperties do
+      for Prop in aProps do
         begin
           if (Prop.PropertyType.TypeKind=tkClass) then
             begin
               if TRttiInstanceType(Prop.PropertyType.BaseType).MetaClassType=TAbstractMasterDetail then
                 begin
+                  //writeln('Property('+Prop.Name+')');
                   aDetail := GetObjectProp(aObj,PPropInfo(Prop.Handle));
                   if Assigned(aDetail) then
                   with TAbstractMasterDetail(aDetail) do
@@ -586,7 +589,7 @@ var
                           Add(nObj);
                           FillDataSet(TPersistent(nObj),aDataSet);
                           SubClassFilled := True;
-                          break;
+                          //break;
                         end
                       else
                         begin
@@ -598,7 +601,6 @@ var
                 end;
             end;
         end;
-      ctx.Free;
       if not SubClassFilled then
         begin
           aDataSet.Next;
@@ -606,6 +608,7 @@ var
           exit;
         end;
     until aDataSet.EOF;
+    ctx.Free;
     writeln('GetTickCounte:'+IntToStr(GetTickCount64-aPerf)+' Size:'+IntToStr(aObj.InstanceSize));
   end;
 
@@ -616,6 +619,13 @@ begin
   actLoad := aTable.BuildLoad(Selector,0,bParams);
   while actLoad <> '' do
     begin
+      {
+      writeln(actLoad);
+      sl := TStringList.Create;
+      sl.text := actLoad;
+      sl.SaveToFile('c:\temp\actload.sql');
+      sl.Free;
+      }
       aDataSet := FindDataSet(ThreadID,actLoad);
       if Assigned(aDataSet) then
         begin

@@ -637,7 +637,7 @@ end;
 constructor TOrder.Create(aParent: TPersistent);
 begin
   inherited;
-  //FOrderAddress := TOrderAddresses.CreateEx(Self,DataModule,aConnection,DataSet);
+  FOrderAddress := TOrderAddresses.Create(Self);
   FOrderPos := TOrderPositions.Create(Self);
   FLinks := TOrderLinks.Create(Self);
   //FCurrency := TCurrency.CreateEx(Self,DataModule,aConnection);
@@ -645,7 +645,7 @@ end;
 destructor TOrder.Destroy;
 begin
   //FCurrency.Free;
-  //FOrderAddress.Free;
+  FOrderAddress.Free;
   FOrderPos.Free;
   FreeAndnil(FLinks);
   inherited Destroy;
