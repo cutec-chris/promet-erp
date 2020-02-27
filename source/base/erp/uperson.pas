@@ -66,12 +66,15 @@ type
     property ChangedBy: string index 4 read FChangedBy write FChangedBy;
   end;
 
+  { TBaseDbAddress }
+
   TBaseDbAddress = class(TBaseDBList)
   private
     FType,FTitle,FName,FCName,FAdditional,FAddress,FCity,FZip,FState,FCountry : string;
     FPoBox : Integer;
   public
     procedure Assign(Source: TPersistent); override;
+    procedure FillDefaults;override;
     function ToString: ansistring;override;
     procedure FromString(aStr : AnsiString);virtual;
   published
@@ -107,6 +110,13 @@ type
     property Active: Boolean read FActive write FActive;
   end;
 
+  { TPersonAddresses }
+
+  TPersonAddresses = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
   { TPersonContactData }
 
   TPersonContactData = class(TBaseDBList)
@@ -125,9 +135,16 @@ type
     property Active: Boolean read FActive write FActive;
   end;
 
+  { TPersonContacts }
+
+  TPersonContacts = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
   { TPersonBanking }
 
-  TPersonBanking = class(TBaseDBDataSet)
+  TPersonBankingAccount = class(TBaseDBDataSet)
   private
     FSortCode,FInstitute,FAccount : string;
   public
@@ -138,17 +155,25 @@ type
     property Account: string index 200 read FAccount write FAccount;
     property Institute: string index 60 read FInstitute write FInstitute;
   end;
+  TPersonBanking = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
 
   { TPersonLinks }
 
-  TPersonLinks = class(TLinks)
+  TPersonLink = class(TLinks)
   public
     procedure FillDefaults;override;
+  end;
+  TPersonLinks = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
   end;
 
   { TPersonEmployees }
 
-  TPersonEmployees = class(TBaseDbDataSet)
+  TPersonEmployee = class(TBaseDbDataSet)
   private
     FName,FDepartment,FPosition,FEmployee : string;
   public
@@ -159,27 +184,32 @@ type
     property Position: string index 30 read FPosition write FPosition;
     property Employee: string index 20 read FEmployee write FEmployee;
   end;
+  TPersonEmployees = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
   TPerson = class(TPersonList,IBaseHistory)
     procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FBanking: TPersonBanking;
-    FCustomerCont: TPersonContactData;
+    FCustomerCont: TPersonContacts;
     FEmployees: TPersonEmployees;
     FHistory: TBaseHistory;
     FImages: TImages;
     FLinks: TPersonLinks;
-    FPersonAddress: TPersonAddress;
+    FPersonAddress: TPersonAddresses;
     FDS : TDataSource;
     FStateChange: TNotifyEvent;
     function GetHistory: TBaseHistory;
+    procedure SetAccountno(AIndex: Integer; AValue: string);
+    procedure SetStatus(AIndex: Integer; AValue: string);
   public
     constructor Create(aOwner : TPersistent);override;
     destructor Destroy;override;
     procedure Open; override;
     procedure FillDefaults;override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
-    property Address : TPersonAddress read FPersonAddress;
-    property ContactData : TPersonContactData read FCustomerCont;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Banking : TPersonBanking read FBanking;
@@ -188,6 +218,11 @@ type
     function SelectFromContactData(aCont : string) : Boolean;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
     procedure GenerateThumbnail; override;
+  published
+    property Status : string index 4 read FStatus write SetStatus;
+    property AccountNo : string index 20 read FAccountNo write SetAccountno;
+    property Address : TPersonAddresses read FPersonAddress;
+    property ContactData : TPersonContacts read FCustomerCont;
   end;
 
 implementation
@@ -196,23 +231,51 @@ uses uData, Utils,
 
 { TPersonEmployees }
 
-class function TPersonEmployees.GetRealTableName: string;
+class function TPersonEmployees.GetObjectTyp: TClass;
+begin
+  Result := TPersonEmployee;
+end;
+
+{ TPersonLinks }
+
+class function TPersonLinks.GetObjectTyp: TClass;
+begin
+  Result := TPersonLink;
+end;
+
+{ TPersonContacts }
+
+class function TPersonContacts.GetObjectTyp: TClass;
+begin
+  Result := TPersonContactData;
+end;
+
+{ TPersonAddresses }
+
+class function TPersonAddresses.GetObjectTyp: TClass;
+begin
+  Result := TPersonAddress;
+end;
+
+{ TPersonEmployees }
+
+class function TPersonEmployee.GetRealTableName: string;
 begin
   Result:='EMPLOYEES';
 end;
 
-procedure TPersonLinks.FillDefaults;
+procedure TPersonLink.FillDefaults;
 begin
   inherited FillDefaults;
   RRef_ID:=(Parent as TPerson).SQL_ID;
 end;
 
-class function TPersonBanking.GetRealTableName: string;
+class function TPersonBankingAccount.GetRealTableName: string;
 begin
   Result:='CUSTOMERBANKING';
 end;
 
-function TPersonBanking.CheckAccount: Boolean;
+function TPersonBankingAccount.CheckAccount: Boolean;
   function Modulo97(const aIBAN:string):Integer;
   const
      m36:string = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -307,6 +370,11 @@ begin
   Result := TestIBAN(FieldByName('ACCOUNT').AsString);
 end;
 
+class function TPersonBanking.GetObjectTyp: TClass;
+begin
+  Result := TPersonBankingAccount;
+end;
+
 class function TPersonContactData.GetRealTableName: string;
 begin
   Result:='CUSTOMERCONT';
@@ -325,10 +393,9 @@ end;
 procedure TPersonAddress.FillDefaults;
 begin
   inherited FillDefaults;
-  AccountNo := TPerson(Parent).FieldByName('ACCOUNTNO').AsString;
-      FieldByName('ADDRNO').AsInteger := DataSet.RecordCount+1;
-      FieldByName('COUNTRY').AsString := UpperCase(TPerson(Parent).FieldByName('LANGUAGE').AsString);
-    end;
+  //AccountNo := TPerson(Parent).AccountNo;
+  //AddrNo := DataSet.RecordCount+1;
+  Country := UpperCase(TPerson(Parent).Language);
 end;
 function TPersonAddress.GetTextFieldName: string;
 begin
@@ -343,52 +410,12 @@ begin
   Result:= 'ADDRESS';
 end;
 
-function TBaseDbAddress.GetAddress: TField;
-begin
-  Result := DataSet.FindField('ADDRESS');
-end;
-
-function TBaseDbAddress.GetCity: TField;
-begin
-  Result := DataSet.FindField('CITY');
-end;
-
-function TBaseDbAddress.GetCountry: TField;
-begin
-  Result := DataSet.FindField('COUNTRY');
-end;
-
-function TBaseDbAddress.GetName: TField;
-begin
-  Result := DataSet.FindField('NAME');
-end;
-
-function TBaseDbAddress.GetTitle: TField;
-begin
-  Result := DataSet.FindField('TITLE');
-end;
-
-function TBaseDbAddress.GetZip: TField;
-begin
-  Result := DataSet.FindField('ZIP');
-end;
-
-procedure TBaseDbAddress.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableCaption := strAdresses;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-    end;
-end;
 procedure TBaseDbAddress.Assign(Source: TPersistent);
 var
   aAddress: TBaseDbAddress;
   Person: TPerson;
 begin
+{
   if Source is TBaseDBAddress then
     begin
       if not TBaseDBAddress(Source).Active then TBaseDBAddress(Source).Open;
@@ -416,23 +443,25 @@ begin
       DataSet.FieldByName('ACCOUNTNO').AsString := Person.FieldByName('ACCOUNTNO').AsString;
     end
   else
+}
     inherited Assign(Source);
 end;
 
-procedure TBaseDbAddress.FillDefaults(aDataSet: TDataSet);
+procedure TBaseDbAddress.FillDefaults;
 begin
-  with aDataSet,BaseApplication as IBaseDBInterface do
-    begin
+  Typ := 'IAD';
+{
       if aDataSet.RecordCount = 0 then
         DataSet.FieldByName('TYPE').AsString:='IAD'
       else
         DataSet.FieldByName('TYPE').AsString:='DAD';
-    end;
+}
 end;
 function TBaseDbAddress.ToString: ansistring;
 var
   aAddress : TStringList;
 begin
+  {
   aAddress := TStringList.Create;
   aAddress.Add(DataSet.FieldbyName('TITLE').AsString);
   if aAddress[aAddress.Count-1] = '' then aAddress.Delete(aAddress.Count-1);
@@ -450,11 +479,7 @@ begin
   while (aAddress.Count > 0) and (trim(aAddress[aAddress.Count-1]) = '') do aAddress.Delete(aAddress.Count-1);
   Result := aAddress.Text;
   aAddress.Free;
-end;
-
-procedure TBaseDbAddress.OpenItem(AccHistory: Boolean);
-begin
-  //Do nothing
+  }
 end;
 
 procedure TBaseDbAddress.FromString(aStr: AnsiString);
@@ -507,6 +532,7 @@ var
       end;
   end;
 begin
+  {
   Addr := TStringList.Create;
   tmp := StringReplace(aStr,',',lineending,[rfReplaceAll]);
   Addr.Text := tmp;
@@ -612,58 +638,39 @@ begin
 
   DataSet.FieldByName('ADDRESS').AsString := Addr.Text;
   Addr.Free;
-end;
-procedure TPerson.FDSDataChange(Sender: TObject; Field: TField);
-begin
-  if not Assigned(Field) then exit;
-  if DataSet.ControlsDisabled then exit;
-  if Field.FieldName = 'STATUS' then
-    begin
-      History.Open;
-      History.AddItem(Self.DataSet,Format(strStatusChanged,[FStatus,Field.AsString]),'','',nil,ACICON_STATUSCH);
-      FStatus := Field.AsString;
-      if Assigned(FStateChange) then
-        FStateChange(Self);
-    end;
-  if (Field.FieldName = 'ACCOUNTNO') then
-    begin
-      History.AddItem(Self.DataSet,Format(strNumberChanged,[Field.AsString]),'','',DataSet,ACICON_EDITED);
-    end;
+  }
 end;
 function TPerson.GetHistory: TBaseHistory;
 begin
   Result := History;
 end;
 
-function TPerson.GetInfo: TField;
+procedure TPerson.SetAccountno(AIndex: Integer; AValue: string);
 begin
-  Result := DataSet.FieldByName('INFO');
+  if AValue = FAccountNo then exit;
+  FAccountNo := AValue;
+  History.AddItem(Self,Format(strNumberChanged,[AValue]),'','',Self,ACICON_EDITED);
 end;
 
-function TPerson.GetAccountNo: TField;
+procedure TPerson.SetStatus(AIndex: Integer; AValue: string);
 begin
-  Result := DataSet.FieldByName('ACCOUNTNO');
+  if AValue = FStatus then exit;
+  History.AddItem(Self,Format(strStatusChanged,[FStatus,AValue]),'','',nil,ACICON_STATUSCH);
+  FStatus := AValue;
+  if Assigned(FStateChange) then
+    FStateChange(Self);
 end;
+
 constructor TPerson.Create(aOwner: TPersistent);
 begin
   inherited Create(aOwner);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          UsePermissions:=False;
-        end;
-    end;
-  FHistory := TBaseHistory.CreateEx(Self,DataModule,aConnection,DataSet);
-  FPersonAddress := TPersonAddress.CreateEx(Self,DataModule,aConnection,DataSet);
-  FCustomerCont := TPersonContactData.CreateEx(Self,DataModule,aConnection,DataSet);
-  FImages := TImages.CreateEx(Self,DataModule,aConnection,DataSet);
-  FBanking := TPersonBanking.CreateEx(Self,DataModule,aConnection,DataSet);
-  FLinks := TPersonLinks.CreateEx(Self,DataModule,aConnection);
-  FEmployees := TPersonEmployees.CreateEx(Self,DataModule,aConnection,DataSet);
-  FDS := TDataSource.Create(Self);
-  FDS.DataSet := DataSet;
-  FDS.OnDataChange:=@FDSDataChange;
+  FHistory := TBaseHistory.Create(Self);
+  FPersonAddress := TPersonAddresses.Create(Self);
+  FCustomerCont := TPersonContacts.Create(Self);
+  FImages := TImages.Create(Self);
+  FBanking := TPersonBanking.Create(Self);
+  FLinks := TPersonLinks.Create(Self);
+  FEmployees := TPersonEmployees.Create(Self);
 end;
 destructor TPerson.Destroy;
 begin
@@ -676,22 +683,6 @@ begin
   FreeAndNil(FPersonAddress);
   FreeAndNil(FHistory);
   inherited Destroy;
-end;
-
-procedure TPerson.Open;
-begin
-  inherited Open;
-  FStatus := Status.AsString;
-end;
-function TPerson.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FHistory.CreateTable;
-  FPersonAddress.CreateTable;
-  FCustomerCont.CreateTable;
-  FBanking.CreateTable;
-  FLinks.CreateTable;
-  FEmployees.CreateTable;
 end;
 procedure TPerson.FillDefaults;
 var
