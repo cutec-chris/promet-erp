@@ -324,19 +324,24 @@ type
     class function GetObjectTyp: TClass; override;
   end;
 
-{
+  { TOrderAddress }
+
   TOrderAddress = class(TBaseDBAddress)
   private
-    FOrder: TOrder;
+    FAccountNo : string;
   public
-    constructor Create;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure CascadicPost; override;
+    class function GetRealTableName: string; override;
     procedure Assign(Source: TPersistent); override;
-    procedure Post; override;
-    property Order : TOrder read FOrder write FOrder;
+  published
+    property AccountNo: string index 20 read FAccountNo write FAccountNo;
   end;
-}
+
+  { TOrderAddresses }
+
+  TOrderAddresses = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
   TOrderPosTyp = class(TBaseDBDataSet)
   private
     FName,FType : string;
@@ -400,8 +405,6 @@ type
     procedure Open;override;
     procedure RefreshActive(aOrderno: string='');
     property Commission : TField read GetCommission;
-    property Address : TOrderAddresses read FOrderAddress;
-    property Links : TOrderLinks read FLinks;
     function CombineItems(aRemoteLink: string): Boolean;
     property OnGetStorage : TOnGetStorageEvent read FOnGetStorage write FOnGetStorage;
     property OnGetSerial : TOnGetSerialEvent read FOnGetSerial write FOnGetSerial;
@@ -421,6 +424,8 @@ type
     function Duplicate : Boolean;override;
   published
     property Positions : TOrderPositions read FOrderPos;
+    property Address : TOrderAddresses read FOrderAddress;
+    property Links : TOrderLinks read FLinks;
   end;
 implementation
 uses uIntfStrConsts,uData;
@@ -434,6 +439,13 @@ resourcestring
   strOrders                     = 'Aufträge';
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
+
+{ TOrderAddresses }
+
+class function TOrderAddresses.GetObjectTyp: TClass;
+begin
+  Result := TOrderAddress;
+end;
 
 { TOrderQMTestDetail }
 
@@ -543,41 +555,10 @@ begin
   inherited FillDefaults;
   RRef_ID:=(Parent as TOrder).SQL_ID;
 end;
-{
-procedure TOrderAddress.DefineFields(aDataSet: TDataSet);
-begin
-  inherited DefineFields(aDataSet);
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'ORDERADDR';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property ACCOUNTNO: string index 20 read write ;
-          end;
-    end;
-end;
 
-procedure TOrderAddress.CascadicPost;
+class function TOrderAddress.GetRealTableName: string;
 begin
-  Order.DataSet.DisableControls;
-  if Order.Address.DataSet.Active and (Order.Address.Count>0) then
-    begin
-      if Order.FieldByName('CUSTNO').AsString<>FieldByName('ACCOUNTNO').AsString then
-        begin
-          if not Order.CanEdit then
-            Order.DataSet.Edit;
-          Order.FieldByName('CUSTNO').AsString := FieldByName('ACCOUNTNO').AsString;
-        end;
-      if Order.FieldByName('CUSTNAME').AsString<>FieldByName('NAME').AsString then
-        begin
-          if not Order.CanEdit then
-            Order.DataSet.Edit;
-          Order.FieldByName('CUSTNAME').AsString := FieldByName('NAME').AsString;
-        end;
-    end;
-  Order.DataSet.EnableControls;
-  inherited CascadicPost;
+  Result:='ORDERADDR';
 end;
 
 procedure TOrderAddress.Assign(Source: TPersistent);
@@ -585,6 +566,7 @@ var
   aAddress: TBaseDbAddress;
   Person: TPerson;
 begin
+  {
   if not Active then Open;
   if not Order.CanEdit then
     Order.DataSet.Edit;
@@ -608,13 +590,8 @@ begin
       then
         Order.FieldByName('EMAIL').AsString := Person.ContactData.FieldByName('DATA').AsString;
     end;
+  }
 end;
-
-procedure TOrderAddress.Post;
-begin
-  inherited Post;
-end;
-}
 
 class function TOrderTyp.GetRealTableName: string;
 begin

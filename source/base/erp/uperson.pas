@@ -34,14 +34,8 @@ type
     FDiscount : double;
     FCrDate,FCHDate : TDateTime;
   public
-    function GetMatchCodeFieldName: string;override;
-    function GetTextFieldName: string;override;
-    function GetNumberFieldName : string;override;
-    function GetStatusFieldName : string;override;
     function GetTyp: string; override;
-    constructor Create(aOwner: TPersistent); override;
     function SelectFromLink(aLink : string) : Boolean;override;
-    procedure SelectByAccountNo(aAccountNo : string);overload;
     //function CombineItems(aRemoteLink: string): Boolean; override;
   published
     property AccountNo: string index 20 read FAccountNo write FAccountNo;
@@ -77,6 +71,7 @@ type
     procedure FillDefaults;override;
     function ToString: ansistring;override;
     procedure FromString(aStr : AnsiString);virtual;
+    class function MapField(aField: string): string; override;
   published
     property Typ: string index 3 read FType write FType;
     property Title: string index 8 read FTitle write FTitle;
@@ -190,7 +185,6 @@ type
   end;
 
   TPerson = class(TPersonList,IBaseHistory)
-    procedure FDSDataChange(Sender: TObject; Field: TField);
   private
     FBanking: TPersonBanking;
     FCustomerCont: TPersonContacts;
@@ -207,17 +201,13 @@ type
   public
     constructor Create(aOwner : TPersistent);override;
     destructor Destroy;override;
-    procedure Open; override;
     procedure FillDefaults;override;
-    function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;override;
     property History : TBaseHistory read FHistory;
     property Images : TImages read FImages;
     property Banking : TPersonBanking read FBanking;
     property Links : TPersonLinks read FLinks;
     property Employees : TPersonEmployees read FEmployees;
-    function SelectFromContactData(aCont : string) : Boolean;
     property OnStateChange : TNotifyEvent read FStateChange write FStateChange;
-    procedure GenerateThumbnail; override;
   published
     property Status : string index 4 read FStatus write SetStatus;
     property AccountNo : string index 20 read FAccountNo write SetAccountno;
@@ -640,6 +630,15 @@ begin
   Addr.Free;
   }
 end;
+
+class function TBaseDbAddress.MapField(aField: string): string;
+begin
+  Result:=inherited MapField(aField);
+  if Result = 'Typ' then
+    Result := 'TYPE'
+  ;
+end;
+
 function TPerson.GetHistory: TBaseHistory;
 begin
   Result := History;
@@ -688,6 +687,7 @@ procedure TPerson.FillDefaults;
 var
   Languages: TLanguages;
 begin
+  {
   Languages := TLanguages.CreateEx(Self,DataModule,Connection);
   Languages.Open;
   with aDataSet,BaseApplication as IBaseDBInterface do
@@ -707,20 +707,7 @@ begin
       aDataSet.EnableControls;
     end;
   Languages.Free;
-end;
-function TPerson.Find(aIdent: string;Unsharp : Boolean = False): Boolean;
-begin
-  with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
-    Filter := '('+Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent)+') OR ('+Data.QuoteField(GetTextFieldName)+'='+Data.QuoteValue(aIdent)+')';
-  Open;
-  Result := Count > 0;
-  if (not Result) and Unsharp then
-    begin
-      with DataSet as IBaseDbFilter,BaseApplication as IBaseDbInterface do
-        Filter := '('+Data.ProcessTerm(Data.QuoteField(GetNumberFieldName)+'='+Data.QuoteValue(aIdent+'*'))+') OR ('+Data.ProcessTerm(Data.QuoteField(GetTextFieldName)+'='+Data.QuoteValue(aIdent+'*'))+')';
-      Open;
-      Result := Count > 0;
-    end;
+  }
 end;
 function TPersonList.SelectFromLink(aLink: string): Boolean;
 begin
@@ -733,212 +720,26 @@ begin
     aLink := copy(aLink,0,rpos('(',aLink)-1);
   if (copy(aLink,0,pos('@',aLink)-1) = 'CUSTOMERS') then
     begin
+      {
       with DataSet as IBaseDBFilter do
         Filter := Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(copy(aLink,pos('@',aLink)+1,length(aLink)));
       Result := True;
+      }
     end
   else
     begin
+       {
       Select(copy(aLink,pos('@',aLink)+1,length(aLink)));
       Result := True;
+      }
     end;
   if not Result then
     Result := inherited SelectFromLink(aLink);
 end;
 
-function TPerson.SelectFromContactData(aCont: string): Boolean;
-var
-  CustomerCont: TPersonContactData;
-begin
-  Result := False;
-  try
-    CustomerCont := TPersonContactData.Create(nil);
-    if Data.IsSQLDb then
-      Data.SetFilter(CustomerCont,Data.ProcessTerm('UPPER("DATA")=UPPER('''+aCont+''')',True)+' OR ("DATA" like ''%*%'')')
-    else
-      Data.SetFilter(CustomerCont,Data.ProcessTerm('"DATA"='''+aCont+''''));
-    CustomerCont.First;
-    while not CustomerCont.EOF do
-      begin
-        if comparewild.WildComp(CustomerCont.Data.AsString,aCont) then
-          begin
-            Self.Filter('"ACCOUNTNO"='+Data.QuoteValue(CustomerCont.DataSet.FieldByName('ACCOUNTNO').AsString));
-            Result:=True;
-            break;
-          end;
-        CustomerCont.Next;
-      end;
-  except
-  end;
-  CustomerCont.Free;
-end;
-
-procedure TPerson.GenerateThumbnail;
-var
-  aThumbnail: TThumbnails;
-begin
-  aThumbnail := TThumbnails.CreateEx(nil,DataModule);
-  aThumbnail.CreateTable;
-  aThumbnail.SelectByRefId(Self.Id.AsVariant);
-  aThumbnail.Open;
-  if aThumbnail.Count=0 then
-    Images.GenerateThumbnail(aThumbnail);
-  aThumbnail.Free;
-end;
-
-procedure TPerson.CascadicPost;
-begin
-  FHistory.CascadicPost;
-  FPersonAddress.CascadicPost;
-  FCustomerCont.CascadicPost;
-  FImages.CascadicPost;
-  FBanking.CascadicPost;
-  FLinks.CascadicPost;
-  inherited CascadicPost;
-end;
-procedure TPerson.CascadicCancel;
-begin
-  FHistory.CascadicCancel;
-  FPersonAddress.CascadicCancel;
-  FCustomerCont.CascadicCancel;
-  FImages.CascadicCancel;
-  FBanking.CascadicCancel;
-  FLinks.CascadicCancel;
-  inherited CascadicCancel;
-end;
-
-function TPersonList.GetMatchCodeFieldName: string;
-begin
-  Result:='MATCHCODE';
-end;
-function TPersonList.GetTextFieldName: string;
-begin
-  Result:='NAME';
-end;
-function TPersonList.GetNumberFieldName: string;
-begin
-  Result:='ACCOUNTNO';
-end;
-function TPersonList.GetStatusFieldName: string;
-begin
-  Result:='STATUS';
-end;
-
 function TPersonList.GetTyp: string;
 begin
   Result := 'C';
-end;
-
-procedure TPersonList.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'CUSTOMERS';
-      TableCaption := strCustomers;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            property ACCOUNTNO','ACCOUNTNO',[ixUnique]);
-            property MATCHCODE','MATCHCODE',[]);
-            property NAME','NAME',[]);
-            property STATUS','STATUS',[]);
-          end;
-      if Data.ShouldCheckTable(TableName) then
-        DefineUserFields(aDataSet);
-    end;
-end;
-procedure TPersonList.SelectByAccountNo(aAccountNo: string);
-begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Filter := Data.ProcessTerm(Data.QuoteField('ACCOUNTNO')+'='+Data.QuoteValue(aAccountNo));
-        end;
-    end;
-end;
-
-function TPersonList.CombineItems(aRemoteLink: string): Boolean;
-var
-  aClass: TBaseDBDatasetClass;
-  aObject: TBaseDBDataset;
-begin
-  Result := True;
-  if TBaseDBModule(DataModule).DataSetFromLink(aRemoteLink,aClass) then
-    begin
-      aObject := aClass.CreateEx(nil,DataModule);
-      if not (aObject is TPersonList) then
-        begin
-          aObject.Free;
-          exit;
-        end;
-      TBaseDbList(aObject).SelectFromLink(aRemoteLink);
-      aObject.Open;
-      if aObject.Count>0 then
-        begin
-          with TPerson(aObject).Address do
-            begin
-              Open;
-              while not EOF do
-                begin
-                  Edit;
-                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-                  Post;
-                  Next;
-                end;
-            end;
-          with TPerson(aObject).ContactData do
-            begin
-              Open;
-              while not EOF do
-                begin
-                  Edit;
-                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-                  Post;
-                  Next;
-                end;
-            end;
-          with TPerson(aObject).Banking do
-            begin
-              Open;
-              while not EOF do
-                begin
-                  Edit;
-                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-                  Post;
-                  Next;
-                end;
-            end;
-          with TPerson(aObject).Images do
-            begin
-              Open;
-              while not EOF do
-                begin
-                  Edit;
-                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-                  Post;
-                  Next;
-                end;
-            end;
-          with TPerson(aObject).History do
-            begin
-              Open;
-              while not EOF do
-                begin
-                  Edit;
-                  FieldByName('REF_ID').AsVariant:=Self.Id.AsVariant;
-                  Post;
-                  Next;
-                end;
-            end;
-        end;
-      aObject.Free;
-    end;
-  Result:=Result and inherited CombineItems(aRemoteLink);
 end;
 
 initialization

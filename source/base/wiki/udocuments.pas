@@ -22,7 +22,7 @@ unit uDocuments;
 interface
 uses
   Classes, SysUtils, db, uBaseDBClasses, Utils,
-  usimpleprocess,uBaseDatasetInterfaces;
+  usimpleprocess,ubasedatasetinterfaces2;
 type
   { TDocuments }
 
@@ -66,9 +66,9 @@ type
     function SelectFile(aFilename : string) : Boolean;
     function Delete : Boolean;override;
   published
-    property Ref_ID_ID : Int64 read  write ;
-    property Typ: Boolean read  write ;
-    property IsDir: Boolean read  write ;
+    property Ref_ID_ID : Int64 read FRef_ID_ID write FRef_ID_ID;
+    property Typ: Boolean read FType write FType;
+    property IsDir: Boolean read FIsDir write FIsDir;
     property IsLink: Boolean read  write False);
     property Parent: Integer read  write ,false);
     property Number : Int64 read  write ;

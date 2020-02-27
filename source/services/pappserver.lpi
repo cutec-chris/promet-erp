@@ -33,21 +33,17 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="pwiki2"/>
-        <DefaultFilename Value="..\base\wiki\pwiki2.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="perp2"/>
         <DefaultFilename Value="..\base\erp\perp2.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCLBase"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCLBase"/>
-      </Item3>
-      <Item4>
         <PackageName Value="general_nogui"/>
-      </Item4>
+      </Item3>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
