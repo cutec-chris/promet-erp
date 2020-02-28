@@ -4,6 +4,7 @@
     <PathDelim Value="\"/>
     <Name Value="perp2"/>
     <Type Value="RunAndDesignTime"/>
+    <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
       <PathDelim Value="\"/>
