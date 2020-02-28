@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, HTTPDefs, websession,iniwebsession, fpHTTP, fpWeb, fpjson,
-  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, perp2, db, uorder;
+  ubasedbclasses, uPrometORM,fpjsonrtti, memds, uData, perp2,pscript2, db, uorder;
 
 type
   TAPIV2Session = class(TIniWebSession)
