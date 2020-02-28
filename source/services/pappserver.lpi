@@ -33,21 +33,25 @@
         </Mode0>
       </Modes>
     </RunParams>
-    <RequiredPackages Count="4">
+    <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="pscript2"/>
-        <DefaultFilename Value="..\base\scripts\pscript2.lpk"/>
+        <PackageName Value="pproject2"/>
+        <DefaultFilename Value="..\base\projects\pproject2.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="perp2"/>
-        <DefaultFilename Value="..\base\erp\perp2.lpk"/>
+        <PackageName Value="pscript2"/>
+        <DefaultFilename Value="..\base\scripts\pscript2.lpk"/>
       </Item2>
       <Item3>
-        <PackageName Value="LCLBase"/>
+        <PackageName Value="perp2"/>
+        <DefaultFilename Value="..\base\erp\perp2.lpk"/>
       </Item3>
       <Item4>
-        <PackageName Value="general_nogui"/>
+        <PackageName Value="LCLBase"/>
       </Item4>
+      <Item5>
+        <PackageName Value="general_nogui"/>
+      </Item5>
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
