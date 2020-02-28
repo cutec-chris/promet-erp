@@ -30,6 +30,10 @@ type
   TTaskWorkflow = class;
   TTaskSnapshots = class(TBaseDbDataSet)
     procedure DefineFields(aDataSet : TDataSet);override;
+  published
+    property NAME: string index 100 read  write ;
+    property STARTDATE: TDateTime read  write ;
+    property ENDDATE: TDateTime read  write ;
   end;
   //In memory class to hold an task during calculations
   TBaseInterval = class
@@ -80,6 +84,7 @@ type
   protected
     procedure OpenItem(AccHistory: Boolean=True); override;
   public
+    class function MapField(aField: string): string; override;
     procedure DefineFields(aDataSet : TDataSet);override;
     procedure FillDefaults(aDataSet : TDataSet);override;
     procedure SelectActiveByUser(AccountNo : string);
@@ -128,6 +133,48 @@ type
     property Snapshots : TTaskSnapshots read FSnapshots;
     property Dependencies : TDependencies read FDependencies;
     property Workflow : TTaskWorkflow read FWorkflow;
+  published
+    property COMPLETED: string index 1 read  write ;
+    property ACTIVE: string index 1 read  write ;
+    property NEEDSACTION: string index 1 read  write ;
+    property STATUS: string index 4 read  write ;
+    property CHECKED: string index 1 read  write ;
+    property HASCHILDS: string index 1 read  write ;
+    property SEEN: string index 1 read  write ;
+    property SUMMARY: string index 420 read  write ;
+    property GPRIORITY: Int64 read  write ;
+    property LPRIORITY: Integer read  write ;
+    property PLANTIME: double read  write ; //geplante Zeit
+    property PLANCOSTS: double read  write ;
+    property TIME: double read  write ;     //benötigte Zeit
+    property BUFFERTIME: double read  write ;//Wartezeit (wann darf nächste Aufgabe frühestens starten)
+    property PLANTASK: string index 1 read  write ;
+    property CATEGORY: string index 60 read  write ;
+    property PERCENT: Integer read  write ;
+    property OWNER: string index 20 read  write ;
+    property USER: string index 20 read  write ;
+    property PARENT: Int64 read  write ;
+    property LPARENT: Int64 read  write ;
+    property PROJECTID: Int64 read  write ;
+    property PROJECT: string index 260 read  write ;
+    property LINK: string index 400 read  write ;
+    property OLD_ID: Int64 read  write ;
+    property ORIGIDS: string index 200 read  write ;
+    property TaskClass: string index 1 read  write ;
+    property DEPDONE: string index 1 read  write ;
+    property PRIORITY: string index 1 read  write ;
+    property STARTDATE: TDateTime read  write ;
+    property DUEDATE: TDateTime read  write ;
+    property EARLIEST: TDateTime read  write ;
+    property LATEST: TDateTime read  write ;
+    property PLANED: TDateTime read  write ;
+    property UNPLANNED: string index 1 read  write ;
+    property WORKSTATUS: string index 4 read  write ;
+    property ORDERNO: string index 20 read  write ;
+    property STARTEDAT: TDateTime read  write ;
+    property COMPLETEDAT: TDateTime read  write ;
+    property DESC: string read  write ;
+    property CREATEDBY: string index 4 read  write ;
   end;
 
   { TTaskLinks }
@@ -282,9 +329,6 @@ begin
       if Assigned(ManagedFieldDefs) then
         with ManagedFieldDefs do
           begin
-            property NAME: string index 100 read  write ;
-            property STARTDATE: TDateTime read  write ;
-            property ENDDATE: TDateTime read  write ;
           end;
     end;
 end;
@@ -1543,76 +1587,6 @@ begin
   //dont add Element
 end;
 
-procedure TTaskList.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'TASKS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property COMPLETED: string index 1 read  write ;
-            property ACTIVE: string index 1 read  write ;
-            property NEEDSACTION: string index 1 read  write ;
-            property STATUS: string index 4 read  write ;
-            property CHECKED: string index 1 read  write ;
-            property HASCHILDS: string index 1 read  write ;
-            property SEEN: string index 1 read  write ;
-            property SUMMARY: string index 420 read  write ;
-            property GPRIORITY: Int64 read  write ;
-            property LPRIORITY: Integer read  write ;
-            property PLANTIME: double read  write ; //geplante Zeit
-            property PLANCOSTS: double read  write ;
-            property TIME: double read  write ;     //benötigte Zeit
-            property BUFFERTIME: double read  write ;//Wartezeit (wann darf nächste Aufgabe frühestens starten)
-            property PLANTASK: string index 1 read  write ;
-            property CATEGORY: string index 60 read  write ;
-            property PERCENT: Integer read  write ;
-            property OWNER: string index 20 read  write ;
-            property USER: string index 20 read  write ;
-            property PARENT: Int64 read  write ;
-            property LPARENT: Int64 read  write ;
-            property PROJECTID: Int64 read  write ;
-            property PROJECT: string index 260 read  write ;
-            property LINK: string index 400 read  write ;
-            property OLD_ID: Int64 read  write ;
-            property ORIGIDS: string index 200 read  write ;
-            property CLASS: string index 1 read  write ;
-            property DEPDONE: string index 1 read  write ;
-            property PRIORITY: string index 1 read  write ;
-            property STARTDATE: TDateTime read  write ;
-            property DUEDATE: TDateTime read  write ;
-            property EARLIEST: TDateTime read  write ;
-            property LATEST: TDateTime read  write ;
-            property PLANED: TDateTime read  write ;
-            property UNPLANNED: string index 1 read  write ;
-            property WORKSTATUS: string index 4 read  write ;
-            property ORDERNO: string index 20 read  write ;
-            property STARTEDAT: TDateTime read  write ;
-            property COMPLETEDAT: TDateTime read  write ;
-            property DESC: string read  write ;
-            property CREATEDBY: string index 4 read  write ;
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            property COMPLETED','COMPLETED',[]);
-            property ACTIVE','ACTIVE',[]);
-            property CHECKED','CHECKED',[]);
-            property OWNER','OWNER',[]);
-            property USER','USER',[]);
-            property PARENT','PARENT',[]);
-            property LPARENT','LPARENT',[]);
-            property PROJECTID','PROJECTID',[]);
-            property CLASS','CLASS',[]);
-            property WORKSTATUS','WORKSTATUS',[]);
-            property STARTDATE','STARTDATE',[]);
-            property DUEDATE','DUEDATE',[]);
-          end;
-      UpdateChangedBy:=False;
-      UpdateFloatFields:=True;
-    end;
-end;
 procedure TTaskList.FillDefaults(aDataSet: TDataSet);
 begin
   with aDataSet,BaseApplication as IBaseDbInterface do
