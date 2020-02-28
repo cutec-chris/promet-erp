@@ -1,0 +1,27 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: udata.strenteranname
+msgid "enter an Name"
+msgstr ""
+
+#: udata.strfor
+msgid "für"
+msgstr ""
+
+#: udata.strguest
+msgid "Gast"
+msgstr ""
+
+#: udata.strprojectprocess
+msgid "Projekt/Prozess"
+msgstr ""
+
+#: udata.strscreenshotname
+msgid "Screenshot Name"
+msgstr ""
+
+#: udata.strwebsite
+msgid "Webseite"
+msgstr ""
+

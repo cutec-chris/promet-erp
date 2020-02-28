@@ -1,0 +1,19 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ubaseerpdbclasses.strcreated
+msgid "erstellt"
+msgstr ""
+
+#: ubaseerpdbclasses.stredited
+msgid "bearbeitet"
+msgstr ""
+
+#: ubaseerpdbclasses.strstoragetypes
+msgid "Lagertypen"
+msgstr ""
+
+#: ubaseerpdbclasses.strsubtotal
+msgid "Zwischensumme"
+msgstr ""
+
