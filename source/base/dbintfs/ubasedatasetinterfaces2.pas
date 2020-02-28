@@ -27,6 +27,16 @@ uses
   Classes, SysUtils, DB, fpjsonrtti, Contnrs;
 
 type
+
+  { TFieldEmulation
+      Get Access to Object Property with RTTI
+  }
+
+  TFieldEmulation = class(TField)
+  protected
+    constructor Create(AOwner: TPersistent;Propname : string);
+  end;
+
   { TAbstractDBDataset2 }
 
   TAbstractDBDataset2 = class(TInterfacedPersistent)
@@ -58,20 +68,10 @@ type
     property TableName : string read FTableName write FTableName;
     procedure CascadicPost;virtual;
     procedure CascadicCancel;virtual;
-    function Delete : Boolean;virtual;
-    procedure Insert;virtual;
-    procedure Append;virtual;
-    procedure First;virtual;
-    procedure Last;virtual;
-    procedure Next;virtual;
-    procedure Prior;virtual;
     procedure Post;virtual;
     procedure Edit;virtual;
     procedure Cancel;virtual;
-    class procedure DefineFields(aDataSet: TDataSet); virtual;
-    function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean; virtual;
-    function EOF : Boolean;virtual;
-    function FieldByName(const aFieldName : string) : db.TField;virtual;
+    function FieldByName(const aFieldName : string) : TFieldEmulation;virtual;
     property Changed : Boolean read FChanged;
     property Active : Boolean read GetActive write SetActive;
   published
@@ -84,20 +84,88 @@ type
   TAbstractMasterDetail = class(TObjectList)
   private
     FParent: TPersistent;
+    FIndex : Integer;
+    function GetDataset: TAbstractDBDataset2;
   public
     constructor Create(aParent : TPersistent);
     property Parent : TPersistent read FParent;
     class function GetObjectTyp : TClass;virtual;abstract;
+    property Dataset : TAbstractDBDataset2 read GetDataset;
+    function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean; virtual;
+    function FieldByName(const aFieldName : string) : TFieldEmulation;virtual;
+    function Delete : Boolean;virtual;
+    procedure Insert;virtual;
+    procedure Append;virtual;
+    procedure First;virtual;
+    procedure Last;virtual;
+    procedure Next;virtual;
+    procedure Prior;virtual;
+    function EOF : Boolean;virtual;
   end;
 
 implementation
 
-{ TAbstractMasterDetail }
+{ TFieldEmulation }
 
+constructor TFieldEmulation.Create(AOwner: TPersistent; Propname: string);
+begin
+  inherited Create(nil);
+end;
+
+{ TAbstractMasterDetail }
+function TAbstractMasterDetail.GetDataset: TAbstractDBDataset2;
+begin
+  Result := TAbstractDBDataset2(Items[FIndex]);
+end;
 constructor TAbstractMasterDetail.Create(aParent: TPersistent);
 begin
   FParent := aParent;
   Inherited Create;
+end;
+function TAbstractMasterDetail.Locate(const keyfields: string;
+  const keyvalues: Variant; options: TLocateOptions): boolean;
+begin
+  Result := False;
+end;
+
+function TAbstractMasterDetail.FieldByName(const aFieldName: string
+  ): TFieldEmulation;
+begin
+  Result := Dataset.FieldByName(aFieldName);
+end;
+
+function TAbstractMasterDetail.Delete: Boolean;
+begin
+  Result := False;
+end;
+procedure TAbstractMasterDetail.Insert;
+begin
+end;
+procedure TAbstractMasterDetail.Append;
+begin
+end;
+procedure TAbstractMasterDetail.First;
+begin
+  FIndex := 0;
+end;
+procedure TAbstractMasterDetail.Last;
+begin
+  FIndex := Count-1;
+end;
+procedure TAbstractMasterDetail.Next;
+begin
+  if FIndex < Count-1 then
+    inc(FIndex);
+end;
+procedure TAbstractMasterDetail.Prior;
+begin
+  if FIndex > 0 then
+    dec(FIndex);
+end;
+
+function TAbstractMasterDetail.EOF: Boolean;
+begin
+  Result := FIndex = Count-1;
 end;
 
 { TAbstractDBDataset2 }
@@ -160,85 +228,25 @@ begin
   if copy(Result,0,1)='T' then
     Result := copy(Result,2,length(Result));
 end;
-
 procedure TAbstractDBDataset2.CascadicPost;
 begin
-
 end;
-
 procedure TAbstractDBDataset2.CascadicCancel;
 begin
-
 end;
-
-function TAbstractDBDataset2.Delete: Boolean;
-begin
-
-end;
-
-procedure TAbstractDBDataset2.Insert;
-begin
-
-end;
-
-procedure TAbstractDBDataset2.Append;
-begin
-
-end;
-
-procedure TAbstractDBDataset2.First;
-begin
-
-end;
-
-procedure TAbstractDBDataset2.Last;
-begin
-
-end;
-
-procedure TAbstractDBDataset2.Next;
-begin
-
-end;
-
-procedure TAbstractDBDataset2.Prior;
-begin
-
-end;
-
 procedure TAbstractDBDataset2.Post;
 begin
-
 end;
-
 procedure TAbstractDBDataset2.Edit;
 begin
-
 end;
-
 procedure TAbstractDBDataset2.Cancel;
 begin
-
 end;
-
-class procedure TAbstractDBDataset2.DefineFields(aDataSet: TDataSet);
+function TAbstractDBDataset2.FieldByName(const aFieldName: string
+  ): TFieldEmulation;
 begin
-end;
-
-function TAbstractDBDataset2.Locate(const keyfields: string;
-  const keyvalues: Variant; options: TLocateOptions): boolean;
-begin
-
-end;
-
-function TAbstractDBDataset2.EOF: Boolean;
-begin
-
-end;
-
-function TAbstractDBDataset2.FieldByName(const aFieldName: string): db.TField;
-begin
-
+  Result := TFieldEmulation.Create(Self,aFieldName);
 end;
 
 end.

@@ -94,16 +94,24 @@ type
     property TYP : string index 1 read FType write FType;
     property TEXT : string index 60 read FText write FText;
   end;
-  TPriceTypes = class(TBaseDBDataSet)
+  TPriceType = class(TBaseDBDataSet)
   private
     FType,FSymbol,FName : string;
   public
-    function Get(aSymbol : string) : Integer;
   published
-    property TYP : string index 1 read FType write FType;
-    property SYMBOL : string index 4 read FSymbol write FSymbol;
-    property NAME : string index 40 read FName write FName;
+    property Typ : string index 1 read FType write FType;
+    property Symbol : string index 4 read FSymbol write FSymbol;
+    property Name : string index 40 read FName write FName;
   end;
+
+  { TPriceTypes }
+
+  TPriceTypes = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+    function Get(aSymbol : string) : Integer;
+  end;
+
   TVat = class(TBaseDBDataSet)
   private
     FId : Integer;
@@ -486,10 +494,15 @@ procedure TInventory.FillDefaults;
 begin
   //FieldByName('INVNO').AsInteger := RecordCount+1;
 end;
+
+class function TPriceTypes.GetObjectTyp: TClass;
+begin
+  Result := TPriceType;
+end;
+
 function TPriceTypes.Get(aSymbol: string): Integer;
 begin
   Result := 0;
-  Open;
   if Locate('SYMBOL', trim(aSymbol), []) then
     Result := StrToIntDef(copy(FieldByName('TYPE').AsString, 0, 2), 0);
 end;

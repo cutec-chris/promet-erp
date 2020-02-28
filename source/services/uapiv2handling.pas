@@ -85,7 +85,6 @@ var
   end;
 begin
   Handled := False;
-  {
   if (not Assigned(TAPIV2Session(Session).User)) and (not Assigned(GlobalUser)) then
     begin
       if lowercase(copy(ARequest.Authorization,0,6))='basic ' then
@@ -123,7 +122,6 @@ begin
           exit;
         end;
     end;
-  }
   Response.Code:=404;
   Response.CodeText:='Not found';
   Handled:=True;

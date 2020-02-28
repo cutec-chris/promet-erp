@@ -24,23 +24,17 @@ type
     Items: array of T;
     procedure Add(Value: T);
   end;
+
+  { TBaseDbList }
+
   TBaseDbList = class(TBaseDBDataSet)
   private
-    function GetActive: Boolean;
-    function GetBookNumber: TField;
-    function GetMatchcode: TField;
-    function GetBarcode: TField;
-    function GetCommission: TField;
-    function GetDescription: TField;
-    function GetStatus: TField;
-    function GetText: TField;
-    function GetNumber : TField;
   protected
     FStatusCache: TStringList;
   public
     destructor Destroy; override;
+    function GetTyp: string;virtual;abstract;
     function GetStatusIcon : Integer;virtual;
-    function GetTyp: string;virtual;
     function GetMatchcodeFieldName: string;virtual;
     function GetBarcodeFieldName: string;virtual;
     function GetCommissionFieldName: string;virtual;
@@ -49,7 +43,6 @@ type
     function GetTextFieldName: string;virtual;abstract;
     function GetNumberFieldName : string;virtual;abstract;
     function GetBookNumberFieldName : string;virtual;
-    function Delete : Boolean; override;
     function Find(aIdent : string;Unsharp : Boolean = False) : Boolean;virtual;
     procedure OpenItem(AccHistory: Boolean=True);virtual;
     procedure BuildSearchIndexes;virtual;
@@ -148,7 +141,6 @@ type
     FCOMMAND,FAccountNo,FName,FClient,FHost,FVersion: string;
     FEXPIRES: TDateTime;
   public
-    function Delete : Boolean; override;
   published
     property ACCOUNTNO : string index 20 read FAccountNo write FAccountNo;
     property NAME : string index 30 read FName write FName;
@@ -672,11 +664,6 @@ begin
 
 end;
 
-function TActiveUsers.Delete: Boolean;
-begin
-  Result:=inherited Delete;
-end;
-
 function TUser.MergeSalt(apasswort, aSalt: string): string;
 var
   i: Integer;
@@ -751,53 +738,6 @@ begin
   end;
 end;
 
-{ TBaseDbList }
-
-function TBaseDbList.GetActive: Boolean;
-begin
-
-end;
-
-function TBaseDbList.GetBookNumber: TField;
-begin
-
-end;
-
-function TBaseDbList.GetMatchcode: TField;
-begin
-
-end;
-
-function TBaseDbList.GetBarcode: TField;
-begin
-
-end;
-
-function TBaseDbList.GetCommission: TField;
-begin
-
-end;
-
-function TBaseDbList.GetDescription: TField;
-begin
-
-end;
-
-function TBaseDbList.GetStatus: TField;
-begin
-
-end;
-
-function TBaseDbList.GetText: TField;
-begin
-
-end;
-
-function TBaseDbList.GetNumber: TField;
-begin
-
-end;
-
 destructor TBaseDbList.Destroy;
 begin
   inherited Destroy;
@@ -805,12 +745,7 @@ end;
 
 function TBaseDbList.GetStatusIcon: Integer;
 begin
-
-end;
-
-function TBaseDbList.GetTyp: string;
-begin
-
+  Result := -1;
 end;
 
 function TBaseDbList.GetMatchcodeFieldName: string;
@@ -841,11 +776,6 @@ end;
 function TBaseDbList.GetBookNumberFieldName: string;
 begin
 
-end;
-
-function TBaseDbList.Delete: Boolean;
-begin
-  Result:=inherited Delete;
 end;
 
 function TBaseDbList.Find(aIdent: string; Unsharp: Boolean): Boolean;

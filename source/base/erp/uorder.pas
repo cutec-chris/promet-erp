@@ -69,6 +69,13 @@ type
     property B_CHist: string index 1 read FB_CHist write FB_CHist;   //Kundenhistorie               (+ 0)
   end;
 
+  { TOrderTypes }
+
+  TOrderTypes = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
   { TOrderList }
 
   TOrderList = class(TBaseERPList,IBaseHistory)
@@ -81,11 +88,11 @@ type
     FDate,FDoAFQ,FDWish,FODate,FDAppr,FShippingD,FPayedOn,FDeliveredOn : TDateTime;
     FPQuantity,FWeight,FVatH,FVatF,FNetPrice,FDiscPrice,FDiscount,FGrossPrice : double;
     FHistory : TBaseHistory;
-    FOrderTyp: TOrdertyp;
+    FOrderTyp: TOrdertypes;
     FProjectID : Int64;
     FOrigID: String;
     function GetHistory: TBaseHistory;
-    function GetOrderTyp: TOrdertyp;
+    function GetOrderTyp: TOrdertypes;
   protected
   public
     constructor Create(aParent : TPersistent);override;
@@ -98,7 +105,7 @@ type
     function SelectFromCommission(aNumber : string) : Boolean;
     procedure OpenItem(AccHistory: Boolean=True); override;
     property History : TBaseHistory read FHistory;
-    property OrderType : TOrdertyp read GetOrderTyp;
+    property OrderType : TOrdertypes read GetOrderTyp;
     function SelectOrderType : Boolean;
   published
     property OrderNo: Integer read FOrderNo write FOrderNo;
@@ -440,6 +447,13 @@ resourcestring
   strAlreadyPosted              = 'Der Vorgang ist bereits gebucht !';
   strDispatchTypenotfound       = 'Die gewählte Versandart existiert nicht !';
 
+{ TOrderTypes }
+
+class function TOrderTypes.GetObjectTyp: TClass;
+begin
+  Result := TOrderTyp;
+end;
+
 { TOrderAddresses }
 
 class function TOrderAddresses.GetObjectTyp: TClass;
@@ -719,7 +733,6 @@ end;
 procedure TOrder.Open;
 begin
   inherited Open;
-  OrderType.Open;
   OrderType.Locate('STATUS',Status,[]);
   //Address.Open;
   SelectCurrency;
@@ -1819,7 +1832,7 @@ begin
   Result := FHistory;
 end;
 
-function TOrderList.GetOrderTyp: TOrdertyp;
+function TOrderList.GetOrderTyp: TOrdertypes;
 begin
   Result := FOrderTyp;
 end;
@@ -1828,7 +1841,7 @@ constructor TOrderList.Create(aParent: TPersistent);
 begin
   inherited;
   FHistory := TBaseHistory.Create(Self);
-  FOrderTyp := TOrderTyp.CreateEx(Self,DataModule);
+  FOrderTyp := TOrderTypes.Create(Self);
 end;
 
 destructor TOrderList.Destroy;
@@ -1860,9 +1873,8 @@ begin
   if aStat <> '' then Result := StrToIntDef(aStat,-1)
   else
     begin
-      OrderType.Open;
       if OrderType.Locate('STATUS',Status,[]) then
-        Result := OrderType.Icon;
+        Result := TOrderTyp(OrderType.DataSet).Icon;
       FStatusCache.Values[FieldByName(GetStatusFieldName).AsString] := IntToStr(Result);
     end;
 end;
