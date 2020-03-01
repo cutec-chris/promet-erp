@@ -94,10 +94,15 @@ type
   end;
   TCheckCheckinFilesEvent = function(aFiles : TStrings;Directory: string;var Desc : string) : Boolean of object;
   TCheckCheckOutFileEvent = procedure(aFile : string) of object;
+
+  { TMimeTypes }
+
   TMimeTypes = class(TBaseDBDataset)
   private
     FHost,FExtensions,FMime,FDesc,FView,FEdit,FPrint : string;
     FUseStarter,FAddFiles : Boolean;
+  public
+    procedure FillDefaults;override;
   published
     property Host: string index 100 read FHost write FHost;
     property Extensions: string index 150 read FExtensions write FExtensions;
@@ -142,21 +147,16 @@ type
     FOnCheckCheckinFiles: TCheckCheckinFilesEvent;
     FExtDesc : string;
     FOnCheckCheckOutFile: TCheckCheckOutFileEvent;
-    function GetCreationDate: TDateTime;override;
-    function GetFileSize: Int64;override;
-    function GetLastModified: TDateTime;override;
     procedure SetbaseParent(AValue: TDocuments);
   protected
   public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner: TPersistent); override;
     destructor Destroy; override;
-    function CreateTable : Boolean;override;
     procedure Select(aID : LargeInt;aType : string;aParent : LargeInt);overload;override;
     procedure Select(aID : LargeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;override;
     procedure SelectByNumber(aNumber : Variant);override;
-    procedure FillDefaults(aDataSet : TDataSet);override;
-    procedure AddFromStream(eName,Extension: string; Stream: TStream;aText : string = ''; AddDate: TDateTime = 0;SetText : Boolean = True);
+    procedure FillDefaults;override;
+    procedure AddFromStream(eName,aExtension: string; Stream: TStream;aText : string = ''; AddDate: TDateTime = 0;SetText : Boolean = True);
     procedure AddFromFile(aFilename : string;aText : string = '';AddDate : TDateTime = 0);
     procedure AddFromDir(aFilename : string;aText : string = '';DoDelete : Boolean = False;AddDate : TDateTime = 0);
     procedure AddFromLink(aLink : string);
@@ -174,13 +174,12 @@ type
     property OnCheckCheckinFiles : TCheckCheckinFilesEvent read FOnCheckCheckinFiles write FOnCheckCheckinFiles;
     property AftercheckInFiles : TNotifyEvent read FAfterCheckinFiles write FAfterCheckInFiles;
     property OnCheckCheckOutFile : TCheckCheckOutFileEvent read FOnCheckCheckOutFile write FOnCheckCheckOutFile;
-    function Delete : Boolean;override;
+    function Delete : Boolean;
     property MimeTypes : TMimeTypes read FMimeTypes;
     property DocumentActions : TDocumentActions read FDocumentActions;
   end;
 implementation
-uses uBaseDBInterface,uBaseApplication, uBaseApplicationTools,md5,
-  Variants,Process,uthumbnails;
+uses md5,Variants,Process,uData;
 resourcestring
   strFailedCreatingDiff         = 'konnte Differenzdatei von Datei %s nicht erstellen';
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
@@ -196,26 +195,13 @@ end;
 
 procedure TDocumentActions.FillDefaults;
 begin
-  inherited FillDefaults(aDataSet);
+  inherited FillDefaults;
   Host:=GetSystemName;
 end;
-procedure TMimeTypes.Open;
+procedure TMimeTypes.FillDefaults;
 begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Limit := 0;
-          BaseFilter := Data.QuoteField('HOST')+'='+Data.QuoteValue(GetSystemName);
-        end;
-    end;
-  inherited Open;
-end;
-
-procedure TMimeTypes.FillDefaults(aDataSet: TDataSet);
-begin
-  inherited FillDefaults(aDataSet);
-  aDataSet.FieldByName('HOST').AsString:=GetSystemName;
+  inherited FillDefaults;
+  Host:=GetSystemName;
 end;
 
 procedure TDocument.SetbaseParent(AValue: TDocuments);
@@ -230,20 +216,11 @@ begin
   if FBaseParent.Count > 0 then
     ParentID:=FBaseParent.FieldByName('NUMBER').AsVariant;
 end;
-constructor TDocument.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
+constructor TDocument.Create(aOwner: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Limit := 0;
-          UsePermissions:=False;
-        end;
-    end;
-  FMimeTypes := TMimeTypes.CreateEx(Self,DataModule,aConnection,nil);
-  FDocumentActions := TDocumentActions.CreateEx(Self,DataModule,aConnection,nil);
+  inherited Create(aOwner);
+  FMimeTypes := TMimeTypes.Create(Self);
+  FDocumentActions := TDocumentActions.Create(Self);
 end;
 
 destructor TDocument.Destroy;
@@ -252,59 +229,15 @@ begin
   FDocumentActions.Free;
   inherited Destroy;
 end;
-function TDocument.CreateTable : Boolean;
-begin
-  Result := inherited CreateTable;
-  FDocumentActions.CreateTable;
-  FMimeTypes.CreateTable;
-end;
-function TDocument.GetCreationDate: TDateTime;
-var
-  aRec: LargeInt;
-begin
-  if Count = 0 then exit;
-  aRec := GetBookmark;
-  DataSet.First;
-  Result := DataSet.FieldByName('DATE').AsDateTime;
-  GotoBookmark(aRec);
-end;
-function TDocument.GetFileSize: Int64;
-var
-  aRec: LargeInt;
-begin
-  Result := 0;
-  if Count = 0 then exit;
-  aRec := GetBookmark;
-  DataSet.First;
-  Result := DataSet.FieldByName('SIZE').AsInteger;
-  GotoBookmark(aRec);
-end;
-function TDocument.GetLastModified: TDateTime;
-var
-  aRec: LargeInt;
-begin
-  if Count = 0 then exit;
-  aRec := GetBookmark;
-  DataSet.First;
-  Result := DataSet.FieldByName('TIMESTAMPD').AsDateTime;
-  GotoBookmark(aRec);
-end;
 procedure TDocument.Select(aID: LargeInt;aType : string;aParent: LargeInt);
 var
   tmpfields: String;
 begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with Self.DataSet as IBaseDBFilter,Self.DataSet as IBaseManageDB do
-        begin
-          tmpfields := GetUsedFields;
-          Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aID))+' and '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent));
-          SortDirection := sdAscending;
-          SortFields := 'REVISION,FULL';
-          Fields := tmpFields;
-          Limit := 0;
-        end;
-    end;
+  //Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aID))+' and '+Data.QuoteField('PARENT')+'='+Data.QuoteValue(IntToStr(aParent));
+  //SortDirection := sdAscending;
+  //SortFields := 'REVISION,FULL';
+  //Fields := tmpFields;
+  //Limit := 0;
   FRefID := aID;
   FBaseID := '';
   FBaseTyp:= aType;
@@ -318,12 +251,7 @@ procedure TDocument.Select(aID: LargeInt; aType: string; aTID: string;
 var
   tmpfields: String;
 begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter,DataSet as IBaseManageDB do
-        begin
-          tmpfields := GetUsedFields;
-          Fields := tmpfields;
+  {
           if pos(Data.QuoteField('ID'),tmpfields) > 0 then
             begin
               Filter := '((('+Data.QuoteField(TableName)+'.'+Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(IntToStr(aID))+') or ('
@@ -349,64 +277,52 @@ begin
   FBaseVersion := aVersion;
   FBaseLanguage := aLanguage;
   ParentID := aParent;
+  }
 end;
 procedure TDocument.SelectByNumber(aNumber: Variant);
 begin
   inherited SelectByNumber(aNumber);
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with Self.DataSet as IBaseDBFilter do
-        begin
-          SortFields := 'REVISION,FULL';
-          SortDirection := sdAscending;
-          Limit := 0;
-        end;
-    end;
+  //SortFields := 'REVISION,FULL';
+  //SortDirection := sdAscending;
+  //Limit := 0;
 end;
-procedure TDocument.AddFromStream(eName, Extension: string; Stream: TStream;
+procedure TDocument.AddFromStream(eName, aExtension: string; Stream: TStream;
   aText: string; AddDate: TDateTime; SetText: Boolean);
 var
   DocID: LargeInt;
   ss: TStringStream;
   OldPos: Int64;
 begin
-  with BaseApplication as IBaseDbInterface do
+  //TODO:Check if this document already is in the list
+  DocID := Data.GetID;
+  FieldByName('ISDIR').AsString := 'N';
+  FieldByName('REVISION').AsString := '0';
+  //TODO: Largeint ????
+  FieldByName('NUMBER').AsVariant := DocID;
+  FieldByName('NAME').AsString := copy(eName,0,FieldByName('NAME').Size);
+  FieldByName('EXTENSION').AsString := Extension;
+  FieldByName('SIZE').AsInteger := Stream.Size;
+  FieldByName('FULL').AsString:='Y';
+  OldPos := Stream.Position;
+  Data.StreamToBlobField(Stream,DataSet,'DOCUMENT');
+  if (aText = '') then
     begin
-      Append;
-      with DataSet do
-        begin
-          //TODO:Check if this document already is in the list
-          DocID := Data.GetUniID(Connection);
-          FieldByName('ISDIR').AsString := 'N';
-          FieldByName('REVISION').AsString := '0';
-          //TODO: Largeint ????
-          FieldByName('NUMBER').AsVariant := DocID;
-          FieldByName('NAME').AsString := copy(eName,0,FieldByName('NAME').Size);
-          FieldByName('EXTENSION').AsString := Extension;
-          FieldByName('SIZE').AsInteger := Stream.Size;
-          FieldByName('FULL').AsString:='Y';
-          OldPos := Stream.Position;
-          Data.StreamToBlobField(Stream,DataSet,'DOCUMENT');
-          if (aText = '') then
-            begin
-              Stream.Position:=OldPos;
-              if SetText then
-                GetContentText(Stream,'.'+Extension,aText);
-            end;
-          if aText <> '' then
-            begin
-              ss := TStringStream.Create(aText);
-              Data.StreamToBlobField(ss,DataSet,'FULLTEXT');
-              ss.Free;
-            end;
-          if AddDate = 0 then
-            FieldByName('DATE').AsFloat := Now()
-          else
-            FieldByName('DATE').AsFloat := AddDate;
-          Post;
-          Change;
-        end;
+      Stream.Position:=OldPos;
+      if SetText then
+        GetContentText(Stream,'.'+Extension,aText);
     end;
+  if aText <> '' then
+    begin
+      ss := TStringStream.Create(aText);
+      Data.StreamToBlobField(ss,DataSet,'FULLTEXT');
+      ss.Free;
+    end;
+  if AddDate = 0 then
+    FieldByName('DATE').AsFloat := Now()
+  else
+    FieldByName('DATE').AsFloat := AddDate;
+  Post;
+  Change;
 end;
 procedure TDocument.AddFromFile(aFilename: string; aText: string;
   AddDate: TDateTime);
@@ -550,12 +466,11 @@ begin
         end;
     end;
 end;
-procedure TDocument.FillDefaults(aDataSet: TDataSet);
+procedure TDocument.FillDefaults;
 begin
   with aDataSet,BaseApplication as IBaseDbInterface do
     begin
-      if DataSet.FieldDefs.IndexOf('REF_ID_ID') > -1 then
-        FieldByName('REF_ID_ID').AsVariant  := FRefID;
+      Ref  := FRefID;
       FieldByName('PARENT').AsVariant  := FParentID;
       if Data.Users.DataSet.Active then
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
