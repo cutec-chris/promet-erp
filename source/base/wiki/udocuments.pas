@@ -28,18 +28,18 @@ type
 
   TDocuments = class(TBaseDBList)
   private
+    FRef_ID_ID,FNumber,FSize : Int64;
+    FType,FName,FExtension,FStatus,FChecksum,FCreatedBy,FChangedBy,FMessage,FFulltext : string;
+    FIsDir,FIsLink,FFull : Boolean;
+    FDate : TDateTime;
     FBaseID: string;
+    FParent,FRevision : Integer;
     FBaseLanguage: Variant;
     FBaseTyp: Variant;
     FBaseVersion: Variant;
     FParentID: Variant;
     FRefID: LargeInt;
-    function GetCreationDate: TDateTime;virtual;
     function GetFileName: string;
-    function GetFileSize: Int64;virtual;
-    function GetIsDir: Boolean;
-    function GetIsLink: Boolean;
-    function GetLastModified: TDateTime;virtual;
     procedure SetParentID(AValue: Variant);
   public
     procedure Open;override;
@@ -55,54 +55,80 @@ type
     procedure SelectByNumber(aNumber : Variant);virtual;
     procedure SelectByID(aID : LargeInt);
     procedure SelectByLink(aLink : string);
-    procedure DefineFields(aDataSet : TDataSet);override;
     procedure Select(aID : LargeInt;aType : string;aParent : LargeInt = 0);overload;virtual;
     procedure Select(aID : largeInt;aType : string;aTID : string;aVersion : Variant;aLanguage : Variant;aParent : LargeInt = 0);overload;virtual;
     procedure SelectByReference(aID : Variant);
     function OpenPath(aPath : string;aPathDelim : string = PathDelim) : Boolean;
-    property IsDir : Boolean read GetIsDir;
-    property IsLink : Boolean read GetIsLink;
     function GotoLink : Boolean;
     function SelectFile(aFilename : string) : Boolean;
-    function Delete : Boolean;override;
+    function Delete : Boolean;
   published
     property Ref_ID_ID : Int64 read FRef_ID_ID write FRef_ID_ID;
-    property Typ: Boolean read FType write FType;
+    property Typ: string index 1 read FType write FType;
     property IsDir: Boolean read FIsDir write FIsDir;
-    property IsLink: Boolean read  write False);
-    property Parent: Integer read  write ,false);
-    property Number : Int64 read  write ;
-    property Name: string index 240,True);
-    property Extension: string index 15,false);
-    property Revision: Integer read  write ,True);
-    property Status: string index 4,false);
-    property Size : Int64 read  write false);
-    property Checksum: string index 32,False);
-    property Full: Boolean read  write False);
-    property Date: TDateTime read  write ;;
-    property CreatedBy: string index 4,False);
-    property ChangedBy: string index 4,False);
-    property Message: string index 100,False);
-    property Fulltext: string read write ;
-    //property DOCUMENT',ftBlob,0,False);
+    property IsLink: Boolean read FIsLink write FIsLink;
+    property Parent: Integer read FParent write FParent;
+    property Number : Int64 read FNumber write FNumber;
+    property Name: string index 240 read FName write FName;
+    property Extension: string index 15 read FExtension write FExtension;
+    property Revision: Integer read FRevision write FRevision;
+    property Status: string index 4 read FStatus write FStatus;
+    property Size : Int64 read FSize write FSize;
+    property Checksum: string index 32 read FChecksum write FChecksum;
+    property Full: Boolean read FFull write FFull;
+    property Date: TDateTime read FDate write FDate;
+    property CreatedBy: string index 4 read FCreatedBy write FCreatedBy;
+    property ChangedBy: string index 4 read FChangedBy write FChangedBy;
+    property Message: string index 100 read FMessage write FMessage;
+    property Fulltext: string read FFulltext write FFulltext;
+    //property DOCUMENT',ftBlob,0 read  write ;
   end;
   TDocumentTemplates = class(TBaseDBList)
-  public
-    procedure DefineFields(aDataSet : TDataSet);override;
+  private
+    FType,FName,FExtension : string;
+  published
+    property Typ: string index 1 read FType write FType;
+    property Name: string index 160 read FName write FName;
+    property Extension: string index 15 read FExtension write FExtension;
+    //property Document',ftBlob,0 read  write ;
   end;
   TCheckCheckinFilesEvent = function(aFiles : TStrings;Directory: string;var Desc : string) : Boolean of object;
   TCheckCheckOutFileEvent = procedure(aFile : string) of object;
   TMimeTypes = class(TBaseDBDataset)
-  public
-    procedure DefineFields(aDataSet: TDataSet); override;
-    procedure Open; override;
-    procedure FillDefaults(aDataSet: TDataSet); override;
+  private
+    FHost,FExtensions,FMime,FDesc,FView,FEdit,FPrint : string;
+    FUseStarter,FAddFiles : Boolean;
+  published
+    property Host: string index 100 read FHost write FHost;
+    property Extensions: string index 150 read FExtensions write FExtensions;
+    property Mime: string index 80 read FMime write FMime;
+    property AddFiles: Boolean read FAddFiles write FAddFiles;
+    property Desc: string index 60 read FDesc write FDesc;
+    property View: string index 255 read FView write FView;
+    property Edit: string index 255 read FEdit write FEdit;
+    property Print: string index 255 read FPrint write FPrint;
+    property UseStarter: Boolean read FUseStarter write FUseStarter;
+    //property Timestamp',ftDate,0 read  write ;
   end;
+
+  { TDocumentActions }
+
   TDocumentActions = class(TBaseDBDataset)
+  private
+    FHost,FAction,FActionCmd : string;
+    FNumber : Integer;
+    FCoDir,FAddFiles,FUseStarter : Boolean;
   public
-    procedure DefineFields(aDataSet: TDataSet); override;
     procedure Open; override;
-    procedure FillDefaults(aDataSet: TDataSet); override;
+    procedure FillDefaults; override;
+  published
+    property Host: string index 100 read FHost write FHost;
+    property Number: Integer read FNumber write FNumber;
+    property CoDir: Boolean read FCoDir write FCoDir;
+    property AddFiles: Boolean read FAddFiles write FAddFiles;
+    property Action: string index 1 read FAction write FAction;
+    property ActionCmd: string read FActionCmd write FActionCmd;
+    property UseStarter: Boolean read FUseStarter write FUseStarter;
   end;
 
   { TDocument }
@@ -160,72 +186,19 @@ resourcestring
   strInvalidLink                = 'Dieser Link ist auf dieser Datenbank ungültig !';
   strLinkNotFound               = 'Verweis konnte nicht gefunden werden !';
 var FUsedFields : string;
-procedure TDocumentActions.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'DOCUMENTACTIONS';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property HOST: string index 100,False);
-            property NUMBER: Integer read  write ,False);
-            property CODIR: Boolean read  write False);
-            property ADDFILES: Boolean read  write False);
-            property ACTION: string index 1,False);
-            property ACTIONCMD',ftMemo,0,False);
-            property USESTARTER: Boolean read  write False);
-          end;
-      if Assigned(ManagedIndexdefs) then
-        with ManagedIndexDefs do
-          begin
-            property HOST','HOST',[]);
-            property NUMBER','NUMBER',[]);
-          end;
-    end;
-end;
 
 procedure TDocumentActions.Open;
 begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-          Limit := 0;
-          BaseFilter := Data.QuoteField('HOST')+'='+Data.QuoteValue(GetSystemName);
-        end;
-    end;
+  //Limit := 0;
+  //BaseFilter := Data.QuoteField('HOST')+'='+Data.QuoteValue(GetSystemName);
   inherited Open;
 end;
 
-procedure TDocumentActions.FillDefaults(aDataSet: TDataSet);
+procedure TDocumentActions.FillDefaults;
 begin
   inherited FillDefaults(aDataSet);
-  aDataSet.FieldByName('HOST').AsString:=GetSystemName;
+  Host:=GetSystemName;
 end;
-
-procedure TMimeTypes.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'MIMETYPES';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property HOST: string index 100,False);
-            property EXTENSIONS: string index 150,False);
-            property MIME: string index 80,True);
-            property ADDFILES: Boolean read  write False);
-            property DESC: string index 60,False);
-            property VIEW: string index 255,False);
-            property EDIT: string index 255,False);
-            property PRINT: string index 255,False);
-            property USESTARTER: Boolean read  write False);
-            property TIMESTAMP',ftDate,0,False);
-          end;
-    end;
-end;
-
 procedure TMimeTypes.Open;
 begin
   with BaseApplication as IBaseDbInterface do
@@ -595,22 +568,6 @@ begin
         end;
     end;
 end;
-procedure TDocumentTemplates.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'TEMPLATES';
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            property TYPE: string index 1,True);
-            property NAME: string index 160,True);
-            property EXTENSION: string index 15,false);
-            property DOCUMENT',ftBlob,0,False);
-          end;
-    end;
-end;
-
 function TDocuments.GetFileName: string;
 begin
   result := '';
