@@ -37,7 +37,7 @@ type
     function QuoteField(aField : string) : string;
     function QuoteValue(aField : string) : string;
     function BuildInternalSelect(aFilter: Variant; FoundFields, JoinedTables,
-      Params: TStrings): string;
+      Params: TStrings; typ: string): string;
   protected
     Selected : Boolean;
   public
@@ -46,8 +46,10 @@ type
     property Fields : TStrings read FFields;
     property TableName : string read FTableName write SetTableName;
     property SubTables[Table : Integer] : TQueryTable read GetTable;
-    function BuildSelect(aFilter,aFields : string;Params : TStringList) : string;
-    function BuildLoad(aSelector : Variant;CascadicIndex : Integer = 0;aParams : TStringList = nil) : string;
+    function BuildSelect(aFilter, aFields: string; Params: TStringList; typ: string
+      ): string;
+    function BuildLoad(aSelector: Variant; CascadicIndex: Integer;
+      aParams: TStringList; typ: string): string;
   end;
 
   { TSQLDBDataModule }
@@ -73,7 +75,7 @@ type
     function Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
-    function Select(Obj: TClass; var aDS: TMemDataset; aStart: Integer=0; aCount: Integer
+    function Select(Obj: TClass;aDS: TMemDataset; aStart: Integer=0; aCount: Integer
       =100; aFilter: string=''; aFields: string=''): Boolean; override;
     function Delete(Selector: Variant): Boolean; override;
     function GetID: Int64; override;
@@ -132,7 +134,7 @@ begin
     end;
 end;
 function TQueryTable.BuildInternalSelect(aFilter: Variant; FoundFields,
-  JoinedTables, Params: TStrings): string;
+  JoinedTables, Params: TStrings;typ : string): string;
 var
   tmp, aWhere, cFullFieldName, cFieldTableName, cJoinTableName,
     aParName: String;
@@ -148,7 +150,10 @@ begin
     tmp += FoundFields[i]+',';
   if tmp <> '' then
     begin
-      Result := 'select '+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
+      Result := 'select ';
+      if typ='MSSQLServer' then
+        Result := Result+'top (:LIMIT) ';
+      Result := Result+copy(tmp,0,length(tmp)-1)+' from '+JoinedTables.ValueFromIndex[0];
       JoinedTables.Delete(0);
       while JoinedTables.Count>0 do
         begin
@@ -190,6 +195,8 @@ begin
       end;
       if aWhere <> '' then
         Result := Result+' where '+aWhere;
+      if typ<>'MSSQLServer' then
+        Result := Result+' limit (:LIMIT) offset (:OFFSET)';
     end;
 end;
 function TQueryTable.GetTable(Table : Integer): TQueryTable;
@@ -247,8 +254,7 @@ begin
   FFields.Free;
   inherited Destroy;
 end;
-function TQueryTable.BuildSelect(aFilter, aFields: string; Params: TStringList
-  ): string;
+function TQueryTable.BuildSelect(aFilter, aFields: string; Params: TStringList;typ : string): string;
 var
   ToFindFields,FoundFields,JoinedTables : TStringlist;
   tmp, aWhere, cJoinTableName, cFullFieldName, cFieldTableName,
@@ -274,7 +280,7 @@ begin
         end
       else
         raise Exception.Create('Unable to build Select, Field "'+ToFindFields[0]+'" not found');
-    Result := BuildInternalSelect(aFilter,FoundFields,JoinedTables,Params);
+    Result := BuildInternalSelect(aFilter,FoundFields,JoinedTables,Params,typ);
   finally
     ToFindFields.Free;
     FoundFields.Free;
@@ -283,7 +289,7 @@ begin
   //writeln(Result);
 end;
 function TQueryTable.BuildLoad(aSelector: Variant; CascadicIndex: Integer;
-  aParams: TStringList): string;
+  aParams: TStringList;typ : string): string;
 var
   FoundFields, JoinedTables: TStringList;
   tmp, aWhere, cFullFieldName, cFieldTableName, cJoinTableName,
@@ -316,7 +322,7 @@ begin
   try
     JoinedTables.AddPair(QuoteField(Uppercase(Self.TableName)),QuoteField(Uppercase(Self.TableName)));
     CollectFields(Self);
-    Result := BuildInternalSelect(aSelector,FoundFields,JoinedTables,aParams);
+    Result := BuildInternalSelect(aSelector,FoundFields,JoinedTables,aParams,typ);
     //writeln(Result);
   finally
     FoundFields.Free;
@@ -617,7 +623,7 @@ begin
   Result := False;
   aTable := GetTable(Obj.ClassType);
   bParams := TStringList.Create;
-  actLoad := aTable.BuildLoad(Selector,0,bParams);
+  actLoad := aTable.BuildLoad(Selector,0,bParams,TSQLConnector(MainConnection).ConnectorType);
   while actLoad <> '' do
     begin
       {
@@ -646,7 +652,7 @@ begin
           aDataSet.Query.Close;
           aDataSet.Unlock;
           bParams.Clear;
-          actLoad := aTable.BuildLoad(Selector,actCascade,bParams);
+          actLoad := aTable.BuildLoad(Selector,actCascade,bParams,TSQLConnector(MainConnection).ConnectorType);
           inc(actCascade);
         end;
     end;
@@ -660,7 +666,7 @@ begin
   Result := False;
   aTable := GetTable(Obj.ClassType);
 end;
-function TSQLDBDataModule.Select(Obj: TClass; var aDS: TMemDataset;
+function TSQLDBDataModule.Select(Obj: TClass; aDS: TMemDataset;
   aStart: Integer; aCount: Integer; aFilter: string; aFields: string): Boolean;
 var
   aTable: TQueryTable;
@@ -668,11 +674,9 @@ var
   aParams: TStringList;
   i: Integer;
 begin
-  if aDS = nil then
-    aDS := TMemDataset.Create(nil);
   aTable := GetTable(Obj);
   aParams := TStringList.Create;
-  aDataSet := FindDataSet(ThreadID,aTable.BuildSelect(aFilter,aFields,aParams));
+  aDataSet := FindDataSet(ThreadID,aTable.BuildSelect(aFilter,aFields,aParams,TSQLConnector(MainConnection).ConnectorType));
   if Assigned(aDataSet) then
     begin
       for i := 0 to aParams.Count-1 do

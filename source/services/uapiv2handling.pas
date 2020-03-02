@@ -156,7 +156,8 @@ begin
               end;
             'index.json':
               begin
-                if Data.Select(DatasetClasses[i].aClass,aDS,0,100,'','SQL_ID') then
+                aDs := TMemDataSet.Create(nil);
+                if Data.Select(DatasetClasses[i].aClass,aDS,0,10,'','SQL_ID') then
                   begin
                     Response.Code:=200;
                     Response.CodeText:='OK';
@@ -164,6 +165,7 @@ begin
                     arr := TJSONArray.Create;
                     DatasetToJSON(aDS,arr,[]);
                     Response.Content:=Streamer.ObjectToJSON(arr).FormatJSON;
+                    FreeAndNil(aDS);
                   end;
               end;
             end;

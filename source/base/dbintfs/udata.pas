@@ -34,7 +34,7 @@ type
     procedure Connect;virtual;abstract;
     function Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;virtual;abstract;
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;virtual;abstract;
-    function Select(Obj: TClass;var aDS : TMemDataset;aStart: Integer = 0;aCount : Integer = 100;aFilter: string=''; aFields: string=''): Boolean;virtual;abstract;
+    function Select(Obj: TClass;aDS : TMemDataset;aStart: Integer = 0;aCount : Integer = 100;aFilter: string=''; aFields: string=''): Boolean;virtual;abstract;
     function Delete(Selector: Variant) : Boolean;virtual;abstract;
     function GetID : Int64;virtual;abstract;
   end;
