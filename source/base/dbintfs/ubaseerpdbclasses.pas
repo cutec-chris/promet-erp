@@ -73,13 +73,13 @@ type
   public
   published
     property ID : string index 2 read FID write FID;
-    property NAME : string index 10 read FName write FName;
-    property TEXT : string index 30 read FText write FText;
-    property FACCOUNTS : TBlobData read FAAccounts write FAAccounts;
-    property CASHDISC : double read FCashDisc write FCashDisc;               //Skonto
-    property CASHDISCD : Integer read FCashDiscD write FCashDiscD;            //Skonto Tage
-    property DAYS : Integer read FDays write FDays;                 //Tage
-    property DEFAULTPT : string index 1 read FDefaultPT write FDefaultPT;
+    property Name : string index 10 read FName write FName;
+    property Text : string index 30 read FText write FText;
+    property FAccounts : TBlobData read FAAccounts write FAAccounts;
+    property CashDisc : double read FCashDisc write FCashDisc;               //Skonto
+    property CashDiscD : Integer read FCashDiscD write FCashDiscD;            //Skonto Tage
+    property Days : Integer read FDays write FDays;                 //Tage
+    property DefaultPt : string index 1 read FDefaultPT write FDefaultPT;
   end;
 
   { TPositionTyp }
@@ -89,10 +89,11 @@ type
     FName,FType,FText : string;
   public
     class function GetRealTableName: string; override;
+    class function MapField(aField: string): string; override;
   published
-    property NAME : string index 3 read FName write FName;
-    property TYP : string index 1 read FType write FType;
-    property TEXT : string index 60 read FText write FText;
+    property Name : string index 3 read FName write FName;
+    property Typ : string index 1 read FType write FType;
+    property Text : string index 60 read FText write FText;
   end;
   TPriceType = class(TBaseDBDataSet)
   private
@@ -520,6 +521,15 @@ class function TPositionTyp.GetRealTableName: string;
 begin
   Result := 'ORDERPOSTYP';
 end;
+
+class function TPositionTyp.MapField(aField: string): string;
+begin
+  Result:=inherited MapField(aField);
+  if Result = 'Typ' then
+    Result := 'TYPE'
+  ;
+end;
+
 function TBaseDBPosition.GetIdent: TField;
 begin
   Result := FieldByName('IDENT');

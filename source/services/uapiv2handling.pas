@@ -156,8 +156,7 @@ begin
               end;
             'index.json':
               begin
-                aDS := Data.Select(DatasetClasses[i].aClass,'','SQL_ID');
-                if Assigned(aDS) then
+                if Data.Select(DatasetClasses[i].aClass,aDS,0,100,'','SQL_ID') then
                   begin
                     Response.Code:=200;
                     Response.CodeText:='OK';

@@ -73,7 +73,8 @@ type
     function Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     //Generates recursive an update Statement per record if SQL_ID is filled or n insert stetement if not
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
-    function Select(Obj: TClass; aFilter: string; aFields: string): TMemDataset;override;
+    function Select(Obj: TClass; var aDS: TMemDataset; aStart: Integer=0; aCount: Integer
+      =100; aFilter: string=''; aFields: string=''): Boolean; override;
     function Delete(Selector: Variant): Boolean; override;
     function GetID: Int64; override;
     property Mandants : TStringList read GetMandants;
@@ -659,15 +660,16 @@ begin
   Result := False;
   aTable := GetTable(Obj.ClassType);
 end;
-function TSQLDBDataModule.Select(Obj: TClass; aFilter: string; aFields: string
-  ): TMemDataset;
+function TSQLDBDataModule.Select(Obj: TClass; var aDS: TMemDataset;
+  aStart: Integer; aCount: Integer; aFilter: string; aFields: string): Boolean;
 var
   aTable: TQueryTable;
   aDataSet: TLockedQuery;
   aParams: TStringList;
   i: Integer;
 begin
-  Result := TMemDataset.Create(nil);
+  if aDS = nil then
+    aDS := TMemDataset.Create(nil);
   aTable := GetTable(Obj);
   aParams := TStringList.Create;
   aDataSet := FindDataSet(ThreadID,aTable.BuildSelect(aFilter,aFields,aParams));
@@ -675,11 +677,20 @@ begin
     begin
       for i := 0 to aParams.Count-1 do
         aDataSet.Query.Params.ParamValues[aParams.Names[i]]:=aParams.ValueFromIndex[i];
+      if Assigned(aDataSet.Query.Params.FindParam('OFFSET')) then
+        begin
+          aDataSet.Query.Params.FindParam('OFFSET').AsInteger:=aCount;
+          if Assigned(aDataSet.Query.Params.FindParam('LIMIT')) then
+            aDataSet.Query.Params.FindParam('LIMIT').AsInteger:=aCount;
+        end
+      else if Assigned(aDataSet.Query.Params.FindParam('LIMIT')) then
+        aDataSet.Query.Params.FindParam('LIMIT').AsInteger:=aStart+aCount;//if no Offset is there (mssql) then we have to get full Offset+Limit
       aDataSet.Query.Open;
-      Result.CopyFromDataset(aDataSet.Query);
+      aDS.CopyFromDataset(aDataSet.Query);
       aDataSet.Query.Close;
       aDataSet.Unlock;
       aParams.Free;
+      Result := True;
     end;
 end;
 function TSQLDBDataModule.Delete(Selector: Variant): Boolean;
