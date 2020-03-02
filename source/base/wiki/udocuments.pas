@@ -293,6 +293,7 @@ var
   ss: TStringStream;
   OldPos: Int64;
 begin
+  {
   //TODO:Check if this document already is in the list
   DocID := Data.GetID;
   FieldByName('ISDIR').AsString := 'N';
@@ -323,6 +324,7 @@ begin
     FieldByName('DATE').AsFloat := AddDate;
   Post;
   Change;
+  }
 end;
 procedure TDocument.AddFromFile(aFilename: string; aText: string;
   AddDate: TDateTime);
@@ -347,6 +349,7 @@ var
   FindRec: TSearchRec;
   aDocument: TDocument;
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       Append;
@@ -386,6 +389,7 @@ begin
             until SysUtils.FindNext(FindRec) <> 0;
         end;
     end;
+  }
 end;
 procedure TDocument.AddFromLink(aLink: string);
 var
@@ -393,6 +397,7 @@ var
   DocID: Int64;
   Stream: TStringStream;
 begin
+  {
   if copy(aLink,0,9) <> 'DOCUMENTS' then exit;
   with BaseApplication as IBaseDbInterface do
     begin
@@ -418,10 +423,12 @@ begin
         end;
       aDocument.Free;
     end;
+  }
 end;
 procedure TDocument.MoveTo(aID: largeInt; aType: string; aTID: string;
   aVersion: Variant; aLanguage: Variant; aParent: LargeInt);
 begin
+  {
   with DataSet do
     begin
       First;
@@ -444,11 +451,13 @@ begin
           Next;
         end;
     end;
+  }
 end;
 procedure TDocument.CreateDirectory(aName: string);
 var
   DocID: Int64;
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet do
@@ -465,13 +474,13 @@ begin
           Post;
         end;
     end;
+  }
 end;
 procedure TDocument.FillDefaults;
 begin
-  with aDataSet,BaseApplication as IBaseDbInterface do
-    begin
-      Ref  := FRefID;
-      FieldByName('PARENT').AsVariant  := FParentID;
+  Ref_ID  := FRefID;
+  Parent := FParentID;
+  {
       if Data.Users.DataSet.Active then
       FieldByName('CHANGEDBY').AsString := Data.Users.IDCode.AsString;
       FieldByName('TYPE').AsVariant := BaseTyp;
@@ -482,48 +491,15 @@ begin
           FieldByName('LANGUAGE').AsVariant  := FBaseLanguage;
         end;
     end;
+  }
 end;
 function TDocuments.GetFileName: string;
 begin
   result := '';
-  if Count > 0 then
-    begin
-      if DataSet.FieldByName('EXTENSION').AsString <> '' then
-        Result := DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString
-      else
-        Result := DataSet.FieldByName('NAME').AsString;
-    end;
-end;
-function TDocuments.GetCreationDate: TDateTime;
-begin
-  if Count = 0 then exit;
-  Result := DataSet.FieldByName('DATE').AsDateTime;
-end;
-function TDocuments.GetFileSize: Int64;
-var
-  aDocument: TDocument;
-  ss: TStringStream;
-begin
-  if Count = 0 then exit;
-  if DataSet.FieldByName('ISLINK').AsString = 'Y' then
-    Result := -1
+  if Extension <> '' then
+    Result := Name+'.'+Extension
   else
-    Result := DataSet.FieldByName('SIZE').AsInteger;
-end;
-function TDocuments.GetIsDir: Boolean;
-begin
-  if not DataSet.Active then exit;
-  Result := DataSet.FieldByName('ISDIR').AsString = 'Y';
-end;
-function TDocuments.GetIsLink: Boolean;
-begin
-  if not DataSet.Active then exit;
-  Result := DataSet.FieldByName('ISLINK').AsString = 'Y';
-end;
-function TDocuments.GetLastModified: TDateTime;
-begin
-  if Count = 0 then exit;
-  Result := DataSet.FieldByName('TIMESTAMPD').AsDateTime;
+    Result := Name;
 end;
 procedure TDocuments.SetParentID(AValue: Variant);
 begin
@@ -539,6 +515,7 @@ end;
 procedure TDocuments.Open;
 begin
   inherited Open;
+  {
   if Count > 0 then
     begin
       if DataSet.FieldDefs.IndexOf('REF_ID_ID') <> -1 then
@@ -558,6 +535,7 @@ begin
     end;
   if ParentID = Null then
     ParentID := 0;
+  }
 end;
 
 function TDocuments.GetNumberFieldName: string;
@@ -568,6 +546,7 @@ procedure TDocuments.SelectByNumber(aNumber: Variant);
 var
   tmpfields: string = '';
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       with Self.DataSet as IBaseDBFilter do
@@ -583,11 +562,13 @@ begin
           Limit := 0;
         end;
     end;
+  }
 end;
 procedure TDocuments.SelectByID(aID: LargeInt);
 var
   tmpfields: String;
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       with Self.DataSet as IBaseDBFilter do
@@ -600,6 +581,7 @@ begin
         end;
     end;
   inherited Select(aID);
+  }
 end;
 
 procedure TDocuments.SelectByLink(aLink: string);
@@ -612,6 +594,7 @@ var
   tmpfields: String;
   aTID: String;
 begin
+  {
   Self.Select(0);
   if copy(aLink,0,pos('@',aLink)) = 'DOCUMENTS.ID@' then
     begin
@@ -667,9 +650,11 @@ begin
       FBaseLanguage := Null;
 }
     end;
+  }}}}}
 end;
 procedure TDocuments.Select(aID: LargeInt;aType : string;aParent : LargeInt);
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter,DataSet as IBaseManageDB do
@@ -685,12 +670,14 @@ begin
   FBaseVersion := Null;
   FBaseLanguage := Null;
   ParentID := aParent;
+  }
 end;
 function TDocuments.Delete: Boolean;
 var
   aDocument: TDocument;
   {%H-}tmp: String;
 begin
+  {
   Result := False;
   aDocument := TDocument.CreateEx(Self,DataModule,Connection);
   aDocument.SelectByNumber(DataSet.FieldByName('NUMBER').AsVariant);
@@ -702,6 +689,7 @@ begin
     end;
   aDocument.Free;
   DataSet.Refresh;
+  }
 end;
 
 procedure TDocuments.Select(aID: largeInt; aType: string; aTID: string;
@@ -709,6 +697,7 @@ procedure TDocuments.Select(aID: largeInt; aType: string; aTID: string;
 var
   tmp: String;
 begin
+  {
   with BaseApplication as IBaseDbInterface do
     begin
       with DataSet as IBaseDBFilter do
@@ -739,12 +728,14 @@ begin
   FBaseVersion := aVersion;
   FBaseLanguage := aLanguage;
   ParentID := aParent;
+  }
 end;
 
 procedure TDocuments.SelectByReference(aID: Variant);
 var
   aField: String = '';
 begin
+  {
   with BaseApplication as IBaseDBInterface do
     with DataSet as IBaseDBFilter do
       begin
@@ -762,9 +753,11 @@ begin
               Filter := Data.QuoteField(TableName)+'.'+Data.QuoteField(aField)+'='+Data.QuoteValue(Format('%d',[Int64(aID)]));
           end;
       end;
+  }
 end;
 
 function TDocuments.OpenPath(aPath: string; aPathDelim: string): Boolean;
+{
   function RecourseDirs(tmpDocs : TDocuments;nPath : string) : Boolean;
   var
     atmp: String;
@@ -794,7 +787,9 @@ function TDocuments.OpenPath(aPath: string; aPathDelim: string): Boolean;
   end;
 var
   tmpDocs: TDocuments;
+}
 begin
+  {
   tmpDocs := TDocuments.CreateEx(nil,DataModule,Connection);
   tmpDocs.Select(Self.Ref_ID,BaseTyp,BaseID,BaseVersion,BaseLanguage,0);
   tmpDocs.Open;
@@ -815,6 +810,7 @@ begin
       Result := DataSet.Active and (DataSet.Locate('NAME',aPath,[]) or (aPath=''));
     end;
   tmpDocs.Free;
+  }
 end;
 
 function TDocuments.GotoLink: Boolean;
@@ -822,6 +818,7 @@ var
   aRes: Boolean;
   ss: TStringStream;
 begin
+  {
   aRes := IsLink;
   Result := aRes;
   while aRes do
@@ -834,6 +831,7 @@ begin
       ss.Free;
       aRes := IsLink;
     end;
+  }
 end;
 
 function TDocuments.SelectFile(aFilename: string): Boolean;
@@ -841,6 +839,7 @@ var
   aNamePart: String = '';
   aExt: String = '';
 begin
+  {
   if pos('.',aFilename) > 0 then
     begin
       aNamePart := copy(aFileName,0,rpos('.',aFilename)-1);
@@ -852,28 +851,30 @@ begin
       aNamePart := aFileName;
       Result := DataSet.Locate('NAME',VarArrayOf([aNamePart]),[]);
     end;
+  }
 end;
 function TDocument.GetCheckoutPath(Directory: string; TempID: string): string;
 var
   TempPath: String = '';
 begin
   TempPath := GetIDCheckoutPath(Directory,TempID);
-  if (DataSet.FieldByName('ISDIR').AsString <> 'Y') and (DataSet.FieldByName('EXTENSION').AsString <> '') then
-    Result := AppendPathDelim(TempPath)+DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString
+  if (not IsDir) and (Extension <> '') then
+    Result := AppendPathDelim(TempPath)+Name+'.'+Extension
   else
-    Result := AppendPathDelim(TempPath)+DataSet.FieldByName('NAME').AsString;
+    Result := AppendPathDelim(TempPath)+Name;
 end;
 function TDocument.GetIDCheckoutPath(Directory: string; TempID: string
   ): string;
 var
   TempPath: String;
 begin
-  with BaseApplication as IBaseApplication do
-    TempPath:=GetInternalTempDir;
+  {
+  TempPath:=GetInternalTempDir;
   TempPath := AppendPathDelim(TempPath)+TempID+DirectorySeparator;
   if Directory <> '' then
     TempPath := TempPath+Directory+DirectorySeparator;
   Result := TempPath;
+  }
 end;
 function TDocument.DoCheckout(Directory: string; aRevision: Integer;
   aNewFileName: string): Boolean;
@@ -884,6 +885,7 @@ var
   ss: TStringStream;
   aFile: TFileStream;
 begin
+  {
   Result := False;
   if IsDir then
     begin
@@ -984,6 +986,7 @@ begin
             end;
         end;
     end;
+  }
 end;
 function TDocument.CheckoutToStream(aStream: TStream; aRevision: Integer;
   aSize: Integer): Boolean;
@@ -994,6 +997,7 @@ var
   aRev: Integer;
 begin
   Result := False;
+  {
   if not IsDir then
     begin
       if DataSet.FieldByName('ISLINK').AsString = 'Y' then
@@ -1059,6 +1063,7 @@ begin
               Result := Data.BlobFieldToStream(DataSet,'DOCUMENT',aStream,aSize);
         end;
     end;
+  }
 end;
 
 procedure TDocument.CheckInFromStream(aStream: TStream;Desc : string = '');
@@ -1074,6 +1079,7 @@ var
   UseFullFile: Boolean;
   aRevision: Int64;
 begin
+  {
   try
     aRevision := StrToInt64(TBaseDBModule(Self.DataModule).Numbers.GetNewNumber('DOCUMENTS'));
   except
@@ -1169,9 +1175,11 @@ begin
         FieldByName('TIMESTAMPT').AsFloat := Frac(Now());
       Post;
     end;
+  }
 end;
 
 function TDocument.CollectCheckInFiles(Directory: string): TStrings;
+{
   procedure FindFiles(aDir : string);
   var
     Info: TSearchRec;
@@ -1267,8 +1275,10 @@ function TDocument.CollectCheckInFiles(Directory: string): TStrings;
           end;
       end;
   end;
+}
 begin
   Result := TStringList.Create;
+  {
   DataSet.First;
   if DataSet.FieldByName('EXTENSION').AsString <> '' then
     CheckFiles(Self,AppendPathDelim(Directory)+DataSet.FieldByName('NAME').AsString+'.'+DataSet.FieldByName('EXTENSION').AsString)
@@ -1277,6 +1287,7 @@ begin
       FindFiles(AppendPathDelim(Directory)+DataSet.FieldByName('NAME').AsString);
       CheckFiles(Self,AppendPathDelim(Directory)+DataSet.FieldByName('NAME').AsString);
     end;
+  }
 end;
 function TDocument.CheckCheckInFiles(aFiles: TStrings;Directory: string): Boolean;
 begin
@@ -1288,6 +1299,7 @@ end;
 function TDocument.CheckinFiles(aFiles: TStrings;Directory: string;Desc : string = ''): Boolean;
 var
   aChanged: Boolean = False;
+{
   function CheckFiles(aDoc : TDocument;aDir : string;aRevision : LargeInt) : Boolean;
   var
     aDocuments: TDocuments;
@@ -1501,6 +1513,7 @@ var
           end;
       end;
   end;
+}
 var
   aRevision: LargeInt;
   aDocument: TDocument;
@@ -1510,6 +1523,7 @@ var
   tmp: String;
   aDocuments: TDocuments;
 begin
+  {
   if (Desc = '') and (FExtDesc <> '') then Desc := FExtDesc;
   //Get last revision
   Result := False;
@@ -1603,12 +1617,14 @@ begin
   if aChanged then
     if Assigned(FAfterCheckinFiles) then
       FAfterCheckinFiles(Self);
+  }
 end;
 function TDocument.Delete: Boolean;
 var
   aDocuments: TDocuments;
 begin
   Result := False;
+  {
   if not DataSet.Active then exit;
   //DataSet.Refresh;
   if IsDir then
@@ -1628,6 +1644,7 @@ begin
       DataSet.Delete;
       Result := True;
     end;
+  }
 end;
 
 initialization

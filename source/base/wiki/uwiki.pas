@@ -21,8 +21,7 @@ unit uWiki;
 interface
 uses
   Classes, SysUtils, uBaseDbClasses, db, uDocuments,
-  uBaseApplication, uBaseSearch, uIntfStrConsts,WikiToHtml,uBaseDatasetInterfaces,
-  rtf2html;
+  uIntfStrConsts,WikiToHtml,ubasedatasetinterfaces2,rtf2html;
 type
   TKeywords = class(TBaseDbDataSet)
   public
