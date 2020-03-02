@@ -24,9 +24,12 @@ uses
   uIntfStrConsts,WikiToHtml,ubasedatasetinterfaces2,rtf2html;
 type
   TKeywords = class(TBaseDbDataSet)
-  public
-    procedure DefineFields(aDataSet : TDataSet);override;
-    procedure Open; override;
+  private
+    FRef_ID_ID : Int64;
+    FKeyword : string;
+  published
+    property Ref_ID_ID: Int64 read FRef_ID_ID write FRef_ID_ID;
+    property Keyword: string index 60 read FKeyword write FKeyword;
   end;
 
   { TWikiList }
@@ -34,10 +37,11 @@ type
   TWikiList = class(TBaseDBList)
     procedure BasicWikiInclude(Inp: string; var Outp: string; aLevel: Integer=0
       );
-    procedure FKeywordsDataSetAfterInsert(aDataSet: TDataSet);
     procedure WikiListWikiLink(Inp: string; var Outp: string; aLevel: Integer=0
       );
   private
+    FTreeEntry : Int64;
+    FName,FCaption,FLanguage,FCreatedBy,FChangedBy,FData : string;
     FActiveTreeID: Variant;
     FKeywords: TKeywords;
     FKeywordDS : TDataSource;
@@ -48,7 +52,6 @@ type
   protected
   public
     function GetTyp: string;override;
-    procedure DefineFields(aDataSet : TDataSet);override;
     function GetTextFieldName: string;override;
     function GetNumberFieldName : string;override;
     function GetDescriptionFieldName: string;override;
@@ -61,74 +64,46 @@ type
     function GenerateDescription : string;
     function PageAsText : string;
     property ActiveTreeID : Variant read FActiveTreeID;
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-       aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
+    constructor Create(aOwner: TPersistent); override;
     destructor Destroy; override;
-    function CreateTable: Boolean; override;
     property Keywords : TKeywords read FKeywords;
     function ExportToHTML(aFile: string; aInclude: TWikiIncludeFunc): Boolean;
     property Variables : TStringList read FVariables;
+  published
+    property TreeEntry: Int64 read FTreeEntry write FTreeEntry;
+    property Name: string index 40 read FName write FName;
+    property Caption: string index 120 read FCaption write FCaption;
+    property Language: string index 3 read FLanguage write FLanguage;
+    property CreatedBy: string index 4 read FCreatedBy write FCreatedBy;
+    property ChangedBy: string index 4 read FChangedBy write FChangedBy;
+    property Data: string read FData write FData;
   end;
 implementation
-uses Variants,htmltowiki,Utils,uMessages,sqlparser,
-  sqlscanner, sqltree, uStatistic;
-
-procedure TKeywords.DefineFields(aDataSet: TDataSet);
-begin
-  with TBaseDBDataSet(aDataSet) as IBaseManageDB do
-    begin
-      TableName := 'KEYWORDS';
-      TableCaption:=strKeywords;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('REF_ID_ID',ftLargeint,0,False);
-            Add('KEYWORD',ftString,60,True);
-          end;
-    end;
-end;
-
-procedure TKeywords.Open;
-begin
-  with BaseApplication as IBaseDbInterface do
-    begin
-      with DataSet as IBaseDBFilter do
-        begin
-        if Assigned(Parent) then
-          begin
-            if not TBaseDBDataSet(Parent).Id.IsNull then
-              Filter := Data.QuoteField('REF_ID_ID')+'='+Data.QuoteValue(TBaseDBDataSet(Parent).Id.AsString)
-            else
-              Filter := Data.QuoteField('REF_ID_ID')+'= 0';
-            end;
-        end;
-    end;
-  inherited Open;
-end;
+uses Variants,htmltowiki,Utils,uData;
 
 procedure TWikiList.BasicWikiInclude(Inp: string; var Outp: string;
   aLevel: Integer=0);
 var
-  aList: TMessageList;
-  aMessage: TMessage;
+  //aList: TMessageList;
+  //aMessage: TMessage;
   aCount : Integer;
   ss: TStringStream;
   aNewList: TWikiList;
   FSQLStream: TStringStream;
-  FSQLScanner: TSQLScanner;
-  FSQLParser: TSQLParser;
-  bStmt: TSQLElement;
-  aTableName: TSQLStringType;
+  //FSQLScanner: TSQLScanner;
+  //FSQLParser: TSQLParser;
+  //bStmt: TSQLElement;
+  //aTableName: TSQLStringType;
   aClass: TBaseDBDatasetClass;
   aDs: TBaseDbDataSet;
-  aFilter: TSQLStringType;
+  //aFilter: TSQLStringType;
   aRight: String;
   aLimit: Integer = 10;
   i: Integer;
   aLimitS: String;
-  aElem: TSQLElement;
-  aName: TSQLStringType;
-  aStatistic: TStatistic;
+  //aElem: TSQLElement;
+  //aName: TSQLStringType;
+  //aStatistic: TStatistic;
   aSQL: String;
   aRDs: TDataSet = nil;
   tmp: String;
@@ -147,9 +122,10 @@ var
   var
     aLink: String;
   begin
-    aLink := TBaseDBModule(DataModule).BuildLink(aBDS);
-    Outp+='<li><a href="'+aLink+'" title="'+TBaseDBModule(DataModule).GetLinkDesc(aLink)+#10+TBaseDBModule(DataModule).GetLinkLongDesc(aLink)+'">'+HTMLEncode(TBaseDBModule(DataModule).GetLinkDesc(aLink))+'</a></li>';
+    //aLink := TBaseDBModule(DataModule).BuildLink(aBDS);
+    //Outp+='<li><a href="'+aLink+'" title="'+TBaseDBModule(DataModule).GetLinkDesc(aLink)+#10+TBaseDBModule(DataModule).GetLinkLongDesc(aLink)+'">'+HTMLEncode(TBaseDBModule(DataModule).GetLinkDesc(aLink))+'</a></li>';
   end;
+  {
   function BuildTableRow(aBDS : TDataSet;aStmt : TSQLElement) : string;
   var
     aLink: String;
@@ -253,6 +229,8 @@ var
       end;
     Result+='</tr>';
   end;
+  }
+  {
   procedure AddHeader(aStmt : TSQLElement);
   var
     b: Integer;
@@ -285,6 +263,8 @@ var
       end;
     Outp+='</tr></thead>';
   end;
+  }
+  {
   procedure FilterSQL(aType : Integer;IncHeader : Boolean = False);
   var
     a: Integer;
@@ -476,9 +456,8 @@ var
       FSQLStream.Free;
     end;
   end;
+  }
 begin
-  if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-    Debug('WikiInclude:'+Inp);
   if pos('datathere(',lowercase(Inp))>0 then
     aDataThere:=False;
   if copy(lowercase(Inp),0,3)='if(' then
@@ -488,7 +467,7 @@ begin
       Inp := copy(Inp,0,length(Inp)-1);
       if copy(lowercase(aCondition),0,6)='right(' then
         begin
-          aConditionOK:=TBaseDBModule(DataModule).Users.Rights.Right(copy(aCondition,7,length(aCondition)-7))>=RIGHT_READ;
+          aConditionOK:=True//TODO TBaseDBModule(DataModule).Users.Rights.Right(copy(aCondition,7,length(aCondition)-7))>=RIGHT_READ;
         end;
     end;
   if copy(lowercase(Inp),0,4)='rtf(' then
@@ -505,6 +484,7 @@ begin
       end;
   if Uppercase(copy(Inp,0,6)) = 'BOARD(' then
     begin
+      {
       Inp := copy(Inp,7,length(Inp));
       TBaseDBModule(DataModule).SetFilter(TBaseDBModule(DataModule).Tree,'',0,'','ASC',False,True,False);
       if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME',copy(Inp,0,pos(',',Inp)-1),[loCaseInsensitive]) then
@@ -533,9 +513,11 @@ begin
             end;
           aList.Free;
         end;
+      }
     end
   else if Uppercase(copy(Inp,0,9)) = 'SQLLINKS(' then
     begin
+      {
       Inp := copy(Inp,10,length(Inp)-10);
       if pos(';',Inp)>0 then
         begin
@@ -549,9 +531,11 @@ begin
       Outp+='<ol>';
       FilterSQL(0);
       Outp+='</ol>';
+      }
     end
   else if Uppercase(copy(Inp,0,9)) = 'SQLTABLE(' then
     begin
+      {
       Inp := copy(Inp,10,length(Inp)-10);
       if pos(';',Inp)>0 then
         begin
@@ -567,9 +551,11 @@ begin
       Outp+='</table>';
       if pos('error:',Outp)>0 then
         Outp := StringReplace(Outp,'table>','p>',[rfReplaceAll]);
+      }
     end
   else if Uppercase(copy(Inp,0,10)) = 'SQLTABLEH(' then
     begin
+      {
       Inp := copy(Inp,11,length(Inp)-11);
       if pos(';',Inp)>0 then
         begin
@@ -585,11 +571,13 @@ begin
       Outp+='</table>';
       if pos('error:',Outp)>0 then
         Outp := StringReplace(Outp,'table>','p>',[rfReplaceAll]);
+      }
     end
   else if (Uppercase(copy(Inp,0,10)) = 'STATISTIC(')
        or (Uppercase(copy(Inp,0,11)) = 'STATISTICH(')
   then
     begin
+      {
       Inp := copy(Inp,11,length(Inp)-11);
       IncHeader := False;
       if copy(Inp,0,1)='(' then
@@ -664,9 +652,11 @@ begin
       FSQLScanner.Free;
       FSQLParser.Free;
       FSQLStream.Free;
+      }
     end
   else if Uppercase(copy(Inp,0,15)) = 'STATISTICVALUE(' then
     begin
+      {
       Inp := copy(Inp,16,length(Inp)-16);
       if pos(';',Inp)>0 then
         begin
@@ -720,10 +710,12 @@ begin
       FSQLScanner.Free;
       FSQLParser.Free;
       FSQLStream.Free;
+      }
     end
   else if (Uppercase(copy(Inp,0,4)) = 'SQL(')
        or (Uppercase(copy(Inp,0,5)) = 'FORM(') then
     begin
+      {
       IsForm := (Uppercase(copy(Inp,0,5)) = 'FORM(');
       Inp := copy(Inp,pos('(',Inp)+1,length(Inp)-(pos('(',Inp)+1));
       if IsForm then
@@ -746,6 +738,7 @@ begin
         begin
           FilterSQL(4);
         end;
+      }
     end
   else if (Uppercase(copy(Inp,0,7)) = 'SCRIPT(') then
     begin
@@ -780,11 +773,11 @@ begin
     end
   else
     begin
-      aNewList := TWikiList.CreateEx(Self,TBaseDBModule(DataModule));
+      aNewList := TWikiList.Create(Self);
       aNewList.Variables.Assign(FVariables);
       nInp := Inp;
       if pos('|',nInp) > 0 then nInp := copy(nInp,0,pos('|',nInp)-1);
-      nInp := StringReplace(nInp,'%username%',TBaseDBModule(DataModule).Users.Text.AsString,[]);
+      //TODO: nInp := StringReplace(nInp,'%username%',TBaseDBModule(DataModule).Users.Text.AsString,[]);
       if aNewList.FindWikiPage(nInp) and (aLevel < 150) then
         begin
           Outp := Outp+WikiText2HTML(aNewList.FieldByName('DATA').AsString,'','',True,aLevel+1);
@@ -801,35 +794,11 @@ begin
     end;
 end;
 
-procedure TWikiList.FKeywordsDataSetAfterInsert(aDataSet: TDataSet);
-begin
-  aDataSet.FieldByName('REF_ID_ID').AsVariant:=Self.Id.AsVariant;
-end;
-
 function TWikiList.GetTyp: string;
 begin
   Result := 'W';
 end;
 
-procedure TWikiList.DefineFields(aDataSet: TDataSet);
-begin
-  with aDataSet as IBaseManageDB do
-    begin
-      TableName := 'WIKI';
-      TableCaption := strWiki;
-      if Assigned(ManagedFieldDefs) then
-        with ManagedFieldDefs do
-          begin
-            Add('TREEENTRY',ftLargeInt,0,false);
-            Add('NAME',ftString,40,True);
-            Add('CAPTION',ftString,120,False);
-            Add('LANGUAGE',ftString,3,False);
-            Add('CREATEDBY',ftString,4,False);
-            Add('CHANGEDBY',ftString,4,False);
-            Add('DATA',ftBlob,0,False);
-          end;
-    end;
-end;
 function TWikiList.GetTextFieldName: string;
 begin
   Result:='CAPTION';
@@ -851,6 +820,7 @@ var
   tmp: String;
 begin
   Result := False;
+  {
   PageName:=HTMLDecode(PageName);
   if not Assigned(Self) then exit;
   with FKeywords.DataSet as IBaseDbFilter do
@@ -939,6 +909,7 @@ begin
         Debug('Page found!');
     end;
   FActiveTreeID := aParent;
+  }
 end;
 
 function TWikiList.FindWikiFolder(PageName: string): Boolean;
@@ -946,6 +917,7 @@ var
   aParent: Variant;
 begin
   Result := False;
+  {
   aParent := 0;
   TBaseDBModule(DataModule).Tree.DataSet.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
   TBaseDBModule(DataModule).Tree.DataSet.Filtered := True;
@@ -979,12 +951,14 @@ begin
   TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
   TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(VarToStr(aParent)));
   Result := Count>0;
+  }
 end;
 
 function TWikiList.GetFullPath: string;
-var
-  aTree: TTree;
+//var
+//  aTree: TTree;
 begin
+  {
   aTree := TTree.CreateEx(Self,DataModule);
   if not Active then exit;
   Result := FieldByName('NAME').AsString;
@@ -998,6 +972,7 @@ begin
       aTree.Open;
     end;
   aTree.Free;
+  }
 end;
 
 function TWikiList.isDynamic: Boolean;
@@ -1016,7 +991,7 @@ begin
     aPath := GetFullPath;
   WikiToHtml.OnWikiInclude:=@BasicWikiInclude;
   aPath := copy(aPath,0,rpos('/',aPath));
-  Result := WikiText2HTML(DataSet.FieldByName('DATA').AsString,'',aPath);
+  Result := WikiText2HTML(Data,'',aPath);
   //Result := '<base target="_blank">'+Result;
   if not OnlyBody then
     begin
@@ -1029,13 +1004,14 @@ begin
       tmp := GenerateDescription;
       if tmp <> '' then
         MetaTags += '<meta name="description" content="'+tmp+'">';
-      Result := '<html><head><title>'+DataSet.FieldByName('CAPTION').AsString+'</title>'+MetaTags+'</head><body>'+Result+'</body></html>';
+      Result := '<html><head><title>'+Caption+'</title>'+MetaTags+'</head><body>'+Result+'</body></html>';
     end;
 end;
 
 function TWikiList.GenerateKeywords: string;
 begin
   Result := '';
+  {
   Keywords.Open;
   Keywords.First;
   while not Keywords.EOF do
@@ -1044,6 +1020,7 @@ begin
       Keywords.Next;
     end;
   Result := copy(Result,2,length(Result));
+  }
 end;
 
 function TWikiList.GenerateDescription: string;
@@ -1065,13 +1042,11 @@ begin
   Result := StripHTML(PageAsHtml(true));
 end;
 
-constructor TWikiList.CreateEx(aOwner: TComponent; DM: TComponent;
-  aConnection: TComponent; aMasterdata: TDataSet);
+constructor TWikiList.Create(aOwner: TPersistent);
 begin
-  inherited CreateEx(aOwner, DM, aConnection, aMasterdata);
+  inherited Create(aOwner);
   FVariables := TStringList.Create;
-  FKeywords := TKeywords.CreateEx(Self,DataModule,aConnection);
-  FKeywords.DataSet.AfterInsert:=@FKeywordsDataSetAfterInsert;
+  FKeywords := TKeywords.Create(Self);
 end;
 
 destructor TWikiList.Destroy;
@@ -1079,12 +1054,6 @@ begin
   FreeAndNil(FVariables);
   FreeAndNil(FKeywords);
   inherited Destroy;
-end;
-
-function TWikiList.CreateTable: Boolean;
-begin
-  Result:=inherited CreateTable;
-  FKeywords.CreateTable;
 end;
 
 procedure TWikiList.WikiListWikiLink(Inp: string; var Outp: string;
@@ -1124,12 +1093,12 @@ begin
   FOutExt := ExtractFileExt(aFile);
   FOutTodo := TStringList.Create;
   sl := TStringList.Create;
-  sl.Text := WikiText2HTML(DataSet.FieldByName('DATA').AsString,'','');
+  sl.Text := WikiText2HTML(Data,'','');
   sl.SaveToFile(aFile);
   sl.Free;
   while FOutTodo.Count>0 do
     begin
-      aPage := TWikiList.CreateEx(nil,DataModule,Connection);
+      aPage := TWikiList.Create(nil);
       Outp := FOutSub+'/'+FOutTodo.Names[0]+FOutExt;
       aFN := StringReplace(StringReplace(FOutDir+'/'+Outp,'/',DirectorySeparator,[rfReplaceAll]),'//','/',[rfReplaceAll]);
       if (not FileExists(aFN)) and aPage.FindWikiPage(FOutTodo.Names[0]) then
@@ -1146,7 +1115,7 @@ begin
               aLinkOffs := aLinkOffs+'../';
               aRelPath:=copy(aRelPath,4,length(aRelPath));
             end;
-          sl.Text := WikiText2HTML(aPage.DataSet.FieldByName('DATA').AsString,aLinkOffs,aRemPath);
+          sl.Text := WikiText2HTML(aPage.Data,aLinkOffs,aRemPath);
           sl.SaveToFile(aFN);
           sl.Free;
         end;

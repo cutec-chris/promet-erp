@@ -6,7 +6,7 @@
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
-        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files Count="2">
@@ -19,14 +19,18 @@
         <UnitName Value="uDocuments"/>
       </Item2>
     </Files>
-    <RequiredPkgs Count="2">
+    <RequiredPkgs Count="3">
       <Item1>
-        <PackageName Value="pPrometDBIntfs2"/>
-        <DefaultFilename Value="../dbintfs/pprometdbintfs2.lpk"/>
+        <PackageName Value="wiki2html_pkg"/>
+        <DefaultFilename Value="wiki2html_pkg.lpk"/>
       </Item1>
       <Item2>
-        <PackageName Value="FCL"/>
+        <PackageName Value="pPrometDBIntfs2"/>
+        <DefaultFilename Value="../dbintfs/pprometdbintfs2.lpk"/>
       </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
     </RequiredPkgs>
     <UsageOptions>
       <UnitPath Value="$(PkgOutDir)"/>
