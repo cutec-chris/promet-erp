@@ -51,38 +51,49 @@ var
   i: Integer;
   arr: TJSONArray;
 
-  procedure DatasetToJSON(Dataset: TDataset; JSONArray: TJSONArray; Options: TDatasetToJSONOptions);
-  var
-    OldRecNo: Integer;
-    RecordData: TJSONArray;
+  function DatasetToJSON(aDataset:TDataset):string;
+   function fieldToJSON(thisField:TField):string;
+   begin
+     result := '"'+thisField.fieldName+'":';
+     case thisField.DataType of
+     ftInteger,
+     ftSmallint,
+     ftCurrency,
+     ftFloat,
+     ftLargeInt:
+       result := result+thisField.AsString+',';
+     ftDateTime:
+       result := result+'"'+thisField.AsString+'"'+',';
+     else
+       result := result+'"'+thisField.AsString+'"'+',';
+     end; // case
+   end; // of fieldToJSON
+    function rowToJSON(ds:TDataset):string;
+    var
+      fieldIx : integer;
+    begin
+      Result := '';
+      for fieldIx := 0 to ds.fieldcount-1 do
+        result := result + fieldToJSON(ds.Fields[fieldIx]);
+      // trim comma after last col
+      result := '{'+copy(result,0,length(result)-1)+'},'+#13;
+    end; // of rowToJSON
   begin
-    if Dataset.IsEmpty then
-      Exit;
-    if djoCurrentRecord in Options then
+    result := '';
+    with aDataset do
     begin
-      RecordData := TJSONArray.Create;
-      DatasetToJSON(Dataset, RecordData, Options);
-      JSONArray.Add(RecordData);
-    end
-    else
-    begin
-      Dataset.DisableControls;
-      OldRecNo := Dataset.RecNo;
-      try
-        Dataset.First;
-        while not Dataset.EOF do
-        begin
-          RecordData := TJSONArray.Create;
-          DatasetToJSON(Dataset, RecordData, Options);
-          JSONArray.Add(RecordData);
-          Dataset.Next;
-        end;
-      finally
-        Dataset.RecNo := OldRecNo;
-        Dataset.EnableControls;
+      if not bof then first;
+      while not eof do
+      begin
+        result := result + rowToJSON(aDataset);
+        next;
       end;
     end;
-  end;
+    //strip last comma and add
+    if length(result)>0 then
+      result := copy(result,0,length(result)-2);
+    result := '['+result+']';
+  end; // of DSToJSON
 begin
   Handled := False;
   if (not Assigned(TAPIV2Session(Session).User)) and (not Assigned(GlobalUser)) then
@@ -157,14 +168,12 @@ begin
             'index.json':
               begin
                 aDs := TMemDataSet.Create(nil);
-                if Data.Select(DatasetClasses[i].aClass,aDS,0,10,'','SQL_ID') then
+                if Data.Select(DatasetClasses[i].aClass,aDS,0,10,'','SQL_ID,TIMESTAMPD') then
                   begin
                     Response.Code:=200;
                     Response.CodeText:='OK';
                     Response.ContentType:='application/json';
-                    arr := TJSONArray.Create;
-                    DatasetToJSON(aDS,arr,[]);
-                    Response.Content:=Streamer.ObjectToJSON(arr).FormatJSON;
+                    Response.Content:=DatasetToJSON(aDS);
                     FreeAndNil(aDS);
                   end;
               end;
