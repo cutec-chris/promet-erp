@@ -429,7 +429,8 @@ begin
   TSQLConnector(Result).UserName:=User;
   TSQLConnector(Result).Password:=Password;
   TSQLConnector(Result).Params.Assign(Properties);
-  TSQLConnector(Result).Params.Add('port='+IntToStr(Port));
+  if Port > 0 then
+    TSQLConnector(Result).Params.Add('port='+IntToStr(Port));
   TSQLConnector(Result).Params.Add('application_name=''Avamm''');;
   Properties.Free;
 end;
@@ -484,7 +485,7 @@ var
   actCascade : Integer = 1;
   bParams, sl: TStringList;
   actLoad: String;
-  i: Integer;
+  i, aStart, aCount: Integer;
   procedure FillDataSet(aObj : TPersistent;aDataSet : TDataset);
   var
     a, b: Integer;
@@ -641,8 +642,18 @@ begin
               writeln('Preparing DataSet ',IntToHex(Qword(@aDataSet),8));
               aDataSet.Query.Prepare;
             end;
+          aStart := 0;
+          aCount := 1000000;
           for i := 0 to bParams.Count-1 do
             aDataSet.Query.Params.ParamValues[bParams.Names[i]]:=bParams.ValueFromIndex[i];
+          if Assigned(aDataSet.Query.Params.FindParam('OFFSET')) then
+            begin
+              aDataSet.Query.Params.FindParam('OFFSET').AsInteger:=aStart;
+              if Assigned(aDataSet.Query.Params.FindParam('LIMIT')) then
+                aDataSet.Query.Params.FindParam('LIMIT').AsInteger:=aCount;
+            end
+          else if Assigned(aDataSet.Query.Params.FindParam('LIMIT')) then
+            aDataSet.Query.Params.FindParam('LIMIT').AsInteger:=aStart+aCount;//if no Offset is there (mssql) then we have to get full Offset+Limit
           aDataSet.Query.Open;
           //Fill in Class
           writeln(aDataSet.Query.RecordCount);

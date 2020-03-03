@@ -22,25 +22,25 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
+        <CommandLineParams Value="--config-path=ForumPG --mandant=TCS"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
+            <CommandLineParams Value="--config-path=ForumPG --mandant=TCS"/>
           </local>
         </Mode0>
       </Modes>
     </RunParams>
     <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="pwiki2"/>
-        <DefaultFilename Value="..\base\wiki\pwiki2.lpk"/>
-      </Item1>
-      <Item2>
         <PackageName Value="pscript2"/>
         <DefaultFilename Value="..\base\scripts\pscript2.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="pwiki2"/>
+        <DefaultFilename Value="..\base\wiki\pwiki2.lpk"/>
       </Item2>
       <Item3>
         <PackageName Value="perp2"/>
