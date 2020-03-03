@@ -694,7 +694,7 @@ begin
         aDataSet.Query.Params.ParamValues[aParams.Names[i]]:=aParams.ValueFromIndex[i];
       if Assigned(aDataSet.Query.Params.FindParam('OFFSET')) then
         begin
-          aDataSet.Query.Params.FindParam('OFFSET').AsInteger:=aCount;
+          aDataSet.Query.Params.FindParam('OFFSET').AsInteger:=aStart;
           if Assigned(aDataSet.Query.Params.FindParam('LIMIT')) then
             aDataSet.Query.Params.FindParam('LIMIT').AsInteger:=aCount;
         end
