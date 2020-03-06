@@ -27,6 +27,9 @@ uses
   Classes, SysUtils, ubasedbclasses,memds;
 
 type
+
+  { TBaseDBModule }
+
   TBaseDBModule = class(TComponent)
   public
     ConfigPath : string;
@@ -35,6 +38,7 @@ type
     function Load(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;virtual;abstract;
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;virtual;abstract;
     function Select(Obj: TClass;aDS : TMemDataset;aStart: Integer = 0;aCount : Integer = 100;aFilter: string=''; aFields: string=''): Boolean;virtual;abstract;
+    function ExecuteDirect(aStatement: string; aDS: TMemDataset): Boolean; virtual;
     function Delete(Selector: Variant) : Boolean;virtual;abstract;
     function GetID : Int64;virtual;abstract;
   end;
@@ -157,6 +161,14 @@ begin
       DatasetClasses[length(DatasetClasses)-1].aName:=aName;
       DatasetClasses[length(DatasetClasses)-1].aClass:=aClass;
     end;
+end;
+
+{ TBaseDBModule }
+
+function TBaseDBModule.ExecuteDirect(aStatement: string; aDS: TMemDataset
+  ): Boolean;
+begin
+  Result := False;
 end;
 
 finalization

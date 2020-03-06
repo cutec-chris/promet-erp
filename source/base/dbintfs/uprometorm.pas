@@ -77,6 +77,7 @@ type
     function Save(Obj: TPersistent; Selector: Variant; Cascadic: Boolean = True) : Boolean;override;
     function Select(Obj: TClass;aDS: TMemDataset; aStart: Integer=0; aCount: Integer
       =100; aFilter: string=''; aFields: string=''): Boolean; override;
+    function ExecuteDirect(aStatement: string; aDS: TMemDataset): Boolean; override;
     function Delete(Selector: Variant): Boolean; override;
     function GetID: Int64; override;
     property Mandants : TStringList read GetMandants;
@@ -675,7 +676,6 @@ var
   aTable: TQueryTable;
 begin
   Result := False;
-  aTable := GetTable(Obj.ClassType);
 end;
 function TSQLDBDataModule.Select(Obj: TClass; aDS: TMemDataset;
   aStart: Integer; aCount: Integer; aFilter: string; aFields: string): Boolean;
@@ -708,6 +708,24 @@ begin
       Result := True;
     end;
 end;
+
+function TSQLDBDataModule.ExecuteDirect(aStatement: string; aDS: TMemDataset
+  ): Boolean;
+var
+  aDataSet: TLockedQuery;
+begin
+  Result:=inherited ExecuteDirect(aStatement, aDS);
+  aDataSet := FindDataSet(ThreadID,aStatement);
+  try
+    aDataSet.Query.Open;
+    aDS.CopyFromDataset(aDataSet.Query);
+    aDataSet.Query.Close;
+    aDataSet.Unlock;
+    Result := True;
+  finally
+  end;
+end;
+
 function TSQLDBDataModule.Delete(Selector: Variant): Boolean;
 begin
   Result := False;
