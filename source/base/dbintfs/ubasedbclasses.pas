@@ -276,6 +276,24 @@ type
     property RIGHTNAME : string index 20 read FRightName write FRightName;
     property RIGHTS : SmallInt read FRights write FRights;
   end;
+
+  { TTree }
+
+  TTree = class(TBaseDBDataSet)
+  private
+    FTyp,FName,FLink,FDesc : string;
+    FParent : Int64;
+    FIcon : Integer;
+  public
+    //procedure ImportStandartEntrys;
+  published
+    property Parent: Int64 read FParent write FParent;
+    property Typ : string index 1 read FTyp write FTyp;
+    property Name : string index 60 read FName write FName;
+    property Link : string index 400 read FLink write FLink;
+    property Icon: Integer read FIcon write FIcon;
+    property Desc : string index 200 read FDesc write FDesc;
+  end;
 {
   TPermissions = class(TBaseDBDataSet)
   public
@@ -285,24 +303,6 @@ type
     property REF_ID_ID: Int64;
     property USER: Int64;
     property RIGHT : SmallInt read FRight write FRight;
-  end;
-  TTree = class(TBaseDBDataSet)
-  private
-    function GetText: TField;
-  public
-    constructor CreateEx(aOwner: TComponent; DM: TComponent;
-     aConnection: TComponent=nil; aMasterdata: TDataSet=nil); override;
-    procedure Open;override;
-    procedure ImportStandartEntrys;
-    procedure DefineFields(aDataSet : TDataSet);override;
-    property Text : TField read GetText;
-  published
-    property PARENT: Int64;
-    property TYP : string index 1;
-    property NAME : string index 60;
-    property LINK : string index 400;
-    property ICON: Integer;
-    property DESC : string index 200;
   end;
   TForms = class(TBaseDBDataSet)
   public

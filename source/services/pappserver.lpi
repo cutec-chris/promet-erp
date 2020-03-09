@@ -22,20 +22,20 @@
     </PublishOptions>
     <RunParams>
       <local>
-        <CommandLineParams Value="--config-path=ForumPG --mandant=TCS"/>
+        <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
       </local>
       <FormatVersion Value="2"/>
       <Modes Count="1">
         <Mode0 Name="default">
           <local>
-            <CommandLineParams Value="--config-path=ForumPG --mandant=TCS"/>
+            <CommandLineParams Value="--config-path=ForumPG --mandant=ForumPG2"/>
           </local>
         </Mode0>
       </Modes>
     </RunParams>
     <RequiredPackages Count="5">
       <Item1>
-        <PackageName Value="LazUtils"/>
+        <PackageName Value="LCLBase"/>
       </Item1>
       <Item2>
         <PackageName Value="pscript2"/>
@@ -53,7 +53,7 @@
         <PackageName Value="general_nogui"/>
       </Item5>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="pappserver.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -62,6 +62,10 @@
         <Filename Value="uapiv2handling.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="uwikihandling.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

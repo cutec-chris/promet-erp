@@ -14,9 +14,6 @@ type
     User : TUser;
   end;
 
-  TDatasetToJSONOption = (djoSetNull, djoCurrentRecord, djoPreserveCase);
-  TDatasetToJSONOptions = set of TDatasetToJSONOption;
-
   { TAPIV2Module }
 
   TAPIV2Module = class(TFPWebModule)

@@ -818,17 +818,14 @@ var
   aParent : Int64;
   aID: Variant;
   tmp: String;
+  aTreeEntry: TTree;
 begin
   Result := False;
-  {
-  PageName:=HTMLDecode(PageName);
+  PageName := HTMLDecode(PageName);
   if not Assigned(Self) then exit;
-  with FKeywords.DataSet as IBaseDbFilter do
-    Filter := '';
   aParent := 0;
   FActiveTreeID := aParent;
-  PageName := Utils.HTMLDecode(PageName);
-  PageName := Utils.HTTPDecode(PageName);
+  aTreeEntry := TTree.Create(nil);
   TBaseDBModule(DataModule).Tree.DataSet.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
   TBaseDBModule(DataModule).Tree.DataSet.Filtered := True;
   if pos('://',PageName) > 0 then exit;
