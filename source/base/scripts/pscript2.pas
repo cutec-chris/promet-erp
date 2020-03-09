@@ -8,7 +8,7 @@ unit pscript2;
 interface
 
 uses
-  uscripts, LazarusPackageIntf;
+  uscripts, uprometpascalscript, LazarusPackageIntf;
 
 implementation
 
