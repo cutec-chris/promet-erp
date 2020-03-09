@@ -158,6 +158,7 @@ begin
         Sender.InternalUses(Sender.Compiler,'DATEUTILS');
         Sender.AddMethod(Self,@TPrometPascalScript.InternalDataSet,'function DataSet(SQL : string) : TDataSet;');
         Sender.AddMethod(Self,@TPrometPascalScript.InternalData,'function Data : TBaseDBModule');
+        //Sender.ClassImporter.Add();
       except
         Result := False; // will halt compilation
       end;
