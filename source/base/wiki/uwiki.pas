@@ -487,7 +487,7 @@ begin
       {
       Inp := copy(Inp,7,length(Inp));
       TBaseDBModule(DataModule).SetFilter(TBaseDBModule(DataModule).Tree,'',0,'','ASC',False,True,False);
-      if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME',copy(Inp,0,pos(',',Inp)-1),[loCaseInsensitive]) then
+      if aTree.Locate('NAME',copy(Inp,0,pos(',',Inp)-1),[loCaseInsensitive]) then
         begin
           Inp := copy(Inp,pos(',',Inp)+1,length(Inp));
           Inp := copy(Inp,0,pos(')',Inp)-1);
@@ -818,53 +818,41 @@ var
   aParent : Int64;
   aID: Variant;
   tmp: String;
-  aTreeEntry: TTree;
+  aTree: TTree;
 begin
   Result := False;
   PageName := HTMLDecode(PageName);
   if not Assigned(Self) then exit;
   aParent := 0;
   FActiveTreeID := aParent;
-  aTreeEntry := TTree.Create(nil);
-  TBaseDBModule(DataModule).Tree.DataSet.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
-  TBaseDBModule(DataModule).Tree.DataSet.Filtered := True;
+  aTree := TTree.Create(nil);
+  aTree.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
   if pos('://',PageName) > 0 then exit;
   while pos('/',PageName) > 0 do
     begin
-      if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
-      or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
+      if aTree.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
+      or aTree.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
         begin
-          tmp := TBaseDBModule(DataModule).Tree.FieldByName('NAME').AsString;
+          tmp := aTree.DataSet.FieldByName('NAME').AsString;
           PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-          if TBaseDBModule(DataModule).Tree.Id.AsVariant<>Null then
-            aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant
+          if aTree.DataSet.SQL_ID<>0 then
+            aParent := aTree.DataSet.SQL_ID
           else aParent:=0;
-          if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-            Debug('Parent found:'+IntToStr(aParent));
         end
       else
         begin
-          if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-            Debug('Parent not found, re-filter ('+copy(PageName,0,pos('/',PageName)-1)+','+IntToStr(aParent)+',W)');
-          TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
-          if (TBaseDBModule(DataModule).Tree.ActualFilter<>'') or (not TBaseDBModule(DataModule).Tree.Active) then
-            TBaseDBModule(DataModule).SetFilter(TBaseDBModule(DataModule).Tree,'',0,'','ASC',False,True,True);
-          TBaseDBModule(DataModule).Tree.Cancel;
-          if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
-          or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
+          aTree.Filter := '';
+          if aTree.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[])
+          or aTree.Locate('NAME;PARENT;TYPE',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent,'W']),[loCaseInSensitive]) then
             begin
               PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
-              if TBaseDBModule(DataModule).Tree.Id.AsVariant<>Null then
-                aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant
+              if aTree.Dataset.SQL_ID<>0 then
+                aParent := aTree.Dataset.SQL_ID
               else aParent:=0;
-              if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-                Debug('Parent found:'+IntToStr(aParent));
             end
           else if aDocreate then
             begin
-              if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-                Debug('Parent not found creating path');
-              with TBaseDBModule(DataModule).Tree.DataSet do
+              with aTree do
                 begin
                   Append;
                   FieldByName('TYPE').AsString := 'W';
@@ -875,38 +863,21 @@ begin
                     FieldByName('PARENT').AsInteger := 0;
                   Post;
                   PageName := copy(PageName,rpos('/',PageName)+1,length(PageName));
-                  if TBaseDBModule(DataModule).Tree.Id.AsVariant<>Null then
-                    aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant
+                  if DataSet.SQL_ID<>0 then
+                    aParent := DataSet.SQL_ID
                   else aParent:=0;
                 end;
             end
           else break;
         end;
     end;
-  TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
-  Result := DataSet.Active and (DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[loCaseInsensitive]));
-  if not Result then
-    begin
-      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-        Debug('Page not found, re-filter');
-      TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(IntToStr(aParent)));
-      Result := DataSet.Locate('TREEENTRY;NAME',VarArrayOf([aParent,PageName]),[loCaseInsensitive]);
-      if not Result then
-        begin
-          if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-            Debug('Page not found, re-filter 2');
-          TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('NAME')+'='+TBaseDBModule(DataModule).QuoteValue(PageName));
-          Result := DataSet.Locate('TREEENTRY;NAME',VarArrayOf([Null,PageName]),[loCaseInsensitive]);
-        end;
-    end;
+  aTree.Filter :='';
+  Result := TBaseDBModule(DataModule).Load(Self,'TREEENTRY='+IntToStr(aParent)+' AND NAME='+PageName);
   if Result then
     begin
       Keywords.Open;
-      if Assigned(BaseApplication) then with BaseApplication as IBaseApplication do
-        Debug('Page found!');
     end;
   FActiveTreeID := aParent;
-  }
 end;
 
 function TWikiList.FindWikiFolder(PageName: string): Boolean;
@@ -916,14 +887,14 @@ begin
   Result := False;
   {
   aParent := 0;
-  TBaseDBModule(DataModule).Tree.DataSet.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
-  TBaseDBModule(DataModule).Tree.DataSet.Filtered := True;
+  aTree.Filter := TBaseDBModule(DataModule).QuoteField('TYPE')+'='+TBaseDBModule(DataModule).QuoteValue('W');
+  aTree.Filtered := True;
   if copy(PageName,0,7) = 'http://' then exit;
   while pos('/',PageName) > 0 do
     begin
       TBaseDBModule(DataModule).Tree.Open;
-      if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
-      or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+      if aTree.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
+      or aTree.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
         begin
           PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
           aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
@@ -932,8 +903,8 @@ begin
         begin
           if (TBaseDBModule(DataModule).Tree.ActualFilter<>'') or (not TBaseDBModule(DataModule).Tree.Active) then
             TBaseDBModule(DataModule).SetFilter(TBaseDBModule(DataModule).Tree,'',0,'','ASC',False,True,True);
-          if TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
-          or TBaseDBModule(DataModule).Tree.DataSet.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
+          if aTree.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[])
+          or aTree.Locate('NAME;PARENT',VarArrayOf([copy(PageName,0,pos('/',PageName)-1),aParent]),[loCaseInSensitive]) then
             begin
               PageName := copy(PageName,pos('/',PageName)+1,length(PageName));
               aParent := TBaseDBModule(DataModule).Tree.Id.AsVariant;
@@ -945,7 +916,7 @@ begin
             end;
         end;
     end;
-  TBaseDBModule(DataModule).Tree.DataSet.Filtered := False;
+  aTree.Filtered := False;
   TBaseDBModule(DataModule).SetFilter(Self,TBaseDBModule(DataModule).QuoteField('TREEENTRY')+'='+TBaseDBModule(DataModule).QuoteValue(VarToStr(aParent)));
   Result := Count>0;
   }

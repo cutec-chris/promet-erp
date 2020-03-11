@@ -83,14 +83,17 @@ type
 
   TAbstractMasterDetail = class(TObjectList)
   private
+    FFilter: string;
     FParent: TPersistent;
     FIndex : Integer;
     function GetDataset: TAbstractDBDataset2;
+    procedure SetFilter(AValue: string);
   public
     constructor Create(aParent : TPersistent);
     property Parent : TPersistent read FParent;
     class function GetObjectTyp : TClass;virtual;abstract;
     property Dataset : TAbstractDBDataset2 read GetDataset;
+    property Filter : string read FFilter write SetFilter;
     function Locate(const keyfields: string; const keyvalues: Variant; options: TLocateOptions) : boolean; virtual;
     function FieldByName(const aFieldName : string) : TFieldEmulation;virtual;
     function Delete : Boolean;virtual;
@@ -105,6 +108,8 @@ type
 
 implementation
 
+uses uData;
+
 { TFieldEmulation }
 
 constructor TFieldEmulation.Create(AOwner: TPersistent; Propname: string);
@@ -117,6 +122,13 @@ function TAbstractMasterDetail.GetDataset: TAbstractDBDataset2;
 begin
   Result := TAbstractDBDataset2(Items[FIndex]);
 end;
+
+procedure TAbstractMasterDetail.SetFilter(AValue: string);
+begin
+  if FFilter=AValue then Exit;
+  FFilter:=AValue;
+end;
+
 constructor TAbstractMasterDetail.Create(aParent: TPersistent);
 begin
   FParent := aParent;

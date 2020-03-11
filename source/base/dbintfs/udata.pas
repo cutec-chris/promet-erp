@@ -41,6 +41,8 @@ type
     function ExecuteDirect(aStatement: string; aDS: TMemDataset): Boolean; virtual;
     function Delete(Selector: Variant) : Boolean;virtual;abstract;
     function GetID : Int64;virtual;abstract;
+    function QuoteField(aField : string) : string;virtual;
+    function QuoteValue(aValue : string) : string;virtual;
   end;
   DatasetClass = record
     aName : string;
@@ -169,6 +171,16 @@ function TBaseDBModule.ExecuteDirect(aStatement: string; aDS: TMemDataset
   ): Boolean;
 begin
   Result := False;
+end;
+
+function TBaseDBModule.QuoteField(aField: string): string;
+begin
+  Result := '"'+aField+'"';
+end;
+
+function TBaseDBModule.QuoteValue(aValue: string): string;
+begin
+  Result := ''''+aValue+'''';
 end;
 
 finalization

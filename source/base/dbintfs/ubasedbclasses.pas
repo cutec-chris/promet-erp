@@ -279,7 +279,7 @@ type
 
   { TTree }
 
-  TTree = class(TBaseDBDataSet)
+  TTreeEntry = class(TBaseDBDataSet)
   private
     FTyp,FName,FLink,FDesc : string;
     FParent : Int64;
@@ -294,6 +294,11 @@ type
     property Icon: Integer read FIcon write FIcon;
     property Desc : string index 200 read FDesc write FDesc;
   end;
+  TTree = class(TAbstractMasterDetail)
+  public
+    class function GetObjectTyp: TClass; override;
+  end;
+
 {
   TPermissions = class(TBaseDBDataSet)
   public
@@ -547,6 +552,13 @@ type
 implementation
 
 uses md5,sha1;
+
+{ TTree }
+
+class function TTree.GetObjectTyp: TClass;
+begin
+  Result := TTreeEntry;
+end;
 
 { TMeasurements }
 
