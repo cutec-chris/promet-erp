@@ -3,6 +3,7 @@
   <Package Version="4">
     <Name Value="pwiki2"/>
     <Type Value="RunAndDesignTime"/>
+    <AddToProjectUsesSection Value="True"/>
     <CompilerOptions>
       <Version Value="11"/>
       <SearchPaths>
