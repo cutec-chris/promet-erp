@@ -43,7 +43,7 @@
         <DefaultFilename Value="..\base\scripts\pscript2.lpk"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="4">
       <Unit0>
         <Filename Value="avamm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -52,6 +52,20 @@
         <Filename Value="lclgui.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="upassword.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPassword"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uPassword"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="umain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fMain"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -73,7 +87,7 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="3">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -83,6 +97,12 @@
       <Item3>
         <Name Value="EFOpenError"/>
       </Item3>
+      <Item4>
+        <Name Value="RunError(211)"/>
+      </Item4>
+      <Item5>
+        <Name Value="EAbstractError"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>

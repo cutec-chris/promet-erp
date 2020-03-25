@@ -1,0 +1,8 @@
+object fMain: TfMain
+  Left = 586
+  Height = 493
+  Top = 241
+  Width = 645
+  Caption = 'Avamm'
+  LCLVersion = '2.0.6.0'
+end

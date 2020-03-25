@@ -17,16 +17,27 @@
   MA 02111-1307, USA.
 Created 25.03.2020
 *******************************************************************************}
-unit lclgui;
+unit umain;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, SAX_HTML;
+  Classes, SysUtils, Forms, Controls, Graphics, Dialogs, lclgui;
+
+type
+  TfMain = class(TForm)
+  private
+  public
+  end;
+
+var
+  fMain: TfMain;
 
 implementation
+
+{$R *.lfm}
 
 end.
 
