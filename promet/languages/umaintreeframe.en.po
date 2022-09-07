@@ -40,6 +40,7 @@ msgid "Neue Überweisung"
 msgstr "new Transfer"
 
 #: umaintreeframe.strrealmove
+#, object-pascal-format
 msgid "Verzeichnis wirklich nach \"%s\" verschieben ?"
 msgstr "Do you real want to move the Directory to \"%s\" ?"
 

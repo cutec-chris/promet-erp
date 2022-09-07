@@ -1,0 +1,414 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ubasedbclasses.straccountno
+msgid "Kontonummer"
+msgstr ""
+
+#: ubasedbclasses.straction
+msgid "Aktion"
+msgstr ""
+
+#: ubasedbclasses.stractive
+msgid "Aktiv"
+msgstr ""
+
+#: ubasedbclasses.stradditional
+msgid "Zusätzlich"
+msgstr ""
+
+#: ubasedbclasses.stradress
+msgid "Adresse"
+msgstr ""
+
+#: ubasedbclasses.strarchive
+msgid "Archiv"
+msgstr ""
+
+#: ubasedbclasses.strassembly
+msgid "Baugruppe"
+msgstr ""
+
+#: ubasedbclasses.stravalible
+msgid "Verfügbar"
+msgstr ""
+
+#: ubasedbclasses.strballance
+msgid "Kontostand"
+msgstr ""
+
+#: ubasedbclasses.strcategory
+msgid "Kategorie"
+msgstr ""
+
+#: ubasedbclasses.strchangedby
+msgid "geändert von"
+msgstr ""
+
+#: ubasedbclasses.strchangeddate
+msgid "geändert am"
+msgstr ""
+
+#: ubasedbclasses.strchecked
+msgid "geprüft"
+msgstr ""
+
+#: ubasedbclasses.strcheckingtable
+#, object-pascal-format
+msgid ""
+"Prüfe Tabelle \n"
+"%s"
+msgstr ""
+
+#: ubasedbclasses.strcity
+msgid "Stadt"
+msgstr ""
+
+#: ubasedbclasses.strcommonprice
+msgid "Allgemeinpreis"
+msgstr ""
+
+#: ubasedbclasses.strcostcentre
+msgid "Kostenstelle"
+msgstr ""
+
+#: ubasedbclasses.strcreateddate
+msgid "erstellt am"
+msgstr ""
+
+#: ubasedbclasses.strcurrency
+msgid "Währung"
+msgstr ""
+
+#: ubasedbclasses.strcustomernumber
+msgid "Kundennummer"
+msgstr ""
+
+#: ubasedbclasses.strdata
+msgid "Daten"
+msgstr ""
+
+#: ubasedbclasses.strdate
+msgid "Datum"
+msgstr ""
+
+#: ubasedbclasses.strdeletedmessages
+msgid "gelöschte Narichten"
+msgstr ""
+
+#: ubasedbclasses.strdelivered
+msgid "geliefert"
+msgstr ""
+
+#: ubasedbclasses.strdepartment
+msgid "Abteilung"
+msgstr ""
+
+#: ubasedbclasses.strdescription
+msgid "Beschreibung"
+msgstr ""
+
+#: ubasedbclasses.strdiscount
+msgid "Rabatt"
+msgstr ""
+
+#: ubasedbclasses.strdone
+msgid "erledigt"
+msgstr ""
+
+#: ubasedbclasses.stremployee
+msgid "Mitarbeiter"
+msgstr ""
+
+#: ubasedbclasses.strend
+msgid "Ende"
+msgstr ""
+
+#: ubasedbclasses.strfailedshowingdatafrom
+#, object-pascal-format
+msgid "konnten Daten von %s nicht anzeigen"
+msgstr ""
+
+#: ubasedbclasses.strfullvat
+msgid "Volle MwSt"
+msgstr ""
+
+#: ubasedbclasses.strgrossprice
+msgid "Bruttopreis"
+msgstr ""
+
+#: ubasedbclasses.strhalfvat
+msgid "Halbe MwSt"
+msgstr ""
+
+#: ubasedbclasses.strident
+msgctxt "ubasedbclasses.strident"
+msgid "Nummer"
+msgstr ""
+
+#: ubasedbclasses.strinstitute
+msgid "Institut"
+msgstr ""
+
+#: ubasedbclasses.strland
+msgid "Land"
+msgstr ""
+
+#: ubasedbclasses.strlanguage
+msgid "Sprache"
+msgstr ""
+
+#: ubasedbclasses.strlink
+msgid "Verweis"
+msgstr ""
+
+#: ubasedbclasses.strlogmessages
+msgid "Logs"
+msgstr ""
+
+#: ubasedbclasses.strmatchcode
+msgid "Suchbegriff"
+msgstr ""
+
+#: ubasedbclasses.strmaxcount
+msgid "Max.Anzahl"
+msgstr ""
+
+#: ubasedbclasses.strmincount
+msgid "Min.Anzahl"
+msgstr ""
+
+#: ubasedbclasses.strneedsaction
+msgid "benötigt Hilfe"
+msgstr ""
+
+#: ubasedbclasses.strnetprice
+msgid "Nettopreis"
+msgstr ""
+
+#: ubasedbclasses.strnotes
+msgid "Notizen"
+msgstr ""
+
+#: ubasedbclasses.strnumber
+msgctxt "ubasedbclasses.strnumber"
+msgid "Nummer"
+msgstr ""
+
+#: ubasedbclasses.strnumbersetdontexists
+#, object-pascal-format
+msgid "Nummernkreis \"%s\" existiert nicht !"
+msgstr ""
+
+#: ubasedbclasses.strnumbersetempty
+#, object-pascal-format
+msgid "Nummernkreis \"%s\" ist leer !"
+msgstr ""
+
+#: ubasedbclasses.stropeningtable
+#, object-pascal-format
+msgid ""
+"öffne Tabelle \n"
+"%s"
+msgstr ""
+
+#: ubasedbclasses.strorderno
+msgid "Vorgangsnummer"
+msgstr ""
+
+#: ubasedbclasses.stroriginaldate
+msgid "Originaldatum"
+msgstr ""
+
+#: ubasedbclasses.strowner
+msgid "Eigentümer"
+msgstr ""
+
+#: ubasedbclasses.strpaid
+msgid "bezahlt"
+msgstr ""
+
+#: ubasedbclasses.strpart
+msgid "Bauteil"
+msgstr ""
+
+#: ubasedbclasses.strpassword
+msgid "Passwort"
+msgstr ""
+
+#: ubasedbclasses.strpastetoanwrongdataset
+msgid "Diese Daten können nicht in diese Art Eintrag eingefügt werden"
+msgstr ""
+
+#: ubasedbclasses.strpause
+msgid "Pause"
+msgstr ""
+
+#: ubasedbclasses.strpaymenttarget
+msgid "Zahlungsziel"
+msgstr ""
+
+#: ubasedbclasses.strplace
+msgid "Ort"
+msgstr ""
+
+#: ubasedbclasses.strposition
+msgid "Position"
+msgstr ""
+
+#: ubasedbclasses.strposno
+msgid "Pos.Nr."
+msgstr ""
+
+#: ubasedbclasses.strpostalcode
+msgid "Postleitzahl"
+msgstr ""
+
+#: ubasedbclasses.strpostbox
+msgid "Postfach"
+msgstr ""
+
+#: ubasedbclasses.strprice
+msgid "Preis"
+msgstr ""
+
+#: ubasedbclasses.strpricetype
+msgid "Preistyp"
+msgstr ""
+
+#: ubasedbclasses.strproblem
+msgid "Problem"
+msgstr ""
+
+#: ubasedbclasses.strproperty
+msgid "Eigenschaft"
+msgstr ""
+
+#: ubasedbclasses.strpurchaseprice
+msgid "Einkaufspreis"
+msgstr ""
+
+#: ubasedbclasses.strpurpose
+msgid "Zahlungsgrund"
+msgstr ""
+
+#: ubasedbclasses.strquantitycalculated
+msgid "Menge berechnet"
+msgstr ""
+
+#: ubasedbclasses.strquantitydelivered
+msgid "Menge geliefert"
+msgstr ""
+
+#: ubasedbclasses.strquantityunit
+msgid "Mengeneinheit"
+msgstr ""
+
+#: ubasedbclasses.strread
+msgid "gelesen"
+msgstr ""
+
+#: ubasedbclasses.strreference
+msgid "Referenz"
+msgstr ""
+
+#: ubasedbclasses.strreserved
+msgid "Reserviert"
+msgstr ""
+
+#: ubasedbclasses.strsellprice
+msgid "Verkaufspreis"
+msgstr ""
+
+#: ubasedbclasses.strsender
+msgid "Absender"
+msgstr ""
+
+#: ubasedbclasses.strsendmessages
+msgid "gesendete Narichten"
+msgstr ""
+
+#: ubasedbclasses.strshorttext
+msgid "Kurztext"
+msgstr ""
+
+#: ubasedbclasses.strspam
+msgid "Spam"
+msgstr ""
+
+#: ubasedbclasses.strstate
+msgid "Bundesland"
+msgstr ""
+
+#: ubasedbclasses.strstatus
+msgid "Status"
+msgstr ""
+
+#: ubasedbclasses.strstorage
+msgid "Lager"
+msgstr ""
+
+#: ubasedbclasses.strsubject
+msgid "Betreff"
+msgstr ""
+
+#: ubasedbclasses.strtablename
+msgid "Tabellenname"
+msgstr ""
+
+#: ubasedbclasses.strtask
+msgid "Aufgabe"
+msgstr ""
+
+#: ubasedbclasses.strtenderposno
+msgid "Aus.Nr."
+msgstr ""
+
+#: ubasedbclasses.strtext
+msgid "Text"
+msgstr ""
+
+#: ubasedbclasses.strtexttyp
+msgid "Text Typ"
+msgstr ""
+
+#: ubasedbclasses.strtime
+msgid "Zeit"
+msgstr ""
+
+#: ubasedbclasses.strtitle
+msgid "Titel"
+msgstr ""
+
+#: ubasedbclasses.strunit
+msgid "Einheit"
+msgstr ""
+
+#: ubasedbclasses.strunknownmessages
+msgid "Unbekannte Narichten"
+msgstr ""
+
+#: ubasedbclasses.strunsorted
+msgid "Unsortiert"
+msgstr ""
+
+#: ubasedbclasses.struser
+msgid "Benutzer"
+msgstr ""
+
+#: ubasedbclasses.strvalidfrom
+msgid "gültig ab"
+msgstr ""
+
+#: ubasedbclasses.strvalidto
+msgid "gültig bis"
+msgstr ""
+
+#: ubasedbclasses.strvalue
+msgid "Wert"
+msgstr ""
+
+#: ubasedbclasses.strvat
+msgid "MwSt"
+msgstr ""
+

@@ -1,0 +1,52 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: fautomationform.strabortwarning
+msgid "Achtung das Abbrechen des Ablaufes kann zu unerwünschten Nebenwirkungen führen, wirklich abbrechen ?"
+msgstr ""
+
+#: fautomationform.strdopick
+msgid "kommissionieren"
+msgstr ""
+
+#: fautomationform.strloading
+msgid "Auftragsdaten werden geladen..."
+msgstr ""
+
+#: fautomationform.strnewnumbers
+msgid "Code"
+msgstr ""
+
+#: fautomationform.strnoorderloaded
+msgid "Es ist kein Auftrag geladen oder das Problem wurde nicht gefunden !"
+msgstr ""
+
+#: fautomationform.strnotmoresteps
+msgid "Es sind keine (weiteren) Arbeitschritte vorhanden.<br><br>Um einen neuen Auftrag auswählen zu können müssen Sie den Auftrag (ab)schließen"
+msgstr ""
+
+#: fautomationform.strnumbersetempty
+msgid "Nummernkreis erschöpft"
+msgstr ""
+
+#: fautomationform.strpartiallyproblematic
+msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
+msgstr ""
+
+#: fautomationform.strproblemat
+#, object-pascal-format
+msgid "Störung %s bei %s"
+msgstr ""
+
+#: fautomationform.strproblemsend
+msgid "Die Störung wurde Eingetragen !"
+msgstr ""
+
+#: fautomationform.strrun
+msgid "Ausführen [Leertaste]"
+msgstr ""
+
+#: fautomationform.strrunning
+msgid "wird ausgeführt..."
+msgstr ""
+

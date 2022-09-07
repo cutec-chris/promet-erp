@@ -28,6 +28,7 @@ msgid "Konten"
 msgstr "Accounts"
 
 #: uintfstrconsts.stractionmessagereceived
+#, object-pascal-format
 msgid "%s - empfangen"
 msgstr "%s received."
 
@@ -82,9 +83,13 @@ msgid "Anruf"
 msgstr "Call"
 
 #: uintfstrconsts.strcantaccessfile
+#, object-pascal-format, fuzzy
+#| msgid ""
+#| "Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
+#| "kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle\n"
 msgid ""
 "Auf die Datei \"%s\" kann nicht zugegriffen werden,\n"
-"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle\n"
+"kopieren Sie diese Datei ggf erst auf Ihren Computer oder mounten Sie die Quelle"
 msgstr "The file '%s' cannot be accessed,copy this file ggf on your computer or mount the source"
 
 #: uintfstrconsts.strcantgetclipboardcontents
@@ -92,6 +97,7 @@ msgid "Konnte keine Zwischenablagedaten holen."
 msgstr "Could get no Clipboard data."
 
 #: uintfstrconsts.strcategorychanged
+#, object-pascal-format
 msgid "Kategorie geändetr auf %s"
 msgstr "Category changed to %s"
 
@@ -116,6 +122,7 @@ msgid "wird beendet..."
 msgstr "stops..."
 
 #: uintfstrconsts.strcombiteitems
+#, object-pascal-format
 msgid "Sollen die Elemente \"%s\" und \"%s\" wirklich verschmolzen werden ?"
 msgstr "Do you really want to merge \"%s\" and \"%s\" ?"
 
@@ -204,6 +211,7 @@ msgid "Bis"
 msgstr "To"
 
 #: uintfstrconsts.strduedatechanged
+#, object-pascal-format
 msgid "Zieldatum geändert zu %s"
 msgstr "Target date changed to %s"
 
@@ -264,6 +272,7 @@ msgid "Dateien"
 msgstr "Files"
 
 #: uintfstrconsts.strfilternotfound
+#, object-pascal-format
 msgid "Der Filter \"%s\" wurde nicht gefunden !"
 msgstr "The filter '%s' was not found!"
 
@@ -280,6 +289,7 @@ msgid "beendet"
 msgstr "finished"
 
 #: uintfstrconsts.strfullpercent
+#, object-pascal-format
 msgid "Auslastung:%d%%"
 msgstr "Usage: %d%%"
 
@@ -352,6 +362,7 @@ msgid "Das Objekt ist nicht gespeichert, jetzt speichern ?"
 msgstr "The object is not saved, save now?"
 
 #: uintfstrconsts.stritemopened
+#, object-pascal-format
 msgid "Eintrag \"%s\" geöffnet"
 msgstr "Entry '%s' opened"
 
@@ -460,9 +471,13 @@ msgid "kein Eintrag gefunden !"
 msgstr "No record found!"
 
 #: uintfstrconsts.strnodirectoryselected
+#, fuzzy
+#| msgid ""
+#| "Sie müssen ein Verzeichnis auswählen,\n"
+#| "bevor Sie den Eintrag zu einem diesem zuordnen können.\n"
 msgid ""
 "Sie müssen ein Verzeichnis auswählen,\n"
-"bevor Sie den Eintrag zu einem diesem zuordnen können.\n"
+"bevor Sie den Eintrag zu einem diesem zuordnen können."
 msgstr "You must select a directory before you can assign the entry to one of this."
 
 #: uintfstrconsts.strnofilter
@@ -482,6 +497,7 @@ msgid "nicht unterstützt ! (Interner Fehler)"
 msgstr "not supported! (Internal error)"
 
 #: uintfstrconsts.strnumberchanged
+#, object-pascal-format
 msgid "Nummer geändert zu %s"
 msgstr "Number changed to %s"
 
@@ -558,6 +574,7 @@ msgid "Preistypen"
 msgstr "Price types"
 
 #: uintfstrconsts.strprioritychanged
+#, object-pascal-format
 msgid "Priorität geändert zu %s"
 msgstr "Priority changed to %s"
 
@@ -738,6 +755,7 @@ msgid "Statistiken"
 msgstr "Statistics"
 
 #: uintfstrconsts.strstatuschanged
+#, object-pascal-format
 msgid "Status geändert von %s zu %s"
 msgstr "Status changed from %s to %s"
 
@@ -850,6 +868,19 @@ msgid "Wiki"
 msgstr "Wiki"
 
 #: uintfstrconsts.strwikimainpagetext
+#, fuzzy
+#| msgid ""
+#| "==Willkommen zur Promet Wiki==<br>\n"
+#| "<br>\n"
+#| "Sie können dieses Wiki als zentralen Wissenspool verstehen. Sie können hier Informationen jeglicher Art strukturiert ablegen.<br>\n"
+#| "<br>\n"
+#| "Dazu stehen Ihnen interne Links [[Ihre erste Seite]] durch die Sie auch ganz einfach neue Sieten anlegen könenn einfach indem Sie, sie anlegen und draufklicken. Externe Links, zu beliebigen Websites [http://www.ullihome.de www.ullihome.de], Aufzählungen\n"
+#| "*1\n"
+#| "*2\n"
+#| "*3\n"
+#| "===Überschriften===\n"
+#| "====In verschiedenen Größen====\n"
+#| "und ähnliche Elemente zur Verfügung.\n"
 msgid ""
 "==Willkommen zur Promet Wiki==<br>\n"
 "<br>\n"
@@ -861,7 +892,7 @@ msgid ""
 "*3\n"
 "===Überschriften===\n"
 "====In verschiedenen Größen====\n"
-"und ähnliche Elemente zur Verfügung.\n"
+"und ähnliche Elemente zur Verfügung."
 msgstr ""
 "==Welcome to Promet Wiki==<br>\n"
 "<br>\n"

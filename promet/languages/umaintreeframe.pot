@@ -1,0 +1,40 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: umaintreeframe.straccountingque
+msgid "Warteschlange"
+msgstr ""
+
+#: umaintreeframe.strbanking
+msgid "Bankverbindungen"
+msgstr ""
+
+#: umaintreeframe.strfinancial
+msgid "Finanzen"
+msgstr ""
+
+#: umaintreeframe.strmycalendar
+msgid "Mein Kalender"
+msgstr ""
+
+#: umaintreeframe.strmytasks
+msgid "meine Aufgaben"
+msgstr ""
+
+#: umaintreeframe.strnewaccount
+msgid "Neues Konto"
+msgstr ""
+
+#: umaintreeframe.strnewtransfer
+msgid "Neue Überweisung"
+msgstr ""
+
+#: umaintreeframe.strrealmove
+#, object-pascal-format
+msgid "Verzeichnis wirklich nach \"%s\" verschieben ?"
+msgstr ""
+
+#: umaintreeframe.strrestartnessesary
+msgid "Starten Sie die Anwendung neu !"
+msgstr ""
+

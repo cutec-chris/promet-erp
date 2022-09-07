@@ -12,6 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: udocuments.strfailedcreatingdiff
+#, object-pascal-format
 msgid "konnte Differenzdatei von Datei %s nicht erstellen"
 msgstr "Coudnt create difference file from file %s"
 
@@ -22,3 +23,4 @@ msgstr "This link is invalid on this database!"
 #: udocuments.strlinknotfound
 msgid "Verweis konnte nicht gefunden werden !"
 msgstr "Not Found"
+

@@ -1,0 +1,67 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uselectreport.strbooking
+msgid "Vorgang wird gebucht..."
+msgstr ""
+
+#: uselectreport.strcantpreparereport
+msgid "Das aufbereiten des Beleges ist fehlgeschlagen !"
+msgstr ""
+
+#: uselectreport.strdefaultprinter
+msgid "Standarddrucker"
+msgstr ""
+
+#: uselectreport.strdispatchtypenotfound
+msgid "Versandart nicht gefunden !"
+msgstr ""
+
+#: uselectreport.strdocumentdefaultprinter
+msgid "Drucker aus Beleg"
+msgstr ""
+
+#: uselectreport.strfileexport
+msgid "Dateiausgabe"
+msgstr ""
+
+#: uselectreport.strgeneratingmail
+msgid "e-Mail wird generiert..."
+msgstr ""
+
+#: uselectreport.strmeeting
+msgid "Besprechung"
+msgstr ""
+
+#: uselectreport.strnomailaddress
+msgid "Der Kontakt hat keine e-Mail Adresse"
+msgstr ""
+
+#: uselectreport.strnooutput
+msgid "keine Ausgabe"
+msgstr ""
+
+#: uselectreport.strnopreview
+msgid "keine Vorschau"
+msgstr ""
+
+#: uselectreport.strpostingfailed
+msgid "Fehler beim Buchen !"
+msgstr ""
+
+#: uselectreport.strpreparingreport
+msgid "Ausdruck wird vorbereitet..."
+msgstr ""
+
+#: uselectreport.strprint
+msgid "Ausgabe"
+msgstr ""
+
+#: uselectreport.strprintbook
+msgid "Ausgabe+Buchen"
+msgstr ""
+
+#: uselectreport.strprintingreport
+msgid "Ausdruck wird gedruckt..."
+msgstr ""
+

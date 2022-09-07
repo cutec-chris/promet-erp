@@ -1,0 +1,30 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: umanagedocframe.strmakelinktodocuments
+msgid ""
+"Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?\n"
+"So können Sie auch vom Eintrag aus das Dokument schnell finden"
+msgstr ""
+
+#: umanagedocframe.strnewdoc
+msgid "Neues Dokument"
+msgstr ""
+
+#: umanagedocframe.strnotext
+msgid "kein Text gefunden, oder keine OCR Anwendung installiert !"
+msgstr ""
+
+#: umanagedocframe.strsetdate
+#, object-pascal-format
+msgid "Soll das Datum %s als Belegdatum gesetzt werden ?"
+msgstr ""
+
+#: umanagedocframe.strsettag
+msgid "alle markierten setzen"
+msgstr ""
+
+#: umanagedocframe.strtag
+msgid "Tag"
+msgstr ""
+

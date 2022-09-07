@@ -1,0 +1,365 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uaccountingframe.strtransactionequaltoorder
+#, object-pascal-format
+msgid ""
+"Ist die Buchung:\n"
+"%s\n"
+"%s\n"
+"\n"
+" deckungsgleich mit \n"
+"\n"
+"%s\n"
+"%s\n"
+" ?"
+msgstr ""
+
+#: uaccountingque.straddingjobs
+msgid "füge Aufträge ein..."
+msgstr ""
+
+#: uaccountingque.strenterpassword
+msgid "Geben Sie die Pin/Passwort an"
+msgstr ""
+
+#: uaccountingque.strerrorperformingque
+msgid "Einer oder mehrere Fehler traten beim bearbeiten der Warteschlange auf"
+msgstr ""
+
+#: uaccountingque.strgettingstartballance
+msgid "hole Startwert..."
+msgstr ""
+
+#: uaccountingque.strimportcomplete
+msgid "Import fertiggestellt"
+msgstr ""
+
+#: uaccountingque.strimportingdata
+msgid "importiere Daten..."
+msgstr ""
+
+#: uaccountingque.strinputtannumber
+msgid "Geben Sie die TAN Nummer an"
+msgstr ""
+
+#: uaccountingque.strjobsdone
+msgid "Alles ausgeführt."
+msgstr ""
+
+#: uaccountingque.strrequest
+msgid "Kontoabfrage"
+msgstr ""
+
+#: uaccountingque.strtransfer
+msgid "Überweisung"
+msgstr ""
+
+#: uaccountingque.strwaitingforcard
+msgid "Warte auf Chipkarte..."
+msgstr ""
+
+#: uaccountingtransfer.stramountcannotbe0
+msgid "Bitte geben Sie einen Wert > 0 an"
+msgstr ""
+
+#: uaccountingtransfer.strpurposelinetolong
+msgid "Eine Zahlungsgrundzeile ist zu lang"
+msgstr ""
+
+#: uaccountingtransfer.strpurposelinetomuchlines
+msgid "Der Zahlungsgrund besteht aus zu vielen Zeilen"
+msgstr ""
+
+#: ubookserial.strbookserial
+#, object-pascal-format
+msgid "Scannen Sie die Seriennummer für Position %s, Artikel %s"
+msgstr ""
+
+#: umaileditoptions.strfeed
+msgid "Feed"
+msgstr ""
+
+#: umaileditoptions.strservicenotinstalled
+#, object-pascal-format
+msgid "Der Dienst %s ist derzeit nicht installiert !"
+msgstr ""
+
+#: umain.stradding
+msgid "initialisiere "
+msgstr ""
+
+#: umain.strbrowserfavourites
+msgid "Browser-Lesezeichen"
+msgstr ""
+
+#: umain.strcategory
+msgid "Kategorie"
+msgstr ""
+
+#: umain.strcurrencies
+msgid "Währungen"
+msgstr ""
+
+#: umain.strdatabasesettings
+msgid "Datenbankeinstellungen"
+msgstr ""
+
+#: umain.strdeletingmessages
+#, object-pascal-format
+msgid "lösche Nachrichten, noch %d Nachichten"
+msgstr ""
+
+#: umain.strinventory
+msgid "Inventur"
+msgstr ""
+
+#: umain.strlanguages
+msgid "Sprachen"
+msgstr ""
+
+#: umain.strlogin
+msgid "Login..."
+msgstr ""
+
+#: umain.strmessageaccounts
+msgid "Nachrichtenkonten"
+msgstr ""
+
+#: umain.strmessageopen
+msgid "Es sind noch Nachrichten offen (e-Mail), wirklich schließen ?"
+msgstr ""
+
+#: umain.strnewinventory
+msgid "Neue Inventur"
+msgstr ""
+
+#: umain.strneworder
+#, object-pascal-format
+msgid "%s erstellen"
+msgstr ""
+
+#: umain.strnewtermin
+msgid "Neuer Termin"
+msgstr ""
+
+#: umain.strnostartpage
+msgid "<b>keine Startseite vorhanden, bitte fragen Sie Ihren Administrator nach der Einrichtung einer Startseite</b>"
+msgstr ""
+
+#: umain.strordertype
+msgid "Auftragstypen"
+msgstr ""
+
+#: umain.strphones
+msgid "Telefonie"
+msgstr ""
+
+#: umain.strprocessesopen
+msgid "Es sind noch Dateien offen (Dateiverwaltung), wirklich schließen ?"
+msgstr ""
+
+#: umain.strrepair
+msgctxt "umain.strrepair"
+msgid "Reparatur"
+msgstr ""
+
+#: umain.strscripts
+msgid "Scripte"
+msgstr ""
+
+#: umain.strsearchtext
+msgid "<hier tippen um zu suchen>"
+msgstr ""
+
+#: umain.strstates
+msgid "Status"
+msgstr ""
+
+#: umain.strstoragetypes
+msgid "Lagertypen"
+msgstr ""
+
+#: umain.strsystem
+msgid "System"
+msgstr ""
+
+#: umain.struserfielddefs
+msgid "Benutzerfelder"
+msgstr ""
+
+#: umain.strvisualoptions
+msgid "Ansichtsoptionen"
+msgstr ""
+
+#: umain.strwiki
+msgid "Wiki"
+msgstr ""
+
+#: unewstorage.strselectanstorage
+#, object-pascal-format
+msgid "wählen Sie ein Lager für Artikel %s Version %s Name %s"
+msgstr ""
+
+#: uorderframe.stradditional
+msgid "Zusätzlich"
+msgstr ""
+
+#: uorderframe.strcustomerhasnoaddress
+msgid "Der Kontakt hat keine Adresse, möchten Sie eine hinzufügen ?"
+msgstr ""
+
+#: uorderframe.strdates
+msgid "Datum"
+msgstr ""
+
+#: uorderframe.strnocustomerfound
+msgid "kein Kunde gefunden !"
+msgstr ""
+
+#: uorderframe.strsearchfromorderaddress
+msgid "Die Suche waurde aus der Auftragsverwaltung gestartet wenn Sie eine Addresse auswählen, wird diese in dne aktuellen Auftrag übernommen"
+msgstr ""
+
+#: upersonfinance.stribannotvalid
+msgid "Die IBAN Nummer ist UNGÜLTIG !"
+msgstr ""
+
+#: upersonfinance.stribanvalid
+msgid "Die IBAN Nummer scheint GÜLTIG zu sein oder keine IBAN Nummer !"
+msgstr ""
+
+#: upersonframe.scbirthday
+msgid "BIR  Geburtstag"
+msgstr ""
+
+#: upersonframe.scbusinessmail
+msgid "MLB  e-Mail Geschäftlich"
+msgstr ""
+
+#: upersonframe.scbusinessmobilephone
+msgid "CELB Mobiltelefon Geschäftlich"
+msgstr ""
+
+#: upersonframe.scbusinessphone
+msgid "TELB Telefon Geschäftlich"
+msgstr ""
+
+#: upersonframe.scfax
+msgid "FAX  Fax"
+msgstr ""
+
+#: upersonframe.scinternet
+msgid "INT  Homepage"
+msgstr ""
+
+#: upersonframe.scmail
+msgid "MAIL e-Mail"
+msgstr ""
+
+#: upersonframe.scmobilephone
+msgid "CEL  Mobiltelefon"
+msgstr ""
+
+#: upersonframe.scprivatemail
+msgid "MLP  e-Mail Privat"
+msgstr ""
+
+#: upersonframe.scprivatemobilephone
+msgid "CELP Mobiltelefon Privat"
+msgstr ""
+
+#: upersonframe.scprivatephone
+msgid "TELP Telefon Privat"
+msgstr ""
+
+#: upersonframe.scskype
+msgid "SKP  Skype"
+msgstr ""
+
+#: upersonframe.sctelephone
+msgid "TEL  Telefon"
+msgstr ""
+
+#: upersonframe.straddedfromemployees
+msgid "Dies ist ein neuer Mitarbeiter/Mitglied das aus einem Kontakt erstellt wurde. Sobald Sie speichern, wird zum ursprünglichen Kontakt zurückgesprungen und ein Eintrag in dessen Mitarbeitern gemacht."
+msgstr ""
+
+#: upersonframe.straddnewpersonsfromdragdrop
+msgid "fügen Sie weitere Mitarbeiter/Mitglieder per Drag&Drop aus der Suche ein"
+msgstr ""
+
+#: upersonframe.straddress
+msgid "Adresse"
+msgstr ""
+
+#: upersonframe.strbirthdayfrom
+#, object-pascal-format
+msgid "Geburtstag von %s"
+msgstr ""
+
+#: upersonframe.strchangecustomernumer
+msgid "Kundennumer ändern"
+msgstr ""
+
+#: upersonframe.stremployees
+msgid "Mitarbeiter/Mitglieder"
+msgstr ""
+
+#: upersonframe.strinfo
+msgid "Info"
+msgstr ""
+
+#: upersonframe.strinserteventforbirthday
+msgid "Möchten Sie für diesen Geburtstag einen Eintrag in Ihren Kalender erzeugen ?"
+msgstr ""
+
+#: upersonframe.strnewperson
+msgid "neuer Kontakt"
+msgstr ""
+
+#: uscriptframe.strchangenumer
+msgid "Nummer ändern"
+msgstr ""
+
+#: uscriptframe.strnewarticle
+msgid "neuer Artikel"
+msgstr ""
+
+#: uscriptframe.strnewscript
+msgid "Neues Script"
+msgstr ""
+
+#: uscriptframe.strprices
+msgid "Preise"
+msgstr ""
+
+#: uscriptframe.strproperties
+msgid "Eigenschaften"
+msgstr ""
+
+#: uscriptframe.strrepair
+msgctxt "uscriptframe.strrepair"
+msgid "Reparatur"
+msgstr ""
+
+#: uscriptframe.strshouldthisversionated
+msgid "Soll das Script versioniert werden ?"
+msgstr ""
+
+#: uscriptframe.strstorage
+msgid "Lager"
+msgstr ""
+
+#: uscriptframe.strsupplier
+msgid "Lieferant"
+msgstr ""
+
+#: uscriptframe.strtexts
+msgid "Texte"
+msgstr ""
+
+#: uwizardnewaccount.straqbankingisnotinstalled
+msgid "aqBanking ist nicht installiert ! aqBanking muss installiert sein um Online Banking zu bretreiben"
+msgstr ""
+

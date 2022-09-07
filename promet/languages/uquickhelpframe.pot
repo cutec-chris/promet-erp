@@ -1,0 +1,9 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uquickhelpframe.strnevershowagain
+msgid ""
+"Soll die Schnellhilfe nie wieder angezeigt werden ?\n"
+"Wenn Sie nein Klicken werden bei der nächsten Sitzung wieder Schnellhilfen angezeigt."
+msgstr ""
+

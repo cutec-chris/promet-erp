@@ -1,0 +1,20 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: udocumentprocess.strcantdeletetempdirectory
+msgid "Das temporäre Verzeichnis konnte nicht gelöscht werden !"
+msgstr ""
+
+#: udocumentprocess.strcheckinfailed
+msgid "Holen der Dateien fehlgeschlagen, das Temporäre Verzeichnis wurde nicht gelöscht !"
+msgstr ""
+
+#: udocumentprocess.strfailedexecuteprocess
+#, object-pascal-format
+msgid "Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
+msgstr ""
+
+#: udocumentprocess.strnovalidcommand
+msgid "Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen."
+msgstr ""
+

@@ -1,0 +1,35 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uarticleframe.strnewarticle
+msgid "neuer Artikel"
+msgstr ""
+
+#: uarticleframe.strpiecelist
+msgid "Stückliste"
+msgstr ""
+
+#: uarticleframe.strprices
+msgid "Preise"
+msgstr ""
+
+#: uarticleframe.strproperties
+msgid "Eigenschaften"
+msgstr ""
+
+#: uarticleframe.strrepair
+msgid "Reparatur"
+msgstr ""
+
+#: uarticleframe.strstorage
+msgid "Lager"
+msgstr ""
+
+#: uarticleframe.strsupplier
+msgid "Lieferant"
+msgstr ""
+
+#: uarticleframe.strtexts
+msgid "Texte"
+msgstr ""
+

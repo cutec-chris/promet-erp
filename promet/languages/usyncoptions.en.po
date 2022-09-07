@@ -20,9 +20,13 @@ msgid "Laden der Mandanten fehlgeschlagen"
 msgstr "Failed to load mandants"
 
 #: usyncoptions.strinserttables
+#, fuzzy
+#| msgid ""
+#| "Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?\n"
+#| "(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)\n"
 msgid ""
 "Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?\n"
-"(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)\n"
+"(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)"
 msgstr "Should the standard tables be added to the synchronisation profile ?"
 
 #: usyncoptions.strsetpropertysfailed

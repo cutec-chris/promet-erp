@@ -1,0 +1,41 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: utasks.strassignedtasks
+#, object-pascal-format
+msgid "Aufgaben: %s"
+msgstr ""
+
+#: utasks.strchangedependencies
+msgid "Sollen Abhängigkeiten der gelöschten Aufgaben aufgelöst werden ? (längere Dauer)"
+msgstr ""
+
+#: utasks.strfailed
+msgid "Fehlgeschlagen"
+msgstr ""
+
+#: utasks.strmytasks
+#, object-pascal-format
+msgid "von mir erstellte Aufgaben: %s"
+msgstr ""
+
+#: utasks.strrecordcount
+#, object-pascal-format
+msgid "Anzahl: %d"
+msgstr ""
+
+#: utasks.strsearchbfromtasks
+msgid "Mit Öffnen wird der gewählte Benutzer in die Aufgabe übernommen"
+msgstr ""
+
+#: utasks.strsearchfromtasks
+msgid "Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen"
+msgstr ""
+
+#: utasks.strunterminateddependencies
+#, object-pascal-format
+msgid ""
+"Es gibt unterminierte Abhängigkeiten für diese Aufgabe:\n"
+"%s"
+msgstr ""
+

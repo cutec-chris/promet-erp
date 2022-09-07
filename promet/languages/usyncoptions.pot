@@ -1,0 +1,25 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: usyncoptions.strconnectionsuccesful
+msgid "Verbindungstest erfolgreich !"
+msgstr ""
+
+#: usyncoptions.strfailedtoloadmandants
+msgid "Laden der Mandanten fehlgeschlagen"
+msgstr ""
+
+#: usyncoptions.strinserttables
+msgid ""
+"Sollen zum Synchronisieren die Standardtabellen als Vorgabe eingefügt werden ?\n"
+"(Sie müssen alle zu synchronisierenden Tabellen angeben und könenn dann pro tabelle einsetllen in welche Richtungen und unter welchen Umständen synchronisiert werden soll)"
+msgstr ""
+
+#: usyncoptions.strsetpropertysfailed
+msgid "Der Datenbankverbindungsstring beinhaltet Fehler"
+msgstr ""
+
+#: usyncoptions.strsynciddontmatch
+msgid "Die SyncID der entfernten Datenbank stimmt nicht mit der eingestellten überein, soll die SyncID übernommen werden ?"
+msgstr ""
+

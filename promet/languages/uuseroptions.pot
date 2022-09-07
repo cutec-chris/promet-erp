@@ -1,0 +1,14 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uuseroptions.strnewuser
+msgid "Neuer Benutzer"
+msgstr ""
+
+#: uuseroptions.strrealdeleteuser
+msgid ""
+"Soll der Nutzer wirklich gelöscht werden ?\n"
+"eventuell sind Daten dann nicht mehr zu ihm zuordnbar !\n"
+"Im Normalfall sollten Sie nur das Entlassungsdatum setzen !"
+msgstr ""
+

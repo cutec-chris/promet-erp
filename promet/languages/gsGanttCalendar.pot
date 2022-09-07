@@ -1,0 +1,43 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: gsganttcalendar.strday
+msgid " Tage"
+msgstr ""
+
+#: gsganttcalendar.strfinish
+msgid "Ende"
+msgstr ""
+
+#: gsganttcalendar.strinfo
+msgid "Info"
+msgstr ""
+
+#: gsganttcalendar.strkw
+msgid "KW"
+msgstr ""
+
+#: gsganttcalendar.strnum
+msgid "Pos"
+msgstr ""
+
+#: gsganttcalendar.strresourses
+msgid "Resourcen"
+msgstr ""
+
+#: gsganttcalendar.strstart
+msgid "Start"
+msgstr ""
+
+#: gsganttcalendar.strtask
+msgid "Aufgabe"
+msgstr ""
+
+#: gsganttcalendar.strties
+msgid "Ties"
+msgstr ""
+
+#: gsganttcalendar.strtime
+msgid "Dauer"
+msgstr ""
+

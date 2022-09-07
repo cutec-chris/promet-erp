@@ -12,5 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: umeeting.strcreatedfrom
+#, object-pascal-format
 msgid "aus \"%s\" erstellt"
 msgstr "created from '%s'"
+

@@ -20,9 +20,13 @@ msgid "Es existieren Links von den verlinkten Objekten zurück auf dieses Objekt
 msgstr "Thers also links from the linked objects, should These also be deleted ?"
 
 #: ulinkframe.strdoappendtoaccount
+#, fuzzy
+#| msgid ""
+#| "Der eingefuegte Verweis ist eine Kontobuchung,\n"
+#| "moechten Sie diesen Vorgang als Beleg einfuegen ?\n"
 msgid ""
 "Der eingefuegte Verweis ist eine Kontobuchung,\n"
-"moechten Sie diesen Vorgang als Beleg einfuegen ?\n"
+"moechten Sie diesen Vorgang als Beleg einfuegen ?"
 msgstr ""
 "The inserted reference is an account book,\n"
 "Should this Order linked to it ?\n"

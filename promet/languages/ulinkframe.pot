@@ -1,0 +1,25 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ulinkframe.straddentrytolinkeditem
+msgid "Soll der zu verlinkende Eintrag auch einen Link auf diesen Eintrag erhalten ?"
+msgstr ""
+
+#: ulinkframe.strdeleteback
+msgid "Es existieren Links von den verlinkten Objekten zurück auf dieses Objekt, sollen diese auch gelöscht werden ?"
+msgstr ""
+
+#: ulinkframe.strdoappendtoaccount
+msgid ""
+"Der eingefuegte Verweis ist eine Kontobuchung,\n"
+"moechten Sie diesen Vorgang als Beleg einfuegen ?"
+msgstr ""
+
+#: ulinkframe.strentrynotfound
+msgid "Eintrag konnte nicht gefundne werden !"
+msgstr ""
+
+#: ulinkframe.strlinknotvalid
+msgid "Der Verweis zeigt auf eine ungültige Artikelversion, soll die Version angelegt werden ?"
+msgstr ""
+

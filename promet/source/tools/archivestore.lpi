@@ -97,13 +97,16 @@
     </Linking>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="2">
+    <Exceptions Count="3">
       <Item1>
         <Name Value="EConvertError"/>
       </Item1>
       <Item2>
         <Name Value="Exception"/>
       </Item2>
+      <Item3>
+        <Name Value="EProcess"/>
+      </Item3>
     </Exceptions>
   </Debugging>
 </CONFIG>

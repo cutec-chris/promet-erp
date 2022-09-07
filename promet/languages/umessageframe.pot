@@ -1,0 +1,22 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: umessageframe.strcustomernotfound
+msgid "Kontakt nicht gefunden !"
+msgstr ""
+
+#: umessageframe.strnewmessagecview
+#, object-pascal-format
+msgid "%s Neue Nachrichten"
+msgstr ""
+
+#: umessageframe.strnewsendmessagecview
+#, object-pascal-format
+msgid "%s ungesendete Nachrichten"
+msgstr ""
+
+#: umessageframe.strnewunknownmessagecview
+#, object-pascal-format
+msgid "%s Neue unbekannte Nachrichten"
+msgstr ""
+

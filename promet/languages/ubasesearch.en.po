@@ -26,3 +26,4 @@ msgstr "Search terms"
 #: ubasesearch.strshortnames
 msgid "Kurztexte"
 msgstr "Short texts"
+

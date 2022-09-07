@@ -44,6 +44,7 @@ msgid "Achtung Teile des Auftrages sind in nicht freigegebenem Zustand !"
 msgstr "Important parts of the contract are in non-shared state!"
 
 #: fautomationform.strproblemat
+#, object-pascal-format
 msgid "Störung %s bei %s"
 msgstr ""
 

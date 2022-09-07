@@ -1,0 +1,700 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="11"/>
+    <General>
+      <Flags>
+        <SaveClosedFiles Value="False"/>
+        <MainUnitHasUsesSectionForAllUnits Value="False"/>
+      </Flags>
+      <SessionStorage Value="InIDEConfig"/>
+      <MainUnit Value="0"/>
+      <AutoCreateForms Value="False"/>
+      <Title Value="Promet-ERP"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <XPManifest>
+        <DpiAware Value="True"/>
+      </XPManifest>
+      <Icon Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N Value="True"/>
+      <OutDir Value="../../languages"/>
+    </i18n>
+    <VersionInfo>
+      <AutoIncrementBuild Value="True"/>
+      <MajorVersionNr Value="7"/>
+      <BuildNr Value="543"/>
+      <Language Value="0407"/>
+      <StringTable CompanyName="CUTEC" FileDescription="Promet-ERP" ProductName="Promet-ERP" ProductVersion="7.0.0.487"/>
+    </VersionInfo>
+    <BuildModes Count="5">
+      <Item1 Name="Default" Default="True"/>
+      <Item2 Name="Debug">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/prometerp"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Parsing>
+            <SyntaxOptions>
+              <IncludeAssertionCode Value="True"/>
+            </SyntaxOptions>
+          </Parsing>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <UseHeaptrc Value="True"/>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+          </Linking>
+          <Other>
+            <CompilerMessages>
+              <IgnoredMessages idx5024="True"/>
+            </CompilerMessages>
+            <CustomOptions Value="-dDebugLR"/>
+          </Other>
+        </CompilerOptions>
+      </Item2>
+      <Item3 Name="Win32">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="win32"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/prometerp"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <TargetCPU Value="i386"/>
+            <TargetOS Value="win32"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item3>
+      <Item4 Name="Win64">
+        <MacroValues Count="1">
+          <Macro1 Name="LCLWidgetType" Value="win32"/>
+        </MacroValues>
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/prometerp"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+          </SearchPaths>
+          <Linking>
+            <Debugging>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+        </CompilerOptions>
+      </Item4>
+      <Item5 Name="DebugOSX">
+        <CompilerOptions>
+          <Version Value="11"/>
+          <Target>
+            <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/prometerp"/>
+          </Target>
+          <SearchPaths>
+            <IncludeFiles Value="$(ProjOutDir)"/>
+            <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(TargetWidgetset)"/>
+          </SearchPaths>
+          <CodeGeneration>
+            <Checks>
+              <IOChecks Value="True"/>
+              <RangeChecks Value="True"/>
+              <OverflowChecks Value="True"/>
+              <StackChecks Value="True"/>
+            </Checks>
+            <SmallerCode Value="True"/>
+          </CodeGeneration>
+          <Linking>
+            <Debugging>
+              <GenerateDebugInfo Value="False"/>
+              <DebugInfoType Value="dsStabs"/>
+              <UseLineInfoUnit Value="False"/>
+              <UseExternalDbgSyms Value="True"/>
+            </Debugging>
+            <Options>
+              <Win32>
+                <GraphicApplication Value="True"/>
+              </Win32>
+            </Options>
+          </Linking>
+          <Other>
+            <CustomOptions Value="-dHASMESSAGING"/>
+          </Other>
+        </CompilerOptions>
+      </Item5>
+      <SharedMatrixOptions Count="3">
+        <Item1 ID="724251795577" Modes="Win32,Win64" Type="IDEMacro" MacroName="LCLWidgetType" Value="win32"/>
+        <Item2 ID="699350395536" Type="IDEMacro" MacroName="LCLWidgetType" Value="cocoa"/>
+        <Item3 ID="834953185030" Targets="linux" Value="-dTHREADINGDISABLED"/>
+      </SharedMatrixOptions>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <CommandLineParams Value="--disablethreads --debug --debug-sql"/>
+      </local>
+      <FormatVersion Value="2"/>
+      <Modes Count="1">
+        <Mode0 Name="default">
+          <local>
+            <CommandLineParams Value="--disablethreads --debug --debug-sql"/>
+          </local>
+        </Mode0>
+      </Modes>
+    </RunParams>
+    <RequiredPackages Count="27">
+      <Item1>
+        <PackageName Value="pSheme"/>
+        <DefaultFilename Value="../avasheme/psheme.lpk"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="KControlsLaz"/>
+        <DefaultFilename Value="../components/kcontrols/packages/kcontrols/kcontrolslaz.lpk"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="promet_scripts"/>
+        <DefaultFilename Value="../base/base_scripts/promet_scripts.lpk"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="pack_powerpdf"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="pOptions"/>
+        <DefaultFilename Value="../base/base_options/poptions.lpk"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="lazreport"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="pvisualframes"/>
+        <DefaultFilename Value="../base/base_frames/pvisualframes.lpk"/>
+      </Item7>
+      <Item8>
+        <PackageName Value="pvisualforms"/>
+        <DefaultFilename Value="../base/base_forms/pvisualforms.lpk"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="LazControls"/>
+      </Item9>
+      <Item10>
+        <PackageName Value="ptimes"/>
+        <DefaultFilename Value="../timeregistering/ptimes.lpk"/>
+      </Item10>
+      <Item11>
+        <PackageName Value="pDocManage"/>
+        <DefaultFilename Value="../base/base_docmanage/pdocmanage.lpk"/>
+      </Item11>
+      <Item12>
+        <PackageName Value="tabeditor"/>
+        <DefaultFilename Value="../base/base_editform/tabeditor.lpk"/>
+      </Item12>
+      <Item13>
+        <PackageName Value="statisticsaddon"/>
+        <DefaultFilename Value="../statistics/statisticsaddon.lpk"/>
+      </Item13>
+      <Item14>
+        <PackageName Value="base_inet"/>
+        <DefaultFilename Value="../base/base_inet/base_inet.lpk"/>
+      </Item14>
+      <Item15>
+        <PackageName Value="prepair"/>
+        <DefaultFilename Value="../base/base_repair/prepair.lpk"/>
+      </Item15>
+      <Item16>
+        <PackageName Value="pmessaging"/>
+        <DefaultFilename Value="../base/base_messaging/pmessaging.lpk"/>
+      </Item16>
+      <Item17>
+        <PackageName Value="perp"/>
+        <DefaultFilename Value="../base/base_erp/perp.lpk"/>
+      </Item17>
+      <Item18>
+        <PackageName Value="pcalendar"/>
+        <DefaultFilename Value="../base/base_calendar/pcalendar.lpk"/>
+      </Item18>
+      <Item19>
+        <PackageName Value="projectmanagement"/>
+        <DefaultFilename Value="../projectmanagement/projectmanagement.lpk"/>
+      </Item19>
+      <Item20>
+        <PackageName Value="ZVDateTimeCtrls"/>
+        <DefaultFilename Value="../components/ZVDateTimeCtrls/zvdatetimectrls.lpk"/>
+      </Item20>
+      <Item21>
+        <PackageName Value="phelp"/>
+        <DefaultFilename Value="../base_help/phelp.lpk"/>
+      </Item21>
+      <Item22>
+        <PackageName Value="pPhones"/>
+        <DefaultFilename Value="../base/base_phone/pphones.lpk"/>
+      </Item22>
+      <Item23>
+        <PackageName Value="TurboPowerIPro"/>
+        <MinVersion Major="1" Valid="True"/>
+      </Item23>
+      <Item24>
+        <PackageName Value="FCL"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item24>
+      <Item25>
+        <PackageName Value="LCLBase"/>
+        <MinVersion Major="1" Release="1" Valid="True"/>
+      </Item25>
+      <Item26>
+        <PackageName Value="general"/>
+        <DefaultFilename Value="../../../general/general.lpk"/>
+      </Item26>
+      <Item27>
+        <PackageName Value="LCL"/>
+      </Item27>
+    </RequiredPackages>
+    <Units Count="44">
+      <Unit0>
+        <Filename Value="prometerp.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="umain.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uMain"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="upersonframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPersonFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFrame"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="uaddressframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fAddressFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAddressFrame"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="upersonfinance.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPersonFinance"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uPersonFinance"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="uaccountingframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fAccountingFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uAccountingFrame"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="uaccountingque.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fAccountingQue"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uAccountingque"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="ubankingdialog.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fbankingDialog"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBankingDialog"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="uaccountingtransfer.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fTransfer"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uAccountingTransfer"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="utextframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fTextFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uTextFrame"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="uscriptframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fScriptFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="uorderframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fOrderFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderFrame"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="uorderadditionalframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fOrderAdditionalFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderAdditionalFrame"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="uoverviewframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fOrderOverviewFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOverviewFrame"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="uorderdateframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fOrderDateFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderDateFrame"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="unewstorage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fNewStorage"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uNewStorage"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="ubookaccounting.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fBookAccounting"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBookAccounting"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="urepairpositionframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fRepairPositionFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uRepairPositionFrame"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="usystemoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fSystemOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uSystemOptions"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="ufinancialoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fFinancialOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="uordertypeoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="forderTypeOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uOrderTypeOptions"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="ustoragetypeoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fStorageTypeOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uStorageTypeOptions"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="ucurrencyoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fCurrencyOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uCurrencyOptions"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="ulanguageoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fLanguageOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uLanguageOptions"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="urepairoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fRepairOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="uphoneoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPhoneOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="umailoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fMessageOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="umaileditoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fMailOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uMailEditoptions"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="ufindtransaction.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fFindTransaction"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit28>
+      <Unit29>
+        <Filename Value="uorderaddressframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fOrderAddress"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit29>
+      <Unit30>
+        <Filename Value="utimeframe.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fTimeFrame"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="uTimeFrame"/>
+      </Unit30>
+      <Unit31>
+        <Filename Value="uwizardnewaccount.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fWizardNewAccount"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uWizardnewaccount"/>
+      </Unit31>
+      <Unit32>
+        <Filename Value="ubookserial.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fBookSerial"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uBookSerial"/>
+      </Unit32>
+      <Unit33>
+        <Filename Value="upasswords.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPasswords"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uPasswords"/>
+      </Unit33>
+      <Unit34>
+        <Filename Value="ucategoryoptions.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fCategoryOptions"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit34>
+      <Unit35>
+        <Filename Value="../base/changes.txt"/>
+        <IsPartOfProject Value="True"/>
+      </Unit35>
+      <Unit36>
+        <Filename Value="ucommandline.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fCommandline"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit36>
+      <Unit37>
+        <Filename Value="ustoredpasswords.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPasswords"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit37>
+      <Unit38>
+        <Filename Value="uallobjects.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="uAllObjects"/>
+      </Unit38>
+      <Unit39>
+        <Filename Value="uarticleversion.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fVersionate"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uArticleVersion"/>
+      </Unit39>
+      <Unit40>
+        <Filename Value="upasswordgenerate.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fPWGenerate"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit40>
+      <Unit41>
+        <Filename Value="../base/revision.inc"/>
+        <IsPartOfProject Value="True"/>
+      </Unit41>
+      <Unit42>
+        <Filename Value="uorderadressdetail.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fEditAdress"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="uOrderAdressDetail"/>
+      </Unit42>
+      <Unit43>
+        <Filename Value="unewnumberset.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="fNewNumberset"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit43>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="../../output/$(TargetCPU)-$(TargetOS)/prometerp"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)-$(LCLWidgetType)"/>
+    </SearchPaths>
+    <Linking>
+      <Debugging>
+        <UseExternalDbgSyms Value="True"/>
+      </Debugging>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+    <Other>
+      <Verbosity>
+        <ShowNotes Value="False"/>
+        <ShowHints Value="False"/>
+      </Verbosity>
+      <CustomOptions Value="-dHASMESSAGING"/>
+    </Other>
+  </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="17">
+      <Item1>
+        <Name Value="EProcess"/>
+      </Item1>
+      <Item2>
+        <Name Value="EFOpenError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFCreateError"/>
+      </Item3>
+      <Item4>
+        <Name Value="EVariantError"/>
+      </Item4>
+      <Item5>
+        <Name Value="ESQLParser"/>
+      </Item5>
+      <Item6>
+        <Name Value="EStringListError"/>
+      </Item6>
+      <Item7>
+        <Name Value="PNGImageException"/>
+      </Item7>
+      <Item8>
+        <Name Value="ESQLScannerError"/>
+      </Item8>
+      <Item9>
+        <Name Value="EParserError"/>
+      </Item9>
+      <Item10>
+        <Name Value="FPImageException"/>
+      </Item10>
+      <Item11>
+        <Name Value="EPrinter"/>
+      </Item11>
+      <Item12>
+        <Name Value="Exception"/>
+      </Item12>
+      <Item13>
+        <Name Value="EZSQLException"/>
+      </Item13>
+      <Item14>
+        <Name Value="EPyNameError"/>
+      </Item14>
+      <Item15>
+        <Name Value="EPyImportError"/>
+      </Item15>
+      <Item16>
+        <Name Value="EPyValueError"/>
+      </Item16>
+      <Item17>
+        <Name Value="EDatabaseError"/>
+      </Item17>
+    </Exceptions>
+  </Debugging>
+</CONFIG>

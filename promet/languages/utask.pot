@@ -1,0 +1,99 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: utask.stracttime
+msgid "Istzeit"
+msgstr ""
+
+#: utask.strbuffertime
+msgid "Wartezeit"
+msgstr ""
+
+#: utask.strcompleted
+msgid "fertig"
+msgstr ""
+
+#: utask.strcompletedat
+msgid "fertiggestellt"
+msgstr ""
+
+#: utask.strdelegated
+#, object-pascal-format
+msgid "an %s delegiert"
+msgstr ""
+
+#: utask.strhaschilds
+msgid "hat Untereinträge"
+msgstr ""
+
+#: utask.strneedsaction
+msgid "Aufgabe benötigt Hilfe"
+msgstr ""
+
+#: utask.strpercentdone
+msgid "% erledigt"
+msgstr ""
+
+#: utask.strplantime
+msgid "Planzeit"
+msgstr ""
+
+#: utask.strprojectchanged
+msgid "Project geändert"
+msgstr ""
+
+#: utask.strrenamed
+#, object-pascal-format
+msgid "umbenannt in \"%s\""
+msgstr ""
+
+#: utask.strstarted
+msgid "gestartet"
+msgstr ""
+
+#: utask.strtaskadded
+#, object-pascal-format
+msgid "%s - hinzugefügt"
+msgstr ""
+
+#: utask.strtaskchecked
+msgid "Aufgabe geprüft"
+msgstr ""
+
+#: utask.strtaskcompleted
+msgid "Aufgabe fertiggestellt"
+msgstr ""
+
+#: utask.strtaskdeleted
+#, object-pascal-format
+msgid "%s - gelöscht"
+msgstr ""
+
+#: utask.strtaskreopened
+msgid "Aufgabe wiedereröffnet"
+msgstr ""
+
+#: utask.strtaskschecked
+#, object-pascal-format
+msgid "%s - geprüft"
+msgstr ""
+
+#: utask.strtaskscompleted
+#, object-pascal-format
+msgid "%s - erledigt"
+msgstr ""
+
+#: utask.strtasksreopened
+#, object-pascal-format
+msgid "%s - wiedereröffnet"
+msgstr ""
+
+#: utask.strtaskudelegated
+#, object-pascal-format
+msgid "%s - wurde Ihnen delegiert"
+msgstr ""
+
+#: utask.strworkstatus
+msgid "Bearbeitungsstatus"
+msgstr ""
+

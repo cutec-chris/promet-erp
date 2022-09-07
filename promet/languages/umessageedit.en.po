@@ -16,10 +16,12 @@ msgid "Nachricht gesendet"
 msgstr "Message sent"
 
 #: umessageedit.straddinglistentry
+#, object-pascal-format
 msgid "Verarbeite Eintrag \"%s\""
 msgstr "Processing entry \"%s\""
 
 #: umessageedit.straddingmail
+#, object-pascal-format
 msgid "erstelle Mail an \"%s\""
 msgstr "create Mail to \"%s"
 

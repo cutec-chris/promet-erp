@@ -1,0 +1,44 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: ustatisticframe.strenteranname
+msgid "geben Sie einen Namen an"
+msgstr ""
+
+#: ustatisticframe.strerrorbuildingreport
+msgid "Es ist ein Fehler beim erstellen des Reports aufgetreten."
+msgstr ""
+
+#: ustatisticframe.strgenerating
+msgid "Abfrage wird ausgeführt..."
+msgstr ""
+
+#: ustatisticframe.strname
+msgid "Name"
+msgstr ""
+
+#: ustatisticframe.strnewdir
+msgid "Neues Verzeichnis"
+msgstr ""
+
+#: ustatisticframe.strnewstatistic
+msgid "Neue Statistik"
+msgstr ""
+
+#: ustatisticframe.strnotenougthrights
+msgid "Sie besitzen nicht genügend Rechte um diese Anwendung zu nutzen"
+msgstr ""
+
+#: ustatisticframe.strquerytime
+#, object-pascal-format
+msgid "Abfragezeit: %s Anzahl Datensätze: %d"
+msgstr ""
+
+#: ustatisticframe.strstatisticchanged
+msgid "Die Statistik wurde geändert, sollen die Änderungen gespeichert werden ?"
+msgstr ""
+
+#: ustatisticframe.strunnamed
+msgid "Unbenannte Statistik"
+msgstr ""
+

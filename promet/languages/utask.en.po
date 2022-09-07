@@ -28,6 +28,7 @@ msgid "fertiggestellt"
 msgstr "done"
 
 #: utask.strdelegated
+#, object-pascal-format
 msgid "an %s delegiert"
 msgstr "delegated to %s"
 
@@ -52,6 +53,7 @@ msgid "Project geändert"
 msgstr "Project changed"
 
 #: utask.strrenamed
+#, object-pascal-format
 msgid "umbenannt in \"%s\""
 msgstr "renamed to %s"
 
@@ -60,6 +62,7 @@ msgid "gestartet"
 msgstr "started"
 
 #: utask.strtaskadded
+#, object-pascal-format
 msgid "%s - hinzugefügt"
 msgstr "%s - added"
 
@@ -72,6 +75,7 @@ msgid "Aufgabe fertiggestellt"
 msgstr "Task done"
 
 #: utask.strtaskdeleted
+#, object-pascal-format
 msgid "%s - gelöscht"
 msgstr "%s - deleted"
 
@@ -80,21 +84,26 @@ msgid "Aufgabe wiedereröffnet"
 msgstr "Task reopened"
 
 #: utask.strtaskschecked
+#, object-pascal-format
 msgid "%s - geprüft"
 msgstr "%s - checked"
 
 #: utask.strtaskscompleted
+#, object-pascal-format
 msgid "%s - erledigt"
 msgstr "%s - done"
 
 #: utask.strtasksreopened
+#, object-pascal-format
 msgid "%s - wiedereröffnet"
 msgstr "%s - reopened"
 
 #: utask.strtaskudelegated
+#, object-pascal-format
 msgid "%s - wurde Ihnen delegiert"
 msgstr "%s - was delegated to you"
 
 #: utask.strworkstatus
 msgid "Bearbeitungsstatus"
 msgstr "Workstatus"
+

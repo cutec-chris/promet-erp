@@ -12,9 +12,13 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: uquickhelpframe.strnevershowagain
+#, fuzzy
+#| msgid ""
+#| "Soll die Schnellhilfe nie wieder angezeigt werden ?\n"
+#| "Wenn Sie nein Klicken werden bei der nächsten Sitzung wieder Schnellhilfen angezeigt.\n"
 msgid ""
 "Soll die Schnellhilfe nie wieder angezeigt werden ?\n"
-"Wenn Sie nein Klicken werden bei der nächsten Sitzung wieder Schnellhilfen angezeigt.\n"
+"Wenn Sie nein Klicken werden bei der nächsten Sitzung wieder Schnellhilfen angezeigt."
 msgstr ""
 "Do you wnat that the quickhelp is never shown again ?\n"
 "When you click no, on the next session the quickhelp is shown again\n"

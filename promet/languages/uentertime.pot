@@ -1,0 +1,44 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uentertime.strchange
+msgid "austauschen"
+msgstr ""
+
+#: uentertime.strcontinueprevioustimeentry
+#, object-pascal-format
+msgid ""
+"Zeiterfassung für\n"
+"%s\n"
+"%s\n"
+"%s\n"
+"\n"
+"wurde heute beendet (%s), haben Sie in der Zwischenzeit daran weitergearbeitet?"
+msgstr ""
+
+#: uentertime.strendtimenotset
+msgid ""
+"Der letzte Zeiteintrag wurde nicht abgeschlossen,\n"
+" bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!"
+msgstr ""
+
+#: uentertime.strinvalidtimeformat
+msgid "Ungültiges Zeitformat !"
+msgstr ""
+
+#: uentertime.strpause
+msgid "»Pause«"
+msgstr ""
+
+#: uentertime.strstart
+msgid "beginnen"
+msgstr ""
+
+#: uentertime.strtimeregistration
+msgid "Zeiterfassung"
+msgstr ""
+
+#: uentertime.strworktimeoverdune
+msgid "Ihre Regelarbeitszeit wurde überschritten"
+msgstr ""
+

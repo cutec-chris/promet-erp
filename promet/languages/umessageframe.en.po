@@ -16,14 +16,17 @@ msgid "Kontakt nicht gefunden !"
 msgstr "Contact not found!"
 
 #: umessageframe.strnewmessagecview
+#, object-pascal-format
 msgid "%s Neue Nachrichten"
 msgstr "New Messages (%s)"
 
 #: umessageframe.strnewsendmessagecview
+#, object-pascal-format
 msgid "%s ungesendete Nachrichten"
 msgstr "%s unsent messages"
 
 #: umessageframe.strnewunknownmessagecview
+#, object-pascal-format
 msgid "%s Neue unbekannte Nachrichten"
 msgstr "%s new unknown messages"
 

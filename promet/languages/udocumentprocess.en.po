@@ -20,9 +20,11 @@ msgid "Holen der Dateien fehlgeschlagen, das Temporäre Verzeichnis wurde nicht 
 msgstr "Failed to get the files, the temporary directory was not removed!"
 
 #: udocumentprocess.strfailedexecuteprocess
+#, object-pascal-format
 msgid "Möglicherweise ist das auführen von \"%s\" fehlgeschlagen, Rückgabewert: %d"
 msgstr "Execution of \"%s\" failed, return value: %d"
 
 #: udocumentprocess.strnovalidcommand
 msgid "Sie haben einen ungültigen befehl in den Dateiaktionen angegeben. Gültige Befehle müssen mit exec: oder mkdir: beginnen."
 msgstr "You have specified an invalid command in the document actions. Valid commands must with exec: or mkdir: start."
+

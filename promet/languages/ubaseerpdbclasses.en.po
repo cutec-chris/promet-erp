@@ -26,3 +26,4 @@ msgstr "Storagetype"
 #: ubaseerpdbclasses.strsubtotal
 msgid "Zwischensumme"
 msgstr "Subtotal"
+

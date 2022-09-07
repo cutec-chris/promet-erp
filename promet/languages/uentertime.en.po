@@ -16,13 +16,21 @@ msgid "austauschen"
 msgstr "exchange"
 
 #: uentertime.strcontinueprevioustimeentry
+#, object-pascal-format, fuzzy
+#| msgid ""
+#| "Zeiterfassung für\n"
+#| "%s\n"
+#| "%s\n"
+#| "%s\n"
+#| "\n"
+#| "wurde heute beendet (%s), haben Sie in der Zwischenzeit daran weitergearbeitet?\n"
 msgid ""
 "Zeiterfassung für\n"
 "%s\n"
 "%s\n"
 "%s\n"
 "\n"
-"wurde heute beendet (%s), haben Sie in der Zwischenzeit daran weitergearbeitet?\n"
+"wurde heute beendet (%s), haben Sie in der Zwischenzeit daran weitergearbeitet?"
 msgstr ""
 "Timeregistering for\n"
 "%s\n"
@@ -32,9 +40,13 @@ msgstr ""
 "was stopped today (%s), should it be continued?\n"
 
 #: uentertime.strendtimenotset
+#, fuzzy
+#| msgid ""
+#| "Der letzte Zeiteintrag wurde nicht abgeschlossen,\n"
+#| " bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!\n"
 msgid ""
 "Der letzte Zeiteintrag wurde nicht abgeschlossen,\n"
-" bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!\n"
+" bitte korrigieren Sie die Endzeit und starten Sie einen neuen Eintrag manuell!"
 msgstr "The last time was not stopped, please correct the entry manually."
 
 #: uentertime.strinvalidtimeformat

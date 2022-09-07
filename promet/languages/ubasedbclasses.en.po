@@ -64,9 +64,13 @@ msgid "geprüft"
 msgstr "tested"
 
 #: ubasedbclasses.strcheckingtable
+#, object-pascal-format, fuzzy
+#| msgid ""
+#| "Prüfe Tabelle \n"
+#| "%s\n"
 msgid ""
 "Prüfe Tabelle \n"
-"%s\n"
+"%s"
 msgstr ""
 "testing table \n"
 "%s\n"
@@ -136,6 +140,7 @@ msgid "Ende"
 msgstr "End"
 
 #: ubasedbclasses.strfailedshowingdatafrom
+#, object-pascal-format
 msgid "konnten Daten von %s nicht anzeigen"
 msgstr "fail to display data from %s"
 
@@ -206,17 +211,23 @@ msgid "Nummer"
 msgstr "Number"
 
 #: ubasedbclasses.strnumbersetdontexists
+#, object-pascal-format
 msgid "Nummernkreis \"%s\" existiert nicht !"
 msgstr "Number range '%s' does not exist!"
 
 #: ubasedbclasses.strnumbersetempty
+#, object-pascal-format
 msgid "Nummernkreis \"%s\" ist leer !"
 msgstr "Number range '%s' is empty!"
 
 #: ubasedbclasses.stropeningtable
+#, object-pascal-format, fuzzy
+#| msgid ""
+#| "öffne Tabelle \n"
+#| "%s\n"
 msgid ""
 "öffne Tabelle \n"
-"%s\n"
+"%s"
 msgstr ""
 "open table\n"
 "%s\n"
@@ -420,3 +431,4 @@ msgstr "Value"
 #: ubasedbclasses.strvat
 msgid "MwSt"
 msgstr "VAT"
+

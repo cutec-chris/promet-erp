@@ -1,0 +1,7 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: urepairimages.strsearchfromtasks
+msgid "Mit Öffnen wird der gewählte Nutzer in das Fehlerbild übernommen"
+msgstr ""
+

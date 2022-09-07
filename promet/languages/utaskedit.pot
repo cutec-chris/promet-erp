@@ -1,0 +1,23 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: utaskedit.strclassap
+msgid "P Arbeitspaket"
+msgstr ""
+
+#: utaskedit.strclassmilestone
+msgid "M Meilenstein"
+msgstr ""
+
+#: utaskedit.strclasstask
+msgid "T Aufgabe"
+msgstr ""
+
+#: utaskedit.strdependencies
+msgid "Abhängigkeiten"
+msgstr ""
+
+#: utaskedit.stredittask
+msgid "Aufgabe bearbeiten"
+msgstr ""
+

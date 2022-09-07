@@ -14,3 +14,4 @@ msgstr ""
 #: uaccounting.strsender
 msgid "Absender"
 msgstr "Sender"
+

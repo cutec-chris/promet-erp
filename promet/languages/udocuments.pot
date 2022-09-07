@@ -1,0 +1,16 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: udocuments.strfailedcreatingdiff
+#, object-pascal-format
+msgid "konnte Differenzdatei von Datei %s nicht erstellen"
+msgstr ""
+
+#: udocuments.strinvalidlink
+msgid "Dieser Link ist auf dieser Datenbank ungültig !"
+msgstr ""
+
+#: udocuments.strlinknotfound
+msgid "Verweis konnte nicht gefunden werden !"
+msgstr ""
+

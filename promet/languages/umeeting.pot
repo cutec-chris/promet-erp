@@ -1,0 +1,8 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: umeeting.strcreatedfrom
+#, object-pascal-format
+msgid "aus \"%s\" erstellt"
+msgstr ""
+

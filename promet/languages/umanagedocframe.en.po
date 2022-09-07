@@ -12,9 +12,13 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: umanagedocframe.strmakelinktodocuments
+#, fuzzy
+#| msgid ""
+#| "Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?\n"
+#| "So können Sie auch vom Eintrag aus das Dokument schnell finden\n"
 msgid ""
 "Soll ein Verweis in dne Dateien des Eintrags angelegt werden ?\n"
-"So können Sie auch vom Eintrag aus das Dokument schnell finden\n"
+"So können Sie auch vom Eintrag aus das Dokument schnell finden"
 msgstr ""
 "Should this document also linked in the files of the entry ?\n"
 "So you can easyly Access the document also from entry.\n"
@@ -28,6 +32,7 @@ msgid "kein Text gefunden, oder keine OCR Anwendung installiert !"
 msgstr "no Text found or no OCR application installed !"
 
 #: umanagedocframe.strsetdate
+#, object-pascal-format
 msgid "Soll das Datum %s als Belegdatum gesetzt werden ?"
 msgstr "Should the date %s set as order date ?"
 

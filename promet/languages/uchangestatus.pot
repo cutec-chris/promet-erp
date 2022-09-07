@@ -1,0 +1,25 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uchangestatus.strchangein
+msgid "geändert in"
+msgstr ""
+
+#: uchangestatus.strchangeorderin
+#, object-pascal-format
+msgid "%s %s ist das richtig ?"
+msgstr ""
+
+#: uchangestatus.strderivate
+msgid "angeleitet to"
+msgstr ""
+
+#: uchangestatus.strnoordertypeselected
+msgid "Zu dieser Belegart ist kein Auftragstyp ausgewählt, er kann nicht gewandelt werden !"
+msgstr ""
+
+#: uchangestatus.strordertochange
+#, object-pascal-format
+msgid "Auftrag %s %s wird"
+msgstr ""
+

@@ -1,0 +1,11 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uviewmessage.strmessagenotdownloaded
+msgid "Die Naricht wurde aus Sicherheitsgründen nicht heruntergeladen !"
+msgstr ""
+
+#: uviewmessage.stropentoviewitem
+msgid "Bitte klicken Sie doppelt auf diesen Eintrag um ihn anzuzeigen"
+msgstr ""
+

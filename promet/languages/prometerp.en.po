@@ -13,7 +13,17 @@ msgstr ""
 "(Menu)\n"
 
 #: uaccountingframe.strtransactionequaltoorder
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
+#| msgid ""
+#| "Ist die Buchung:\n"
+#| "%s\n"
+#| "%s\n"
+#| "\n"
+#| " deckungsgleich mit \n"
+#| "\n"
+#| "%s\n"
+#| "%s\n"
+#| " ?\n"
 msgctxt "uaccountingframe.strtransactionequaltoorder"
 msgid ""
 "Ist die Buchung:\n"
@@ -24,7 +34,7 @@ msgid ""
 "\n"
 "%s\n"
 "%s\n"
-" ?\n"
+" ?"
 msgstr ""
 "If the booking:\n"
 "% S\n"
@@ -97,7 +107,7 @@ msgid "Der Zahlungsgrund besteht aus zu vielen Zeilen"
 msgstr "The reason for the payment consists of too many lines"
 
 #: ubookserial.strbookserial
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
 msgid "Scannen Sie die Seriennummer für Position %s, Artikel %s"
 msgstr "Scan the serial number for position% s,% s items"
 
@@ -107,7 +117,7 @@ msgid "Feed"
 msgstr "Feed"
 
 #: umaileditoptions.strservicenotinstalled
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
 msgid "Der Dienst %s ist derzeit nicht installiert !"
 msgstr "The% s service is currently not installed!"
 
@@ -134,7 +144,7 @@ msgid "Datenbankeinstellungen"
 msgstr "Database Settings"
 
 #: umain.strdeletingmessages
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
 msgid "lösche Nachrichten, noch %d Nachichten"
 msgstr "delete messages,% d Nachichten"
 
@@ -166,7 +176,7 @@ msgid "Neue Inventur"
 msgstr "new Inventory"
 
 #: umain.strneworder
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
 msgid "%s erstellen"
 msgstr "Create% s"
 
@@ -234,6 +244,7 @@ msgid "Wiki"
 msgstr "Wiki"
 
 #: unewstorage.strselectanstorage
+#, object-pascal-format
 msgid "wählen Sie ein Lager für Artikel %s Version %s Name %s"
 msgstr "Please select an Storage for the Article %s Version %s Name %s"
 
@@ -347,7 +358,7 @@ msgid "Adresse"
 msgstr "Adress"
 
 #: upersonframe.strbirthdayfrom
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
 msgid "Geburtstag von %s"
 msgstr "Birthday of% s"
 

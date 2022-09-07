@@ -1,0 +1,11 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: usearch.strdosearch
+msgid "suchen"
+msgstr ""
+
+#: usearch.strsearchfromordermode
+msgid "Diese Suche wurde aus der Vorgangsverwaltung gestartet, wenn Sie einen Eintrag öffnen wird dieser automatisch in den aktuellen Vorgang übernommen."
+msgstr ""
+

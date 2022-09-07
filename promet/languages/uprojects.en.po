@@ -16,6 +16,7 @@ msgid "Rechnungsdatum"
 msgstr "Invoice date"
 
 #: uprojects.strmanagerchanged
+#, object-pascal-format
 msgid "Projektleiter geändert zu %s"
 msgstr "Project leader changed to %s"
 
@@ -28,9 +29,11 @@ msgid "Echtpreis"
 msgstr "Real price"
 
 #: uprojects.strtargetchanged
+#, object-pascal-format
 msgid "Zieldatum geändert von %s zu %s"
 msgstr "Target date changed from %s to %s"
 
 #: uprojects.strwholerealprice
 msgid "Echtpreis gesamt"
 msgstr "Real price total"
+

@@ -12,6 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: ucalendarframe.streventsthisweek
+#, object-pascal-format
 msgid "diese Woche: %d"
 msgstr "This week: %d"
 

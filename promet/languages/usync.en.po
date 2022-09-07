@@ -12,13 +12,16 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: usync.strsynchedin
+#, object-pascal-format
 msgid "Synchronisation eingehend %s"
 msgstr "Synchronisation incomming %s"
 
 #: usync.strsynchedout
+#, object-pascal-format
 msgid "Synchronisation ausgehend %s"
 msgstr "Synchronisation outgoing %s"
 
 #: usync.strsyncnewrecord
 msgid "neuer Datensatz"
 msgstr "new Row"
+

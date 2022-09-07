@@ -1,0 +1,59 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uhistoryframe.strhistory0
+msgid "bearbeitet"
+msgstr ""
+
+#: uhistoryframe.strhistory1
+msgid "neue Nachricht empfangen"
+msgstr ""
+
+#: uhistoryframe.strhistory10
+msgid "Aufgabe hinzugefügt"
+msgstr ""
+
+#: uhistoryframe.strhistory11
+msgid "Termin geändert"
+msgstr ""
+
+#: uhistoryframe.strhistory12
+msgid "umbenannt"
+msgstr ""
+
+#: uhistoryframe.strhistory13
+msgid "aus Office geändert"
+msgstr ""
+
+#: uhistoryframe.strhistory14
+msgid "extern geändert"
+msgstr ""
+
+#: uhistoryframe.strhistory2
+msgid "Nachricht verschickt"
+msgstr ""
+
+#: uhistoryframe.strhistory3
+msgid "Anruf"
+msgstr ""
+
+#: uhistoryframe.strhistory4
+msgid "neuer Vorgang"
+msgstr ""
+
+#: uhistoryframe.strhistory6
+msgid "Vorgang gewandelt"
+msgstr ""
+
+#: uhistoryframe.strhistory7
+msgid "neues Dokument"
+msgstr ""
+
+#: uhistoryframe.strhistory8
+msgid "Vermerk von Benutzer"
+msgstr ""
+
+#: uhistoryframe.strhistory9
+msgid "Aufgabe erledigt"
+msgstr ""
+

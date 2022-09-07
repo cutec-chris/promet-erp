@@ -1,0 +1,61 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: umessageedit.stractionmessagesend
+msgid "Nachricht gesendet"
+msgstr ""
+
+#: umessageedit.straddinglistentry
+#, object-pascal-format
+msgid "Verarbeite Eintrag \"%s\""
+msgstr ""
+
+#: umessageedit.straddingmail
+#, object-pascal-format
+msgid "erstelle Mail an \"%s\""
+msgstr ""
+
+#: umessageedit.straddingparts
+msgid "Adding Parts..."
+msgstr ""
+
+#: umessageedit.straddingusers
+msgid "Adding Users..."
+msgstr ""
+
+#: umessageedit.strencodingmessage
+msgid "Encoding Message..."
+msgstr ""
+
+#: umessageedit.strfailedtoaddreceiveradress
+msgid "Konnte Empfängeradresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
+msgstr ""
+
+#: umessageedit.strfailedtoaddsenderaddress
+msgid "Konnte Absenderadresse nicht hinzufügen (möglicherweise ist diese ungültig) !"
+msgstr ""
+
+#: umessageedit.strfailedtosendmail
+msgid "Mailversand fehlgeschlagen !"
+msgstr ""
+
+#: umessageedit.strloggingin
+msgid "Logging In..."
+msgstr ""
+
+#: umessageedit.strloggingout
+msgid "Logging out..."
+msgstr ""
+
+#: umessageedit.strmailsubjectclear
+msgid "Das Betreff Feld in Ihrer e-Mail sollte nicht leer sein, das wird von vielen Spam Filtern als Spam gewertet."
+msgstr ""
+
+#: umessageedit.strrealleavemail
+msgid "Möchten Sie die Nachricht wirklich verwerfen ?"
+msgstr ""
+
+#: umessageedit.strsendingmessage
+msgid "Sending Message..."
+msgstr ""
+

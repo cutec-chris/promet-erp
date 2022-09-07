@@ -16,10 +16,15 @@ msgid "Neuer Benutzer"
 msgstr "New User"
 
 #: uuseroptions.strrealdeleteuser
+#, fuzzy
+#| msgid ""
+#| "Soll der Nutzer wirklich gelöscht werden ?\n"
+#| "eventuell sind Daten dann nicht mehr zu ihm zuordnbar !\n"
+#| "Im Normalfall sollten Sie nur das Entlassungsdatum setzen !\n"
 msgid ""
 "Soll der Nutzer wirklich gelöscht werden ?\n"
 "eventuell sind Daten dann nicht mehr zu ihm zuordnbar !\n"
-"Im Normalfall sollten Sie nur das Entlassungsdatum setzen !\n"
+"Im Normalfall sollten Sie nur das Entlassungsdatum setzen !"
 msgstr ""
 "Should the user really be deleted ?\n"
 "Normally you should only set an leave-date.\n"

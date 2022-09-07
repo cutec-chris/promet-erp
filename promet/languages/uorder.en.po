@@ -32,6 +32,7 @@ msgid "Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator
 msgstr "Numberset not found, please contact your administrator"
 
 #: uorder.strorderactionpost
+#, object-pascal-format
 msgid "Vorgang als %s gebucht"
 msgstr "Order booked as %s"
 
@@ -46,3 +47,4 @@ msgstr "Orders"
 #: uorder.strstatusnotfound
 msgid "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
 msgstr "Status type is not found, please contact your administrator"
+

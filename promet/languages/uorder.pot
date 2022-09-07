@@ -1,0 +1,40 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uorder.stralreadyposted
+msgid "Der Vorgang ist bereits gebucht !"
+msgstr ""
+
+#: uorder.strbookingaborted
+msgid "Buchung abgebrochen"
+msgstr ""
+
+#: uorder.strdispatchtypenotfound
+msgid "Die gewählte Versandart existiert nicht !"
+msgstr ""
+
+#: uorder.strmainordernotfound
+msgid "Hauptvorgang nicht gefunden !"
+msgstr ""
+
+#: uorder.strnumbersetnotfound
+msgid "Nummernkreis nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
+msgstr ""
+
+#: uorder.strorderactionpost
+#, object-pascal-format
+msgid "Vorgang als %s gebucht"
+msgstr ""
+
+#: uorder.strorderposted
+msgid "Vorgang gebucht"
+msgstr ""
+
+#: uorder.strorders
+msgid "Aufträge"
+msgstr ""
+
+#: uorder.strstatusnotfound
+msgid "Statustyp nicht gefunden, bitte wenden Sie sich an Ihren Administrator"
+msgstr ""
+

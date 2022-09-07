@@ -1,0 +1,29 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: uprojects.strinvoicedate
+msgid "Rechnungsdatum"
+msgstr ""
+
+#: uprojects.strmanagerchanged
+#, object-pascal-format
+msgid "Projektleiter geändert zu %s"
+msgstr ""
+
+#: uprojects.strplanedprice
+msgid "Planpreis"
+msgstr ""
+
+#: uprojects.strrealprice
+msgid "Echtpreis"
+msgstr ""
+
+#: uprojects.strtargetchanged
+#, object-pascal-format
+msgid "Zieldatum geändert von %s zu %s"
+msgstr ""
+
+#: uprojects.strwholerealprice
+msgid "Echtpreis gesamt"
+msgstr ""
+

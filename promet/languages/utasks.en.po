@@ -12,6 +12,7 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: utasks.strassignedtasks
+#, object-pascal-format
 msgid "Aufgaben: %s"
 msgstr "Tasks: %s"
 
@@ -24,10 +25,12 @@ msgid "Fehlgeschlagen"
 msgstr "Failed"
 
 #: utasks.strmytasks
+#, object-pascal-format
 msgid "von mir erstellte Aufgaben: %s"
 msgstr "Tasks created by me: %s"
 
 #: utasks.strrecordcount
+#, object-pascal-format
 msgid "Anzahl: %d"
 msgstr "Count: %d"
 
@@ -40,9 +43,12 @@ msgid "Mit Öffnen wird das gewählte Projekt in die Aufgabe übernommen"
 msgstr "With opening the selected project is added to the task"
 
 #: utasks.strunterminateddependencies
-#, fuzzy,badformat
+#, object-pascal-format, fuzzy, badformat
+#| msgid ""
+#| "Es gibt unterminierte Abhängigkeiten für diese Aufgabe:\n"
+#| "%s\n"
 msgid ""
 "Es gibt unterminierte Abhängigkeiten für diese Aufgabe:\n"
-"%s\n"
+"%s"
 msgstr "There are unterminated dependencies for this task"
 

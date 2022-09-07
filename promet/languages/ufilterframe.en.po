@@ -12,10 +12,12 @@ msgstr ""
 "X-Generator: Poedit 1.8.8\n"
 
 #: ufilterframe.strfullrecordcount
+#, object-pascal-format
 msgid "von %d werden %d Einträge angezeigt"
 msgstr "%d of %d Entries are shown"
 
 #: ufilterframe.strrecordcount
+#, object-pascal-format
 msgid "%d Einträge"
 msgstr "%d entries"
 

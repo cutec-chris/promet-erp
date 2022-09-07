@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="11"/>
+    <Version Value="12"/>
     <General>
       <Flags>
         <SaveClosedFiles Value="False"/>
         <MainUnitHasUsesSectionForAllUnits Value="False"/>
+        <CompatibilityMode Value="True"/>
       </Flags>
       <SessionStorage Value="InIDEConfig"/>
-      <MainUnit Value="0"/>
       <AutoCreateForms Value="False"/>
       <Title Value="Promet-ERP"/>
       <ResourceType Value="res"/>
@@ -643,7 +643,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="17">
+    <Exceptions Count="18">
       <Item1>
         <Name Value="EProcess"/>
       </Item1>
@@ -695,6 +695,9 @@
       <Item17>
         <Name Value="EDatabaseError"/>
       </Item17>
+      <Item18>
+        <Name Value="EInvalidOp"/>
+      </Item18>
     </Exceptions>
   </Debugging>
 </CONFIG>

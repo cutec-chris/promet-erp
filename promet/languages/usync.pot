@@ -1,0 +1,17 @@
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8"
+
+#: usync.strsynchedin
+#, object-pascal-format
+msgid "Synchronisation eingehend %s"
+msgstr ""
+
+#: usync.strsynchedout
+#, object-pascal-format
+msgid "Synchronisation ausgehend %s"
+msgstr ""
+
+#: usync.strsyncnewrecord
+msgid "neuer Datensatz"
+msgstr ""
+
